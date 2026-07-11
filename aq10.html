@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AQ-10 · Dr. Lucas Menezes</title>
+<style>
+  :root{
+    --bg:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --cinza:#4A4A4A; --cinza-claro:#8A8072; --cream:#F7F2EA;
+    --card:#FBF8F2; --alerta-bg:#F3E6E6; --alerta-borda:#B26A6A; --alerta-txt:#8B3A3A;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#2A2A2A;line-height:1.5;padding:0 0 40px;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px;}
+  header{text-align:center;padding:26px 16px 14px;}
+  .brand{font-weight:700;color:var(--bronze-dark);font-size:15px;letter-spacing:.5px;}
+  .brand-sub{color:var(--bronze-med);font-size:11px;letter-spacing:1px;margin-top:2px;}
+  .diamond{display:inline-block;margin:10px 0 6px;color:var(--bronze-med);font-size:13px;letter-spacing:3px;}
+  h1{font-size:22px;color:var(--bronze-dark);margin:6px 0 2px;font-family:Georgia,'Times New Roman',serif;}
+  .subtitle{color:var(--cinza);font-size:13px;margin-bottom:4px;}
+  .rule{height:1px;background:var(--bronze);opacity:.5;max-width:180px;margin:10px auto 0;}
+  .intro{background:var(--card);border:1px solid var(--linha);border-radius:12px;padding:14px 16px;margin:18px 0;font-size:14px;}
+  .intro b{color:var(--bronze-dark);}
+  .fields{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .field{flex:1;min-width:150px;}
+  .field label{display:block;font-size:12px;color:var(--cinza-claro);margin-bottom:4px;font-weight:600;}
+  .field input{width:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:9px;font-size:15px;background:#fff;font-family:inherit;}
+  .section-label{font-weight:700;color:var(--bronze-dark);font-size:13px;margin:18px 0 4px;padding-left:2px;}
+  .q{background:var(--card);border:1px solid var(--linha);border-radius:12px;padding:14px 16px;margin:12px 0;transition:border-color .2s;}
+  .q.answered{border-color:var(--bronze);}
+  .q.unanswered-highlight{border-color:var(--alerta-borda);background:#faf0f0;}
+  .q-text{font-size:15px;margin-bottom:12px;font-weight:500;}
+  .q-num{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;background:var(--bronze);color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-right:8px;vertical-align:middle;}
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:center;gap:11px;padding:11px 13px;border:1.5px solid var(--linha);border-radius:9px;cursor:pointer;background:#fff;font-size:14px;transition:all .15s;user-select:none;}
+  .opt:active{transform:scale(.99);}
+  .opt.selected{border-color:var(--bronze);background:var(--cream);font-weight:600;color:var(--bronze-dark);}
+  .opt .dot{width:19px;height:19px;border-radius:50%;border:2px solid var(--linha);flex-shrink:0;position:relative;transition:all .15s;}
+  .opt.selected .dot{border-color:var(--bronze);background:var(--bronze);}
+  .opt.selected .dot::after{content:'';position:absolute;top:4px;left:4px;width:7px;height:7px;border-radius:50%;background:#fff;}
+  .btn{display:block;width:100%;padding:16px;background:var(--bronze);color:#fff;border:none;border-radius:11px;font-size:16px;font-weight:700;cursor:pointer;margin-top:20px;font-family:inherit;letter-spacing:.3px;}
+  .btn:active{background:var(--bronze-dark);}
+  .btn.secondary{background:#fff;color:var(--bronze-dark);border:1.5px solid var(--bronze);margin-top:10px;}
+  .result{display:none;background:var(--card);border:2px solid var(--bronze);border-radius:14px;padding:20px 18px;margin-top:22px;}
+  .result.show{display:block;animation:fade .3s;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .result h2{margin:0 0 4px;color:var(--bronze-dark);font-size:18px;}
+  .score-big{font-size:40px;font-weight:800;color:var(--bronze);line-height:1;margin:8px 0;}
+  .score-label{display:inline-block;padding:6px 14px;border-radius:20px;font-weight:700;font-size:14px;margin-top:4px;}
+  .interp{margin-top:14px;font-size:14px;color:var(--cinza);}
+  .alert-box{background:var(--alerta-bg);border:1px solid var(--alerta-borda);border-radius:10px;padding:13px 15px;margin-top:14px;color:var(--alerta-txt);font-size:13.5px;}
+  .alert-box b{color:var(--alerta-txt);}
+  .summary-box{background:#fff;border:1px dashed var(--bronze);border-radius:10px;padding:14px;margin-top:16px;font-size:13px;white-space:pre-wrap;font-family:'Courier New',monospace;color:#333;}
+  .copied{color:var(--bronze-dark);font-weight:700;text-align:center;margin-top:8px;font-size:13px;display:none;}
+  .copied.show{display:block;}
+  footer{text-align:center;margin-top:26px;padding-top:16px;border-top:1px solid var(--linha);color:var(--cinza-claro);font-size:11px;line-height:1.6;}
+  .warn{color:var(--alerta-txt);font-size:12px;text-align:center;margin-top:10px;display:none;}
+  .warn.show{display:block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">DR. LUCAS MENEZES</div>
+    <div class="brand-sub">SAÚDE MENTAL · @drlucasmenezess</div>
+    <div class="diamond">◆◆◆</div>
+    <h1>AQ-10</h1>
+    <div class="subtitle">Rastreio de Traços do Espectro Autista (adultos)</div>
+    <div class="rule"></div>
+  </header>
+
+  <div class="intro">Indique o quanto você concorda ou discorda de cada afirmação sobre você. Não há resposta certa ou errada — responda conforme o que é mais verdadeiro para você. Ao final, toque em <b>“Ver resultado”</b> e envie para o Dr. Lucas.</div>
+
+  <div class="fields">
+    <div class="field"><label>Nome</label><input type="text" id="nome" placeholder="Seu nome"></div>
+    <div class="field"><label>Data</label><input type="date" id="data"></div>
+  </div>
+
+  <div id="questions"></div>
+
+  <button class="btn" onclick="calcular()">Ver resultado</button>
+  <div class="warn" id="warn">Por favor, responda todas as perguntas antes de ver o resultado.</div>
+
+  <div class="result" id="result">
+    <h2>Resultado</h2>
+    <div class="score-big" id="scoreBig">—</div>
+    <span class="score-label" id="scoreLabel"></span>
+    <div class="interp" id="interp"></div>
+    <div id="alertContainer"></div>
+    <div class="summary-box" id="summary"></div>
+    <button class="btn secondary" onclick="copiar()">Copiar resumo para enviar</button>
+    <div class="copied" id="copied">✓ Copiado! Agora cole no WhatsApp do Dr. Lucas.</div>
+  </div>
+
+  <footer>
+    Instrumento de rastreio — não substitui avaliação médica. Não é diagnóstico de autismo.<br>
+    Médico · Pós-graduado em Psiquiatria · CRM-SP 276349 · Alma Clinic — Limeira/SP
+  </footer>
+</div>
+
+<script>
+const itens = ["Frequentemente noto pequenos sons que outras pessoas não percebem.", "Costumo me concentrar mais no quadro geral do que em pequenos detalhes.", "Acho fácil fazer mais de uma coisa ao mesmo tempo.", "Se há uma interrupção, consigo voltar rapidamente ao que estava fazendo.", "Acho fácil “ler nas entrelinhas” quando alguém está falando comigo.", "Percebo quando as pessoas estão ficando entediadas ao conversar comigo.", "Quando leio uma história, tenho dificuldade de descobrir as intenções dos personagens.", "Gosto de coletar informações sobre categorias de coisas (tipos de carro, pássaro, etc.).", "Acho fácil perceber o que outra pessoa está sentindo apenas olhando para o rosto dela.", "Tenho dificuldade de entender as intenções das outras pessoas."];
+const opcoes = ["Concordo totalmente", "Concordo em parte", "Discordo em parte", "Discordo totalmente"];
+const sections = {};
+const escalaNome = "AQ-10";
+const respostas = new Array(itens.length).fill(null);
+
+const qc = document.getElementById('questions');
+itens.forEach((txt,i)=>{
+  if(sections[i]){
+    const s=document.createElement('div');s.className='section-label';s.textContent=sections[i];qc.appendChild(s);
+  }
+  const q=document.createElement('div');q.className='q';q.id='q'+i;
+  let opts='';
+  opcoes.forEach((o,v)=>{opts+=`<div class="opt" onclick="sel(${i},${v},this)"><span class="dot"></span><span>${o}</span></div>`;});
+  q.innerHTML=`<div class="q-text"><span class="q-num">${i+1}</span>${txt}</div><div class="opts">${opts}</div>`;
+  qc.appendChild(q);
+});
+
+function sel(i,v,el){
+  respostas[i]=v;
+  const q=document.getElementById('q'+i);
+  q.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  q.classList.add('answered');q.classList.remove('unanswered-highlight');
+}
+
+function calcular(){
+  const falta=respostas.findIndex(r=>r===null);
+  if(falta!==-1){
+    document.getElementById('warn').classList.add('show');
+    respostas.forEach((r,i)=>{if(r===null)document.getElementById('q'+i).classList.add('unanswered-highlight');});
+    document.getElementById('q'+falta).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  document.getElementById('warn').classList.remove('show');
+  
+  // AQ-10: 1 ponto por resposta no sentido autista.
+  // Concordar (opção 0 ou 1) pontua nos itens: 0,6,7,9
+  // Discordar (opção 2 ou 3) pontua nos itens: 1,2,3,4,5,8
+  const concordaPontua=[0,6,7,9];
+  let total=0;
+  respostas.forEach((r,i)=>{
+    const concordou = (r<=1); // 0=totalmente,1=parte
+    if(concordaPontua.includes(i)){ if(concordou) total++; }
+    else { if(!concordou) total++; }
+  });
+  const positivo = total>=6;
+  let cor = positivo ? '#C9822B' : '#7B8B6B';
+  document.getElementById('scoreBig').textContent=total+' / 10';
+  const sl=document.getElementById('scoreLabel');
+  sl.textContent = positivo ? 'Rastreio positivo' : 'Rastreio negativo';
+  sl.style.background=cor+'22';sl.style.color=cor;
+  document.getElementById('interp').innerHTML=
+    'Pontuação: <b>'+total+'/10</b>. '+
+    (positivo?'Seis ou mais pontos sugerem indicação para avaliação diagnóstica mais detalhada de espectro autista.':'Abaixo do ponto de corte (6).')+
+    ' Este é um rastreio — não é diagnóstico — e será interpretado pelo Dr. Lucas.';
+  const nome=document.getElementById('nome').value||'(não informado)';
+  const data=document.getElementById('data').value||'(não informada)';
+  document.getElementById('summary').textContent=
+`AQ-10 — Resultado
+Paciente: ${nome}
+Data: ${data}
+Pontuação: ${total}/10 -> ${positivo?'POSITIVO (>=6)':'negativo'}
+Respostas: ${respostas.join(', ')}`;
+
+  const r=document.getElementById('result');r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function copiar(){
+  const txt=document.getElementById('summary').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    document.getElementById('copied').classList.add('show');
+    setTimeout(()=>document.getElementById('copied').classList.remove('show'),4000);
+  }).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    document.getElementById('copied').classList.add('show');
+    setTimeout(()=>document.getElementById('copied').classList.remove('show'),4000);
+  });
+}
+document.getElementById('data').valueAsDate=new Date();
+</script>
+</body>
+</html>
