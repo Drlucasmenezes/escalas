@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHQ-9 · Dr. Lucas Menezes</title>
+<style>
+  :root{
+    --bg:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --cinza:#4A4A4A; --cinza-claro:#8A8072; --cream:#F7F2EA;
+    --card:#FBF8F2; --alerta-bg:#F3E6E6; --alerta-borda:#B26A6A; --alerta-txt:#8B3A3A;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#2A2A2A;line-height:1.5;padding:0 0 40px;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px;}
+  header{text-align:center;padding:26px 16px 14px;}
+  .brand{font-weight:700;color:var(--bronze-dark);font-size:15px;letter-spacing:.5px;}
+  .brand-sub{color:var(--bronze-med);font-size:11px;letter-spacing:1px;margin-top:2px;}
+  .diamond{display:inline-block;margin:10px 0 6px;color:var(--bronze-med);font-size:13px;letter-spacing:3px;}
+  h1{font-size:22px;color:var(--bronze-dark);margin:6px 0 2px;font-family:Georgia,'Times New Roman',serif;}
+  .subtitle{color:var(--cinza);font-size:13px;margin-bottom:4px;}
+  .rule{height:1px;background:var(--bronze);opacity:.5;max-width:180px;margin:10px auto 0;}
+  .intro{background:var(--card);border:1px solid var(--linha);border-radius:12px;padding:14px 16px;margin:18px 0;font-size:14px;}
+  .intro b{color:var(--bronze-dark);}
+  .fields{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .field{flex:1;min-width:150px;}
+  .field label{display:block;font-size:12px;color:var(--cinza-claro);margin-bottom:4px;font-weight:600;}
+  .field input{width:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:9px;font-size:15px;background:#fff;font-family:inherit;}
+  .q{background:var(--card);border:1px solid var(--linha);border-radius:12px;padding:14px 16px;margin:12px 0;transition:border-color .2s;}
+  .q.answered{border-color:var(--bronze);}
+  .q.unanswered-highlight{border-color:var(--alerta-borda);background:#faf0f0;}
+  .q-text{font-size:15px;margin-bottom:12px;font-weight:500;}
+  .q-num{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;background:var(--bronze);color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-right:8px;vertical-align:middle;}
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:center;gap:11px;padding:11px 13px;border:1.5px solid var(--linha);border-radius:9px;cursor:pointer;background:#fff;font-size:14px;transition:all .15s;user-select:none;}
+  .opt:active{transform:scale(.99);}
+  .opt.selected{border-color:var(--bronze);background:var(--cream);font-weight:600;color:var(--bronze-dark);}
+  .opt .dot{width:19px;height:19px;border-radius:50%;border:2px solid var(--linha);flex-shrink:0;position:relative;transition:all .15s;}
+  .opt.selected .dot{border-color:var(--bronze);background:var(--bronze);}
+  .opt.selected .dot::after{content:'';position:absolute;top:4px;left:4px;width:7px;height:7px;border-radius:50%;background:#fff;}
+  .btn{display:block;width:100%;padding:16px;background:var(--bronze);color:#fff;border:none;border-radius:11px;font-size:16px;font-weight:700;cursor:pointer;margin-top:20px;font-family:inherit;letter-spacing:.3px;}
+  .btn:active{background:var(--bronze-dark);}
+  .btn.secondary{background:#fff;color:var(--bronze-dark);border:1.5px solid var(--bronze);margin-top:10px;}
+  .result{display:none;background:var(--card);border:2px solid var(--bronze);border-radius:14px;padding:20px 18px;margin-top:22px;}
+  .result.show{display:block;animation:fade .3s;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .result h2{margin:0 0 4px;color:var(--bronze-dark);font-size:18px;}
+  .score-big{font-size:40px;font-weight:800;color:var(--bronze);line-height:1;margin:8px 0;}
+  .score-label{display:inline-block;padding:6px 14px;border-radius:20px;font-weight:700;font-size:14px;margin-top:4px;}
+  .interp{margin-top:14px;font-size:14px;color:var(--cinza);}
+  .alert-box{background:var(--alerta-bg);border:1px solid var(--alerta-borda);border-radius:10px;padding:13px 15px;margin-top:14px;color:var(--alerta-txt);font-size:13.5px;}
+  .alert-box b{color:var(--alerta-txt);}
+  .summary-box{background:#fff;border:1px dashed var(--bronze);border-radius:10px;padding:14px;margin-top:16px;font-size:13px;white-space:pre-wrap;font-family:'Courier New',monospace;color:#333;}
+  .copied{color:var(--bronze-dark);font-weight:700;text-align:center;margin-top:8px;font-size:13px;display:none;}
+  .copied.show{display:block;}
+  footer{text-align:center;margin-top:26px;padding-top:16px;border-top:1px solid var(--linha);color:var(--cinza-claro);font-size:11px;line-height:1.6;}
+  .warn{color:var(--alerta-txt);font-size:12px;text-align:center;margin-top:10px;display:none;}
+  .warn.show{display:block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">DR. LUCAS MENEZES</div>
+    <div class="brand-sub">SAÚDE MENTAL · @drlucasmenezess</div>
+    <div class="diamond">◆◆◆</div>
+    <h1>PHQ-9</h1>
+    <div class="subtitle">Questionário sobre a Saúde do Paciente</div>
+    <div class="rule"></div>
+  </header>
+
+  <div class="intro">
+    <b>Nas últimas 2 semanas</b>, com que frequência você foi incomodado(a) por algum dos problemas abaixo?
+    Responda com sinceridade — não existe resposta certa ou errada. Ao final, toque em <b>“Ver resultado”</b> e envie o resumo para o Dr. Lucas.
+  </div>
+
+  <div class="fields">
+    <div class="field"><label>Nome</label><input type="text" id="nome" placeholder="Seu nome"></div>
+    <div class="field"><label>Data</label><input type="date" id="data"></div>
+  </div>
+
+  <div id="questions"></div>
+
+  <button class="btn" onclick="calcular()">Ver resultado</button>
+  <div class="warn" id="warn">Por favor, responda todas as perguntas antes de ver o resultado.</div>
+
+  <div class="result" id="result">
+    <h2>Resultado</h2>
+    <div class="score-big" id="scoreBig">—</div>
+    <span class="score-label" id="scoreLabel"></span>
+    <div class="interp" id="interp"></div>
+    <div id="alertContainer"></div>
+    <div class="summary-box" id="summary"></div>
+    <button class="btn secondary" onclick="copiar()">Copiar resumo para enviar</button>
+    <div class="copied" id="copied">✓ Copiado! Agora cole no WhatsApp do Dr. Lucas.</div>
+  </div>
+
+  <footer>
+    Instrumento de rastreio e acompanhamento — não substitui avaliação médica.<br>
+    Em caso de sofrimento intenso ou pensamentos de morte, procure ajuda: <b>CVV 188</b> (24h, gratuito) ou emergência.<br>
+    Médico · Pós-graduado em Psiquiatria · CRM-SP 276349 · Alma Clinic — Limeira/SP
+  </footer>
+</div>
+
+<script>
+const itens = [
+  "Pouco interesse ou pouco prazer em fazer as coisas.",
+  "Sentir-se para baixo, deprimido(a) ou sem esperança.",
+  "Dificuldade para adormecer, continuar dormindo ou dormir demais.",
+  "Sentir-se cansado(a) ou com pouca energia.",
+  "Falta de apetite ou comer demais.",
+  "Sentir-se mal consigo mesmo(a) — ou achar que é um fracasso, ou que decepcionou sua família ou a si mesmo(a).",
+  "Dificuldade para se concentrar nas coisas (como ler ou ver televisão).",
+  "Lentidão para se movimentar ou falar, a ponto de outros perceberem; ou o oposto — estar tão agitado(a) que se move muito mais que o habitual.",
+  "Pensar que seria melhor estar morto(a) ou em se ferir de alguma maneira."
+];
+const opcoes = ["Nenhuma vez","Vários dias","Mais da metade dos dias","Quase todos os dias"];
+const respostas = new Array(itens.length).fill(null);
+
+const qc = document.getElementById('questions');
+itens.forEach((txt,i)=>{
+  const q=document.createElement('div');q.className='q';q.id='q'+i;
+  let opts='';
+  opcoes.forEach((o,v)=>{opts+=`<div class="opt" onclick="sel(${i},${v},this)"><span class="dot"></span><span>${o} <b style="color:#8A8072;font-weight:400">(${v})</b></span></div>`;});
+  q.innerHTML=`<div class="q-text"><span class="q-num">${i+1}</span>${txt}</div><div class="opts">${opts}</div>`;
+  qc.appendChild(q);
+});
+
+function sel(i,v,el){
+  respostas[i]=v;
+  const q=document.getElementById('q'+i);
+  q.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  q.classList.add('answered');q.classList.remove('unanswered-highlight');
+}
+
+function calcular(){
+  const falta=respostas.findIndex(r=>r===null);
+  if(falta!==-1){
+    document.getElementById('warn').classList.add('show');
+    respostas.forEach((r,i)=>{if(r===null)document.getElementById('q'+i).classList.add('unanswered-highlight');});
+    document.getElementById('q'+falta).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  document.getElementById('warn').classList.remove('show');
+  const total=respostas.reduce((a,b)=>a+b,0);
+  let label,cor;
+  if(total<=4){label='Mínima';cor='#7B8B6B';}
+  else if(total<=9){label='Leve';cor='#9A7B4F';}
+  else if(total<=14){label='Moderada';cor='#C9822B';}
+  else if(total<=19){label='Moderadamente grave';cor='#B26A3A';}
+  else{label='Grave';cor='#8B3A3A';}
+
+  document.getElementById('scoreBig').textContent=total+' / 27';
+  const sl=document.getElementById('scoreLabel');
+  sl.textContent=label;sl.style.background=cor+'22';sl.style.color=cor;
+  document.getElementById('interp').innerHTML='Faixa de gravidade sugerida: <b>'+label.toLowerCase()+'</b>. Este resultado é um rastreio e será discutido e interpretado na consulta.';
+
+  const ac=document.getElementById('alertContainer');ac.innerHTML='';
+  if(respostas[8]>0){
+    ac.innerHTML='<div class="alert-box"><b>Uma observação importante:</b> se você tem tido pensamentos difíceis ou de não querer viver, saiba que você não está sozinho(a) e que há ajuda. Você pode ligar para o <b>CVV — 188</b> (24h, gratuito) a qualquer momento. Traga isso na sua consulta — o Dr. Lucas está aqui para te ajudar.</div>';
+  }
+
+  const nome=document.getElementById('nome').value||'(não informado)';
+  const data=document.getElementById('data').value||'(não informada)';
+  const it9 = respostas[8]>0 ? 'SIM (item 9 = '+respostas[8]+')' : 'não';
+  const resumo=
+`PHQ-9 — Resultado
+Paciente: ${nome}
+Data: ${data}
+Pontuação: ${total}/27
+Gravidade: ${label}
+Item 9 (pensamentos de morte/autolesão): ${it9}
+Respostas: ${respostas.join(', ')}`;
+  document.getElementById('summary').textContent=resumo;
+  const r=document.getElementById('result');r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function copiar(){
+  const txt=document.getElementById('summary').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    document.getElementById('copied').classList.add('show');
+    setTimeout(()=>document.getElementById('copied').classList.remove('show'),4000);
+  }).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    document.getElementById('copied').classList.add('show');
+    setTimeout(()=>document.getElementById('copied').classList.remove('show'),4000);
+  });
+}
+// preenche data de hoje
+document.getElementById('data').valueAsDate=new Date();
+</script>
+</body>
+</html>
