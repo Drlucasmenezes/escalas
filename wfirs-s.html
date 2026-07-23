@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>WFIRS-S · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --ambar-bg:#FBF3E3; --ambar-borda:#C9A24B;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.42rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .ambar{background:var(--ambar-bg);border-left:3px solid var(--ambar-borda);}
+  .ambar .tit{color:#8A6A1F;}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.05rem;color:var(--bronze-dark);margin:0 0 4px;font-weight:700;}
+  .haste-sub{font-size:.82rem;color:var(--suave);margin:0 0 14px;}
+  label.campo{display:block;font-size:.85rem;color:var(--suave);margin:10px 0 4px;}
+  input[type=text]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  .radiogrupo{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+  .radiogrupo label{
+    flex:1;min-width:56px;text-align:center;font-size:.74rem;
+    border:1.5px solid var(--linha);border-radius:7px;padding:7px 3px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;line-height:1.25;
+  }
+  .radiogrupo input{display:none;}
+  .radiogrupo label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .radiogrupo label.na{flex:0 0 40px;min-width:40px;}
+  .item{border-bottom:1px solid #E6DCCB;padding:14px 0;}
+  .item:last-child{border-bottom:0;}
+  .item .txt{font-size:.97rem;margin-bottom:8px;line-height:1.42;}
+  .item .num{color:var(--bronze-med);font-weight:700;margin-right:5px;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:16px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:5px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .ponto{width:6px;height:6px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  table.dom{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:8px;}
+  table.dom th{text-align:left;font-family:'Caladea',Georgia,serif;font-size:.74rem;color:var(--bronze-med);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--linha);padding:5px 4px;}
+  table.dom td{padding:7px 4px;border-bottom:1px solid #E6DCCB;}
+  table.dom td.v{text-align:right;font-weight:700;color:var(--bronze-dark);white-space:nowrap;}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.76rem;line-height:1.6;white-space:pre-wrap;color:#4A4034;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  footer .ref{margin-top:9px;font-size:.68rem;color:#8C8272;}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+    .radiogrupo label{min-width:44px;font-size:.68rem;padding:6px 2px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>WFIRS-S</h1>
+    <p class="sub">Impacto funcional no dia a dia</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p class="ref">
+      Weiss Functional Impairment Rating Scale — Self-Report (WFIRS-S).<br/>
+      Escala de autoria de Margaret D. Weiss, MD, PhD — uso clínico livre. Tradução para uso próprio.<br/>
+      Este instrumento não deve ser usado isoladamente para fechar diagnóstico.
+    </p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var DOMINIOS = [
+ {chave:"familia", titulo:"A. Família", itens:[
+   "Ter problemas com a família",
+   "Ter problemas com cônjuge/parceiro(a)",
+   "Depender de outras pessoas para fazer as coisas por você",
+   "Causar brigas na família",
+   "Dificultar momentos de diversão em família",
+   "Ter problemas em cuidar da sua família",
+   "Ter problemas em equilibrar suas necessidades com as da família",
+   "Ter problemas em perder o controle com a família"
+ ]},
+ {chave:"trabalho", titulo:"B. Trabalho", itens:[
+   "Problemas para desempenhar as funções exigidas",
+   "Problemas para realizar seu trabalho com eficiência",
+   "Problemas com seu supervisor",
+   "Problemas para manter um emprego",
+   "Ser demitido do trabalho",
+   "Problemas para trabalhar em equipe",
+   "Problemas com sua assiduidade",
+   "Problemas com atrasos",
+   "Problemas para assumir novas tarefas",
+   "Problemas para trabalhar de acordo com seu potencial",
+   "Avaliações de desempenho ruins"
+ ]},
+ {chave:"escola", titulo:"C. Escola", itens:[
+   "Problemas para fazer anotações",
+   "Problemas para concluir tarefas",
+   "Problemas para realizar seu trabalho com eficiência",
+   "Problemas com professores",
+   "Problemas com a administração da escola",
+   "Problemas para cumprir os requisitos mínimos para continuar na escola",
+   "Problemas com assiduidade",
+   "Problemas com atrasos",
+   "Problemas em render de acordo com seu potencial",
+   "Problemas com notas inconsistentes"
+ ]},
+ {chave:"vida", titulo:"D. Habilidades de vida", itens:[
+   "Uso excessivo ou inadequado de internet, videogame ou TV",
+   "Problemas para manter uma aparência aceitável",
+   "Problemas para se preparar para sair de casa",
+   "Problemas para ir para a cama",
+   "Problemas com alimentação",
+   "Problemas com sexo",
+   "Problemas para dormir",
+   "Machucar-se ou se ferir",
+   "Evitar exercício físico",
+   "Problemas para manter consultas regulares com médico/dentista",
+   "Problemas para manter em dia as tarefas domésticas",
+   "Problemas para administrar dinheiro"
+ ]},
+ {chave:"autoconceito", titulo:"E. Autoconceito", itens:[
+   "Sentir-se mal consigo mesmo(a)",
+   "Sentir-se frustrado(a) consigo mesmo(a)",
+   "Sentir-se desanimado(a)",
+   "Não se sentir feliz com sua vida",
+   "Sentir-se incompetente"
+ ]},
+ {chave:"social", titulo:"F. Social", itens:[
+   "Entrar em discussões",
+   "Dificuldade em cooperar",
+   "Dificuldade em se relacionar com as pessoas",
+   "Problemas para se divertir com outras pessoas",
+   "Problemas para participar de hobbies",
+   "Problemas para fazer amigos",
+   "Problemas para manter amigos",
+   "Dizer coisas inadequadas",
+   "Reclamações de vizinhos"
+ ]},
+ {chave:"risco", titulo:"G. Risco", itens:[
+   "Direção agressiva",
+   "Fazer outras coisas enquanto dirige",
+   "Raiva no trânsito (\"road rage\")",
+   "Quebrar ou danificar coisas",
+   "Fazer coisas ilegais",
+   "Envolver-se com a polícia",
+   "Fumar cigarros",
+   "Fumar maconha",
+   "Beber álcool",
+   "Usar drogas \"de rua\"",
+   "Sexo sem proteção (anticoncepcional, camisinha)",
+   "Comportamento sexualmente inadequado",
+   "Ser fisicamente agressivo(a)",
+   "Ser verbalmente agressivo(a)"
+ ]}
+];
+
+var ESCALA = ["Nunca ou quase nunca","Às vezes ou um pouco","Frequentemente ou muito","Muito frequentemente"];
+
+var estado = { respostas:{} };
+var passo = 0; // 0 intro, 1..7 domínios, 8 resultado
+
+var palco = document.getElementById("palco");
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+function pontos(atual,total){
+  var h='<div class="pontos" aria-hidden="true">';
+  for (var i=0;i<total;i++){ h += '<span class="ponto'+(i<=atual?' on':'')+'"></span>'; }
+  return h+'</div>';
+}
+
+function telaIntro(){
+  return (
+    '<p class="passo">Antes de começar</p>'+
+    '<p class="haste">WFIRS-S — Escala de Impacto Funcional</p>'+
+    '<p class="haste-sub">Weiss Functional Impairment Rating Scale</p>'+
+    '<p>Este questionário avalia como dificuldades emocionais ou comportamentais afetaram diferentes áreas da sua vida <strong>no último mês</strong>. Leva cerca de 10 minutos.</p>'+
+    '<div class="caixa nota"><span class="tit">Marque "não se aplica" quando fizer sentido</span><p>Se algum item não fizer parte da sua vida agora (ex.: não trabalha, não tem filhos), marque N/A em vez de forçar uma resposta.</p></div>'+
+    '<button class="btn" data-acao="comecar">Começar</button>'
+  );
+}
+
+function telaDominio(i){
+  var d = DOMINIOS[i];
+  var itensHtml = d.itens.map(function(txt, idx){
+    var chaveResp = d.chave+"_"+idx;
+    var valorAtual = estado.respostas[chaveResp];
+    var botoes = ESCALA.map(function(op, val){
+      var checked = (valorAtual===val) ? ' checked' : '';
+      return '<label><input type="radio" name="'+chaveResp+'" value="'+val+'"'+checked+'><span>'+esc(op)+'</span></label>';
+    }).join('');
+    var naChecked = (valorAtual===-1) ? ' checked' : '';
+    botoes += '<label class="na"><input type="radio" name="'+chaveResp+'" value="-1"'+naChecked+'><span>N/A</span></label>';
+    return '<div class="item"><p class="txt"><span class="num">'+(idx+1)+'.</span>'+esc(txt)+'</p><div class="radiogrupo">'+botoes+'</div></div>';
+  }).join('');
+
+  return (
+    '<p class="passo">Bloco '+(i+1)+' de '+DOMINIOS.length+'</p>'+
+    '<p class="haste">'+esc(d.titulo)+'</p>'+
+    '<p class="haste-sub">No último mês, meus problemas afetaram:</p>'+
+    itensHtml+
+    pontos(i, DOMINIOS.length)+
+    '<button class="btn" data-acao="proximo-dominio" data-i="'+i+'" style="margin-top:18px;">'+(i===DOMINIOS.length-1?'Ver resultado':'Continuar')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function calcularDominio(d){
+  var soma=0, n=0, imp=0;
+  for (var i=0;i<d.itens.length;i++){
+    var v = estado.respostas[d.chave+"_"+i];
+    if (v!==undefined && v>=0){ soma+=v; n++; if(v>=2) imp++; }
+  }
+  return { soma:soma, n:n, media: n>0 ? (soma/n) : null, imp:imp };
+}
+
+function calcularTudo(){
+  var porDominio = {};
+  var somaTotal=0, nTotal=0, impTotal=0;
+  DOMINIOS.forEach(function(d){
+    var r = calcularDominio(d);
+    porDominio[d.chave] = r;
+    somaTotal += r.soma; nTotal += r.n; impTotal += r.imp;
+  });
+  return { porDominio:porDominio, somaTotal:somaTotal, nTotal:nTotal, mediaTotal: nTotal>0 ? (somaTotal/nTotal) : null, impTotal:impTotal };
+}
+
+function fmt(v){ return v===null ? "—" : v.toFixed(2); }
+
+function textoResumo(r){
+  var dnow = new Date();
+  var linhas = [];
+  linhas.push("WFIRS-S — Escala de Impacto Funcional");
+  linhas.push("Preenchido em: " + dnow.toLocaleDateString('pt-BR'));
+  linhas.push("");
+  DOMINIOS.forEach(function(d){
+    var rd = r.porDominio[d.chave];
+    linhas.push(d.titulo + ": soma " + rd.soma + " / média " + fmt(rd.media) + " (" + rd.imp + " itens em faixa de prejuízo)");
+  });
+  linhas.push("");
+  linhas.push("TOTAL: soma " + r.somaTotal + " / média " + fmt(r.mediaTotal));
+  linhas.push("Itens em faixa de prejuízo clínico (pontuação 2 ou 3): " + r.impTotal + " de " + r.nTotal + " respondidos");
+  linhas.push("");
+  linhas.push("Este instrumento não deve ser usado isoladamente para diagnóstico.");
+  return linhas.join("\n");
+}
+
+function telaResultado(){
+  var r = calcularTudo();
+  var linhasTabela = DOMINIOS.map(function(d){
+    var rd = r.porDominio[d.chave];
+    return '<tr><td>'+esc(d.titulo)+'</td><td class="v">'+rd.soma+'</td><td class="v">'+fmt(rd.media)+'</td><td class="v">'+rd.imp+'/'+rd.n+'</td></tr>';
+  }).join('');
+
+  return (
+    '<p class="passo">Resultado</p>'+
+    '<div class="caixa ambar"><span class="tit">Isto é um rastreio, não um diagnóstico</span>'+
+      '<p>A leitura clínica de cada domínio é sempre do médico responsável.</p>'+
+    '</div>'+
+    '<table class="dom"><tr><th>Domínio</th><th style="text-align:right;">Soma</th><th style="text-align:right;">Média</th><th style="text-align:right;">Em prejuízo</th></tr>'+
+    linhasTabela+
+    '<tr><td><strong>Total</strong></td><td class="v"><strong>'+r.somaTotal+'</strong></td><td class="v"><strong>'+fmt(r.mediaTotal)+'</strong></td><td class="v"><strong>'+r.impTotal+'/'+r.nTotal+'</strong></td></tr>'+
+    '</table>'+
+    '<p class="passo" style="margin-top:22px;">Envie este resumo para o Dr. Lucas</p>'+
+    '<div class="resumo" id="resumo">'+esc(textoResumo(r))+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="recomecar">Refazer</button>'
+  );
+}
+
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo>=1 && passo<=DOMINIOS.length) h = telaDominio(passo-1);
+  else h = telaResultado();
+  palco.innerHTML = h;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function salvarDominioAtual(i){
+  var d = DOMINIOS[i];
+  for (var idx=0; idx<d.itens.length; idx++){
+    var chaveResp = d.chave+"_"+idx;
+    var el = document.querySelector('input[name="'+chaveResp+'"]:checked');
+    if (el) estado.respostas[chaveResp] = parseInt(el.value,10);
+  }
+}
+
+function copiar(){
+  var txt = textoResumo(calcularTudo());
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a==="comecar"){ passo=1; }
+  else if (a==="proximo-dominio"){
+    var i=parseInt(b.dataset.i,10);
+    salvarDominioAtual(i);
+    passo = (i===DOMINIOS.length-1) ? (1+DOMINIOS.length) : passo+1;
+  }
+  else if (a==="voltar"){
+    if (passo>1){
+      var atualIdx = passo-1;
+      if (atualIdx>=0 && atualIdx<DOMINIOS.length) salvarDominioAtual(atualIdx);
+    }
+    if (passo>0) passo=passo-1;
+  }
+  else if (a==="copiar"){ copiar(); return; }
+  else if (a==="recomecar"){
+    estado = { respostas:{} };
+    passo=0;
+  }
+  else { return; }
+  pintar();
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>

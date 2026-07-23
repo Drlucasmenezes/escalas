@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>DIVA-5 · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --ambar-bg:#FBF3E3; --ambar-borda:#C9A24B;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --risco-bg:#F7ECEC; --risco-borda:#B26A6A;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:680px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.42rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .tagmedico{display:inline-block;margin-top:9px;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:#8E4B4B;background:#F0DADA;padding:3px 11px;border-radius:10px;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.92rem;line-height:1.53;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.96rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .ambar{background:var(--ambar-bg);border-left:3px solid var(--ambar-borda);}
+  .ambar .tit{color:#8A6A1F;}
+  .risco{background:var(--risco-bg);border-left:3px solid var(--risco-borda);}
+  .risco .tit{color:#8E4B4B;}
+  .passo{font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 8px;font-weight:700;}
+  .criterio-id{font-family:'Caladea',Georgia,serif;font-size:.78rem;color:#fff;background:var(--bronze);display:inline-block;padding:2px 9px;border-radius:5px;margin-bottom:8px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.05rem;color:var(--bronze-dark);margin:0 0 4px;font-weight:700;line-height:1.35;}
+  label.campo{display:block;font-size:.85rem;color:var(--suave);margin:10px 0 4px;}
+  input[type=text],input[type=date]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  select{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  .bloco-fase{border:1px solid #E6DCCB;border-radius:8px;padding:13px 14px;margin:12px 0;}
+  .bloco-fase .rotulo-fase{font-family:'Caladea',Georgia,serif;font-weight:700;color:var(--bronze-med);font-size:.85rem;margin:0 0 8px;text-transform:uppercase;letter-spacing:.05em;}
+  .pergunta{font-size:.98rem;margin:0 0 9px;line-height:1.4;}
+  .exemplos{font-size:.85rem;color:var(--suave);margin:0 0 10px;padding-left:18px;}
+  .exemplos li{margin-bottom:3px;}
+  .simnao{display:flex;gap:8px;}
+  .simnao label{
+    flex:1;text-align:center;font-size:.88rem;font-weight:700;
+    border:1.5px solid var(--linha);border-radius:7px;padding:10px 4px;cursor:pointer;
+    background:#fff;color:var(--suave);
+  }
+  .simnao input{display:none;}
+  .simnao label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:16px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:3px;justify-content:center;margin-top:16px;flex-wrap:wrap;}
+  .ponto{width:5px;height:5px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  table.dom{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:6px;}
+  table.dom th{text-align:left;font-family:'Caladea',Georgia,serif;font-size:.72rem;color:var(--bronze-med);text-transform:uppercase;border-bottom:1px solid var(--linha);padding:5px 4px;}
+  table.dom td{padding:7px 4px;border-bottom:1px solid #E6DCCB;}
+  table.dom td.v{text-align:right;font-weight:700;color:var(--bronze-dark);white-space:nowrap;}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.75rem;line-height:1.6;white-space:pre-wrap;color:#4A4034;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  footer .ref{margin-top:9px;font-size:.68rem;color:#8C8272;}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>DIVA-5</h1>
+    <p class="sub">Entrevista diagnóstica — TDAH em adultos</p>
+    <span class="tagmedico">Uso do médico durante a consulta</span>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p class="ref">
+      DIVA-5 — Diagnostic Interview for ADHD in Adults, 3ª edição.<br/>
+      J.J.S. Kooij, M.H. Francken &amp; T.I. Bron — DIVA Foundation, Haia, 2019.<br/>
+      Adaptação para o Português do Brasil: Prof. Dr. Mario R. Louzã, Dra. Anny K.P.M. Menezes e Psicóloga Maria A. Gobbo (PRODATH/USP).<br/>
+      Uso clínico. Este instrumento não substitui o julgamento clínico do entrevistador.
+    </p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var CRITERIOS = [
+ {id:"A1", dominio:"atencao", adulto:"Você com frequência não presta atenção suficiente aos detalhes ou comete erros por distração, no trabalho ou em outras atividades?", infancia:"Como era durante sua infância (na escola ou durante outras atividades)?",
+  exA:["Comete erros por distração","Tem que trabalhar devagar para evitar erros","Não lê as instruções com atenção","Não é bom em trabalhos detalhados","Precisa de muito tempo para os detalhes","Perde-se nos detalhes","Trabalha muito rápido e, por isso, comete erros"],
+  exI:["Cometia erros por distração nos trabalhos escolares","Cometia erros devido a uma leitura errada das perguntas","Deixava perguntas sem responder, por não as ter lido corretamente","Os outros comentavam sobre o seu trabalho desleixado","Não revia as respostas dos trabalhos feitos em casa","Precisava de muito tempo para os trabalhos detalhados"]},
+ {id:"A2", dominio:"atencao", adulto:"Você com frequência tem dificuldade em manter-se concentrado durante as tarefas?", infancia:"E era durante sua infância (em jogos ou atividades)?",
+  exA:["Não consegue manter a atenção nas tarefas durante muito tempo*","Distrai-se facilmente com as próprias associações/pensamentos","Tem dificuldade em ver um filme ou ler um livro até o fim*","Fica rapidamente entediado com os assuntos*","Faz perguntas sobre assuntos que já foram discutidos"],
+  exI:["Tinha dificuldade em prestar atenção nos trabalhos escolares","Tinha dificuldade em manter-se atento aos jogos*","Distraía-se facilmente","Precisava de um ambiente muito estruturado para não se distrair","Ficava rapidamente entediado com os assuntos*"],
+  nota:"* A não ser que o assunto seja considerado muito interessante (ex. jogos, computador, hobbies)"},
+ {id:"A3", dominio:"atencao", adulto:"Você com frequência parece não estar ouvindo, quando alguém lhe dirige diretamente a palavra?", infancia:"Como era durante sua infância?",
+  exA:["Divaga ou parece ausente","Tem dificuldade de concentrar-se numa conversa","Não sabe do que se falou depois de uma conversa","Muda frequentemente o assunto de uma conversa","Os outros dizem que está com a cabeça em outro lugar"],
+  exI:["Não se lembrava do que os pais/professores diziam","Estava frequentemente \"sonhando\" ou ausente","Ouvia apenas quando olhavam nos seus olhos ou levantavam a voz","Com frequência precisava ser chamado mais de uma vez","As perguntas precisavam ser repetidas"]},
+ {id:"A4", dominio:"atencao", adulto:"Você com frequência não segue as instruções ou não consegue terminar as tarefas ou obrigações no trabalho?", infancia:"Como era durante sua infância (na escola)?",
+  exA:["Faz várias coisas ao mesmo tempo sem terminar nenhuma delas","Tem dificuldade para finalizar as tarefas quando já não são mais novidade","Necessita de prazos-limite para terminar as tarefas","Tem dificuldade em terminar tarefas administrativas","Tem dificuldade em seguir instruções de um manual"],
+  exI:["Tinha dificuldade em estar pronto na hora","Quarto/mesa de trabalho ficavam desarrumados","Tinha dificuldade de brincar sozinho","Tinha dificuldade de planejar as tarefas ou o trabalho de casa","Chegava com frequência atrasado","Tinha pouca noção do tempo"]},
+ {id:"A5", dominio:"atencao", adulto:"Você com frequência tem dificuldade para organizar tarefas e atividades?", infancia:"Como era durante sua infância?",
+  exA:["Dificuldade no planejamento de atividades da vida cotidiana","A casa e/ou o local de trabalho estão desorganizados","Trabalha desarrumado e desorganizado","Planeja muitas tarefas ao mesmo tempo ou planejamento ineficiente","Chega atrasado","Falha em cumprir prazos","Não consegue usar uma agenda ou diário consistentemente","Precisa de outras pessoas para estruturar suas coisas"],
+  exI:["Dificilmente está pronto a tempo","Quarto/mesa de trabalho ficavam desarrumados","Dificuldade em manter materiais e pertences em ordem","Dificuldade em planejar tarefas ou lições de casa","Falha para cumprir prazos","Má percepção de tempo/horários"]},
+ {id:"A6", dominio:"atencao", adulto:"Você com frequência evita (ou tem aversão ou reluta em envolver-se em) tarefas que requeiram um esforço mental continuado?", infancia:"Como era durante sua infância?",
+  exA:["Faz primeiro o que é mais fácil ou divertido","Adia sucessivamente as tarefas entediantes ou árduas","Adia as tarefas e, em consequência, não cumpre prazos","Evita trabalhos monótonos, de natureza administrativa","Não gosta de ler porque exige esforço mental","Evita coisas que exigem muita concentração"],
+  exI:["Evitava ou detestava os trabalhos de casa","Lia poucos livros ou não gostava de ler por exigir esforço mental","Evitava coisas que exigiam muita concentração","Detestava disciplinas que exigiam muita concentração","Adiava sucessivamente tarefas entediantes ou árduas"]},
+ {id:"A7", dominio:"atencao", adulto:"Você com frequência perde objetos necessários para as tarefas ou atividades?", infancia:"Como era durante sua infância?",
+  exA:["Perde a carteira, as chaves ou a agenda","Deixa frequentemente coisas para trás","Perde papéis do trabalho","Perde muito tempo procurando as coisas","Entra em pânico quando os outros mudam as coisas de lugar","Perde listas, números de telefone, anotações"],
+  exI:["Perdia a agenda, as canetas, equipamentos de ginástica ou outras coisas","Perdia roupa, brinquedos ou trabalhos de casa","Perdia muito tempo procurando as coisas","Recebia comentários dos pais/professores sobre o fato de perder as coisas"]},
+ {id:"A8", dominio:"atencao", adulto:"Você com frequência se distrai facilmente com estímulos externos?", infancia:"Como era durante sua infância?",
+  exA:["Tem dificuldade em ignorar estímulos externos","Depois de se distrair, tem dificuldade em voltar ao assunto","Distrai-se facilmente com barulhos ou com o que acontece à sua volta","Escuta as conversas dos outros","Tem dificuldade em filtrar/selecionar informação"],
+  exI:["Durante as aulas olhava muitas vezes para fora da janela","Distraía-se facilmente com barulhos ou com o que acontecia à sua volta","Depois de se distrair, tinha dificuldade em voltar ao assunto"]},
+ {id:"A9", dominio:"atencao", adulto:"Você com frequência se esquece das atividades do dia a dia?", infancia:"Como era durante sua infância?",
+  exA:["Esquece de compromissos ou outras obrigações","Esquece as chaves, a agenda etc.","Precisa ser lembrado frequentemente de compromissos","Esquece de pagar contas ou retornar chamadas telefônicas","Uso rígido de listas ou rotinas para não esquecer","Esquece de fazer tarefas ou dar recados"],
+  exI:["Esquecia de compromissos ou instruções","Esquecia de fazer tarefas ou dar recados","Tinha que ser lembrado frequentemente de coisas","A meio caminho de uma tarefa, esquecia o que deveria ser feito","Esquecia de levar as coisas para a escola"]},
+ {id:"HI1", dominio:"hiperatividade", adulto:"Você com frequência mexe de forma irrequieta as mãos e os pés ou remexe-se na cadeira quando está sentado?", infancia:"Como era durante sua infância?",
+  exA:["Tem dificuldade em ficar quieto(a) sentado(a)","Balança as pernas","Bate com a caneta ou brinca com qualquer coisa","Rói as unhas ou mexe no cabelo","Consegue controlar a inquietação motora, mas isso o deixa mais tenso(a)"],
+  exI:["Os pais diziam muitas vezes para se sentar quieto/a","Balançava as pernas","Batia com a caneta ou brincava com qualquer coisa","Roía as unhas ou mexia no cabelo","Não conseguia ficar sentado/a normalmente numa cadeira"]},
+ {id:"HI2", dominio:"hiperatividade", adulto:"Você com frequência se levanta do lugar em situações em que é esperado que permaneça sentado?", infancia:"Como era durante sua infância?",
+  exA:["Deixa frequentemente o seu lugar no escritório ou ambiente de trabalho","Evita simpósios, palestras, igreja etc.","Prefere andar em vez de ficar sentado","Nunca fica parado por muito tempo","Usa desculpas para poder andar por aí"],
+  exI:["Muitas vezes se levantava enquanto comia ou deixava seu lugar na sala de aula","Achava muito difícil permanecer sentado na escola ou durante refeições","Era chamado à atenção para permanecer sentado","Dava desculpas para andar por aí"]},
+ {id:"HI3", dominio:"hiperatividade", adulto:"Você com frequência se sente irrequieto? (Nota: em adolescentes/adultos pode se limitar a sensações subjetivas de inquietação)", infancia:"Como era durante sua infância?",
+  exA:["Sente-se irrequieto ou agitado por dentro","Tem a sensação de precisar estar ocupado","Tem dificuldade em relaxar"],
+  exI:["Estava sempre correndo","Subia nos móveis ou saltava em cima dos bancos","Subia nas árvores","Sentia-se agitado por dentro"]},
+ {id:"HI4", dominio:"hiperatividade", adulto:"Você com frequência tem dificuldade em dedicar-se tranquilamente a atividades de lazer?", infancia:"Como era durante sua infância (nas atividades de lazer)?",
+  exA:["Fala durante atividades quando isto é inapropriado","Em público tende a ser arrogante ou chamar atenção","É barulhento em várias situações","Tem dificuldade em fazer atividades sossegadamente"],
+  exI:["Era barulhento durante os jogos ou durante as aulas","Não conseguia ver televisão ou filmes sossegadamente","Era repreendido para ficar mais quieto/sossegado","Em público tendia a destacar-se/chamar atenção"]},
+ {id:"HI5", dominio:"hiperatividade", adulto:"Você com frequência \"está a mil por hora\" ou age como se estivesse \"ligado a um motor\"?", infancia:"Como era durante sua infância?",
+  exA:["Sempre ocupado fazendo algo","É desconfortável permanecer parado por tempo prolongado","Tem muita energia, sempre em movimento","Os outros consideram você inquieto ou difícil de acompanhar"],
+  exI:["Constantemente ocupado","Os outros consideravam você inquieto ou difícil de acompanhar","Excesso de atividade na escola e em casa","Sempre em movimento, energia em excesso"]},
+ {id:"HI6", dominio:"hiperatividade", adulto:"Você com frequência fala excessivamente?", infancia:"Como era durante sua infância?",
+  exA:["Fala de maneira tão agitada que os outros o acham cansativo","Tem fama de ser muito falador","Tem dificuldade em parar de falar","Não deixa os outros falarem numa conversa"],
+  exI:["Tinha fama de ser tagarela","Os professores e os pais mandavam-no frequentemente calar-se","Era castigado por falar em demasia","Não deixava os outros falarem durante as conversas"]},
+ {id:"HI7", dominio:"hiperatividade", adulto:"Você com frequência dá as respostas antes que as perguntas tenham sido completadas?", infancia:"Como era durante sua infância?",
+  exA:["Fala impulsivamente, fala sem pensar","Diz o que lhe vem à cabeça","Responde sem deixar o outro acabar a frase","Completa as frases das outras pessoas","É indelicado, grosseiro, sem tato"],
+  exI:["Era um tagarela, dizia coisas sem pensar primeiro","Queria ser o primeiro a responder a perguntas na escola","Interrompia os outros antes de acabarem de dizer a frase","Dificuldade em esperar sua vez durante as conversas"]},
+ {id:"HI8", dominio:"hiperatividade", adulto:"Você com frequência tem dificuldade em esperar pela sua vez?", infancia:"Como era durante sua infância?",
+  exA:["Dificuldade em esperar em uma fila, \"furando\" a fila","Dificuldade em esperar pacientemente no trânsito","É impaciente","Inicia ou termina relacionamentos/empregos subitamente, por impaciência"],
+  exI:["Dificuldade em esperar sua vez nas atividades de grupo","Dificuldade em aguardar sua vez na sala de aula","Queria ser sempre o primeiro a falar ou agir","Tornava-se impaciente com facilidade"]},
+ {id:"HI9", dominio:"hiperatividade", adulto:"Você com frequência interrompe ou se intromete nas atividades dos outros?", infancia:"Como era durante sua infância?",
+  exA:["Intromete-se facilmente nos assuntos dos outros","Interrompe os outros","Interrompe as pessoas nas suas atividades sem pedir licença","Tem uma opinião sobre tudo e a expressa imediatamente"],
+  exI:["Intrometia-se nos jogos dos outros","Interrompia as conversas dos outros","Reagia a tudo","Não era capaz de esperar"]}
+];
+
+var DOMINIOS_PREJUIZO = [
+ {chave:"trabalho_educacao", titulo:"Trabalho / Educação",
+  exA:["Não concluiu a formação necessária para o trabalho","Trabalha abaixo do nível de formação","Padrão de muitos trabalhos de curta duração","Dificuldade com trabalho administrativo/planejamento","Não consegue promoções","Rende abaixo de sua capacidade","Sai do emprego/é despedido por discussão","Afastamento médico prolongado devido aos sintomas"],
+  exI:["Nível educacional mais baixo do que o esperado pelo QI","Repetições de ano por problemas de concentração","Formação não concluída/desistiu da escola","Frequentou ensino especial devido aos sintomas","Comentários de professores sobre comportamento/concentração"]},
+ {chave:"relacionamentos", titulo:"Relacionamentos e/ou família",
+  exA:["Fica rapidamente aborrecido nos relacionamentos","Começa/termina relacionamentos impulsivamente","Muitas discussões, falta de intimidade","Divorciado devido aos sintomas","Dificuldade na educação dos filhos","Problemas financeiros ou jogos de azar"],
+  exI:["Discutia frequentemente com irmãos/irmãs","Era frequentemente castigado","Pouco contato com a família devido a conflitos","Precisou ter a vida organizada pelos pais por mais tempo que o normal"]},
+ {chave:"interacao_social", titulo:"Interação social",
+  exA:["Fica rapidamente entediado com contatos sociais","Dificuldade em manter contatos sociais","Conflitos por problemas de comunicação","Comportamento pouco assertivo por experiências negativas","Não é atencioso (esquece de telefonar, dar parabéns etc.)"],
+  exI:["Tinha dificuldade em manter contatos sociais","Tinha poucos amigos","Era importunado ou excluído de grupos","Praticava bullying"]},
+ {chave:"lazer", titulo:"Tempo livre / Hobbies",
+  exA:["Incapaz de relaxar adequadamente no tempo livre","Precisa praticar esporte intensamente para relaxar","Não consegue ler um livro ou ver um filme até o fim","Perde interesse rapidamente pelos hobbies","Busca de \"adrenalina\"/assume muitos riscos","Problemas com a polícia ou justiça"],
+  exI:["Não conseguia relaxar no tempo livre","Não conseguia ver um filme ou ler um livro até o fim","Perdia rapidamente interesse pelos hobbies","Buscava sensações intensas/arriscava demais","Teve muitos acidentes"]},
+ {chave:"autoconfianca", titulo:"Autoconfiança / Autoimagem",
+  exA:["Inseguro devido a comentários negativos de outros","Autoimagem negativa devido a erros frequentes","Medo de fracasso ao começar algo novo","Reação exagerada a críticas","Perfeccionismo"],
+  exI:["Era inseguro devido a comentários negativos que recebia","Baixa autoestima devido a erros frequentes","Medo de falhar ao começar algo novo","Reagia exageradamente a críticas"]}
+];
+
+var estado = {
+  nome:"", dn:"", entrevistador:"", data:"",
+  criterios:{}, // ex: "A1_adulto": true/false, "A1_infancia": true/false
+  semprePresente:"", idadeInicio:"",
+  prejuizo:{}, // ex: "trabalho_educacao_adulto": true/false
+  criterioE:"", criterioEexp:"",
+  colateralPais:"", colateralParceiro:"", colateralEscola:""
+};
+var passo = 0;
+// 0 intro, 1 identificação, 2..19 critérios (18), 20 criterioB, 21..25 prejuízo (5), 26 criterioE+colateral, 27 resultado
+var TOTAL_CRITERIOS = CRITERIOS.length; // 18
+var IDX_CRITERIOS_INICIO = 2;
+var IDX_CRITERIOB = IDX_CRITERIOS_INICIO + TOTAL_CRITERIOS; // 20
+var IDX_PREJUIZO_INICIO = IDX_CRITERIOB + 1; // 21
+var IDX_CRITERIOE = IDX_PREJUIZO_INICIO + DOMINIOS_PREJUIZO.length; // 26
+var IDX_RESULTADO = IDX_CRITERIOE + 1; // 27
+
+var palco = document.getElementById("palco");
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+function pontosTotais(){ return IDX_RESULTADO; }
+function pontosBar(atual){
+  var h='<div class="pontos" aria-hidden="true">';
+  var total = pontosTotais();
+  for (var i=0;i<total;i++){ h += '<span class="ponto'+(i<=atual?' on':'')+'"></span>'; }
+  return h+'</div>';
+}
+
+function simNaoBtns(nome, valorAtual){
+  return '<div class="simnao">'+
+    '<label><input type="radio" name="'+nome+'" value="sim"'+(valorAtual===true?' checked':'')+'><span>Presente</span></label>'+
+    '<label><input type="radio" name="'+nome+'" value="nao"'+(valorAtual===false?' checked':'')+'><span>Ausente</span></label>'+
+    '</div>';
+}
+
+function telaIntro(){
+  return (
+    '<p class="passo">Antes de começar</p>'+
+    '<p class="haste">Entrevista diagnóstica para TDAH em adultos</p>'+
+    '<div class="caixa risco"><span class="tit">Isto é uma ferramenta de entrevista, não um formulário para o paciente preencher sozinho</span>'+
+      '<p>Pergunte primeiro sobre a <strong>idade adulta</strong> (últimos 6 meses), depois sobre a <strong>infância</strong> (5 a 12 anos). Leia a pergunta, peça exemplos, e use a lista de exemplos como apoio se o paciente não reconhecer o sintoma de imediato.</p>'+
+      '<p>Sempre que possível, aplique com um familiar ou parceiro(a) presente, para colher informação colateral.</p>'+
+    '</div>'+
+    '<button class="btn" data-acao="comecar">Começar</button>'
+  );
+}
+
+function telaIdentificacao(){
+  return (
+    '<p class="passo">Identificação</p>'+
+    '<label class="campo">Nome do paciente</label>'+
+    '<input type="text" id="campo-nome" value="'+esc(estado.nome)+'" />'+
+    '<label class="campo">Data de nascimento</label>'+
+    '<input type="date" id="campo-dn" value="'+esc(estado.dn)+'" />'+
+    '<label class="campo">Data da entrevista</label>'+
+    '<input type="date" id="campo-data" value="'+esc(estado.data)+'" />'+
+    '<button class="btn" data-acao="ir-criterios" style="margin-top:22px;">Iniciar Parte 1 — Desatenção</button>'
+  );
+}
+
+function telaCriterio(i){
+  var c = CRITERIOS[i];
+  var parteLabel = c.dominio==="atencao" ? "Parte 1 · Desatenção" : "Parte 2 · Hiperatividade/Impulsividade";
+  var numNaParte = c.dominio==="atencao" ? (i+1) : (i-8);
+  var totalNaParte = 9;
+
+  var exAHtml = c.exA.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
+  var exIHtml = c.exI.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
+  var notaHtml = c.nota ? '<p style="font-size:.78rem;color:var(--suave);margin:-4px 0 10px;">'+esc(c.nota)+'</p>' : '';
+
+  return (
+    '<p class="passo">'+parteLabel+' — item '+numNaParte+' de '+totalNaParte+'</p>'+
+    '<span class="criterio-id">'+c.id+'</span>'+
+    '<div class="bloco-fase">'+
+      '<p class="rotulo-fase">Idade adulta (últimos 6 meses)</p>'+
+      '<p class="pergunta">'+esc(c.adulto)+'</p>'+
+      notaHtml+
+      '<ul class="exemplos">'+exAHtml+'</ul>'+
+      simNaoBtns(c.id+"_adulto", estado.criterios[c.id+"_adulto"])+
+    '</div>'+
+    '<div class="bloco-fase">'+
+      '<p class="rotulo-fase">Infância (5 a 12 anos)</p>'+
+      '<p class="pergunta">'+esc(c.infancia)+'</p>'+
+      '<ul class="exemplos">'+exIHtml+'</ul>'+
+      simNaoBtns(c.id+"_infancia", estado.criterios[c.id+"_infancia"])+
+    '</div>'+
+    pontosBar(IDX_CRITERIOS_INICIO+i)+
+    '<button class="btn" data-acao="proximo-criterio" data-i="'+i+'" style="margin-top:6px;">'+(i===TOTAL_CRITERIOS-1?'Continuar':'Próximo critério')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function telaCriterioB(){
+  return (
+    '<p class="passo">Critério B — Idade de início</p>'+
+    '<p class="haste">Sempre apresentou os sintomas de Desatenção e/ou Hiperatividade/Impulsividade mencionados?</p>'+
+    '<div class="simnao">'+
+      '<label><input type="radio" name="sempre" value="sim"'+(estado.semprePresente==="sim"?' checked':'')+'><span>Sim (vários sintomas antes dos 12 anos)</span></label>'+
+      '<label><input type="radio" name="sempre" value="nao"'+(estado.semprePresente==="nao"?' checked':'')+'><span>Não</span></label>'+
+    '</div>'+
+    '<label class="campo">Se "Não" — a partir de que idade começaram os sintomas?</label>'+
+    '<input type="text" id="campo-idade-inicio" value="'+esc(estado.idadeInicio)+'" placeholder="idade em anos" />'+
+    pontosBar(IDX_CRITERIOB)+
+    '<button class="btn" data-acao="ir-prejuizo" style="margin-top:18px;">Continuar — Prejuízo funcional</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function telaPrejuizo(i){
+  var d = DOMINIOS_PREJUIZO[i];
+  var exAHtml = d.exA.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
+  var exIHtml = d.exI.map(function(t){ return '<li>'+esc(t)+'</li>'; }).join('');
+  return (
+    '<p class="passo">Prejuízo funcional — domínio '+(i+1)+' de '+DOMINIOS_PREJUIZO.length+'</p>'+
+    '<p class="haste">'+esc(d.titulo)+'</p>'+
+    '<div class="bloco-fase">'+
+      '<p class="rotulo-fase">Idade adulta</p>'+
+      '<ul class="exemplos">'+exAHtml+'</ul>'+
+      '<p class="pergunta" style="margin-top:8px;">Há prejuízo neste domínio, na idade adulta?</p>'+
+      simNaoBtns(d.chave+"_adulto", estado.prejuizo[d.chave+"_adulto"])+
+    '</div>'+
+    '<div class="bloco-fase">'+
+      '<p class="rotulo-fase">Infância e adolescência</p>'+
+      '<ul class="exemplos">'+exIHtml+'</ul>'+
+      '<p class="pergunta" style="margin-top:8px;">Há prejuízo neste domínio, na infância?</p>'+
+      simNaoBtns(d.chave+"_infancia", estado.prejuizo[d.chave+"_infancia"])+
+    '</div>'+
+    pontosBar(IDX_PREJUIZO_INICIO+i)+
+    '<button class="btn" data-acao="proximo-prejuizo" data-i="'+i+'" style="margin-top:6px;">'+(i===DOMINIOS_PREJUIZO.length-1?'Continuar':'Próximo domínio')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function telaCriterioE(){
+  var opcoes = ["ND","0","1","2"];
+  function selectColateral(nome, valorAtual){
+    return '<select id="'+nome+'">'+
+      '<option value="">—</option>'+
+      opcoes.map(function(o){ return '<option value="'+o+'"'+(valorAtual===o?' selected':'')+'>'+o+'</option>'; }).join('')+
+      '</select>';
+  }
+  return (
+    '<p class="passo">Critério E e informação colateral</p>'+
+    '<p class="haste">Os sintomas podem ser mais bem explicados pela presença de outro transtorno mental?</p>'+
+    '<div class="simnao">'+
+      '<label><input type="radio" name="criterioE" value="nao"'+(estado.criterioE==="nao"?' checked':'')+'><span>Não</span></label>'+
+      '<label><input type="radio" name="criterioE" value="sim"'+(estado.criterioE==="sim"?' checked':'')+'><span>Sim, por...</span></label>'+
+    '</div>'+
+    '<label class="campo">Se sim, especifique</label>'+
+    '<input type="text" id="campo-criterioE-exp" value="'+esc(estado.criterioEexp)+'" />'+
+
+    '<label class="campo" style="margin-top:18px;">Confirmação colateral — Pais/irmão(ã)/outros</label>'+
+    selectColateral("colateral-pais", estado.colateralPais)+
+    '<label class="campo">Confirmação colateral — Parceiro(a)/amigo(a)/outros</label>'+
+    selectColateral("colateral-parceiro", estado.colateralParceiro)+
+    '<label class="campo">Confirmação colateral — Relatórios escolares</label>'+
+    selectColateral("colateral-escola", estado.colateralEscola)+
+    '<p style="font-size:.78rem;color:var(--suave);margin-top:6px;">ND = não disponível · 0 = sem/pouca confirmação · 1 = alguma confirmação · 2 = confirmação clara</p>'+
+
+    pontosBar(IDX_CRITERIOE)+
+    '<button class="btn" data-acao="ir-resultado" style="margin-top:10px;">Ver resumo diagnóstico</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function contarDominio(dominio, fase){
+  var n=0;
+  CRITERIOS.forEach(function(c){
+    if (c.dominio===dominio && estado.criterios[c.id+"_"+fase]===true) n++;
+  });
+  return n;
+}
+
+function contarPrejuizoDominios(fase){
+  var n=0;
+  DOMINIOS_PREJUIZO.forEach(function(d){
+    if (estado.prejuizo[d.chave+"_"+fase]===true) n++;
+  });
+  return n;
+}
+
+function calcular(){
+  var atA = contarDominio("atencao","adulto");
+  var atI = contarDominio("atencao","infancia");
+  var hiA = contarDominio("hiperatividade","adulto");
+  var hiI = contarDominio("hiperatividade","infancia");
+
+  var criterioA_adulto = (atA>=5) || (hiA>=5);
+  var criterioA_infancia = (atI>=3) || (hiI>=3);
+
+  var prejA = contarPrejuizoDominios("adulto");
+  var prejI = contarPrejuizoDominios("infancia");
+  var criterioCD_adulto = prejA>=2;
+  var criterioCD_infancia = prejI>=2;
+
+  var criterioB = estado.semprePresente==="sim";
+  var criterioE_excluido = estado.criterioE==="sim";
+
+  var diagnosticoPossivel = criterioA_adulto && criterioB && criterioCD_adulto && criterioCD_infancia && !criterioE_excluido;
+
+  var tipo = "";
+  if (diagnosticoPossivel){
+    if (atA>=5 && hiA>=5) tipo = "Apresentação combinada";
+    else if (atA>=5) tipo = "Apresentação predominantemente desatenta";
+    else if (hiA>=5) tipo = "Apresentação predominantemente hiperativa-impulsiva";
+  }
+
+  return {
+    atA:atA, atI:atI, hiA:hiA, hiI:hiI,
+    criterioA_adulto:criterioA_adulto, criterioA_infancia:criterioA_infancia,
+    prejA:prejA, prejI:prejI,
+    criterioCD_adulto:criterioCD_adulto, criterioCD_infancia:criterioCD_infancia,
+    criterioB:criterioB, criterioE_excluido:criterioE_excluido,
+    diagnosticoPossivel:diagnosticoPossivel, tipo:tipo
+  };
+}
+
+function linhaResultado(rotulo, positivo, detalhe){
+  return '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #E6DCCB;font-size:.92rem;">'+
+    '<span>'+esc(rotulo)+(detalhe?' <span style="color:var(--suave);font-size:.83rem;">('+esc(detalhe)+')</span>':'')+'</span>'+
+    '<span style="font-weight:700;font-size:.72rem;letter-spacing:.04em;padding:2px 9px;border-radius:20px;white-space:nowrap;background:'+(positivo?'#F0DADA':'#EDEAE4')+';color:'+(positivo?'#8E4B4B':'#867C6C')+';">'+(positivo?'ATENDIDO':'não atendido')+'</span>'+
+    '</div>';
+}
+
+function textoResumo(r){
+  var linhas = [];
+  linhas.push("DIVA-5 — Entrevista diagnóstica TDAH em adultos");
+  linhas.push("Paciente: " + (estado.nome || "não informado"));
+  linhas.push("Data de nascimento: " + (estado.dn || "não informado"));
+  linhas.push("Data da entrevista: " + (estado.data || "não informado"));
+  linhas.push("");
+  linhas.push("Desatenção — adulto: " + r.atA + "/9 | infância: " + r.atI + "/9");
+  linhas.push("Hiperatividade/Impulsividade — adulto: " + r.hiA + "/9 | infância: " + r.hiI + "/9");
+  linhas.push("");
+  linhas.push("Critério A (adulto, limiar 5): " + (r.criterioA_adulto?"ATENDIDO":"não atendido"));
+  linhas.push("Critério A (infância, limiar 3, 'vários'): " + (r.criterioA_infancia?"ATENDIDO":"não atendido"));
+  linhas.push("Critério B (sempre presente, início antes dos 12a): " + (r.criterioB?"ATENDIDO":"não atendido") + (estado.semprePresente==="nao" ? (" — início aos " + (estado.idadeInicio||"?") + " anos") : ""));
+  linhas.push("Critério C/D (prejuízo em >=2 domínios, adulto): " + (r.criterioCD_adulto?"ATENDIDO":"não atendido") + " (" + r.prejA + "/5 domínios)");
+  linhas.push("Critério C/D (prejuízo em >=2 domínios, infância): " + (r.criterioCD_infancia?"ATENDIDO":"não atendido") + " (" + r.prejI + "/5 domínios)");
+  linhas.push("Critério E (exclusão por outro transtorno): " + (r.criterioE_excluido ? ("SIM, por " + (estado.criterioEexp||"não especificado") + " — EXCLUI o diagnóstico") : "não — não exclui"));
+  linhas.push("");
+  linhas.push("Informação colateral — pais/irmãos: " + (estado.colateralPais||"—") + " | parceiro(a): " + (estado.colateralParceiro||"—") + " | escola: " + (estado.colateralEscola||"—"));
+  linhas.push("");
+  if (r.diagnosticoPossivel){
+    linhas.push("TODOS OS CRITÉRIOS DSM-5 ATENDIDOS.");
+    linhas.push("Tipo de apresentação (adulto): " + r.tipo);
+  } else {
+    linhas.push("Nem todos os critérios foram atendidos — ver detalhamento acima.");
+  }
+  linhas.push("");
+  linhas.push("Conclusão diagnóstica e gravidade a critério do médico entrevistador.");
+  return linhas.join("\n");
+}
+
+function telaResultado(){
+  var r = calcular();
+  return (
+    '<p class="passo">Resumo diagnóstico</p>'+
+    '<div class="caixa ambar"><span class="tit">Conclusão é sempre do entrevistador</span>'+
+      '<p>Esta tela organiza os critérios conforme os limiares oficiais do DSM-5/DIVA-5. A conclusão diagnóstica final, o subtipo e a gravidade são julgamento clínico.</p>'+
+    '</div>'+
+    '<table class="dom"><tr><th>Domínio</th><th style="text-align:right;">Adulto</th><th style="text-align:right;">Infância</th></tr>'+
+    '<tr><td>Desatenção</td><td class="v">'+r.atA+'/9</td><td class="v">'+r.atI+'/9</td></tr>'+
+    '<tr><td>Hiperatividade/Impulsividade</td><td class="v">'+r.hiA+'/9</td><td class="v">'+r.hiI+'/9</td></tr>'+
+    '</table>'+
+    '<div style="margin-top:14px;">'+
+    linhaResultado("Critério A — adulto (limiar ≥5)", r.criterioA_adulto)+
+    linhaResultado("Critério A — infância (limiar ≥3, 'vários')", r.criterioA_infancia)+
+    linhaResultado("Critério B — início antes dos 12 anos", r.criterioB)+
+    linhaResultado("Critério C/D — prejuízo ≥2 domínios, adulto", r.criterioCD_adulto, r.prejA+"/5")+
+    linhaResultado("Critério C/D — prejuízo ≥2 domínios, infância", r.criterioCD_infancia, r.prejI+"/5")+
+    linhaResultado("Critério E — não excluído por outro transtorno", !r.criterioE_excluido)+
+    '</div>'+
+    (r.diagnosticoPossivel ? '<div class="caixa nota" style="margin-top:14px;"><span class="tit">Todos os critérios atendidos</span><p>Tipo de apresentação (adulto): <strong>'+esc(r.tipo)+'</strong></p></div>' : '')+
+    '<p class="passo" style="margin-top:22px;">Resumo para o prontuário</p>'+
+    '<div class="resumo" id="resumo">'+esc(textoResumo(r))+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="recomecar">Refazer</button>'
+  );
+}
+
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo===1) h = telaIdentificacao();
+  else if (passo>=IDX_CRITERIOS_INICIO && passo<IDX_CRITERIOB) h = telaCriterio(passo-IDX_CRITERIOS_INICIO);
+  else if (passo===IDX_CRITERIOB) h = telaCriterioB();
+  else if (passo>=IDX_PREJUIZO_INICIO && passo<IDX_CRITERIOE) h = telaPrejuizo(passo-IDX_PREJUIZO_INICIO);
+  else if (passo===IDX_CRITERIOE) h = telaCriterioE();
+  else h = telaResultado();
+  palco.innerHTML = h;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function salvarCriterioAtual(i){
+  var c = CRITERIOS[i];
+  var elA = document.querySelector('input[name="'+c.id+'_adulto"]:checked');
+  var elI = document.querySelector('input[name="'+c.id+'_infancia"]:checked');
+  if (elA) estado.criterios[c.id+"_adulto"] = elA.value==="sim";
+  if (elI) estado.criterios[c.id+"_infancia"] = elI.value==="sim";
+}
+
+function salvarPrejuizoAtual(i){
+  var d = DOMINIOS_PREJUIZO[i];
+  var elA = document.querySelector('input[name="'+d.chave+'_adulto"]:checked');
+  var elI = document.querySelector('input[name="'+d.chave+'_infancia"]:checked');
+  if (elA) estado.prejuizo[d.chave+"_adulto"] = elA.value==="sim";
+  if (elI) estado.prejuizo[d.chave+"_infancia"] = elI.value==="sim";
+}
+
+function copiar(){
+  var txt = textoResumo(calcular());
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado para a área de transferência."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a==="comecar"){ passo=1; }
+  else if (a==="ir-criterios"){
+    var nomeEl=document.getElementById("campo-nome");
+    var dnEl=document.getElementById("campo-dn");
+    var dataEl=document.getElementById("campo-data");
+    if (nomeEl) estado.nome=nomeEl.value;
+    if (dnEl) estado.dn=dnEl.value;
+    if (dataEl) estado.data=dataEl.value;
+    passo=IDX_CRITERIOS_INICIO;
+  }
+  else if (a==="proximo-criterio"){
+    var i=parseInt(b.dataset.i,10);
+    salvarCriterioAtual(i);
+    passo = passo+1;
+  }
+  else if (a==="ir-prejuizo"){
+    var semEl=document.querySelector('input[name="sempre"]:checked');
+    var idadeEl=document.getElementById("campo-idade-inicio");
+    if (semEl) estado.semprePresente=semEl.value;
+    if (idadeEl) estado.idadeInicio=idadeEl.value;
+    passo=IDX_PREJUIZO_INICIO;
+  }
+  else if (a==="proximo-prejuizo"){
+    var ip=parseInt(b.dataset.i,10);
+    salvarPrejuizoAtual(ip);
+    passo = passo+1;
+  }
+  else if (a==="ir-resultado"){
+    var ceEl=document.querySelector('input[name="criterioE"]:checked');
+    var ceExpEl=document.getElementById("campo-criterioE-exp");
+    var cpEl=document.getElementById("colateral-pais");
+    var ccEl=document.getElementById("colateral-parceiro");
+    var cesEl=document.getElementById("colateral-escola");
+    if (ceEl) estado.criterioE=ceEl.value;
+    if (ceExpEl) estado.criterioEexp=ceExpEl.value;
+    if (cpEl) estado.colateralPais=cpEl.value;
+    if (ccEl) estado.colateralParceiro=ccEl.value;
+    if (cesEl) estado.colateralEscola=cesEl.value;
+    passo=IDX_RESULTADO;
+  }
+  else if (a==="voltar"){
+    if (passo>=IDX_CRITERIOS_INICIO && passo<IDX_CRITERIOB) salvarCriterioAtual(passo-IDX_CRITERIOS_INICIO);
+    else if (passo>=IDX_PREJUIZO_INICIO && passo<IDX_CRITERIOE) salvarPrejuizoAtual(passo-IDX_PREJUIZO_INICIO);
+    if (passo>0) passo=passo-1;
+  }
+  else if (a==="copiar"){ copiar(); return; }
+  else if (a==="recomecar"){
+    estado = { nome:"", dn:"", entrevistador:"", data:"", criterios:{}, semprePresente:"", idadeInicio:"", prejuizo:{}, criterioE:"", criterioEexp:"", colateralPais:"", colateralParceiro:"", colateralEscola:"" };
+    passo=0;
+  }
+  else { return; }
+  pintar();
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>
