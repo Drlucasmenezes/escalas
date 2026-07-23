@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Rastreio de Trauma · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA;
+    --bronze:#9A7B4F;
+    --bronze-dark:#6E5636;
+    --bronze-med:#8B6F47;
+    --linha:#C9B79A;
+    --creme:#FBF8F2;
+    --ambar-bg:#FBF3E3;
+    --ambar-borda:#C9A24B;
+    --nota-bg:#EDF1F5;
+    --nota-borda:#34506B;
+    --risco-bg:#F7ECEC;
+    --risco-borda:#B26A6A;
+    --texto:#3B3229;
+    --suave:#6E6455;
+
+    /* ---- PONTO DE CORTE ---- */
+    /* VA sugere 4 (eficiencia) ou 3 (sensibilidade).                     */
+    /* Em consultorio especializado usamos 3. Trocar aqui se necessario.  */
+    --nada:0;
+  }
+
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bege);
+    color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:17px;
+    line-height:1.62;
+    padding:22px 16px 56px;
+  }
+  .wrap{max-width:620px;margin:0 auto;}
+
+  /* ---------- cabecalho ---------- */
+  header{text-align:center;margin-bottom:26px;}
+  .logo{width:46px;height:46px;margin:0 auto 12px;display:block;}
+  h1{
+    font-family:'Caladea',Georgia,serif;
+    font-size:1.6rem;
+    font-weight:700;
+    color:var(--bronze-dark);
+    margin:0 0 4px;
+    letter-spacing:.01em;
+  }
+  .sub{
+    font-size:.78rem;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--bronze-med);
+    margin:0;
+  }
+  .regua{
+    width:52px;height:2px;background:var(--linha);
+    border:0;margin:14px auto 0;
+  }
+
+  /* ---------- cartao ---------- */
+  .card{
+    background:var(--creme);
+    border:1px solid var(--linha);
+    border-radius:10px;
+    padding:24px 22px;
+    box-shadow:0 1px 3px rgba(110,86,54,.07);
+  }
+
+  /* ---------- caixas ---------- */
+  .caixa{border-radius:8px;padding:15px 17px;margin:18px 0;font-size:.95rem;line-height:1.58;}
+  .caixa p{margin:0 0 9px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{
+    font-family:'Caladea',Georgia,serif;
+    font-weight:700;font-size:1rem;
+    display:block;margin-bottom:7px;
+  }
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .ambar{background:var(--ambar-bg);border-left:3px solid var(--ambar-borda);}
+  .ambar .tit{color:#8A6A1F;}
+  .risco{background:var(--risco-bg);border-left:3px solid var(--risco-borda);}
+  .risco .tit{color:#8E4B4B;}
+  .risco ul{margin:8px 0 0;padding-left:19px;}
+  .risco li{margin-bottom:8px;}
+  .risco li:last-child{margin-bottom:0;}
+
+  /* ---------- perguntas ---------- */
+  .passo{
+    font-size:.74rem;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--bronze-med);margin:0 0 14px;font-weight:700;
+  }
+  .haste{
+    font-family:'Caladea',Georgia,serif;
+    font-size:1.05rem;color:var(--bronze-dark);
+    margin:0 0 10px;font-weight:700;
+  }
+  .pergunta{font-size:1.12rem;line-height:1.5;margin:0 0 22px;}
+  .exemplos{
+    margin:14px 0 20px;padding:14px 18px;
+    background:#F4EEE3;border-radius:8px;
+    font-size:.95rem;
+  }
+  .exemplos ul{margin:8px 0 0;padding-left:19px;}
+  .exemplos li{margin-bottom:5px;}
+  .exemplos li:last-child{margin-bottom:0;}
+
+  /* ---------- botoes ---------- */
+  .escolhas{display:flex;gap:12px;}
+  .btn{
+    flex:1;
+    font-family:inherit;font-size:1.05rem;font-weight:700;
+    padding:17px 12px;
+    border-radius:8px;border:1.5px solid var(--linha);
+    background:#fff;color:var(--bronze-dark);
+    cursor:pointer;transition:all .13s ease;
+  }
+  .btn:hover,.btn:focus-visible{
+    background:var(--bronze);border-color:var(--bronze);color:#fff;
+    outline:none;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-principal{
+    width:100%;background:var(--bronze);border-color:var(--bronze);color:#fff;
+  }
+  .btn-principal:hover,.btn-principal:focus-visible{background:var(--bronze-dark);border-color:var(--bronze-dark);}
+  .voltar{
+    display:inline-block;margin-top:18px;
+    background:none;border:0;padding:4px 0;
+    font-family:inherit;font-size:.9rem;color:var(--suave);
+    cursor:pointer;text-decoration:underline;text-underline-offset:3px;
+  }
+  .voltar:hover{color:var(--bronze-dark);}
+
+  /* ---------- progresso ---------- */
+  .pontos{display:flex;gap:6px;justify-content:center;margin-top:22px;}
+  .ponto{width:7px;height:7px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+
+  /* ---------- resultado ---------- */
+  .escore{text-align:center;padding:6px 0 4px;}
+  .escore .num{
+    font-family:'Caladea',Georgia,serif;
+    font-size:3.4rem;font-weight:700;color:var(--bronze);
+    line-height:1;display:block;
+  }
+  .escore .de{font-size:.95rem;color:var(--suave);}
+  .faixa{
+    text-align:center;font-family:'Caladea',Georgia,serif;
+    font-size:1.15rem;font-weight:700;color:var(--bronze-dark);
+    margin:14px 0 0;
+  }
+  .dominios{list-style:none;margin:20px 0 0;padding:0;font-size:.95rem;}
+  .dominios li{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding:9px 0;border-bottom:1px solid #E6DCCB;
+  }
+  .dominios li:last-child{border-bottom:0;}
+  .marca{
+    font-weight:700;font-size:.78rem;letter-spacing:.06em;
+    padding:2px 9px;border-radius:20px;white-space:nowrap;
+  }
+  .marca.sim{background:#EDE2CE;color:#7A5E28;}
+  .marca.nao{background:#EDEAE4;color:#867C6C;}
+
+  .msg-lucas{
+    background:var(--creme);
+    border:1px solid var(--linha);
+    border-left:3px solid var(--bronze);
+    border-radius:8px;padding:18px 19px;margin:22px 0;
+  }
+  .msg-lucas .tit{
+    font-family:'Caladea',Georgia,serif;font-weight:700;
+    color:var(--bronze-dark);display:block;margin-bottom:9px;
+  }
+  .msg-lucas p{margin:0 0 11px;font-size:.97rem;line-height:1.6;}
+  .msg-lucas p:last-child{margin-bottom:0;}
+  .assina{
+    font-family:'Caladea',Georgia,serif;font-style:italic;
+    color:var(--bronze-med);font-size:.92rem;
+  }
+
+  .resumo{
+    background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;
+    padding:15px 17px;margin-top:8px;
+    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    font-size:.83rem;line-height:1.62;
+    white-space:pre-wrap;color:#4A4034;
+  }
+  .copiado{
+    text-align:center;font-size:.88rem;color:var(--bronze-dark);
+    margin-top:10px;min-height:20px;font-weight:700;
+  }
+
+  footer{
+    margin-top:30px;text-align:center;
+    font-size:.76rem;line-height:1.65;color:var(--suave);
+  }
+  footer .cvv{margin-bottom:10px;color:#8E4B4B;}
+  footer .ref{margin-top:10px;font-size:.71rem;color:#8C8272;}
+
+  .oculto{display:none;}
+
+  @media (max-width:420px){
+    body{font-size:16px;padding:18px 12px 44px;}
+    .card{padding:20px 17px;}
+    .pergunta{font-size:1.06rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="br" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#9A7B4F"/>
+          <stop offset="100%" stop-color="#6E5636"/>
+        </linearGradient>
+      </defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5"  width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5"  y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>Rastreio de Trauma</h1>
+    <p class="sub">PC-PTSD-5</p>
+    <hr class="regua" />
+  </header>
+
+  <main class="card" id="palco" aria-live="polite"></main>
+
+  <footer>
+    <p class="cvv"><strong>CVV — 188.</strong> Gratuito, 24 horas, sigiloso.</p>
+    <p>
+      <strong>Dr. Lucas Menezes</strong><br />
+      Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />
+      Alma Clinic — Limeira/SP · @drlucasmenezess
+    </p>
+    <p class="ref">
+      PC-PTSD-5 (versão 2022) · Prins A. et al., National Center for PTSD (VA) — domínio público.<br />
+      Tradução para o português do Brasil de uso próprio. Rastreio: não substitui avaliação clínica.
+    </p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     PONTO DE CORTE
+     O VA aponta 4 como o corte que equilibra falsos positivos e
+     negativos em atencao primaria, e registra que 4 gera excesso
+     de falsos negativos em mulheres. Em consultorio psiquiatrico
+     o falso positivo custa pouco (o proprio medico reavalia) e o
+     falso negativo custa muito. Por isso: 3.
+     ============================================================ */
+  var CORTE = 3;
+
+  var PORTAO_TXT =
+    "Às vezes acontecem com as pessoas coisas incomuns, muito assustadoras, terríveis ou traumáticas. Por exemplo:";
+
+  var PORTAO_EX = [
+    "um acidente grave ou um incêndio",
+    "uma agressão física ou sexual, ou abuso",
+    "um terremoto ou uma enchente",
+    "uma guerra",
+    "ver alguém ser morto ou gravemente ferido",
+    "perder alguém querido por homicídio ou suicídio"
+  ];
+
+  var ITENS = [
+    {
+      dominio: "Revivência",
+      rotulo: "Pesadelos e pensamentos intrusivos",
+      texto: "teve pesadelos com o que aconteceu, ou pensou naquilo em momentos em que não queria pensar?"
+    },
+    {
+      dominio: "Evitação",
+      rotulo: "Evitação",
+      texto: "se esforçou muito para não pensar no que aconteceu, ou evitou situações que te lembravam daquilo?"
+    },
+    {
+      dominio: "Hipervigilância",
+      rotulo: "Alerta constante e sobressalto",
+      texto: "ficou o tempo todo em alerta, vigilante, ou se assustou com facilidade?"
+    },
+    {
+      dominio: "Entorpecimento",
+      rotulo: "Entorpecimento e desconexão",
+      texto: "se sentiu anestesiado(a) ou distante das pessoas, das atividades ou do que está ao seu redor?"
+    },
+    {
+      dominio: "Culpa",
+      rotulo: "Culpa e autorrecriminação",
+      texto: "se sentiu culpado(a), ou não conseguiu parar de se culpar ou de culpar os outros pelo que aconteceu, ou pelos problemas que aquilo causou?"
+    }
+  ];
+
+  var estado = { exposicao: null, respostas: [null, null, null, null, null] };
+  var passo = 0; /* 0 intro | 1 portao | 2..6 itens | 7 resultado */
+
+  var palco = document.getElementById("palco");
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function escore() {
+    if (estado.exposicao !== true) return 0;
+    return estado.respostas.filter(function (r) { return r === true; }).length;
+  }
+
+  function pontos(atual) {
+    var h = '<div class="pontos" aria-hidden="true">';
+    for (var i = 0; i < 5; i++) {
+      h += '<span class="ponto' + (i <= atual ? " on" : "") + '"></span>';
+    }
+    return h + "</div>";
+  }
+
+  /* ---------------- telas ---------------- */
+
+  function telaIntro() {
+    return (
+      '<p class="passo">Antes da nossa consulta</p>' +
+      '<p style="margin:0 0 16px;">São <strong>6 perguntas de sim ou não</strong>. Leva cerca de um minuto.</p>' +
+
+      '<div class="caixa nota">' +
+        '<span class="tit">Você não vai precisar contar o que aconteceu.</span>' +
+        '<p>Nenhuma pergunta aqui pede que você descreva o evento, nem que dê qualquer detalhe. ' +
+        'Eu preciso saber apenas se existe algo assim na sua história e como isso tem te afetado no último mês — não o que foi.</p>' +
+      '</div>' +
+
+      '<p style="font-size:.95rem;color:var(--suave);margin:0 0 22px;">' +
+      'Se em algum momento você quiser parar, pode fechar esta página. Não tem problema nenhum — a gente conversa pessoalmente.</p>' +
+
+      '<button class="btn btn-principal" data-acao="comecar">Começar</button>'
+    );
+  }
+
+  function telaPortao() {
+    var li = PORTAO_EX.map(function (e) { return "<li>" + esc(e) + "</li>"; }).join("");
+    return (
+      '<p class="passo">Pergunta inicial</p>' +
+      '<p style="margin:0;">' + esc(PORTAO_TXT) + "</p>" +
+      '<div class="exemplos"><ul>' + li + "</ul></div>" +
+      '<p class="pergunta"><strong>Você já passou por um evento desse tipo?</strong></p>' +
+      '<div class="escolhas">' +
+        '<button class="btn" data-acao="portao" data-v="1">Sim</button>' +
+        '<button class="btn" data-acao="portao" data-v="0">Não</button>' +
+      "</div>" +
+      '<button class="voltar" data-acao="voltar">Voltar</button>'
+    );
+  }
+
+  function telaItem(i) {
+    var it = ITENS[i];
+    return (
+      '<p class="passo">Pergunta ' + (i + 1) + " de 5</p>" +
+      '<p class="haste">No último mês, você…</p>' +
+      '<p class="pergunta">' + esc(it.texto) + "</p>" +
+      '<div class="escolhas">' +
+        '<button class="btn" data-acao="item" data-i="' + i + '" data-v="1">Sim</button>' +
+        '<button class="btn" data-acao="item" data-i="' + i + '" data-v="0">Não</button>' +
+      "</div>" +
+      pontos(i) +
+      '<button class="voltar" data-acao="voltar">Voltar</button>'
+    );
+  }
+
+  function blocoSeguranca() {
+    return (
+      '<div class="caixa risco">' +
+        '<span class="tit">Se responder isso mexeu com você agora</span>' +
+        "<p>Pode acontecer, e não tem nada de errado nisso. Faça o seguinte:</p>" +
+        "<ul>" +
+          "<li>Sente-se, respire devagar e sinta os pés no chão. Olhe ao redor e nomeie em voz alta cinco coisas que você está vendo. Isso ajuda o corpo a entender que o momento agora é agora.</li>" +
+          "<li>Se der, não fique sozinho(a) neste momento. Chame alguém de casa ou ligue para uma pessoa de confiança.</li>" +
+          "<li><strong>Se vier pensamento de se machucar ou de não querer mais estar aqui:</strong> ligue <strong>188 (CVV)</strong> — 24 horas, gratuito e sigiloso — ou vá ao pronto-socorro mais próximo. Não espere a consulta.</li>" +
+          "<li><strong>Se o que aconteceu ainda está acontecendo</strong> — se você está em perigo agora —, isso é urgente e também não espera a consulta: <strong>190</strong> (polícia) ou <strong>180</strong> (Central de Atendimento à Mulher).</li>" +
+        "</ul>" +
+      "</div>"
+    );
+  }
+
+  function blocoLucas() {
+    return (
+      '<div class="msg-lucas">' +
+        '<span class="tit">Antes da consulta, leia isto</span>' +
+        "<p>Eu não vou te pedir para reviver o que aconteceu. Não na primeira consulta, e não em nenhuma consulta em que você não queira.</p>" +
+        "<p>A ordem do trabalho é essa: primeiro a gente firma o chão — o sono, a ansiedade, o que está te derrubando hoje. Depois, se e quando você quiser, a gente olha para trás. Quem decide o ritmo é você.</p>" +
+        "<p>Este questionário serviu para eu saber que existe. Não para saber o quê.</p>" +
+        '<p class="assina">— Dr. Lucas</p>' +
+      "</div>"
+    );
+  }
+
+  function textoResumo(n) {
+    var d = new Date();
+    var dd = String(d.getDate()).padStart(2, "0");
+    var mm = String(d.getMonth() + 1).padStart(2, "0");
+    var linhas = [];
+
+    linhas.push("PC-PTSD-5 — Rastreio de trauma");
+    linhas.push("Data: " + dd + "/" + mm + "/" + d.getFullYear());
+    linhas.push("");
+
+    if (estado.exposicao !== true) {
+      linhas.push("Exposição a evento traumático: NÃO");
+      linhas.push("Escore: 0 de 5");
+      linhas.push("");
+      linhas.push("Rastreio encerrado na pergunta inicial.");
+      linhas.push("Rastreio não é diagnóstico.");
+      return linhas.join("\n");
+    }
+
+    linhas.push("Exposição a evento traumático: SIM");
+    linhas.push("Escore: " + n + " de 5  (ponto de corte: " + CORTE + ")");
+    linhas.push(
+      "Resultado: " + (n >= CORTE ? "ACIMA do ponto de corte" : "abaixo do ponto de corte")
+    );
+    linhas.push("");
+    linhas.push("Sinais no último mês:");
+    ITENS.forEach(function (it, i) {
+      linhas.push("• " + it.dominio + ": " + (estado.respostas[i] ? "sim" : "não"));
+    });
+    linhas.push("");
+    linhas.push("Rastreio não é diagnóstico.");
+    return linhas.join("\n");
+  }
+
+  function telaResultado() {
+    var n = escore();
+    var sem = estado.exposicao !== true;
+    var acima = !sem && n >= CORTE;
+
+    var faixa, corpo;
+
+    if (sem) {
+      faixa = "Rastreio encerrado";
+      corpo =
+        '<div class="caixa nota">' +
+          "<p>Você indicou que não passou por um evento desse tipo, e por isso o questionário termina aqui.</p>" +
+          "<p>Se depois você lembrar de alguma coisa, ou se ficou em dúvida sobre alguma pergunta, traga na consulta. Aqui não existe pergunta errada nem resposta errada.</p>" +
+        "</div>";
+    } else if (acima) {
+      faixa = "Acima do ponto de corte deste rastreio";
+      corpo =
+        '<div class="caixa ambar">' +
+          "<p>Suas respostas mostram que <strong>o que você viveu ainda está te afetando de forma importante no seu dia a dia</strong>, agora, no presente.</p>" +
+          "<p>Isso não é fraqueza e não é coisa da sua cabeça: é o corpo ainda em estado de defesa. É tratável, e é exatamente disso que a gente vai cuidar.</p>" +
+          "<p><strong>Isto é um rastreio, não um diagnóstico.</strong> Quem conclui qualquer coisa sou eu, com você na frente.</p>" +
+        "</div>";
+    } else {
+      faixa = "Abaixo do ponto de corte deste rastreio";
+      corpo =
+        '<div class="caixa nota">' +
+          "<p>Você indicou que passou por um evento difícil e que, no último mês, " +
+          (n === 0 ? "nenhum" : "<strong>" + n + "</strong>") +
+          " dos cinco sinais avaliados esteve presente.</p>" +
+          "<p><strong>Isso não diminui o que você viveu.</strong> A escala mede um mês; ela não mede a sua história. A gente vai conversar sobre isso na consulta, no seu tempo.</p>" +
+        "</div>";
+    }
+
+    var dom = "";
+    if (!sem) {
+      dom = '<ul class="dominios">';
+      ITENS.forEach(function (it, i) {
+        var s = estado.respostas[i] === true;
+        dom +=
+          "<li><span>" + esc(it.rotulo) + "</span>" +
+          '<span class="marca ' + (s ? "sim" : "nao") + '">' + (s ? "SIM" : "NÃO") + "</span></li>";
+      });
+      dom += "</ul>";
+    }
+
+    return (
+      '<p class="passo">Resultado</p>' +
+      '<div class="escore"><span class="num">' + n + '</span>' +
+      '<span class="de">de 5' + (sem ? "" : " · ponto de corte " + CORTE) + "</span></div>" +
+      '<p class="faixa">' + faixa + "</p>" +
+      dom +
+      corpo +
+      (sem ? "" : blocoLucas()) +
+      (sem ? "" : blocoSeguranca()) +
+      '<p class="passo" style="margin-top:26px;">Envie este resumo para o Dr. Lucas</p>' +
+      '<div class="resumo" id="resumo">' + esc(textoResumo(n)) + "</div>" +
+      '<p class="copiado" id="copiado"></p>' +
+      '<button class="btn btn-principal" data-acao="copiar">Copiar resumo</button>' +
+      '<button class="voltar" data-acao="recomecar">Refazer o questionário</button>'
+    );
+  }
+
+  /* ---------------- motor ---------------- */
+
+  function pintar() {
+    var h;
+    if (passo === 0) h = telaIntro();
+    else if (passo === 1) h = telaPortao();
+    else if (passo >= 2 && passo <= 6) h = telaItem(passo - 2);
+    else h = telaResultado();
+
+    palco.innerHTML = h;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function copiar() {
+    var txt = textoResumo(escore());
+    var aviso = document.getElementById("copiado");
+
+    function ok() { if (aviso) aviso.textContent = "Copiado. Agora é só colar no WhatsApp."; }
+    function falha() { if (aviso) aviso.textContent = "Não consegui copiar. Selecione o texto acima e copie à mão."; }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(txt).then(ok).catch(falha);
+      return;
+    }
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = txt;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      var deu = document.execCommand("copy");
+      document.body.removeChild(ta);
+      deu ? ok() : falha();
+    } catch (e) {
+      falha();
+    }
+  }
+
+  palco.addEventListener("click", function (ev) {
+    var b = ev.target.closest("button");
+    if (!b) return;
+    var a = b.dataset.acao;
+
+    if (a === "comecar") {
+      passo = 1;
+    } else if (a === "portao") {
+      estado.exposicao = b.dataset.v === "1";
+      if (!estado.exposicao) {
+        estado.respostas = [null, null, null, null, null];
+        passo = 7;
+      } else {
+        passo = 2;
+      }
+    } else if (a === "item") {
+      var i = parseInt(b.dataset.i, 10);
+      estado.respostas[i] = b.dataset.v === "1";
+      passo = i === 4 ? 7 : passo + 1;
+    } else if (a === "voltar") {
+      if (passo === 7 && estado.exposicao !== true) passo = 1;
+      else if (passo > 0) passo = passo - 1;
+    } else if (a === "copiar") {
+      copiar();
+      return;
+    } else if (a === "recomecar") {
+      estado = { exposicao: null, respostas: [null, null, null, null, null] };
+      passo = 0;
+    } else {
+      return;
+    }
+
+    pintar();
+  });
+
+  pintar();
+})();
+</script>
+</body>
+</html>
