@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SDQ — Professor(a) · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --ambar-bg:#FBF3E3; --ambar-borda:#C9A24B;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.42rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .ambar{background:var(--ambar-bg);border-left:3px solid var(--ambar-borda);}
+  .ambar .tit{color:#8A6A1F;}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.05rem;color:var(--bronze-dark);margin:0 0 4px;font-weight:700;}
+  .haste-sub{font-size:.82rem;color:var(--suave);margin:0 0 14px;}
+  .radiogrupo{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+  .radiogrupo label{
+    flex:1;min-width:90px;text-align:center;font-size:.8rem;
+    border:1.5px solid var(--linha);border-radius:7px;padding:8px 4px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;
+  }
+  .radiogrupo input{display:none;}
+  .radiogrupo label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .item{border-bottom:1px solid #E6DCCB;padding:14px 0;}
+  .item:last-child{border-bottom:0;}
+  .item .txt{font-size:.97rem;margin-bottom:8px;line-height:1.42;}
+  .item .num{color:var(--bronze-med);font-weight:700;margin-right:5px;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:16px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:5px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .ponto{width:6px;height:6px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  table.dom{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:8px;}
+  table.dom th{text-align:left;font-family:'Caladea',Georgia,serif;font-size:.74rem;color:var(--bronze-med);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--linha);padding:5px 4px;}
+  table.dom td{padding:7px 4px;border-bottom:1px solid #E6DCCB;}
+  table.dom td.v{text-align:right;font-weight:700;color:var(--bronze-dark);white-space:nowrap;}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.76rem;line-height:1.6;white-space:pre-wrap;color:#4A4034;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  footer .ref{margin-top:9px;font-size:.68rem;color:#8C8272;}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+    .radiogrupo label{min-width:78px;font-size:.72rem;padding:7px 3px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>SDQ — Professor(a)</h1>
+    <p class="sub">Questionário de Capacidades e Dificuldades</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p class="ref">
+      Strengths and Difficulties Questionnaire (SDQ) — versão professor(a).<br/>
+      R. Goodman, 1997 — uso não comercial livre. Validação brasileira: Fleitlich, Cartázar &amp; Goodman, 2000.<br/>
+      Este instrumento não deve ser usado isoladamente para fechar diagnóstico.
+    </p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var ITENS = [
+ {n:1,  sub:"prosocial",     rev:false, texto:"Tem consideração pelos sentimentos de outras pessoas"},
+ {n:2,  sub:"hiperatividade",rev:false, texto:"Inquieto(a), hiperativo(a), não consegue ficar parado(a) por muito tempo"},
+ {n:3,  sub:"emocional",     rev:false, texto:"Frequentemente se queixa de dor de cabeça, dor de barriga ou enjoo"},
+ {n:4,  sub:"prosocial",     rev:false, texto:"Divide com boa vontade com outras crianças (balas, brinquedos, lápis etc.)"},
+ {n:5,  sub:"conduta",       rev:false, texto:"Frequentemente tem ataques de raiva ou fúria"},
+ {n:6,  sub:"colegas",       rev:false, texto:"É um tanto solitário(a), prefere brincar sozinho(a)"},
+ {n:7,  sub:"conduta",       rev:true,  texto:"Geralmente faz o que os adultos pedem"},
+ {n:8,  sub:"emocional",     rev:false, texto:"Preocupa-se muito, frequentemente parece preocupado(a)"},
+ {n:9,  sub:"prosocial",     rev:false, texto:"Prestativo(a) se alguém está machucado(a), chateado(a) ou passando mal"},
+ {n:10, sub:"hiperatividade",rev:false, texto:"Constantemente se remexendo ou se contorcendo"},
+ {n:11, sub:"colegas",       rev:true,  texto:"Tem ao menos um bom amigo(a)"},
+ {n:12, sub:"conduta",       rev:false, texto:"Briga muito com outras crianças ou as intimida"},
+ {n:13, sub:"emocional",     rev:false, texto:"Frequentemente infeliz, choroso(a) ou aborrecido(a)"},
+ {n:14, sub:"colegas",       rev:true,  texto:"No geral, cai bem entre outras crianças de sua idade"},
+ {n:15, sub:"hiperatividade",rev:false, texto:"Facilmente se distrai, tem dificuldade de concentração"},
+ {n:16, sub:"emocional",     rev:false, texto:"Nervoso(a) ou \"grudento(a)\" em situações novas, facilmente perde a autoconfiança"},
+ {n:17, sub:"prosocial",     rev:false, texto:"É gentil com crianças menores"},
+ {n:18, sub:"conduta",       rev:false, texto:"Frequentemente mente ou trapaceia"},
+ {n:19, sub:"colegas",       rev:false, texto:"É provocado(a) ou intimidado(a) por outras crianças"},
+ {n:20, sub:"prosocial",     rev:false, texto:"Frequentemente se oferece para ajudar outras pessoas (pais, professores, outras crianças)"},
+ {n:21, sub:"hiperatividade",rev:true,  texto:"Pensa bem antes de fazer as coisas"},
+ {n:22, sub:"conduta",       rev:false, texto:"Rouba coisas de casa, da escola ou de outros lugares"},
+ {n:23, sub:"colegas",       rev:false, texto:"Se dá melhor com adultos do que com outras crianças"},
+ {n:24, sub:"emocional",     rev:false, texto:"Tem muitos medos, assusta-se facilmente"},
+ {n:25, sub:"hiperatividade",rev:true,  texto:"Termina o trabalho ou a tarefa que começou; tem boa capacidade de atenção"}
+];
+
+var NOMES_SUB = {
+  emocional:"Sintomas Emocionais", conduta:"Problemas de Conduta",
+  hiperatividade:"Hiperatividade/Desatenção", colegas:"Relacionamento com Colegas", prosocial:"Comportamento Pró-social"
+};
+var ORDEM_SUB = ["emocional","conduta","hiperatividade","colegas","prosocial"];
+
+var ESCALA = ["Não é verdade","Mais ou menos verdade","Verdade"];
+
+var IMPACTO = [
+  {chave:"geral", texto:"No geral, você acha que este(a) aluno(a) tem dificuldades numa ou mais destas áreas: emoções, concentração, comportamento, ou de se relacionar com outras pessoas?",
+   opcoes:["Não","Dificuldades pequenas","Dificuldades claras","Dificuldades graves"]},
+  {chave:"duracao", texto:"Há quanto tempo essas dificuldades existem?",
+   opcoes:["Menos de um mês","1 a 5 meses","6 a 12 meses","Mais de um ano"]},
+  {chave:"aborrece", texto:"As dificuldades incomodam ou aborrecem o(a) aluno(a)?",
+   opcoes:["Não","Um pouco","Bastante","Muito"]},
+  {chave:"aprendizado", texto:"As dificuldades atrapalham o aprendizado em sala de aula?", opcoes:["Não","Um pouco","Bastante","Muito"]},
+  {chave:"amizades", texto:"As dificuldades atrapalham o relacionamento com os colegas?", opcoes:["Não","Um pouco","Bastante","Muito"]},
+  {chave:"participacao", texto:"As dificuldades atrapalham atividades em grupo ou a participação em sala?", opcoes:["Não","Um pouco","Bastante","Muito"]},
+  {chave:"peso", texto:"As dificuldades representam um peso extra para você ou para a turma?", opcoes:["Não","Um pouco","Bastante","Muito"]}
+];
+
+var estado = { nome:"", serie:"", respostas:{}, impacto:{} };
+var passo = 0; // 0 intro, 1 itens, 2 impacto, 3 resultado
+
+var palco = document.getElementById("palco");
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+function telaIntro(){
+  return (
+    '<p class="passo">Antes de começar</p>'+
+    '<p class="haste">SDQ — versão para professor(a)</p>'+
+    '<p class="haste-sub">Strengths and Difficulties Questionnaire</p>'+
+    '<p>25 perguntas sobre o comportamento do(a) aluno(a), desde o início do ano letivo. Leva cerca de 5 minutos.</p>'+
+    '<label class="campo" style="display:block;font-size:.85rem;color:var(--suave);margin:10px 0 4px;">Nome do(a) aluno(a)</label>'+
+    '<input type="text" id="campo-nome" value="'+esc(estado.nome)+'" style="width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;font-size:1rem;font-family:inherit;margin-bottom:8px;">'+
+    '<label class="campo" style="display:block;font-size:.85rem;color:var(--suave);margin:10px 0 4px;">Série / ano</label>'+
+    '<input type="text" id="campo-serie" value="'+esc(estado.serie)+'" style="width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;font-size:1rem;font-family:inherit;">'+
+    '<div class="caixa nota" style="margin-top:14px;"><span class="tit">Responda mesmo em dúvida</span><p>Marque a opção que melhor descreve, mesmo que não tenha certeza absoluta ou a pergunta pareça estranha.</p></div>'+
+    '<button class="btn" data-acao="comecar">Começar</button>'
+  );
+}
+
+function telaItens(){
+  var itensHtml = ITENS.map(function(it){
+    var chaveResp = "item_"+it.n;
+    var valorAtual = estado.respostas[chaveResp];
+    var botoes = ESCALA.map(function(op, val){
+      var checked = (valorAtual===val) ? ' checked' : '';
+      return '<label><input type="radio" name="'+chaveResp+'" value="'+val+'"'+checked+'><span>'+esc(op)+'</span></label>';
+    }).join('');
+    return '<div class="item"><p class="txt"><span class="num">'+it.n+'.</span>'+esc(it.texto)+'</p><div class="radiogrupo">'+botoes+'</div></div>';
+  }).join('');
+
+  return (
+    '<p class="passo">Os 25 itens</p>'+
+    '<p class="haste-sub">Pensando no comportamento observado em sala...</p>'+
+    itensHtml+
+    '<button class="btn" data-acao="ir-impacto" style="margin-top:18px;">Continuar</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function telaImpacto(){
+  var h = IMPACTO.map(function(q){
+    var valorAtual = estado.impacto[q.chave];
+    var botoes = q.opcoes.map(function(op,val){
+      var checked=(valorAtual===val)?' checked':'';
+      return '<label><input type="radio" name="imp_'+q.chave+'" value="'+val+'"'+checked+'><span>'+esc(op)+'</span></label>';
+    }).join('');
+    return '<div class="item"><p class="txt">'+esc(q.texto)+'</p><div class="radiogrupo">'+botoes+'</div></div>';
+  }).join('');
+  return (
+    '<p class="passo">Suplemento de impacto</p>'+
+    '<p class="haste-sub">Estas últimas perguntas ajudam a entender o quanto isso afeta o dia a dia escolar.</p>'+
+    h+
+    '<button class="btn" data-acao="ir-resultado" style="margin-top:18px;">Ver resultado</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function calcular(){
+  var somas = {emocional:0,conduta:0,hiperatividade:0,colegas:0,prosocial:0};
+  ITENS.forEach(function(it){
+    var v = estado.respostas["item_"+it.n];
+    if (v===undefined) return;
+    var pontuado = it.rev ? (2-v) : v;
+    somas[it.sub] += pontuado;
+  });
+  var totalDificuldades = somas.emocional + somas.conduta + somas.hiperatividade + somas.colegas;
+  return { somas:somas, total:totalDificuldades };
+}
+
+function textoResumo(r){
+  var d = new Date();
+  var linhas = [];
+  linhas.push("SDQ — Professor(a)");
+  linhas.push("Aluno(a): " + (estado.nome || "não informado"));
+  linhas.push("Série: " + (estado.serie || "não informado"));
+  linhas.push("Preenchido em: " + d.toLocaleDateString('pt-BR'));
+  linhas.push("");
+  ORDEM_SUB.forEach(function(s){
+    linhas.push(NOMES_SUB[s] + ": " + r.somas[s] + "/10");
+  });
+  linhas.push("");
+  linhas.push("Total de Dificuldades (emocional+conduta+hiperatividade+colegas): " + r.total + "/40");
+  linhas.push("");
+  IMPACTO.forEach(function(q){
+    var v = estado.impacto[q.chave];
+    linhas.push(q.texto + " " + (v!==undefined ? q.opcoes[v] : "não respondido"));
+  });
+  linhas.push("");
+  linhas.push("Este instrumento não deve ser usado isoladamente para diagnóstico.");
+  return linhas.join("\n");
+}
+
+function telaResultado(){
+  var r = calcular();
+  var linhasTabela = ORDEM_SUB.map(function(s){
+    return '<tr><td>'+esc(NOMES_SUB[s])+'</td><td class="v">'+r.somas[s]+' / 10</td></tr>';
+  }).join('');
+  return (
+    '<p class="passo">Resultado</p>'+
+    '<div class="caixa ambar"><span class="tit">Isto é um rastreio, não um diagnóstico</span>'+
+      '<p>A leitura clínica de cada subescala e do suplemento de impacto é sempre do médico responsável.</p>'+
+    '</div>'+
+    '<table class="dom"><tr><th>Subescala</th><th style="text-align:right;">Pontuação</th></tr>'+
+    linhasTabela+
+    '<tr><td><strong>Total de Dificuldades</strong></td><td class="v"><strong>'+r.total+' / 40</strong></td></tr>'+
+    '</table>'+
+    '<p class="passo" style="margin-top:22px;">Envie este resumo para o Dr. Lucas</p>'+
+    '<div class="resumo" id="resumo">'+esc(textoResumo(r))+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="recomecar">Refazer</button>'
+  );
+}
+
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo===1) h = telaItens();
+  else if (passo===2) h = telaImpacto();
+  else h = telaResultado();
+  palco.innerHTML = h;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function salvarItens(){
+  ITENS.forEach(function(it){
+    var el = document.querySelector('input[name="item_'+it.n+'"]:checked');
+    if (el) estado.respostas["item_"+it.n] = parseInt(el.value,10);
+  });
+}
+function salvarImpacto(){
+  IMPACTO.forEach(function(q){
+    var el = document.querySelector('input[name="imp_'+q.chave+'"]:checked');
+    if (el) estado.impacto[q.chave] = parseInt(el.value,10);
+  });
+}
+
+function copiar(){
+  var txt = textoResumo(calcular());
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a==="comecar"){
+    var nomeEl=document.getElementById("campo-nome");
+    var serieEl=document.getElementById("campo-serie");
+    if (nomeEl) estado.nome=nomeEl.value;
+    if (serieEl) estado.serie=serieEl.value;
+    passo=1;
+  }
+  else if (a==="ir-impacto"){ salvarItens(); passo=2; }
+  else if (a==="ir-resultado"){ salvarImpacto(); passo=3; }
+  else if (a==="voltar"){
+    if (passo===2) salvarImpacto();
+    if (passo===1) salvarItens();
+    if (passo>0) passo=passo-1;
+  }
+  else if (a==="copiar"){ copiar(); return; }
+  else if (a==="recomecar"){
+    estado = { nome:"", serie:"", respostas:{}, impacto:{} };
+    passo=0;
+  }
+  else { return; }
+  pintar();
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>
