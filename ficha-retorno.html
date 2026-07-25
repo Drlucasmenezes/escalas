@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Ficha de Retorno · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --ambar-bg:#FBF3E3; --ambar-borda:#C9A24B;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.42rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.1rem;color:var(--bronze-dark);margin:0 0 14px;font-weight:700;}
+  label.campo{display:block;font-size:.87rem;color:var(--suave);margin:14px 0 5px;font-weight:700;}
+  label.campo:first-child{margin-top:0;}
+  .ajuda{font-size:.78rem;color:var(--suave);margin:-3px 0 6px;font-style:italic;}
+  input[type=text]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  textarea{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+    min-height:80px;resize:vertical;line-height:1.5;
+  }
+  .pillgrupo{display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;}
+  .pillgrupo label{
+    text-align:center;font-size:.85rem;
+    border:1.5px solid var(--linha);border-radius:7px;padding:9px 13px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;flex:1;min-width:80px;
+  }
+  .pillgrupo input{display:none;}
+  .pillgrupo label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .subcampo{margin-top:10px;padding:12px 14px;background:#F4EEE3;border-radius:8px;border:1px dashed var(--linha);}
+  .subcampo.oculto{display:none;}
+  .escala10{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;}
+  .escala10 label{
+    flex:1;min-width:26px;text-align:center;font-size:.82rem;font-weight:700;
+    border:1.5px solid var(--linha);border-radius:6px;padding:9px 2px;cursor:pointer;
+    background:#fff;color:var(--suave);
+  }
+  .escala10 input{display:none;}
+  .escala10 label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .escala10-legenda{display:flex;justify-content:space-between;font-size:.7rem;color:var(--suave);margin-top:4px;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:18px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:5px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .ponto{width:6px;height:6px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.76rem;line-height:1.6;white-space:pre-wrap;color:#4A4034;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>Ficha de Retorno</h1>
+    <p class="sub">Antes da sua próxima consulta</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p style="font-size:.68rem;color:#8C8272;margin-top:8px;">Suas respostas não são enviadas nem armazenadas automaticamente — ao final, você mesmo copia e envia o resumo.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var estado = {};
+var passo = 0;
+// 0 intro, 1 identificação, 2..8 seções (7), 9 resultado
+var TOTAL_SECOES = 7;
+var IDX_SECOES_INICIO = 2;
+var IDX_RESULTADO = IDX_SECOES_INICIO + TOTAL_SECOES;
+
+var palco = document.getElementById("palco");
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function g(chave){ return estado[chave]; }
+function set(chave, valor){ estado[chave] = valor; }
+
+function pontosBar(atual){
+  var total = IDX_RESULTADO;
+  var h='<div class="pontos" aria-hidden="true">';
+  for (var i=0;i<total;i++){ h += '<span class="ponto'+(i<=atual?' on':'')+'"></span>'; }
+  return h+'</div>';
+}
+
+function campoTexto(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<input type="text" data-campo="'+chave+'" value="'+esc(v)+'">';
+}
+function campoArea(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<textarea data-campo="'+chave+'">'+esc(v)+'</textarea>';
+}
+function campoUnica(chave, rotulo, opcoes){
+  var v = g(chave);
+  var botoes = opcoes.map(function(op){
+    var checked = (v===op) ? ' checked' : '';
+    return '<label><input type="radio" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label><div class="pillgrupo" data-grupo="'+chave+'">'+botoes+'</div>';
+}
+function campoEscala10(chave, rotulo){
+  var v = g(chave);
+  var botoes = '';
+  for (var i=0;i<=10;i++){
+    var checked = (v===String(i)) ? ' checked' : '';
+    botoes += '<label><input type="radio" name="'+chave+'" value="'+i+'"'+checked+'><span>'+i+'</span></label>';
+  }
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="escala10" data-grupo="'+chave+'">'+botoes+'</div>'+
+    '<div class="escala10-legenda"><span>0 = muito pior</span><span>10 = muito melhor</span></div>';
+}
+function subcampo(id, conteudoHtml, visivel){
+  return '<div class="subcampo'+(visivel?'':' oculto')+'" id="'+id+'">'+conteudoHtml+'</div>';
+}
+
+function capturarTela(){
+  document.querySelectorAll('[data-campo]').forEach(function(el){ set(el.dataset.campo, el.value); });
+  document.querySelectorAll('[data-grupo]').forEach(function(el){
+    var checked = el.querySelector('input:checked');
+    set(el.dataset.grupo, checked ? checked.value : undefined);
+  });
+}
+
+function telaIntro(){
+  return (
+    '<p class="passo">Antes da consulta</p>'+
+    '<p class="haste">Como você está desde a última vez?</p>'+
+    '<p>Este formulário rápido — cerca de 3 minutos — ajuda a aproveitar melhor o tempo da sua consulta de retorno.</p>'+
+    '<button class="btn" data-acao="comecar">Começar</button>'
+  );
+}
+
+function telaIdentificacao(){
+  return (
+    '<p class="passo">Identificação</p>'+
+    campoTexto('id_nome','Seu nome')+
+    campoTexto('id_data','Data de hoje')+
+    '<button class="btn" data-acao="ir-secao" data-i="0">Continuar</button>'
+  );
+}
+
+function secao1(){
+  return (
+    '<p class="passo">1 de 7</p>'+
+    '<p class="haste">Desde a última consulta, em geral</p>'+
+    campoUnica('r1_geral','Como você diria que está, comparado à última vez?',['Melhor','Igual','Pior'])+
+    campoEscala10('r1_nota','Numa nota de 0 a 10, como está hoje comparado à última consulta?')+
+    campoArea('r1_mudou','O que mudou — pra melhor ou pra pior — desde então?')
+  );
+}
+
+function secao2(){
+  var esqueceu = g('r2_esqueceu')==='Sim';
+  return (
+    '<p class="passo">2 de 7</p>'+
+    '<p class="haste">Medicação</p>'+
+    campoUnica('r2_tomando','Você está tomando a medicação como foi orientado?',['Sim','Parcialmente','Não'])+
+    campoUnica('r2_esqueceu','Esqueceu alguma dose nos últimos dias?',['Não','Sim'])+
+    subcampo('sub_r2', campoTexto('r2_esqueceu_detalhe','Quantas vezes, aproximadamente?'), esqueceu)+
+    campoArea('r2_efeito','Notou algum efeito novo — bom ou ruim — desde a última consulta?')
+  );
+}
+
+function secao3(){
+  return (
+    '<p class="passo">3 de 7</p>'+
+    '<p class="haste">Sono</p>'+
+    campoUnica('r3_geral','Como está o sono, comparado à última consulta?',['Melhor','Igual','Pior'])+
+    campoTexto('r3_horas','Quantas horas você tem dormido, em média, por noite?')+
+    campoUnica('r3_extra','Usou algum remédio ou substância pra dormir que não foi combinado com o médico?',['Não','Sim'])
+  );
+}
+
+function secao4(){
+  var tentou = g('r4_tentou')==='Sim';
+  return (
+    '<p class="passo">4 de 7</p>'+
+    '<p class="haste">Segurança</p>'+
+    '<div class="caixa nota"><p>Estas perguntas fazem parte de toda consulta de retorno, não só da primeira.</p></div>'+
+    campoUnica('r4_ideacao','Desde a última consulta, teve pensamentos de que a vida não vale a pena ou de não estar vivo?',['Não','Sim, passageiro','Sim, com frequência'])+
+    campoUnica('r4_tentou','Chegou a se machucar de propósito, ou tentar tirar a própria vida, desde então?',['Não','Sim'])+
+    subcampo('sub_r4', campoArea('r4_tentou_detalhe','Descreva'), tentou)
+  );
+}
+
+function secao5(){
+  return (
+    '<p class="passo">5 de 7</p>'+
+    '<p class="haste">Algo novo na sua vida</p>'+
+    campoArea('r5_novo','Aconteceu alguma coisa nova — boa ou difícil — desde a última consulta que valha eu saber?')
+  );
+}
+
+function secao6(){
+  return (
+    '<p class="passo">6 de 7</p>'+
+    '<p class="haste">Para a consulta de hoje</p>'+
+    campoArea('r6_conversar','O que você quer ter certeza de que a gente vai conversar hoje?')
+  );
+}
+
+function secao7(){
+  return (
+    '<p class="passo">7 de 7</p>'+
+    '<p class="haste">Mais alguma coisa</p>'+
+    campoArea('r7_outras','Algo mais que considere importante, mesmo que não se encaixe nas perguntas anteriores')
+  );
+}
+
+var RENDER_SECOES = [secao1,secao2,secao3,secao4,secao5,secao6,secao7];
+
+function corpoSecao(i){
+  var conteudo = RENDER_SECOES[i]();
+  var ehUltima = (i===TOTAL_SECOES-1);
+  return conteudo+
+    pontosBar(IDX_SECOES_INICIO+i)+
+    '<button class="btn" data-acao="proxima-secao" data-i="'+i+'" style="margin-top:8px;">'+(ehUltima?'Ver resumo':'Continuar')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>';
+}
+
+function religar(){
+  var r2 = document.querySelector('[data-grupo="r2_esqueceu"]');
+  var r2Alvo = document.getElementById('sub_r2');
+  if (r2 && r2Alvo){
+    r2.addEventListener('change', function(){
+      var c = r2.querySelector('input:checked');
+      r2Alvo.classList.toggle('oculto', !(c && c.value==='Sim'));
+    });
+  }
+  var r4 = document.querySelector('[data-grupo="r4_tentou"]');
+  var r4Alvo = document.getElementById('sub_r4');
+  if (r4 && r4Alvo){
+    r4.addEventListener('change', function(){
+      var c = r4.querySelector('input:checked');
+      r4Alvo.classList.toggle('oculto', !(c && c.value==='Sim'));
+    });
+  }
+}
+
+function linha(rotulo, chave){
+  var v = g(chave);
+  if (v===undefined || v===null || v==='') return '';
+  return rotulo+': '+v+'\n';
+}
+
+function textoResumo(){
+  var d = new Date();
+  var t = 'FICHA DE RETORNO\nDr. Lucas Menezes\n';
+  t += 'Preenchido em: '+d.toLocaleDateString('pt-BR')+'\n\n';
+  t += linha('Nome','id_nome')+linha('Data informada','id_data');
+  t += '\n--- DESDE A ÚLTIMA CONSULTA ---\n';
+  t += linha('Em geral','r1_geral')+linha('Nota (0-10)','r1_nota')+linha('O que mudou','r1_mudou');
+  t += '\n--- MEDICAÇÃO ---\n';
+  t += linha('Tomando como orientado','r2_tomando')+linha('Esqueceu dose','r2_esqueceu')+linha('Quantas vezes','r2_esqueceu_detalhe')+linha('Efeito novo','r2_efeito');
+  t += '\n--- SONO ---\n';
+  t += linha('Em geral','r3_geral')+linha('Horas por noite','r3_horas')+linha('Usou algo extra não combinado','r3_extra');
+  t += '\n--- SEGURANÇA ---\n';
+  t += linha('Pensamentos de morte/não estar vivo','r4_ideacao')+linha('Machucou-se ou tentou','r4_tentou')+linha('Detalhe','r4_tentou_detalhe');
+  t += '\n--- ALGO NOVO ---\n';
+  t += linha('Eventos recentes','r5_novo');
+  t += '\n--- PARA A CONSULTA DE HOJE ---\n';
+  t += linha('Quer conversar sobre','r6_conversar');
+  t += '\n--- OUTRAS INFORMAÇÕES ---\n';
+  t += linha('Outras','r7_outras');
+  return t;
+}
+
+function telaResultado(){
+  var texto = textoResumo();
+  return (
+    '<p class="passo">Concluído</p>'+
+    '<p class="haste">Obrigado</p>'+
+    '<div class="caixa nota"><p>Copie o resumo abaixo e envie para o Dr. Lucas antes da consulta.</p></div>'+
+    '<div class="resumo" id="resumo">'+esc(texto)+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar e revisar</button>'
+  );
+}
+
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo===1) h = telaIdentificacao();
+  else if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) h = corpoSecao(passo-IDX_SECOES_INICIO);
+  else h = telaResultado();
+  palco.innerHTML = h;
+  if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) religar();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function copiar(){
+  var txt = textoResumo();
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+  if (a==="comecar"){ passo=1; }
+  else if (a==="ir-secao"){ capturarTela(); passo=IDX_SECOES_INICIO; }
+  else if (a==="proxima-secao"){
+    capturarTela();
+    var i=parseInt(b.dataset.i,10);
+    passo = (i===TOTAL_SECOES-1) ? IDX_RESULTADO : passo+1;
+  }
+  else if (a==="voltar"){
+    if (passo>=IDX_SECOES_INICIO && passo<=IDX_RESULTADO) capturarTela();
+    if (passo>0) passo=passo-1;
+  }
+  else if (a==="copiar"){ copiar(); return; }
+  else { return; }
+  pintar();
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>

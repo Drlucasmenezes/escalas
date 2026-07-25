@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Pré-Anamnese · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --ambar-bg:#FBF3E3; --ambar-borda:#C9A24B;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --risco-bg:#F7ECEC; --risco-borda:#B26A6A;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.42rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .ambar{background:var(--ambar-bg);border-left:3px solid var(--ambar-borda);}
+  .ambar .tit{color:#8A6A1F;}
+  .risco{background:var(--risco-bg);border-left:3px solid var(--risco-borda);}
+  .risco .tit{color:#8E4B4B;}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.1rem;color:var(--bronze-dark);margin:0 0 14px;font-weight:700;}
+  label.campo{display:block;font-size:.87rem;color:var(--suave);margin:14px 0 5px;font-weight:700;}
+  label.campo:first-child{margin-top:0;}
+  .ajuda{font-size:.78rem;color:var(--suave);margin:-3px 0 6px;font-style:italic;}
+  input[type=text],input[type=tel],input[type=date],input[type=number]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  textarea{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+    min-height:90px;resize:vertical;line-height:1.5;
+  }
+  .pillgrupo{display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;}
+  .pillgrupo label{
+    text-align:center;font-size:.85rem;
+    border:1.5px solid var(--linha);border-radius:7px;padding:9px 13px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;flex:0 0 auto;
+  }
+  .pillgrupo.full label{flex:1;min-width:80px;}
+  .pillgrupo input{display:none;}
+  .pillgrupo label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .pillgrupo.multi label:has(input:checked){background:#8A6A1F;border-color:#8A6A1F;}
+  .subcampo{margin-left:0;margin-top:10px;padding:12px 14px;background:#F4EEE3;border-radius:8px;border:1px dashed var(--linha);}
+  .subcampo.oculto{display:none;}
+  .medbloco{border:1px solid var(--linha);border-radius:8px;padding:13px 14px;margin:10px 0;background:#fff;}
+  .medbloco .medtit{font-family:'Caladea',Georgia,serif;font-weight:700;color:var(--bronze-med);font-size:.88rem;margin:0 0 8px;}
+  .duasColunas{display:flex;gap:10px;}
+  .duasColunas > div{flex:1;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:18px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:3px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .ponto{width:5px;height:5px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  .pular{display:block;text-align:center;margin-top:10px;font-size:.83rem;color:var(--suave);text-decoration:underline;cursor:pointer;background:none;border:0;padding:6px;width:100%;}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.74rem;line-height:1.55;white-space:pre-wrap;color:#4A4034;max-height:480px;overflow-y:auto;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>Pré-Anamnese</h1>
+    <p class="sub">Dr. Lucas Menezes · Saúde Mental</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p style="font-size:.68rem;color:#8C8272;margin-top:8px;">Suas respostas não são enviadas nem armazenadas automaticamente — ao final, você mesmo copia e envia o resumo.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var estado = {};
+var passo = 0;
+// telas: 0 intro, 1 identificação, 2..22 seções 1-21, 23 resultado
+var TOTAL_SECOES = 21;
+var IDX_SECOES_INICIO = 2;
+var IDX_RESULTADO = IDX_SECOES_INICIO + TOTAL_SECOES; // 23
+
+var palco = document.getElementById("palco");
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function g(chave){ return estado[chave]; }
+function set(chave, valor){ estado[chave] = valor; }
+
+function pontosBar(atual){
+  var total = IDX_RESULTADO;
+  var h='<div class="pontos" aria-hidden="true">';
+  for (var i=0;i<total;i++){ h += '<span class="ponto'+(i<=atual?' on':'')+'"></span>'; }
+  return h+'</div>';
+}
+
+// ---------- helpers de campo ----------
+function campoTexto(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    (ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<input type="text" data-campo="'+chave+'" value="'+esc(v)+'">';
+}
+function campoArea(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    (ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<textarea data-campo="'+chave+'">'+esc(v)+'</textarea>';
+}
+function campoUnica(chave, rotulo, opcoes, full){
+  var v = g(chave);
+  var botoes = opcoes.map(function(op){
+    var checked = (v===op) ? ' checked' : '';
+    return '<label><input type="radio" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo'+(full?' full':'')+'" data-grupo="'+chave+'">'+botoes+'</div>';
+}
+function campoMultipla(chave, rotulo, opcoes){
+  var v = g(chave) || [];
+  var botoes = opcoes.map(function(op){
+    var checked = (v.indexOf(op)>=0) ? ' checked' : '';
+    return '<label><input type="checkbox" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo multi" data-grupomulti="'+chave+'">'+botoes+'</div>';
+}
+function subcampo(id, conteudoHtml, visivel){
+  return '<div class="subcampo'+(visivel?'':' oculto')+'" id="'+id+'">'+conteudoHtml+'</div>';
+}
+
+// ---------- captura genérica de todos os campos visíveis na tela atual ----------
+function capturarTela(){
+  document.querySelectorAll('[data-campo]').forEach(function(el){
+    set(el.dataset.campo, el.value);
+  });
+  document.querySelectorAll('[data-grupo]').forEach(function(el){
+    var checked = el.querySelector('input:checked');
+    set(el.dataset.grupo, checked ? checked.value : undefined);
+  });
+  document.querySelectorAll('[data-grupomulti]').forEach(function(el){
+    var vals = Array.prototype.slice.call(el.querySelectorAll('input:checked')).map(function(i){ return i.value; });
+    set(el.dataset.grupomulti, vals);
+  });
+}
+
+// ---------- telas fixas ----------
+function telaIntro(){
+  return (
+    '<p class="passo">Antes de começar</p>'+
+    '<p class="haste">Pré-consulta — Dr. Lucas Menezes</p>'+
+    '<p>Este formulário reúne as informações que ajudam a preparar sua primeira consulta com calma e profundidade. Leva de 10 a 15 minutos — pode pausar e voltar depois, se precisar, contanto que não feche esta aba.</p>'+
+    '<div class="caixa nota"><span class="tit">Não existe resposta certa ou errada</span><p>Responda com sinceridade, mesmo quando a pergunta parecer difícil ou íntima. Tudo aqui é tratado com sigilo.</p></div>'+
+    '<button class="btn" data-acao="comecar">Começar</button>'
+  );
+}
+
+function telaIdentificacao(){
+  return (
+    '<p class="passo">Identificação</p>'+
+    campoTexto('id_paciente','Paciente (nome completo)')+
+    campoTexto('id_dn','Data de nascimento (dd/mm/aaaa)')+
+    campoTexto('id_idade','Idade')+
+    campoTexto('id_preenche','Quem está preenchendo', 'Se for pai, mãe ou responsável preenchendo por outra pessoa, escreva seu nome e o vínculo.')+
+    campoTexto('id_telefone','Telefone para contato')+
+    '<button class="btn" data-acao="ir-secao" data-i="0">Continuar</button>'
+  );
+}
+
+// ---------- SEÇÃO 1 · Motivo da consulta ----------
+function secao1(){
+  return (
+    '<p class="passo">Seção 1 de 21</p>'+
+    '<p class="haste">Motivo da Consulta</p>'+
+    campoArea('s1_queixa','Qual é a principal queixa ou dificuldade no momento?')+
+    campoArea('s1_duracao','Há quanto tempo esses sintomas ou comportamentos estão presentes?')+
+    campoArea('s1_impacto','O que mais tem impactado sua vida atualmente?')
+  );
+}
+
+// ---------- SEÇÃO 2 · Diagnósticos prévios ----------
+function secao2(){
+  var temDiag = g('s2_tem')==='Sim';
+  return (
+    '<p class="passo">Seção 2 de 21</p>'+
+    '<p class="haste">Diagnósticos Prévios</p>'+
+    campoUnica('s2_tem','Já recebeu algum diagnóstico médico, psicológico ou relacionado à saúde mental?',['Não','Sim'])+
+    subcampo('sub_s2', 
+      campoMultipla('s2_quais','Quais? (pode marcar mais de uma)',['TDAH','Ansiedade','Depressão','Transtorno bipolar','Transtorno de personalidade','Transtorno do espectro autista','Deficiência intelectual','Transtorno psicótico','Transtorno obsessivo-compulsivo','Transtorno alimentar'])+
+      campoTexto('s2_outro','Outro diagnóstico (se houver)')+
+      campoUnica('s2_profissional','Profissional que realizou o diagnóstico',['Médico','Psicólogo','Neurologista','Outro'])+
+      campoTexto('s2_prof_outro','Se "Outro", qual?')+
+      campoTexto('s2_ano','Ano do diagnóstico, caso saiba')
+    , temDiag)
+  );
+}
+
+// ---------- SEÇÃO 3 · Doenças prévias ----------
+function secao3(){
+  var temDoenca = g('s3_tem')==='Sim';
+  var temCirurgia = g('s3_cirurgia')==='Sim';
+  var temAlergia = g('s3_alergia')==='Sim';
+  var temReacao = g('s3_reacao')==='Sim';
+  return (
+    '<p class="passo">Seção 3 de 21</p>'+
+    '<p class="haste">Doenças Prévias e Condições Clínicas</p>'+
+    campoUnica('s3_tem','Possui ou já apresentou alguma doença ou condição de saúde?',['Não','Sim'])+
+    subcampo('sub_s3',
+      campoMultipla('s3_quais','Quais? (pode marcar mais de uma)',['Hipertensão arterial','Diabetes','Resistência à insulina','Colesterol/triglicerídeos elevados','Obesidade','Doença da tireoide','Epilepsia ou convulsões','Enxaqueca ou cefaleia frequente','Doença cardíaca','Arritmia cardíaca','Asma ou outra doença pulmonar','Apneia do sono','Doença renal','Doença hepática','Doença gastrointestinal','Doença autoimune','Síndrome dos ovários policísticos','Endometriose','Câncer'])+
+      campoTexto('s3_outra','Outra(s) doença(s)')+
+      campoArea('s3_descricao','Descreva as doenças, tratamentos realizados e estado atual')
+    , temDoenca)+
+    campoUnica('s3_cirurgia','Já realizou alguma cirurgia?',['Não','Sim'])+
+    subcampo('sub_s3_cirurgia', campoArea('s3_cirurgia_detalhe','Qual(is) e quando?'), temCirurgia)+
+    campoUnica('s3_alergia','Possui alguma alergia?',['Não','Sim'])+
+    subcampo('sub_s3_alergia', campoArea('s3_alergia_detalhe','Qual(is)?'), temAlergia)+
+    campoUnica('s3_reacao','Já apresentou reação ou alergia a algum medicamento?',['Não','Sim'])+
+    subcampo('sub_s3_reacao', campoArea('s3_reacao_detalhe','Qual medicamento e qual foi a reação?'), temReacao)
+  );
+}
+
+// ---------- SEÇÃO 4 · Medicações de uso contínuo ----------
+function blocoMedicacao(prefixo, titulo){
+  return '<div class="medbloco"><p class="medtit">'+esc(titulo)+'</p>'+
+    campoTexto(prefixo+'_nome','Nome')+
+    '<div class="duasColunas"><div>'+campoTexto(prefixo+'_dose','Dose')+'</div><div>'+campoTexto(prefixo+'_horario','Horário de uso')+'</div></div>'+
+    campoTexto(prefixo+'_motivo','Motivo do uso')+
+    campoTexto(prefixo+'_tempo','Há quanto tempo utiliza')+
+    '</div>';
+}
+function secao4(){
+  var usa = g('s4_usa')==='Sim';
+  var usaHormonio = g('s4_hormonio')==='Sim';
+  return (
+    '<p class="passo">Seção 4 de 21</p>'+
+    '<p class="haste">Medicações de Uso Contínuo</p>'+
+    campoUnica('s4_usa','Faz uso atualmente de alguma medicação de uso contínuo, psiquiátrica ou não?',['Não','Sim'])+
+    subcampo('sub_s4',
+      blocoMedicacao('s4_m1','Medicação 1')+
+      blocoMedicacao('s4_m2','Medicação 2')+
+      blocoMedicacao('s4_m3','Medicação 3')+
+      campoArea('s4_outras','Outras medicações (se houver mais de três)')
+    , usa)+
+    campoUnica('s4_hormonio','Utiliza anticoncepcional, hormônio ou reposição hormonal?',['Não','Sim'])+
+    subcampo('sub_s4_hormonio', campoTexto('s4_hormonio_qual','Qual?'), usaHormonio)
+  );
+}
+
+// ---------- SEÇÃO 5 · Medicações psiquiátricas anteriores ----------
+function secao5(){
+  var usou = g('s5_usou')==='Sim';
+  return (
+    '<p class="passo">Seção 5 de 21</p>'+
+    '<p class="haste">Medicações Psiquiátricas Anteriores</p>'+
+    campoUnica('s5_usou','Já fez uso de medicação psiquiátrica anteriormente?',['Não','Sim'])+
+    subcampo('sub_s5',
+      campoTexto('s5_nome','Nome da medicação')+
+      campoTexto('s5_dose','Dose utilizada')+
+      campoTexto('s5_tempo','Tempo de uso')+
+      campoTexto('s5_suspensao','Motivo da suspensão')+
+      campoUnica('s5_melhora','Houve melhora?',['Sim','Parcial','Não'])+
+      campoUnica('s5_efeitos','Apresentou efeitos colaterais?',['Não','Sim'])+
+      subcampo('sub_s5_efeitos', campoArea('s5_efeitos_detalhe','Quais?'), g('s5_efeitos')==='Sim')+
+      campoArea('s5_outras','Outras medicações psiquiátricas já utilizadas')
+    , usou)
+  );
+}
+
+// ---------- SEÇÃO 6 · Suplementos ----------
+function secao6(){
+  var usa = g('s6_usa')==='Sim';
+  return (
+    '<p class="passo">Seção 6 de 21</p>'+
+    '<p class="haste">Suplementos, Vitaminas e Fitoterápicos</p>'+
+    campoUnica('s6_usa','Faz uso de vitaminas, suplementos, fórmulas manipuladas ou fitoterápicos?',['Não','Sim'])+
+    subcampo('sub_s6', campoArea('s6_detalhe','Qual(is), dose e frequência?'), usa)
+  );
+}
+
+// ---------- SEÇÃO 7 · Comportamento e rotina ----------
+function secao7(){
+  var repetitivo = g('s7_repetitivo')==='Sim';
+  var autoOcorreu = ['No passado','Às vezes','Frequentemente','Atualmente'].indexOf(g('s7_autoagressao'))>=0;
+  var heteroOcorreu = ['Às vezes','Frequentemente'].indexOf(g('s7_heteroagressao'))>=0;
+  return (
+    '<p class="passo">Seção 7 de 21</p>'+
+    '<p class="haste">Comportamento e Rotina em Casa</p>'+
+    campoUnica('s7_irritabilidade','Irritabilidade frequente',['Nunca','Às vezes','Frequentemente'])+
+    campoUnica('s7_explosoes','Explosões de raiva',['Nunca','Às vezes','Frequentemente'])+
+    campoUnica('s7_impulsividade','Impulsividade',['Sim','Não'])+
+    campoUnica('s7_frustracao','Dificuldade em lidar com frustrações',['Sim','Não'])+
+    campoUnica('s7_isolamento','Isolamento social dentro de casa',['Sim','Não'])+
+    campoUnica('s7_repetitivo','Comportamentos repetitivos, compulsivos ou rituais',['Sim','Não'])+
+    subcampo('sub_s7_repetitivo', campoArea('s7_repetitivo_detalhe','Descreva'), repetitivo)+
+    campoUnica('s7_autoagressao','Autoagressão — machucar a si mesmo ou outros comportamentos autolesivos',['Nunca','No passado','Às vezes','Frequentemente','Atualmente'])+
+    subcampo('sub_s7_auto', campoArea('s7_autoagressao_detalhe','Descreva'), autoOcorreu)+
+    campoUnica('s7_heteroagressao','Heteroagressão — agressão verbal ou física contra outras pessoas ou animais',['Nunca','Às vezes','Frequentemente'])+
+    subcampo('sub_s7_hetero', campoArea('s7_heteroagressao_detalhe','Descreva'), heteroOcorreu)
+  );
+}
+
+// ---------- SEÇÃO 8 · Humor e emoções ----------
+var ITENS_HUMOR = [
+  ['s8_1','Mudanças bruscas de humor'],
+  ['s8_2','Períodos de irritabilidade intensa'],
+  ['s8_3','Tristeza frequente ou sensação de vazio'],
+  ['s8_4','Perda de interesse ou prazer nas atividades'],
+  ['s8_5','Ansiedade excessiva ou preocupação constante'],
+  ['s8_6','Medos intensos ou crises de pânico'],
+  ['s8_7','Pensamentos negativos recorrentes'],
+  ['s8_8','Sentimento frequente de culpa ou inutilidade'],
+  ['s8_9','Cansaço ou falta de energia'],
+  ['s8_10','Dificuldade de concentração ou memória'],
+  ['s8_11','Períodos de energia excessiva, redução da necessidade de sono ou comportamento incomum']
+];
+function secao8(){
+  var algumSim = ITENS_HUMOR.some(function(it){ return g(it[0])==='Sim'; });
+  var h = '<p class="passo">Seção 8 de 21</p><p class="haste">Humor e Emoções</p><p class="ajuda" style="margin-bottom:10px;">Você percebe em si:</p>';
+  ITENS_HUMOR.forEach(function(it){ h += campoUnica(it[0], it[1], ['Sim','Não']); });
+  h += subcampo('sub_s8', campoArea('s8_detalhe','Para os itens marcados "sim", descreva o que achar importante'), algumSim);
+  return h;
+}
+
+// ---------- SEÇÃO 9 · Segurança e histórico de crises ----------
+function secao9(){
+  var tentou = g('s9_tentou')==='Sim';
+  var internacao = g('s9_internacao')==='Sim';
+  return (
+    '<p class="passo">Seção 9 de 21</p>'+
+    '<p class="haste">Segurança e Histórico de Crises</p>'+
+    '<div class="caixa nota"><p>Estas perguntas fazem parte de toda avaliação e ajudam a garantir o cuidado certo. Responda com a mesma sinceridade das demais.</p></div>'+
+    campoUnica('s9_ideacao','Já apresentou pensamentos de que a vida não vale a pena ou desejo de não estar vivo?',['Nunca','No passado','Atualmente','Prefiro conversar durante a consulta'])+
+    campoUnica('s9_tentou','Já tentou tirar a própria vida?',['Não','Sim'])+
+    subcampo('sub_s9_tentou',
+      campoTexto('s9_quantas','Quantas vezes?')+
+      campoTexto('s9_ultima','Quando ocorreu a última vez?')
+    , tentou)+
+    campoUnica('s9_internacao','Já necessitou de atendimento de urgência ou internação por motivo relacionado à saúde mental?',['Não','Sim'])+
+    subcampo('sub_s9_internacao', campoArea('s9_internacao_detalhe','Descreva'), internacao)
+  );
+}
+
+// ---------- SEÇÃO 10 · Sono ----------
+function secao10(){
+  var usaMed = g('s10_medicacao')==='Sim';
+  return (
+    '<p class="passo">Seção 10 de 21</p>'+
+    '<p class="haste">Sono</p>'+
+    campoUnica('s10_iniciar','Tem dificuldade para iniciar o sono?',['Sim','Não'])+
+    campoUnica('s10_manter','Acorda durante a noite ou tem dificuldade para manter o sono?',['Sim','Não'])+
+    campoUnica('s10_cedo','Acorda antes do horário desejado?',['Sim','Não'])+
+    campoUnica('s10_descansado','Acorda sentindo-se descansado(a)?',['Sim','Não'])+
+    campoUnica('s10_diurno','Apresenta sono excessivo durante o dia?',['Sim','Não'])+
+    campoUnica('s10_ronco','Ronca ou apresenta pausas na respiração durante o sono?',['Sim','Não','Não sabe'])+
+    '<div class="duasColunas">'+
+      '<div>'+campoTexto('s10_dormir','Horário médio de dormir')+'</div>'+
+      '<div>'+campoTexto('s10_acordar','Horário médio de acordar')+'</div>'+
+    '</div>'+
+    campoTexto('s10_horas','Número médio de horas de sono por noite')+
+    campoUnica('s10_medicacao','Faz uso de medicação ou suplemento para dormir?',['Não','Sim'])+
+    subcampo('sub_s10', campoTexto('s10_medicacao_detalhe','Qual, dose e horário?'), usaMed)
+  );
+}
+
+// ---------- SEÇÃO 11 · Alimentação e peso ----------
+function secao11(){
+  var alterou = g('s11_peso') && g('s11_peso')!=='Não';
+  var temRestricao = g('s11_restricao')==='Sim';
+  return (
+    '<p class="passo">Seção 11 de 21</p>'+
+    '<p class="haste">Alimentação e Peso</p>'+
+    campoUnica('s11_alimentacao','Como considera sua alimentação atualmente?',['Equilibrada','Irregular','Restritiva','Compulsiva','Seletiva'],true)+
+    campoUnica('s11_compulsao','Apresenta episódios de compulsão alimentar?',['Não','Sim'])+
+    campoUnica('s11_peso','Houve alteração importante de peso recentemente?',['Não','Ganho de peso','Perda de peso'])+
+    subcampo('sub_s11_peso', campoTexto('s11_peso_detalhe','Quantidade aproximada e período'), alterou)+
+    campoUnica('s11_restricao','Possui alguma restrição, intolerância ou alergia alimentar?',['Não','Sim'])+
+    subcampo('sub_s11_restricao', campoArea('s11_restricao_detalhe','Qual(is)?'), temRestricao)
+  );
+}
+
+// ---------- SEÇÃO 12 · Trabalho e estudos ----------
+function secao12(){
+  var interfere = g('s12_interfere')==='Sim';
+  var faltas = g('s12_faltas')==='Sim';
+  return (
+    '<p class="passo">Seção 12 de 21</p>'+
+    '<p class="haste">Trabalho e Estudos</p>'+
+    campoUnica('s12_situacao','Situação atual',['Trabalhando','Estudando','Trabalhando e estudando','Afastado(a)','Desempregado(a)','Aposentado(a)'])+
+    campoTexto('s12_profissao','Profissão ou ocupação')+
+    campoTexto('s12_escolaridade','Escolaridade')+
+    campoUnica('s12_interfere','Os sintomas interferem no desempenho profissional ou acadêmico?',['Sim','Não'])+
+    subcampo('sub_s12_interfere', campoArea('s12_interfere_detalhe','De que forma?'), interfere)+
+    campoUnica('s12_faltas','Já apresentou faltas frequentes, afastamento ou dificuldade para permanecer no trabalho ou na escola?',['Não','Sim'])+
+    subcampo('sub_s12_faltas', campoArea('s12_faltas_detalhe','Descreva'), faltas)
+  );
+}
+
+// ---------- SEÇÃO 13 · Relacionamentos ----------
+function secao13(){
+  var temFilhos = g('s13_filhos')==='Sim';
+  return (
+    '<p class="passo">Seção 13 de 21</p>'+
+    '<p class="haste">Relacionamentos Sociais e Familiares</p>'+
+    campoUnica('s13_satisfatorias','Mantém relações sociais satisfatórias?',['Sim','Não'])+
+    campoUnica('s13_conflitos','Tem conflitos frequentes com familiares, amigos ou parceiros?',['Sim','Não'])+
+    campoUnica('s13_isolado','Sente-se isolado(a) socialmente?',['Sim','Não'])+
+    campoUnica('s13_rede','Possui uma rede de apoio?',['Sim','Não'])+
+    campoTexto('s13_reside','Com quem reside atualmente?')+
+    campoUnica('s13_estadocivil','Estado civil',['Solteiro(a)','Casado(a)','União estável','Separado(a)/divorciado(a)','Viúvo(a)'])+
+    campoUnica('s13_filhos','Possui filhos?',['Não','Sim'])+
+    subcampo('sub_s13_filhos', campoTexto('s13_filhos_quantos','Quantos?'), temFilhos)
+  );
+}
+
+// ---------- SEÇÃO 14 · Autonomia ----------
+var ITENS_AUTONOMIA = [
+  ['s14_1','Alimentar-se'],
+  ['s14_2','Higiene pessoal (banho, escovar os dentes e uso do banheiro)'],
+  ['s14_3','Vestir-se'],
+  ['s14_4','Organizar a casa e os pertences pessoais'],
+  ['s14_5','Administrar dinheiro e realizar compras'],
+  ['s14_6','Preparar refeições'],
+  ['s14_7','Cumprir rotinas e compromissos'],
+  ['s14_8','Administrar as próprias medicações']
+];
+function secao14(){
+  var precisaAjuda = g('s14_ajuda')==='Sim';
+  var h = '<p class="passo">Seção 14 de 21</p><p class="haste">Autonomia e Funcionalidade</p><p class="ajuda" style="margin-bottom:10px;">Você se considera independente para:</p>';
+  ITENS_AUTONOMIA.forEach(function(it){ h += campoUnica(it[0], it[1], ['Sim','Parcialmente','Não']); });
+  h += campoUnica('s14_ajuda','Necessita de ajuda ou supervisão frequente?',['Não','Sim']);
+  h += subcampo('sub_s14', campoArea('s14_ajuda_detalhe','Em quais situações?'), precisaAjuda);
+  return h;
+}
+
+// ---------- SEÇÃO 15 · Histórico familiar ----------
+function secao15(){
+  var tem = g('s15_tem')==='Sim';
+  return (
+    '<p class="passo">Seção 15 de 21</p>'+
+    '<p class="haste">Histórico Pessoal e Familiar</p>'+
+    campoUnica('s15_tem','Alguém da família possui ou já apresentou diagnóstico relacionado à saúde mental ou ao neurodesenvolvimento?',['Não','Sim'])+
+    subcampo('sub_s15',
+      campoMultipla('s15_quais','Quais? (pode marcar mais de uma)',['TDAH','Transtorno do espectro autista','Deficiência intelectual','Ansiedade','Depressão','Transtorno bipolar','Esquizofrenia ou outro transtorno psicótico','Transtorno obsessivo-compulsivo','Transtorno de personalidade','Dependência de álcool ou outras substâncias','Tentativa de suicídio','Suicídio consumado','Doença de Alzheimer ou outra demência','Doença de Parkinson'])+
+      campoTexto('s15_outro','Outro')+
+      campoArea('s15_parentesco','Grau de parentesco e diagnóstico')
+    , tem)
+  );
+}
+
+// ---------- SEÇÃO 16 · Atividade física ----------
+function secao16(){
+  var pratica = g('s16_pratica')==='Sim';
+  return (
+    '<p class="passo">Seção 16 de 21</p>'+
+    '<p class="haste">Atividade Física</p>'+
+    campoUnica('s16_pratica','Pratica atividade física regularmente?',['Não','Sim'])+
+    subcampo('sub_s16',
+      campoTexto('s16_tipo','Tipo de atividade')+
+      campoUnica('s16_frequencia','Frequência semanal',['1–2 vezes','3–4 vezes','5 ou mais vezes'])+
+      campoTexto('s16_duracao','Duração média por sessão')+
+      campoTexto('s16_desde','Desde quando pratica atividade física?')+
+      campoUnica('s16_impacto','Percebe impacto da atividade física no humor, sono ou ansiedade?',['Sim','Não','Parcialmente'])
+    , pratica)
+  );
+}
+
+// ---------- SEÇÃO 17 · Substâncias ----------
+function secao17(){
+  var bebeAlgo = g('s17_alcool') && g('s17_alcool')!=='Não';
+  var fuma = g('s17_cigarro')==='Sim';
+  var usaCafeina = (g('s17_cafeina')||[]).length>0 && (g('s17_cafeina')||[]).indexOf('Não utiliza')<0;
+  var outras = g('s17_outras')==='Sim';
+  return (
+    '<p class="passo">Seção 17 de 21</p>'+
+    '<p class="haste">Uso de Substâncias</p>'+
+    campoUnica('s17_alcool','Álcool',['Não','Socialmente','Frequentemente','Diariamente'])+
+    subcampo('sub_s17_alcool', campoTexto('s17_alcool_detalhe','Quantidade e frequência'), bebeAlcool_ok(bebeAlgo))+
+    campoUnica('s17_cigarro','Cigarro',['Não','Sim','Ex-fumante'])+
+    subcampo('sub_s17_cigarro', campoTexto('s17_cigarro_qtd','Quantidade por dia'), fuma)+
+    campoUnica('s17_vape','Cigarro eletrônico ou vape',['Não','Sim'])+
+    campoMultipla('s17_cafeina','Cafeína',['Não utiliza','Café','Chá','Energético','Refrigerante com cafeína'])+
+    subcampo('sub_s17_cafeina', campoTexto('s17_cafeina_qtd','Quantidade diária aproximada'), usaCafeina)+
+    campoUnica('s17_outras','Outras substâncias',['Não','Sim'])+
+    subcampo('sub_s17_outras', campoArea('s17_outras_detalhe','Qual(is) e com que frequência?'), outras)
+  );
+}
+function bebeAlcool_ok(v){ return v; }
+
+// ---------- SEÇÃO 18 · Exames e acompanhamentos ----------
+function secao18(){
+  var temExame = g('s18_exame')==='Sim';
+  var acompanha = (g('s18_profissionais')||[]).length>0;
+  return (
+    '<p class="passo">Seção 18 de 21</p>'+
+    '<p class="haste">Exames e Acompanhamentos</p>'+
+    campoUnica('s18_exame','Possui exames laboratoriais ou de imagem recentes?',['Não','Sim'])+
+    subcampo('sub_s18_exame', campoTexto('s18_exame_data','Data aproximada'), temExame)+
+    campoUnica('s18_encaminhar','Pode encaminhar os exames antes da consulta?',['Sim','Não'])+
+    campoMultipla('s18_profissionais','Realiza acompanhamento com outros profissionais?',['Psicólogo','Neurologista','Endocrinologista','Nutricionista','Terapeuta ocupacional','Fonoaudiólogo','Psicopedagogo'])+
+    campoTexto('s18_outro_prof','Outro profissional (se houver)')+
+    subcampo('sub_s18_nomes', campoArea('s18_nomes','Nome dos profissionais ou serviços'), acompanha)
+  );
+}
+
+// ---------- SEÇÃO 19 · Saúde feminina ----------
+function secao19(){
+  var naoAplica = g('s19_na')===true;
+  return (
+    '<p class="passo">Seção 19 de 21</p>'+
+    '<p class="haste">Saúde Feminina</p>'+
+    '<div class="caixa nota"><p>Esta seção deve ser preenchida quando aplicável. Se não for o seu caso, toque em "não se aplica" abaixo.</p></div>'+
+    '<label style="display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--suave);margin-bottom:10px;cursor:pointer;">'+
+      '<input type="checkbox" id="chk-s19-na" '+(naoAplica?'checked':'')+' style="width:18px;height:18px;"> Não se aplica — pular esta seção'+
+    '</label>'+
+    subcampo('sub_s19',
+      campoUnica('s19_gestante','Está gestante ou existe possibilidade de gestação?',['Não','Sim','Não sabe'])+
+      campoUnica('s19_amamentando','Está amamentando?',['Não','Sim'])+
+      campoUnica('s19_contraceptivo','Utiliza método contraceptivo?',['Não','Sim'])+
+      subcampo('sub_s19_contraceptivo', campoTexto('s19_contraceptivo_qual','Qual?'), g('s19_contraceptivo')==='Sim')+
+      campoUnica('s19_ciclo','Ciclo menstrual',['Regular','Irregular','Ausente','Menopausa','Não se aplica'])+
+      campoUnica('s19_pms','Percebe piora dos sintomas no período pré-menstrual ou durante a menstruação?',['Não','Sim'])
+    , !naoAplica)
+  );
+}
+
+// ---------- SEÇÃO 20 · Objetivos ----------
+function secao20(){
+  return (
+    '<p class="passo">Seção 20 de 21</p>'+
+    '<p class="haste">Objetivos do Acompanhamento</p>'+
+    campoArea('s20_espera','O que você espera alcançar com o acompanhamento?')+
+    campoTexto('s20_obj1','Primeiro objetivo principal')+
+    campoTexto('s20_obj2','Segundo objetivo principal')+
+    campoTexto('s20_obj3','Terceiro objetivo principal')
+  );
+}
+
+// ---------- SEÇÃO 21 · Outras informações ----------
+function secao21(){
+  return (
+    '<p class="passo">Seção 21 de 21</p>'+
+    '<p class="haste">Outras Informações Importantes</p>'+
+    campoArea('s21_outras','Existe algo que considere importante relatar antes da consulta?', 'Este espaço é seu — escreva à vontade, sem pressa.')
+  );
+}
+
+var RENDER_SECOES = [secao1,secao2,secao3,secao4,secao5,secao6,secao7,secao8,secao9,secao10,secao11,secao12,secao13,secao14,secao15,secao16,secao17,secao18,secao19,secao20,secao21];
+
+function corpoSecao(i){
+  var conteudo = RENDER_SECOES[i]();
+  var ehUltima = (i===TOTAL_SECOES-1);
+  return conteudo+
+    pontosBar(IDX_SECOES_INICIO+i)+
+    '<button class="btn" data-acao="proxima-secao" data-i="'+i+'" style="margin-top:8px;">'+(ehUltima?'Ver resumo final':'Continuar')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>';
+}
+
+// ---------- ligação dos campos condicionais (delegação de evento) ----------
+function religar(){
+  // grupos únicos que controlam subcampos
+  var mapaCondicional = [
+    ['s2_tem','sub_s2','Sim'], ['s3_tem','sub_s3','Sim'], ['s3_cirurgia','sub_s3_cirurgia','Sim'],
+    ['s3_alergia','sub_s3_alergia','Sim'], ['s3_reacao','sub_s3_reacao','Sim'],
+    ['s4_usa','sub_s4','Sim'], ['s4_hormonio','sub_s4_hormonio','Sim'],
+    ['s5_usou','sub_s5','Sim'], ['s5_efeitos','sub_s5_efeitos','Sim'],
+    ['s6_usa','sub_s6','Sim'],
+    ['s7_repetitivo','sub_s7_repetitivo','Sim'],
+    ['s9_tentou','sub_s9_tentou','Sim'], ['s9_internacao','sub_s9_internacao','Sim'],
+    ['s10_medicacao','sub_s10','Sim'],
+    ['s11_restricao','sub_s11_restricao','Sim'],
+    ['s12_interfere','sub_s12_interfere','Sim'], ['s12_faltas','sub_s12_faltas','Sim'],
+    ['s13_filhos','sub_s13_filhos','Sim'],
+    ['s14_ajuda','sub_s14','Sim'],
+    ['s15_tem','sub_s15','Sim'],
+    ['s16_pratica','sub_s16','Sim'],
+    ['s17_cigarro','sub_s17_cigarro','Sim'], ['s17_outras','sub_s17_outras','Sim'],
+    ['s18_exame','sub_s18_exame','Sim'],
+    ['s19_contraceptivo','sub_s19_contraceptivo','Sim']
+  ];
+  mapaCondicional.forEach(function(m){
+    var grupo = document.querySelector('[data-grupo="'+m[0]+'"]');
+    var alvo = document.getElementById(m[1]);
+    if (!grupo || !alvo) return;
+    grupo.addEventListener('change', function(){
+      var checked = grupo.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      if (val===m[2]) alvo.classList.remove('oculto'); else alvo.classList.add('oculto');
+    });
+  });
+  // casos com múltiplos valores-gatilho (ex: s7_autoagressao com 4 valores diferentes de "ocorreu")
+  var s7auto = document.querySelector('[data-grupo="s7_autoagressao"]');
+  var s7autoAlvo = document.getElementById('sub_s7_auto');
+  if (s7auto && s7autoAlvo){
+    s7auto.addEventListener('change', function(){
+      var checked = s7auto.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      var ocorreu = ['No passado','Às vezes','Frequentemente','Atualmente'].indexOf(val)>=0;
+      s7autoAlvo.classList.toggle('oculto', !ocorreu);
+    });
+  }
+  var s7het = document.querySelector('[data-grupo="s7_heteroagressao"]');
+  var s7hetAlvo = document.getElementById('sub_s7_hetero');
+  if (s7het && s7hetAlvo){
+    s7het.addEventListener('change', function(){
+      var checked = s7het.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      var ocorreu = ['Às vezes','Frequentemente'].indexOf(val)>=0;
+      s7hetAlvo.classList.toggle('oculto', !ocorreu);
+    });
+  }
+  var s11peso = document.querySelector('[data-grupo="s11_peso"]');
+  var s11pesoAlvo = document.getElementById('sub_s11_peso');
+  if (s11peso && s11pesoAlvo){
+    s11peso.addEventListener('change', function(){
+      var checked = s11peso.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      s11pesoAlvo.classList.toggle('oculto', !(val && val!=='Não'));
+    });
+  }
+  var s17alc = document.querySelector('[data-grupo="s17_alcool"]');
+  var s17alcAlvo = document.getElementById('sub_s17_alcool');
+  if (s17alc && s17alcAlvo){
+    s17alc.addEventListener('change', function(){
+      var checked = s17alc.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      s17alcAlvo.classList.toggle('oculto', !(val && val!=='Não'));
+    });
+  }
+  var s17caf = document.querySelector('[data-grupomulti="s17_cafeina"]');
+  var s17cafAlvo = document.getElementById('sub_s17_cafeina');
+  if (s17caf && s17cafAlvo){
+    s17caf.addEventListener('change', function(){
+      var vals = Array.prototype.slice.call(s17caf.querySelectorAll('input:checked')).map(function(i){return i.value;});
+      var usa = vals.length>0 && vals.indexOf('Não utiliza')<0;
+      s17cafAlvo.classList.toggle('oculto', !usa);
+    });
+  }
+  var s18prof = document.querySelector('[data-grupomulti="s18_profissionais"]');
+  var s18nomesAlvo = document.getElementById('sub_s18_nomes');
+  if (s18prof && s18nomesAlvo){
+    s18prof.addEventListener('change', function(){
+      var vals = Array.prototype.slice.call(s18prof.querySelectorAll('input:checked'));
+      s18nomesAlvo.classList.toggle('oculto', vals.length===0);
+    });
+  }
+  var itensHumorOuAutonomia = ITENS_HUMOR.map(function(it){return it[0];});
+  itensHumorOuAutonomia.forEach(function(chave){
+    var grupo = document.querySelector('[data-grupo="'+chave+'"]');
+    var alvo = document.getElementById('sub_s8');
+    if (!grupo || !alvo) return;
+    grupo.addEventListener('change', function(){
+      var algumSim = ITENS_HUMOR.some(function(it){
+        var gr = document.querySelector('[data-grupo="'+it[0]+'"]');
+        var ch = gr ? gr.querySelector('input:checked') : null;
+        return ch && ch.value==='Sim';
+      });
+      alvo.classList.toggle('oculto', !algumSim);
+    });
+  });
+  // checkbox "não se aplica" da seção 19
+  var chkNA = document.getElementById('chk-s19-na');
+  var subS19 = document.getElementById('sub_s19');
+  if (chkNA && subS19){
+    chkNA.addEventListener('change', function(){
+      set('s19_na', chkNA.checked);
+      subS19.classList.toggle('oculto', chkNA.checked);
+    });
+  }
+}
+
+// ---------- montagem do resumo final ----------
+function linhaResumo(rotulo, chave){
+  var v = g(chave);
+  if (v===undefined || v===null || v==='') return '';
+  if (Array.isArray(v)){ if (v.length===0) return ''; v = v.join(', '); }
+  return rotulo+': '+v+'\n';
+}
+
+function textoResumoCompleto(){
+  var d = new Date();
+  var t = '';
+  t += 'PRÉ-ANAMNESE\nDr. Lucas Menezes\n';
+  t += 'Preenchido em: '+d.toLocaleDateString('pt-BR')+'\n\n';
+  t += '--- IDENTIFICAÇÃO ---\n';
+  t += linhaResumo('Paciente','id_paciente')+linhaResumo('Data de nascimento','id_dn')+linhaResumo('Idade','id_idade')+linhaResumo('Preenchido por','id_preenche')+linhaResumo('Telefone','id_telefone');
+
+  t += '\n--- 1. MOTIVO DA CONSULTA ---\n';
+  t += linhaResumo('Queixa principal','s1_queixa')+linhaResumo('Duração','s1_duracao')+linhaResumo('Impacto atual','s1_impacto');
+
+  t += '\n--- 2. DIAGNÓSTICOS PRÉVIOS ---\n';
+  t += linhaResumo('Já recebeu diagnóstico','s2_tem')+linhaResumo('Quais','s2_quais')+linhaResumo('Outro','s2_outro')+linhaResumo('Profissional','s2_profissional')+linhaResumo('Prof. outro','s2_prof_outro')+linhaResumo('Ano','s2_ano');
+
+  t += '\n--- 3. DOENÇAS PRÉVIAS E CONDIÇÕES CLÍNICAS ---\n';
+  t += linhaResumo('Possui doença','s3_tem')+linhaResumo('Quais','s3_quais')+linhaResumo('Outra','s3_outra')+linhaResumo('Descrição','s3_descricao')+linhaResumo('Cirurgia','s3_cirurgia')+linhaResumo('Detalhe cirurgia','s3_cirurgia_detalhe')+linhaResumo('Alergia','s3_alergia')+linhaResumo('Detalhe alergia','s3_alergia_detalhe')+linhaResumo('Reação a medicamento','s3_reacao')+linhaResumo('Detalhe reação','s3_reacao_detalhe');
+
+  t += '\n--- 4. MEDICAÇÕES DE USO CONTÍNUO ---\n';
+  t += linhaResumo('Usa medicação contínua','s4_usa');
+  ['s4_m1','s4_m2','s4_m3'].forEach(function(p,idx){
+    var nome=g(p+'_nome');
+    if (nome){ t += 'Medicação '+(idx+1)+': '+nome+' | dose: '+(g(p+'_dose')||'-')+' | horário: '+(g(p+'_horario')||'-')+' | motivo: '+(g(p+'_motivo')||'-')+' | tempo: '+(g(p+'_tempo')||'-')+'\n'; }
+  });
+  t += linhaResumo('Outras medicações','s4_outras')+linhaResumo('Hormônio/anticoncepcional','s4_hormonio')+linhaResumo('Qual hormônio','s4_hormonio_qual');
+
+  t += '\n--- 5. MEDICAÇÕES PSIQUIÁTRICAS ANTERIORES ---\n';
+  t += linhaResumo('Já usou','s5_usou')+linhaResumo('Nome','s5_nome')+linhaResumo('Dose','s5_dose')+linhaResumo('Tempo de uso','s5_tempo')+linhaResumo('Motivo da suspensão','s5_suspensao')+linhaResumo('Houve melhora','s5_melhora')+linhaResumo('Efeitos colaterais','s5_efeitos')+linhaResumo('Quais efeitos','s5_efeitos_detalhe')+linhaResumo('Outras já utilizadas','s5_outras');
+
+  t += '\n--- 6. SUPLEMENTOS, VITAMINAS E FITOTERÁPICOS ---\n';
+  t += linhaResumo('Usa suplementos','s6_usa')+linhaResumo('Detalhe','s6_detalhe');
+
+  t += '\n--- 7. COMPORTAMENTO E ROTINA EM CASA ---\n';
+  t += linhaResumo('Irritabilidade frequente','s7_irritabilidade')+linhaResumo('Explosões de raiva','s7_explosoes')+linhaResumo('Impulsividade','s7_impulsividade')+linhaResumo('Dificuldade com frustração','s7_frustracao')+linhaResumo('Isolamento em casa','s7_isolamento')+linhaResumo('Comportamentos repetitivos','s7_repetitivo')+linhaResumo('Detalhe repetitivos','s7_repetitivo_detalhe')+linhaResumo('Autoagressão','s7_autoagressao')+linhaResumo('Detalhe autoagressão','s7_autoagressao_detalhe')+linhaResumo('Heteroagressão','s7_heteroagressao')+linhaResumo('Detalhe heteroagressão','s7_heteroagressao_detalhe');
+
+  t += '\n--- 8. HUMOR E EMOÇÕES ---\n';
+  ITENS_HUMOR.forEach(function(it){ t += linhaResumo(it[1], it[0]); });
+  t += linhaResumo('Detalhamento','s8_detalhe');
+
+  t += '\n--- 9. SEGURANÇA E HISTÓRICO DE CRISES ---\n';
+  t += linhaResumo('Ideação de morte/não estar vivo','s9_ideacao')+linhaResumo('Já tentou tirar a própria vida','s9_tentou')+linhaResumo('Quantas vezes','s9_quantas')+linhaResumo('Última vez','s9_ultima')+linhaResumo('Urgência/internação por saúde mental','s9_internacao')+linhaResumo('Detalhe','s9_internacao_detalhe');
+
+  t += '\n--- 10. SONO ---\n';
+  t += linhaResumo('Dificuldade para iniciar o sono','s10_iniciar')+linhaResumo('Dificuldade para manter o sono','s10_manter')+linhaResumo('Acorda antes do horário desejado','s10_cedo')+linhaResumo('Acorda descansado','s10_descansado')+linhaResumo('Sono excessivo diurno','s10_diurno')+linhaResumo('Ronco/pausas respiratórias','s10_ronco')+linhaResumo('Horário de dormir','s10_dormir')+linhaResumo('Horário de acordar','s10_acordar')+linhaResumo('Horas de sono','s10_horas')+linhaResumo('Usa medicação p/ dormir','s10_medicacao')+linhaResumo('Qual/dose/horário','s10_medicacao_detalhe');
+
+  t += '\n--- 11. ALIMENTAÇÃO E PESO ---\n';
+  t += linhaResumo('Alimentação atual','s11_alimentacao')+linhaResumo('Compulsão alimentar','s11_compulsao')+linhaResumo('Alteração de peso','s11_peso')+linhaResumo('Detalhe','s11_peso_detalhe')+linhaResumo('Restrição/alergia alimentar','s11_restricao')+linhaResumo('Qual','s11_restricao_detalhe');
+
+  t += '\n--- 12. TRABALHO E ESTUDOS ---\n';
+  t += linhaResumo('Situação atual','s12_situacao')+linhaResumo('Profissão','s12_profissao')+linhaResumo('Escolaridade','s12_escolaridade')+linhaResumo('Sintomas interferem','s12_interfere')+linhaResumo('De que forma','s12_interfere_detalhe')+linhaResumo('Faltas/afastamento','s12_faltas')+linhaResumo('Descrição','s12_faltas_detalhe');
+
+  t += '\n--- 13. RELACIONAMENTOS SOCIAIS E FAMILIARES ---\n';
+  t += linhaResumo('Relações satisfatórias','s13_satisfatorias')+linhaResumo('Conflitos frequentes','s13_conflitos')+linhaResumo('Isolamento social','s13_isolado')+linhaResumo('Rede de apoio','s13_rede')+linhaResumo('Reside com','s13_reside')+linhaResumo('Estado civil','s13_estadocivil')+linhaResumo('Possui filhos','s13_filhos')+linhaResumo('Quantos','s13_filhos_quantos');
+
+  t += '\n--- 14. AUTONOMIA E FUNCIONALIDADE ---\n';
+  ITENS_AUTONOMIA.forEach(function(it){ t += linhaResumo(it[1], it[0]); });
+  t += linhaResumo('Necessita ajuda/supervisão','s14_ajuda')+linhaResumo('Em quais situações','s14_ajuda_detalhe');
+
+  t += '\n--- 15. HISTÓRICO PESSOAL E FAMILIAR ---\n';
+  t += linhaResumo('Histórico familiar de saúde mental','s15_tem')+linhaResumo('Quais','s15_quais')+linhaResumo('Outro','s15_outro')+linhaResumo('Parentesco e diagnóstico','s15_parentesco');
+
+  t += '\n--- 16. ATIVIDADE FÍSICA ---\n';
+  t += linhaResumo('Pratica atividade física','s16_pratica')+linhaResumo('Tipo','s16_tipo')+linhaResumo('Frequência semanal','s16_frequencia')+linhaResumo('Duração média','s16_duracao')+linhaResumo('Desde quando','s16_desde')+linhaResumo('Impacto percebido','s16_impacto');
+
+  t += '\n--- 17. USO DE SUBSTÂNCIAS ---\n';
+  t += linhaResumo('Álcool','s17_alcool')+linhaResumo('Quantidade/frequência','s17_alcool_detalhe')+linhaResumo('Cigarro','s17_cigarro')+linhaResumo('Quantidade/dia','s17_cigarro_qtd')+linhaResumo('Vape','s17_vape')+linhaResumo('Cafeína','s17_cafeina')+linhaResumo('Quantidade cafeína','s17_cafeina_qtd')+linhaResumo('Outras substâncias','s17_outras')+linhaResumo('Quais/frequência','s17_outras_detalhe');
+
+  t += '\n--- 18. EXAMES E ACOMPANHAMENTOS ---\n';
+  t += linhaResumo('Exames recentes','s18_exame')+linhaResumo('Data aproximada','s18_exame_data')+linhaResumo('Pode encaminhar exames','s18_encaminhar')+linhaResumo('Outros profissionais','s18_profissionais')+linhaResumo('Outro profissional','s18_outro_prof')+linhaResumo('Nomes/serviços','s18_nomes');
+
+  if (!g('s19_na')){
+    t += '\n--- 19. SAÚDE FEMININA ---\n';
+    t += linhaResumo('Gestante ou possibilidade','s19_gestante')+linhaResumo('Amamentando','s19_amamentando')+linhaResumo('Contraceptivo','s19_contraceptivo')+linhaResumo('Qual','s19_contraceptivo_qual')+linhaResumo('Ciclo menstrual','s19_ciclo')+linhaResumo('Piora pré-menstrual','s19_pms');
+  } else {
+    t += '\n--- 19. SAÚDE FEMININA --- (não se aplica)\n';
+  }
+
+  t += '\n--- 20. OBJETIVOS DO ACOMPANHAMENTO ---\n';
+  t += linhaResumo('O que espera alcançar','s20_espera')+linhaResumo('Objetivo 1','s20_obj1')+linhaResumo('Objetivo 2','s20_obj2')+linhaResumo('Objetivo 3','s20_obj3');
+
+  t += '\n--- 21. OUTRAS INFORMAÇÕES IMPORTANTES ---\n';
+  t += linhaResumo('Outras informações','s21_outras');
+
+  return t;
+}
+
+function telaResultado(){
+  var texto = textoResumoCompleto();
+  return (
+    '<p class="passo">Concluído</p>'+
+    '<p class="haste">Obrigado por responder</p>'+
+    '<div class="caixa nota"><p>Revise se quiser, depois toque em "Copiar resumo" e envie para o Dr. Lucas pelo WhatsApp — assim ele já chega na consulta com tudo em mãos.</p></div>'+
+    '<div class="resumo" id="resumo">'+esc(texto)+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar e revisar</button>'
+  );
+}
+
+// ---------- motor principal ----------
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo===1) h = telaIdentificacao();
+  else if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) h = corpoSecao(passo-IDX_SECOES_INICIO);
+  else h = telaResultado();
+  palco.innerHTML = h;
+  if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) religar();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function copiar(){
+  var txt = textoResumoCompleto();
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a==="comecar"){ passo=1; }
+  else if (a==="ir-secao"){ capturarTela(); passo=IDX_SECOES_INICIO; }
+  else if (a==="proxima-secao"){
+    capturarTela();
+    var i=parseInt(b.dataset.i,10);
+    passo = (i===TOTAL_SECOES-1) ? IDX_RESULTADO : passo+1;
+  }
+  else if (a==="voltar"){
+    if (passo>=IDX_SECOES_INICIO && passo<=IDX_RESULTADO) capturarTela();
+    if (passo>0) passo=passo-1;
+  }
+  else if (a==="copiar"){ copiar(); return; }
+  else { return; }
+  pintar();
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>
