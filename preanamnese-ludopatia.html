@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Pré-Anamnese — Transtorno do Jogo · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --ambar-bg:#FBF3E3; --ambar-borda:#C9A24B;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --risco-bg:#F7ECEC; --risco-borda:#B26A6A;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.32rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .ambar{background:var(--ambar-bg);border-left:3px solid var(--ambar-borda);}
+  .ambar .tit{color:#8A6A1F;}
+  .risco{background:var(--risco-bg);border-left:3px solid var(--risco-borda);}
+  .risco .tit{color:#8E4B4B;}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.1rem;color:var(--bronze-dark);margin:0 0 14px;font-weight:700;}
+  label.campo{display:block;font-size:.87rem;color:var(--suave);margin:14px 0 5px;font-weight:700;}
+  label.campo:first-child{margin-top:0;}
+  .ajuda{font-size:.78rem;color:var(--suave);margin:-3px 0 6px;font-style:italic;}
+  input[type=text]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  textarea{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+    min-height:90px;resize:vertical;line-height:1.5;
+  }
+  .pillgrupo{display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;}
+  .pillgrupo label{
+    text-align:center;font-size:.85rem;
+    border:1.5px solid var(--linha);border-radius:7px;padding:9px 13px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;flex:0 0 auto;
+  }
+  .pillgrupo.full label{flex:1;min-width:80px;}
+  .pillgrupo input{display:none;}
+  .pillgrupo label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .pillgrupo.multi label:has(input:checked){background:#8A6A1F;border-color:#8A6A1F;}
+  .pillgrupo.risco-grupo label:has(input:checked){background:#8E4B4B;border-color:#8E4B4B;}
+  .subcampo{margin-top:10px;padding:12px 14px;background:#F4EEE3;border-radius:8px;border:1px dashed var(--linha);}
+  .subcampo.oculto{display:none;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:18px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:3px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .ponto{width:5px;height:5px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.74rem;line-height:1.55;white-space:pre-wrap;color:#4A4034;max-height:480px;overflow-y:auto;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  .criterio-caixa{border:1px solid var(--linha);border-radius:8px;padding:11px 13px;margin:9px 0;background:#fff;}
+  .criterio-caixa .rotulo{font-size:.9rem;line-height:1.42;margin-bottom:8px;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  footer .ref{margin-top:9px;font-size:.68rem;color:#8C8272;}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>Pré-Anamnese</h1>
+    <p class="sub">Investigação de Transtorno do Jogo</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p style="font-size:.68rem;color:#8C8272;margin-top:8px;">Suas respostas não são enviadas nem armazenadas automaticamente — ao final, você mesmo copia e envia o resumo.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var estado = {};
+var passo = 0;
+var TOTAL_SECOES = 16;
+var IDX_SECOES_INICIO = 2;
+var IDX_RESULTADO = IDX_SECOES_INICIO + TOTAL_SECOES;
+
+var palco = document.getElementById("palco");
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function g(chave){ return estado[chave]; }
+function set(chave, valor){ estado[chave] = valor; }
+
+function pontosBar(atual){
+  var total = IDX_RESULTADO;
+  var h='<div class="pontos" aria-hidden="true">';
+  for (var i=0;i<total;i++){ h += '<span class="ponto'+(i<=atual?' on':'')+'"></span>'; }
+  return h+'</div>';
+}
+
+function campoTexto(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<input type="text" data-campo="'+chave+'" value="'+esc(v)+'">';
+}
+function campoArea(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<textarea data-campo="'+chave+'">'+esc(v)+'</textarea>';
+}
+function campoUnica(chave, rotulo, opcoes, full, classeExtra){
+  var v = g(chave);
+  var botoes = opcoes.map(function(op){
+    var checked = (v===op) ? ' checked' : '';
+    return '<label><input type="radio" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo'+(full?' full':'')+(classeExtra?' '+classeExtra:'')+'" data-grupo="'+chave+'">'+botoes+'</div>';
+}
+function campoMultipla(chave, rotulo, opcoes){
+  var v = g(chave) || [];
+  var botoes = opcoes.map(function(op){
+    var checked = (v.indexOf(op)>=0) ? ' checked' : '';
+    return '<label><input type="checkbox" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo multi" data-grupomulti="'+chave+'">'+botoes+'</div>';
+}
+function subcampo(id, conteudoHtml, visivel){
+  return '<div class="subcampo'+(visivel?'':' oculto')+'" id="'+id+'">'+conteudoHtml+'</div>';
+}
+function criterioSimNao(chave, texto){
+  var v = g(chave);
+  return '<div class="criterio-caixa"><p class="rotulo">'+esc(texto)+'</p>'+
+    '<div class="pillgrupo full" data-grupo="'+chave+'"><label><input type="radio" name="'+chave+'" value="Sim"'+(v==='Sim'?' checked':'')+'><span>Sim</span></label>'+
+    '<label><input type="radio" name="'+chave+'" value="Não"'+(v==='Não'?' checked':'')+'><span>Não</span></label></div></div>';
+}
+
+function capturarTela(){
+  document.querySelectorAll('[data-campo]').forEach(function(el){ set(el.dataset.campo, el.value); });
+  document.querySelectorAll('[data-grupo]').forEach(function(el){
+    var checked = el.querySelector('input:checked');
+    set(el.dataset.grupo, checked ? checked.value : undefined);
+  });
+  document.querySelectorAll('[data-grupomulti]').forEach(function(el){
+    var vals = Array.prototype.slice.call(el.querySelectorAll('input:checked')).map(function(i){ return i.value; });
+    set(el.dataset.grupomulti, vals);
+  });
+}
+
+function telaIntro(){
+  return (
+    '<p class="passo">Antes de começar</p>'+
+    '<p class="haste">Pré-consulta — Dr. Lucas Menezes</p>'+
+    '<p>Este formulário ajuda a preparar sua primeira consulta com calma. Leva cerca de 15 minutos — pode pausar e voltar depois, se precisar, contanto que não feche esta aba.</p>'+
+    '<div class="caixa nota"><span class="tit">Sem julgamento</span><p>As perguntas sobre jogo, dinheiro e consequências podem ser difíceis de responder com sinceridade. Isso é comum, e todo o conteúdo aqui é tratado com sigilo — a franqueza agora ajuda diretamente no cuidado depois.</p></div>'+
+    '<button class="btn" data-acao="comecar">Começar</button>'
+  );
+}
+function telaIdentificacao(){
+  return (
+    '<p class="passo">Identificação</p>'+
+    campoTexto('id_paciente','Nome completo')+
+    campoTexto('id_dn','Data de nascimento (dd/mm/aaaa)')+
+    campoTexto('id_idade','Idade')+
+    campoTexto('id_telefone','Telefone para contato')+
+    '<button class="btn" data-acao="ir-secao" data-i="0">Continuar</button>'
+  );
+}
+
+function secao1(){
+  return (
+    '<p class="passo">Seção 1 de 16</p>'+
+    '<p class="haste">O que trouxe você até aqui</p>'+
+    campoArea('s1_motivo','O que fez você procurar ajuda agora?')+
+    campoUnica('s1_iniciativa','Essa busca por ajuda foi principalmente...',['Iniciativa própria','Sugestão ou pedido de alguém','Ultimato de alguém (familiar, parceiro, trabalho)'],true)+
+    campoArea('s1_quem','Se envolveu outra pessoa nessa decisão, quem foi, e o que essa pessoa disse ou pediu?')
+  );
+}
+
+function secao2(){
+  return (
+    '<p class="passo">Seção 2 de 16</p>'+
+    '<p class="haste">Sobre o jogo ou aposta</p>'+
+    campoMultipla('s2_tipos','Que tipo de jogo ou aposta você pratica ou já praticou?',['Apostas esportivas (bets)','Cassino online','Cassino presencial','Caça-níqueis / caça-níquel','Jogo de cartas / pôquer','Bingo','Loteria/raspadinha','Rinha ou jogo de animais','Criptomoedas como forma de aposta','Outro'])+
+    campoTexto('s2_outro','Se marcou "outro", qual?')+
+    campoTexto('s2_inicio','Com que idade ou em que ano você começou a jogar/apostar?')+
+    campoArea('s2_evolucao','Como isso foi mudando desde o início até hoje — começou recreativo e foi aumentando, ou já começou intenso?')+
+    campoUnica('s2_frequencia','Com que frequência você joga ou aposta atualmente?',['Todos os dias','Várias vezes por semana','Algumas vezes por mês','Raramente, mas de forma intensa quando acontece'],true)+
+    campoUnica('s2_modalidade','Isso acontece mais...',['Só online','Só presencial','Os dois'],true)
+  );
+}
+
+function secao3(){
+  var h = '<p class="passo">Seção 3 de 16</p><p class="haste">Sobre o padrão de comportamento</p>'+
+    '<p class="ajuda" style="margin-bottom:10px;">Pensando nos últimos 12 meses, responda com sinceridade:</p>';
+  h += criterioSimNao('crit1','Você precisa apostar quantias cada vez maiores de dinheiro para sentir a mesma emoção ou satisfação de antes?');
+  h += criterioSimNao('crit2','Você fica inquieto(a) ou irritado(a) quando tenta diminuir ou parar de jogar?');
+  h += criterioSimNao('crit3','Você já tentou controlar, diminuir ou parar de jogar, sem conseguir?');
+  h += criterioSimNao('crit4','Você se pega frequentemente pensando em jogo — relembrando apostas passadas, planejando a próxima, ou pensando em formas de conseguir dinheiro para jogar?');
+  h += criterioSimNao('crit5','Você joga com mais frequência quando está se sentindo mal — triste, culpado(a), ansioso(a), impotente?');
+  h += criterioSimNao('crit6','Depois de perder dinheiro jogando, você costuma voltar outro dia para tentar recuperar o que perdeu?');
+  h += criterioSimNao('crit7','Você já mentiu para familiares, terapeutas ou outras pessoas para esconder o quanto realmente joga?');
+  h += criterioSimNao('crit8','O jogo já colocou em risco ou fez você perder um relacionamento importante, emprego, oportunidade educacional ou de carreira?');
+  h += criterioSimNao('crit9','Você já contou com outras pessoas para conseguir dinheiro e resolver uma situação financeira desesperadora causada pelo jogo?');
+  h += subcampo('sub_crit', campoArea('crit_detalhe','Se quiser, use este espaço para contar mais sobre qualquer uma dessas respostas'), true);
+  return h;
+}
+
+function secao4(){
+  var temDivida = g('s4_dividas')==='Sim';
+  var usouTerceiro = g('s4_terceiro')==='Sim';
+  return (
+    '<p class="passo">Seção 4 de 16</p>'+
+    '<p class="haste">Impacto financeiro</p>'+
+    campoUnica('s4_dividas','Você tem dívidas relacionadas ao jogo hoje?',['Não','Sim'])+
+    subcampo('sub_s4_dividas', campoArea('s4_dividas_detalhe','Pode contar, de forma aproximada, a situação? Não precisa ser exato.'), temDivida)+
+    campoMultipla('s4_recursos','Você já usou algum destes recursos para jogar ou pagar dívida de jogo?',['Cartão de crédito no limite','Empréstimo pessoal ou consignado','Empréstimo com agiota','Venda de bens (carro, joia, eletrônico)','Dinheiro guardado para outra finalidade (aluguel, conta, poupança)','Nenhum desses'])+
+    campoUnica('s4_terceiro','Você já usou dinheiro de outra pessoa sem autorização para jogar ou cobrir perdas?',['Não','Sim'])+
+    subcampo('sub_s4_terceiro', campoArea('s4_terceiro_detalhe','Pode contar mais sobre isso, se quiser?'), usouTerceiro)
+  );
+}
+
+function secao5(){
+  return (
+    '<p class="passo">Seção 5 de 16</p>'+
+    '<p class="haste">Relacionamentos e trabalho</p>'+
+    campoUnica('s5_esconde','Você esconde de alguém próximo o quanto joga?',['Não','Sim'])+
+    campoArea('s5_relacionamento','O jogo já causou conflito, briga ou distanciamento em algum relacionamento importante?')+
+    campoUnica('s5_trabalho','Isso já afetou seu trabalho ou estudos — faltas, queda de desempenho, uso de tempo de trabalho para jogar?',['Não','Sim'])+
+    subcampo('sub_s5_trabalho', campoArea('s5_trabalho_detalhe','Como isso aconteceu?'), g('s5_trabalho')==='Sim')
+  );
+}
+
+function secao6(){
+  var jaTentou = g('s6_tentou')==='Sim';
+  return (
+    '<p class="passo">Seção 6 de 16</p>'+
+    '<p class="haste">Tentativas de controlar ou parar</p>'+
+    campoUnica('s6_tentou','Você já tentou parar ou controlar o jogo antes?',['Não','Sim'])+
+    subcampo('sub_s6',
+      campoArea('s6_estrategias','O que você já tentou — sozinho, com ajuda, algum grupo de apoio, bloqueio de site ou aplicativo?')+
+      campoTexto('s6_duracao','Por quanto tempo você conseguiu ficar sem jogar, na melhor tentativa?')
+    , jaTentou)+
+    campoUnica('s6_bloqueio','Você já usou alguma ferramenta de autoexclusão ou bloqueio de apostas (bloqueio bancário para apostas, autoexclusão em plataforma, etc.)?',['Não','Sim'])
+  );
+}
+
+function secao7(){
+  var ideacao = g('s7_ideacao') && g('s7_ideacao')!=='Nunca';
+  return (
+    '<p class="passo">Seção 7 de 16</p>'+
+    '<p class="haste">Segurança</p>'+
+    '<div class="caixa risco"><p>Transtorno do jogo está associado a risco elevado de sofrimento intenso, principalmente ligado ao desespero financeiro. Estas perguntas são parte essencial da avaliação — responda com a mesma sinceridade das demais.</p></div>'+
+    campoUnica('s7_ideacao','Diante do que está vivendo com o jogo, você já pensou que a vida não vale a pena, ou que seria melhor não estar aqui?',['Nunca','No passado','Atualmente'],true,'risco-grupo')+
+    subcampo('sub_s7', campoArea('s7_ideacao_detalhe','Pode contar mais sobre isso?'), ideacao)+
+    campoUnica('s7_tentou','Você já tentou tirar a própria vida?',['Não','Sim'])+
+    subcampo('sub_s7_tentou', campoTexto('s7_tentou_quando','Quando foi a última vez?'), g('s7_tentou')==='Sim')+
+    campoUnica('s7_autolesao','Já se machucou de propósito, de qualquer forma?',['Não','Sim'])
+  );
+}
+
+function secao8(){
+  return (
+    '<p class="passo">Seção 8 de 16</p>'+
+    '<p class="haste">Humor</p>'+
+    campoUnica('s8_tristeza','Tristeza frequente ou sensação de vazio',['Sim','Não'])+
+    campoUnica('s8_interesse','Perda de interesse ou prazer nas atividades',['Sim','Não'])+
+    campoUnica('s8_ansiedade','Ansiedade excessiva ou preocupação constante',['Sim','Não'])+
+    campoUnica('s8_culpa','Sentimento frequente de culpa ou inutilidade',['Sim','Não'])+
+    '<div class="caixa nota"><span class="tit">Uma pergunta específica</span><p>Já teve períodos, mesmo curtos, de vários dias seguidos com energia muito acima do normal, necessidade de dormir bem menos sem sentir cansaço, e impulsividade aumentada — inclusive vontade maior de gastar ou apostar?</p></div>'+
+    campoUnica('s8_energia','Isso já aconteceu com você?',['Nunca','Já aconteceu'],true)
+  );
+}
+
+function secao9(){
+  var bebeAlgo = g('s9_alcool') && g('s9_alcool')!=='Não';
+  return (
+    '<p class="passo">Seção 9 de 16</p>'+
+    '<p class="haste">Uso de substâncias</p>'+
+    campoUnica('s9_alcool','Álcool',['Não','Socialmente','Frequentemente','Diariamente'])+
+    subcampo('sub_s9', campoTexto('s9_alcool_detalhe','Quantidade e frequência'), bebeAlgo)+
+    campoUnica('s9_cigarro','Cigarro',['Não','Sim','Ex-fumante'])+
+    campoUnica('s9_outras','Outras substâncias',['Não','Sim'])+
+    subcampo('sub_s9_outras', campoArea('s9_outras_detalhe','Qual(is) e com que frequência?'), g('s9_outras')==='Sim')
+  );
+}
+
+function secao10(){
+  return (
+    '<p class="passo">Seção 10 de 16</p>'+
+    '<p class="haste">Outros comportamentos</p>'+
+    campoMultipla('s10_outros','Você reconhece algum destes padrões em si mesmo, mesmo que não relacionados a jogo?',['Compras compulsivas','Uso compulsivo de internet ou redes sociais','Uso compulsivo de jogos eletrônicos (videogame)','Compulsão alimentar','Comportamento sexual compulsivo','Nenhum desses'])
+  );
+}
+
+function secao11(){
+  var temDiag = g('s11_diag')==='Sim';
+  return (
+    '<p class="passo">Seção 11 de 16</p>'+
+    '<p class="haste">Diagnósticos e medicações prévias</p>'+
+    campoUnica('s11_diag','Já recebeu algum diagnóstico psiquiátrico ou psicológico antes?',['Não','Sim'])+
+    subcampo('sub_s11', campoArea('s11_diag_detalhe','Qual(is), e quando?'), temDiag)+
+    campoUnica('s11_medicacao','Já usou ou usa medicação psiquiátrica?',['Não','Sim'])+
+    subcampo('sub_s11_med', campoArea('s11_medicacao_detalhe','Qual(is), e como foi a experiência?'), g('s11_medicacao')==='Sim')
+  );
+}
+
+function secao12(){
+  var tem = g('s12_tem')==='Sim';
+  return (
+    '<p class="passo">Seção 12 de 16</p>'+
+    '<p class="haste">Histórico familiar</p>'+
+    campoUnica('s12_tem','Alguém na sua família tem ou teve problema com jogo, apostas, ou outra dependência (álcool, drogas)?',['Não','Sim'])+
+    subcampo('sub_s12', campoArea('s12_detalhe','Quem, e como foi ou é isso?'), tem)+
+    campoUnica('s12_saude_mental','Alguém na família tem histórico de depressão, ansiedade, transtorno bipolar ou outro diagnóstico de saúde mental?',['Não','Sim'])
+  );
+}
+
+function secao13(){
+  return (
+    '<p class="passo">Seção 13 de 16</p>'+
+    '<p class="haste">Sono</p>'+
+    campoUnica('s13_dificuldade','Tem dificuldade para dormir?',['Sim','Não'])+
+    campoUnica('s13_jogo_noite','O jogo já interferiu diretamente no seu sono — ficar acordado até tarde jogando, por exemplo?',['Não','Sim'])+
+    campoTexto('s13_horas','Quantas horas você dorme, em média, por noite?')
+  );
+}
+
+function secao14(){
+  return (
+    '<p class="passo">Seção 14 de 16</p>'+
+    '<p class="haste">Rede de apoio</p>'+
+    campoUnica('s14_rede','Você sente que tem uma rede de apoio — pessoas em quem confiar sobre o que está passando?',['Sim','Não'])+
+    campoTexto('s14_reside','Com quem você reside atualmente?')+
+    campoUnica('s14_sabem','As pessoas mais próximas de você sabem que você está buscando ajuda para isso?',['Sim, todas','Sim, algumas','Não, ninguém sabe'],true)
+  );
+}
+
+function secao15(){
+  return (
+    '<p class="passo">Seção 15 de 16</p>'+
+    '<p class="haste">Objetivos do acompanhamento</p>'+
+    campoArea('s15_espera','O que você espera alcançar com o acompanhamento?')+
+    campoUnica('s15_meta','Sua meta hoje é...',['Parar de jogar completamente','Reduzir e controlar o jogo','Ainda não sei, quero entender melhor'],true)
+  );
+}
+
+function secao16(){
+  return (
+    '<p class="passo">Seção 16 de 16</p>'+
+    '<p class="haste">Outras informações importantes</p>'+
+    campoArea('s16_outras','Existe algo que considere importante relatar antes da consulta, que não coube em nenhuma pergunta anterior?', 'Este espaço é seu — escreva à vontade, sem pressa.')
+  );
+}
+
+var RENDER_SECOES = [secao1,secao2,secao3,secao4,secao5,secao6,secao7,secao8,secao9,secao10,secao11,secao12,secao13,secao14,secao15,secao16];
+
+function corpoSecao(i){
+  var conteudo = RENDER_SECOES[i]();
+  var ehUltima = (i===TOTAL_SECOES-1);
+  return conteudo+
+    pontosBar(IDX_SECOES_INICIO+i)+
+    '<button class="btn" data-acao="proxima-secao" data-i="'+i+'" style="margin-top:8px;">'+(ehUltima?'Ver resumo final':'Continuar')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>';
+}
+
+function religar(){
+  var mapaCondicional = [
+    ['s4_dividas','sub_s4_dividas','Sim'], ['s4_terceiro','sub_s4_terceiro','Sim'],
+    ['s5_trabalho','sub_s5_trabalho','Sim'],
+    ['s6_tentou','sub_s6','Sim'],
+    ['s7_tentou','sub_s7_tentou','Sim'],
+    ['s9_outras','sub_s9_outras','Sim'],
+    ['s11_diag','sub_s11','Sim'], ['s11_medicacao','sub_s11_med','Sim'],
+    ['s12_tem','sub_s12','Sim'],
+  ];
+  mapaCondicional.forEach(function(m){
+    var grupo = document.querySelector('[data-grupo="'+m[0]+'"]');
+    var alvo = document.getElementById(m[1]);
+    if (!grupo || !alvo) return;
+    grupo.addEventListener('change', function(){
+      var checked = grupo.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      if (val===m[2]) alvo.classList.remove('oculto'); else alvo.classList.add('oculto');
+    });
+  });
+  var s7i = document.querySelector('[data-grupo="s7_ideacao"]');
+  var s7iAlvo = document.getElementById('sub_s7');
+  if (s7i && s7iAlvo){
+    s7i.addEventListener('change', function(){
+      var checked = s7i.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      s7iAlvo.classList.toggle('oculto', !(val && val!=='Nunca'));
+    });
+  }
+  var s9a = document.querySelector('[data-grupo="s9_alcool"]');
+  var s9aAlvo = document.getElementById('sub_s9');
+  if (s9a && s9aAlvo){
+    s9a.addEventListener('change', function(){
+      var checked = s9a.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      s9aAlvo.classList.toggle('oculto', !(val && val!=='Não'));
+    });
+  }
+}
+
+function linhaResumo(rotulo, chave){
+  var v = g(chave);
+  if (v===undefined || v===null || v==='') return '';
+  if (Array.isArray(v)){ if (v.length===0) return ''; v = v.join(', '); }
+  return rotulo+': '+v+'\n';
+}
+
+function contarCriterios(){
+  var chaves = ['crit1','crit2','crit3','crit4','crit5','crit6','crit7','crit8','crit9'];
+  var n = 0;
+  chaves.forEach(function(c){ if (g(c)==='Sim') n++; });
+  return n;
+}
+
+function textoResumoCompleto(){
+  var d = new Date();
+  var t = '';
+  t += 'PRÉ-ANAMNESE — TRANSTORNO DO JOGO\nDr. Lucas Menezes\n';
+  t += 'Preenchido em: '+d.toLocaleDateString('pt-BR')+'\n\n';
+  t += '--- IDENTIFICAÇÃO ---\n';
+  t += linhaResumo('Paciente','id_paciente')+linhaResumo('Data de nascimento','id_dn')+linhaResumo('Idade','id_idade')+linhaResumo('Telefone','id_telefone');
+
+  t += '\n--- 1. O QUE TROUXE VOCÊ ATÉ AQUI ---\n';
+  t += linhaResumo('Motivo','s1_motivo')+linhaResumo('Iniciativa','s1_iniciativa')+linhaResumo('Quem se envolveu','s1_quem');
+
+  t += '\n--- 2. SOBRE O JOGO OU APOSTA ---\n';
+  t += linhaResumo('Tipos','s2_tipos')+linhaResumo('Outro','s2_outro')+linhaResumo('Início','s2_inicio')+linhaResumo('Evolução','s2_evolucao')+linhaResumo('Frequência atual','s2_frequencia')+linhaResumo('Modalidade','s2_modalidade');
+
+  t += '\n--- 3. CRITÉRIOS (DSM-5) ---\n';
+  var rotulosCriterios = {
+    crit1:'1. Tolerância (apostar quantias maiores)', crit2:'2. Inquietação ao tentar parar',
+    crit3:'3. Tentativas malsucedidas de controlar', crit4:'4. Preocupação constante com o jogo',
+    crit5:'5. Joga quando em sofrimento emocional', crit6:'6. Volta para recuperar perdas ("chasing")',
+    crit7:'7. Mente para esconder o quanto joga', crit8:'8. Prejuízo em relacionamento/trabalho/estudo',
+    crit9:'9. Depende de terceiros para resolver dívida de jogo'
+  };
+  var totalCriterios = contarCriterios();
+  Object.keys(rotulosCriterios).forEach(function(c){
+    t += linhaResumo(rotulosCriterios[c], c);
+  });
+  t += 'TOTAL DE CRITÉRIOS POSITIVOS: '+totalCriterios+' de 9 (referência DSM-5: 4 ou mais em 12 meses = critério sintomático atendido)\n';
+  t += linhaResumo('Detalhamento livre', 'crit_detalhe');
+
+  t += '\n--- 4. IMPACTO FINANCEIRO ---\n';
+  t += linhaResumo('Dívidas relacionadas ao jogo','s4_dividas')+linhaResumo('Detalhe','s4_dividas_detalhe')+linhaResumo('Recursos já usados','s4_recursos')+linhaResumo('Usou dinheiro de terceiro sem autorização','s4_terceiro')+linhaResumo('Detalhe','s4_terceiro_detalhe');
+
+  t += '\n--- 5. RELACIONAMENTOS E TRABALHO ---\n';
+  t += linhaResumo('Esconde de alguém','s5_esconde')+linhaResumo('Impacto em relacionamento','s5_relacionamento')+linhaResumo('Impacto no trabalho/estudo','s5_trabalho')+linhaResumo('Como','s5_trabalho_detalhe');
+
+  t += '\n--- 6. TENTATIVAS DE CONTROLAR OU PARAR ---\n';
+  t += linhaResumo('Já tentou parar','s6_tentou')+linhaResumo('Estratégias já tentadas','s6_estrategias')+linhaResumo('Maior tempo sem jogar','s6_duracao')+linhaResumo('Já usou autoexclusão/bloqueio','s6_bloqueio');
+
+  t += '\n--- 7. SEGURANÇA ---\n';
+  t += linhaResumo('Ideação de morte/não estar vivo','s7_ideacao')+linhaResumo('Detalhe','s7_ideacao_detalhe')+linhaResumo('Já tentou tirar a própria vida','s7_tentou')+linhaResumo('Quando','s7_tentou_quando')+linhaResumo('Autolesão','s7_autolesao');
+
+  t += '\n--- 8. HUMOR ---\n';
+  t += linhaResumo('Tristeza/vazio','s8_tristeza')+linhaResumo('Perda de interesse','s8_interesse')+linhaResumo('Ansiedade excessiva','s8_ansiedade')+linhaResumo('Culpa/inutilidade','s8_culpa')+linhaResumo('Períodos de energia/impulsividade aumentadas','s8_energia');
+
+  t += '\n--- 9. USO DE SUBSTÂNCIAS ---\n';
+  t += linhaResumo('Álcool','s9_alcool')+linhaResumo('Detalhe','s9_alcool_detalhe')+linhaResumo('Cigarro','s9_cigarro')+linhaResumo('Outras substâncias','s9_outras')+linhaResumo('Detalhe','s9_outras_detalhe');
+
+  t += '\n--- 10. OUTROS COMPORTAMENTOS ---\n';
+  t += linhaResumo('Outros padrões compulsivos','s10_outros');
+
+  t += '\n--- 11. DIAGNÓSTICOS E MEDICAÇÕES PRÉVIAS ---\n';
+  t += linhaResumo('Diagnóstico prévio','s11_diag')+linhaResumo('Detalhe','s11_diag_detalhe')+linhaResumo('Medicação psiquiátrica','s11_medicacao')+linhaResumo('Detalhe','s11_medicacao_detalhe');
+
+  t += '\n--- 12. HISTÓRICO FAMILIAR ---\n';
+  t += linhaResumo('Familiar com jogo/dependência','s12_tem')+linhaResumo('Detalhe','s12_detalhe')+linhaResumo('Familiar com saúde mental','s12_saude_mental');
+
+  t += '\n--- 13. SONO ---\n';
+  t += linhaResumo('Dificuldade para dormir','s13_dificuldade')+linhaResumo('Jogo interfere no sono','s13_jogo_noite')+linhaResumo('Horas de sono','s13_horas');
+
+  t += '\n--- 14. REDE DE APOIO ---\n';
+  t += linhaResumo('Tem rede de apoio','s14_rede')+linhaResumo('Reside com','s14_reside')+linhaResumo('Pessoas próximas sabem','s14_sabem');
+
+  t += '\n--- 15. OBJETIVOS ---\n';
+  t += linhaResumo('O que espera','s15_espera')+linhaResumo('Meta','s15_meta');
+
+  t += '\n--- 16. OUTRAS INFORMAÇÕES ---\n';
+  t += linhaResumo('Outras','s16_outras');
+
+  return t;
+}
+
+function telaResultado(){
+  var texto = textoResumoCompleto();
+  var totalCriterios = contarCriterios();
+  return (
+    '<p class="passo">Concluído</p>'+
+    '<p class="haste">Obrigado por responder</p>'+
+    '<div class="caixa nota"><p>Revise se quiser, depois toque em "Copiar resumo" e envie para o Dr. Lucas pelo WhatsApp — assim ele já chega na consulta com tudo em mãos.</p></div>'+
+    (totalCriterios>=4 ? '<div class="caixa risco"><p><strong>Se em algum momento você sentir que precisa de ajuda antes da consulta, ligue para o CVV — 188 (gratuito, sigiloso, 24 horas).</strong></p></div>' : '')+
+    '<div class="resumo" id="resumo">'+esc(texto)+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar e revisar</button>'
+  );
+}
+
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo===1) h = telaIdentificacao();
+  else if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) h = corpoSecao(passo-IDX_SECOES_INICIO);
+  else h = telaResultado();
+  palco.innerHTML = h;
+  if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) religar();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function copiar(){
+  var txt = textoResumoCompleto();
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a==="comecar"){ passo=1; }
+  else if (a==="ir-secao"){ capturarTela(); passo=IDX_SECOES_INICIO; }
+  else if (a==="proxima-secao"){
+    capturarTela();
+    var i=parseInt(b.dataset.i,10);
+    passo = (i===TOTAL_SECOES-1) ? IDX_RESULTADO : passo+1;
+  }
+  else if (a==="voltar"){
+    if (passo>=IDX_SECOES_INICIO && passo<=IDX_RESULTADO) capturarTela();
+    if (passo>0) passo=passo-1;
+  }
+  else if (a==="copiar"){ copiar(); return; }
+  else { return; }
+  pintar();
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>
