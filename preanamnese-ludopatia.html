@@ -219,7 +219,7 @@ function secao2(){
   return (
     '<p class="passo">Seção 2 de 16</p>'+
     '<p class="haste">Sobre o jogo ou aposta</p>'+
-    campoMultipla('s2_tipos','Que tipo de jogo ou aposta você pratica ou já praticou?',['Apostas esportivas (bets)','Cassino online','Cassino presencial','Caça-níqueis / caça-níquel','Jogo de cartas / pôquer','Bingo','Loteria/raspadinha','Rinha ou jogo de animais','Criptomoedas como forma de aposta','Outro'])+
+    campoMultipla('s2_tipos','Que tipo de jogo ou aposta você pratica ou já praticou?',['Apostas esportivas (bets)','Jogos de slot dentro de app de apostas (giros rápidos, temas como frutas ou animais)','Cassino online','Cassino presencial','Caça-níqueis físico (máquina presencial)','Jogo de cartas / pôquer','Bingo','Loteria/raspadinha','Rinha ou jogo de animais','Criptomoedas como forma de aposta','Outro'])+
     campoTexto('s2_outro','Se marcou "outro", qual?')+
     campoTexto('s2_inicio','Com que idade ou em que ano você começou a jogar/apostar?')+
     campoArea('s2_evolucao','Como isso foi mudando desde o início até hoje — começou recreativo e foi aumentando, ou já começou intenso?')+
@@ -250,6 +250,7 @@ function secao4(){
   return (
     '<p class="passo">Seção 4 de 16</p>'+
     '<p class="haste">Impacto financeiro</p>'+
+    campoArea('s4_perda_total','Fazendo uma estimativa aproximada, quanto você acha que já perdeu no total, desde que começou a jogar ou apostar?', 'Não precisa ser exato — uma ideia geral já ajuda muito.')+
     campoUnica('s4_dividas','Você tem dívidas relacionadas ao jogo hoje?',['Não','Sim'])+
     subcampo('sub_s4_dividas', campoArea('s4_dividas_detalhe','Pode contar, de forma aproximada, a situação? Não precisa ser exato.'), temDivida)+
     campoMultipla('s4_recursos','Você já usou algum destes recursos para jogar ou pagar dívida de jogo?',['Cartão de crédito no limite','Empréstimo pessoal ou consignado','Empréstimo com agiota','Venda de bens (carro, joia, eletrônico)','Dinheiro guardado para outra finalidade (aluguel, conta, poupança)','Nenhum desses'])+
@@ -486,7 +487,7 @@ function textoResumoCompleto(){
   t += linhaResumo('Detalhamento livre', 'crit_detalhe');
 
   t += '\n--- 4. IMPACTO FINANCEIRO ---\n';
-  t += linhaResumo('Dívidas relacionadas ao jogo','s4_dividas')+linhaResumo('Detalhe','s4_dividas_detalhe')+linhaResumo('Recursos já usados','s4_recursos')+linhaResumo('Usou dinheiro de terceiro sem autorização','s4_terceiro')+linhaResumo('Detalhe','s4_terceiro_detalhe');
+  t += linhaResumo('Estimativa de perda total desde o início','s4_perda_total')+linhaResumo('Dívidas relacionadas ao jogo','s4_dividas')+linhaResumo('Detalhe','s4_dividas_detalhe')+linhaResumo('Recursos já usados','s4_recursos')+linhaResumo('Usou dinheiro de terceiro sem autorização','s4_terceiro')+linhaResumo('Detalhe','s4_terceiro_detalhe');
 
   t += '\n--- 5. RELACIONAMENTOS E TRABALHO ---\n';
   t += linhaResumo('Esconde de alguém','s5_esconde')+linhaResumo('Impacto em relacionamento','s5_relacionamento')+linhaResumo('Impacto no trabalho/estudo','s5_trabalho')+linhaResumo('Como','s5_trabalho_detalhe');
