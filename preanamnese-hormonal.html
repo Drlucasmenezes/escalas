@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Pré-Anamnese — Avaliação Hormonal · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --risco-bg:#F7ECEC; --risco-borda:#B26A6A;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.28rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .risco{background:var(--risco-bg);border-left:3px solid var(--risco-borda);}
+  .risco .tit{color:#8E4B4B;}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.1rem;color:var(--bronze-dark);margin:0 0 14px;font-weight:700;}
+  label.campo{display:block;font-size:.87rem;color:var(--suave);margin:14px 0 5px;font-weight:700;}
+  label.campo:first-child{margin-top:0;}
+  .ajuda{font-size:.78rem;color:var(--suave);margin:-3px 0 6px;font-style:italic;}
+  input[type=text]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  textarea{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+    min-height:80px;resize:vertical;line-height:1.5;
+  }
+  .pillgrupo{display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;}
+  .pillgrupo label{
+    text-align:center;font-size:.85rem;
+    border:1.5px solid var(--linha);border-radius:7px;padding:9px 13px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;flex:0 0 auto;
+  }
+  .pillgrupo.full label{flex:1;min-width:80px;}
+  .pillgrupo input{display:none;}
+  .pillgrupo label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .pillgrupo.multi label:has(input:checked){background:#8A6A1F;border-color:#8A6A1F;}
+  .pillgrupo.risco-grupo label:has(input:checked){background:#8E4B4B;border-color:#8E4B4B;}
+  .subcampo{margin-top:10px;padding:12px 14px;background:#F4EEE3;border-radius:8px;border:1px dashed var(--linha);}
+  .subcampo.oculto{display:none;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:18px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:3px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .ponto{width:5px;height:5px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.74rem;line-height:1.55;white-space:pre-wrap;color:#4A4034;max-height:480px;overflow-y:auto;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>Pré-Anamnese</h1>
+    <p class="sub">Avaliação Hormonal</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p style="font-size:.68rem;color:#8C8272;margin-top:8px;">Suas respostas não são enviadas nem armazenadas automaticamente — ao final, você mesmo copia e envia o resumo.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var estado = {};
+var passo = 0;
+var TOTAL_SECOES = 14;
+var IDX_SECOES_INICIO = 2;
+var IDX_RESULTADO = IDX_SECOES_INICIO + TOTAL_SECOES;
+
+var palco = document.getElementById("palco");
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function g(chave){ return estado[chave]; }
+function set(chave, valor){ estado[chave] = valor; }
+
+function pontosBar(atual){
+  var total = IDX_RESULTADO;
+  var h='<div class="pontos" aria-hidden="true">';
+  for (var i=0;i<total;i++){ h += '<span class="ponto'+(i<=atual?' on':'')+'"></span>'; }
+  return h+'</div>';
+}
+
+function campoTexto(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<input type="text" data-campo="'+chave+'" value="'+esc(v)+'">';
+}
+function campoArea(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<textarea data-campo="'+chave+'">'+esc(v)+'</textarea>';
+}
+function campoUnica(chave, rotulo, opcoes, full, classeExtra){
+  var v = g(chave);
+  var botoes = opcoes.map(function(op){
+    var checked = (v===op) ? ' checked' : '';
+    return '<label><input type="radio" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo'+(full?' full':'')+(classeExtra?' '+classeExtra:'')+'" data-grupo="'+chave+'">'+botoes+'</div>';
+}
+function campoMultipla(chave, rotulo, opcoes){
+  var v = g(chave) || [];
+  var botoes = opcoes.map(function(op){
+    var checked = (v.indexOf(op)>=0) ? ' checked' : '';
+    return '<label><input type="checkbox" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo multi" data-grupomulti="'+chave+'">'+botoes+'</div>';
+}
+function subcampo(id, conteudoHtml, visivel){
+  return '<div class="subcampo'+(visivel?'':' oculto')+'" id="'+id+'">'+conteudoHtml+'</div>';
+}
+
+function capturarTela(){
+  document.querySelectorAll('[data-campo]').forEach(function(el){ set(el.dataset.campo, el.value); });
+  document.querySelectorAll('[data-grupo]').forEach(function(el){
+    var checked = el.querySelector('input:checked');
+    set(el.dataset.grupo, checked ? checked.value : undefined);
+  });
+  document.querySelectorAll('[data-grupomulti]').forEach(function(el){
+    var vals = Array.prototype.slice.call(el.querySelectorAll('input:checked')).map(function(i){ return i.value; });
+    set(el.dataset.grupomulti, vals);
+  });
+}
+
+function telaIntro(){
+  return (
+    '<p class="passo">Antes de começar</p>'+
+    '<p class="haste">Pré-consulta — Dr. Lucas Menezes</p>'+
+    '<p>Este formulário complementa sua pré-anamnese geral, com foco específico na avaliação hormonal e metabólica. Leva cerca de 8 minutos.</p>'+
+    '<div class="caixa nota"><span class="tit">Se você já preencheu a pré-anamnese geral</span><p>Não precisa repetir aqui informações sobre sono, humor ou medicações que já contou naquele formulário — este é focado no que é específico da parte hormonal.</p></div>'+
+    '<button class="btn" data-acao="comecar">Começar</button>'
+  );
+}
+function telaIdentificacao(){
+  return (
+    '<p class="passo">Identificação</p>'+
+    campoTexto('id_paciente','Nome completo')+
+    campoTexto('id_dn','Data de nascimento (dd/mm/aaaa)')+
+    campoTexto('id_idade','Idade')+
+    campoTexto('id_telefone','Telefone para contato')+
+    '<button class="btn" data-acao="ir-secao" data-i="0">Continuar</button>'
+  );
+}
+
+// 1 — Dados gerais
+function secao1(){
+  return (
+    '<p class="passo">Seção 1 de 14</p>'+
+    '<p class="haste">Dados gerais</p>'+
+    campoTexto('s1_peso','Peso (kg)')+
+    campoTexto('s1_altura','Altura (cm)')+
+    campoTexto('s1_circunferencia','Circunferência abdominal, se souber (cm)')+
+    campoTexto('s1_profissao','Profissão')+
+    campoUnica('s1_estadocivil','Estado civil',['Solteiro(a)','Casado(a)/União estável','Divorciado(a)','Viúvo(a)'])
+  );
+}
+
+// 2 — Ciclo menstrual
+function secao2(){
+  var menstrua = g('s2_menstrua')==='Sim';
+  return (
+    '<p class="passo">Seção 2 de 14</p>'+
+    '<p class="haste">Ciclo menstrual</p>'+
+    campoUnica('s2_menstrua','Você ainda menstrua?',['Sim','Não'])+
+    subcampo('sub_s2',
+      campoUnica('s2_regular','Seu ciclo é regular?',['Sim','Não'])+
+      campoTexto('s2_intervalo','Menstrua de quanto em quanto tempo?')+
+      campoUnica('s2_fluxo','Seu fluxo é',['Normal','Aumentado','Reduzido','Irregular','Ausente'])
+    , menstrua)+
+    campoTexto('s2_ultima','Data da última menstruação (dd/mm/aaaa)')
+  );
+}
+
+// 3 — Sintomas hormonais / climatério
+function secao3(){
+  return (
+    '<p class="passo">Seção 3 de 14</p>'+
+    '<p class="haste">Sintomas hormonais / climatério</p>'+
+    campoMultipla('s3_sintomas','Você apresenta:',['Ondas de calor (fogachos)','Suor noturno','Sensação súbita de calor','Palpitações','Piora dos sintomas perto da menstruação','Oscilação importante de humor','Sensação de estar "diferente hormonalmente"','Nenhum desses'])
+  );
+}
+
+// 4 — Cognição
+function secao4(){
+  return (
+    '<p class="passo">Seção 4 de 14</p>'+
+    '<p class="haste">Cognição</p>'+
+    campoMultipla('s4_cognicao','Você percebe:',['Esquecimentos','Dificuldade de concentração','Mente acelerada','Sensação de "brain fog" (exaustão cognitiva)','Dificuldade para encontrar palavras','Dificuldade de organização','Nenhum desses'])
+  );
+}
+
+// 5 — Apetite / metabolismo
+function secao5(){
+  return (
+    '<p class="passo">Seção 5 de 14</p>'+
+    '<p class="haste">Apetite / metabolismo</p>'+
+    campoMultipla('s5_metabolismo','Você percebe:',['Alteração do apetite','Compulsão alimentar','Desejo aumentado por doces/carboidratos','Ganho de peso recente','Dificuldade para emagrecer','Gordura abdominal aumentada','Sensação de inchaço','Nenhum desses'])
+  );
+}
+
+// 6 — Sexualidade
+function secao6(){
+  return (
+    '<p class="passo">Seção 6 de 14</p>'+
+    '<p class="haste">Sexualidade</p>'+
+    campoMultipla('s6_sexualidade','Você percebe:',['Queda da libido','Ressecamento vaginal','Dor na relação','Menor prazer sexual','Nenhum desses'])
+  );
+}
+
+// 7 — Pele / cabelo
+function secao7(){
+  return (
+    '<p class="passo">Seção 7 de 14</p>'+
+    '<p class="haste">Pele / cabelo</p>'+
+    campoMultipla('s7_pelecabelo','Você percebe:',['Queda de cabelo','Afinamento capilar','Pele seca','Acne','Unhas fracas','Nenhum desses'])
+  );
+}
+
+// 8 — Uso de hormônios (direcionado)
+function secao8(){
+  var usaAnti = g('s8_anticoncepcional')==='Sim';
+  var temImplante = g('s8_implante')==='Sim';
+  var fezReposicao = g('s8_reposicao')==='Sim';
+  var usaDiu = g('s8_diu')==='Sim';
+  return (
+    '<p class="passo">Seção 8 de 14</p>'+
+    '<p class="haste">Uso de hormônios</p>'+
+    campoUnica('s8_anticoncepcional','Faz uso de anticoncepcional?',['Não','Sim'])+
+    subcampo('sub_s8_anti', campoTexto('s8_anticoncepcional_qual','Qual tipo? (oral, injetável, adesivo, outro)'), usaAnti)+
+    campoUnica('s8_diu','Usa DIU?',['Não','Sim'])+
+    subcampo('sub_s8_diu', campoUnica('s8_diu_tipo','O DIU é hormonal (ex: Mirena) ou de cobre?',['Hormonal','Cobre','Não sei dizer'],true), usaDiu)+
+    campoUnica('s8_implante','Tem ou já teve algum implante hormonal (tipo Implanon ou similar)?',['Não','Sim'])+
+    subcampo('sub_s8_implante', campoTexto('s8_implante_quando','Desde quando, ou por quanto tempo usou?'), temImplante)+
+    campoUnica('s8_reposicao','Já fez ou faz reposição hormonal (para climatério/menopausa)?',['Não','Sim'])+
+    subcampo('sub_s8_reposicao', campoTexto('s8_reposicao_detalhe','Qual, e desde quando?'), fezReposicao)
+  );
+}
+
+// 9 — Histórico ginecológico
+function secao9(){
+  return (
+    '<p class="passo">Seção 9 de 14</p>'+
+    '<p class="haste">Histórico ginecológico</p>'+
+    campoUnica('s9_histerectomia','Já fez histerectomia (remoção total ou parcial do útero)?',['Não','Sim'])+
+    campoUnica('s9_ovarios','Já retirou ovários?',['Não','Sim, um','Sim, os dois'],true)+
+    campoMultipla('s9_condicoes','Você tem ou já teve:',['Endometriose','Miomas','SOP (Síndrome dos Ovários Policísticos)','Nenhum desses'])
+  );
+}
+
+// 10 — Histórico clínico
+function secao10(){
+  return (
+    '<p class="passo">Seção 10 de 14</p>'+
+    '<p class="haste">Histórico clínico</p>'+
+    '<p class="ajuda" style="margin-bottom:8px;">Você tem diagnóstico de:</p>'+
+    campoMultipla('s10_diagnosticos','',['Hipertensão','Diabetes','Colesterol alto','Doença cardiovascular','Doença hepática','Enxaqueca (especialmente com aura)','Trombose','Doenças autoimunes','Nenhum desses'])
+  );
+}
+
+// 11 — Histórico familiar
+function secao11(){
+  return (
+    '<p class="passo">Seção 11 de 14</p>'+
+    '<p class="haste">Histórico familiar</p>'+
+    '<p class="ajuda" style="margin-bottom:8px;">Há histórico familiar de:</p>'+
+    campoMultipla('s11_familiar','',['Menopausa precoce','Câncer de mama','Trombose','Infarto / AVC','Nenhum desses'])
+  );
+}
+
+// 12 — Gestação e planejamento familiar
+function secao12(){
+  return (
+    '<p class="passo">Seção 12 de 14</p>'+
+    '<p class="haste">Gestação e planejamento familiar</p>'+
+    campoUnica('s12_gestante','Você está grávida, ou há possibilidade de estar?',['Não','Sim','Possibilidade'],true)+
+    campoUnica('s12_amamentando','Está amamentando atualmente?',['Não','Sim'])+
+    campoUnica('s12_deseja','Deseja engravidar nos próximos meses?',['Não','Sim','Ainda não sei'],true)
+  );
+}
+
+// 13 — Segurança
+function secao13(){
+  var ideacao = g('s13_ideacao') && g('s13_ideacao')!=='Nunca';
+  return (
+    '<p class="passo">Seção 13 de 14</p>'+
+    '<p class="haste">Segurança</p>'+
+    campoUnica('s13_ideacao','Você já pensou que a vida não vale a pena, ou que seria melhor não estar aqui?',['Nunca','No passado','Atualmente'],true,'risco-grupo')+
+    subcampo('sub_s13', campoArea('s13_ideacao_detalhe','Pode contar mais sobre isso?'), ideacao)+
+    campoUnica('s13_tentou','Já tentou tirar a própria vida?',['Não','Sim'])
+  );
+}
+
+// 14 — Outras informações
+function secao14(){
+  return (
+    '<p class="passo">Seção 14 de 14</p>'+
+    '<p class="haste">Outras informações</p>'+
+    campoArea('s14_outras','Existe algo importante sobre sua saúde hormonal que não coube em nenhuma pergunta anterior?')
+  );
+}
+
+var RENDER_SECOES = [secao1,secao2,secao3,secao4,secao5,secao6,secao7,secao8,secao9,secao10,secao11,secao12,secao13,secao14];
+
+function corpoSecao(i){
+  var conteudo = RENDER_SECOES[i]();
+  var ehUltima = (i===TOTAL_SECOES-1);
+  return conteudo+
+    pontosBar(IDX_SECOES_INICIO+i)+
+    '<button class="btn" data-acao="proxima-secao" data-i="'+i+'" style="margin-top:8px;">'+(ehUltima?'Ver resumo final':'Continuar')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>';
+}
+
+function religar(){
+  var mapaCondicional = [
+    ['s2_menstrua','sub_s2','Sim'],
+    ['s8_anticoncepcional','sub_s8_anti','Sim'],
+    ['s8_diu','sub_s8_diu','Sim'],
+    ['s8_implante','sub_s8_implante','Sim'],
+    ['s8_reposicao','sub_s8_reposicao','Sim'],
+  ];
+  mapaCondicional.forEach(function(m){
+    var grupo = document.querySelector('[data-grupo="'+m[0]+'"]');
+    var alvo = document.getElementById(m[1]);
+    if (!grupo || !alvo) return;
+    grupo.addEventListener('change', function(){
+      var checked = grupo.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      if (val===m[2]) alvo.classList.remove('oculto'); else alvo.classList.add('oculto');
+    });
+  });
+  var s13i = document.querySelector('[data-grupo="s13_ideacao"]');
+  var s13iAlvo = document.getElementById('sub_s13');
+  if (s13i && s13iAlvo){
+    s13i.addEventListener('change', function(){
+      var checked = s13i.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      s13iAlvo.classList.toggle('oculto', !(val && val!=='Nunca'));
+    });
+  }
+}
+
+function linhaResumo(rotulo, chave){
+  var v = g(chave);
+  if (v===undefined || v===null || v==='') return '';
+  if (Array.isArray(v)){ if (v.length===0) return ''; v = v.join(', '); }
+  return rotulo+': '+v+'\n';
+}
+
+function textoResumoCompleto(){
+  var d = new Date();
+  var t = '';
+  t += 'PRÉ-ANAMNESE — AVALIAÇÃO HORMONAL\nDr. Lucas Menezes\n';
+  t += 'Preenchido em: '+d.toLocaleDateString('pt-BR')+'\n\n';
+  t += '--- IDENTIFICAÇÃO ---\n';
+  t += linhaResumo('Paciente','id_paciente')+linhaResumo('Data de nascimento','id_dn')+linhaResumo('Idade','id_idade')+linhaResumo('Telefone','id_telefone');
+
+  t += '\n--- 1. DADOS GERAIS ---\n';
+  t += linhaResumo('Peso','s1_peso')+linhaResumo('Altura','s1_altura')+linhaResumo('Circunferência abdominal','s1_circunferencia')+linhaResumo('Profissão','s1_profissao')+linhaResumo('Estado civil','s1_estadocivil');
+
+  t += '\n--- 2. CICLO MENSTRUAL ---\n';
+  t += linhaResumo('Ainda menstrua','s2_menstrua')+linhaResumo('Ciclo regular','s2_regular')+linhaResumo('Intervalo','s2_intervalo')+linhaResumo('Fluxo','s2_fluxo')+linhaResumo('Última menstruação','s2_ultima');
+
+  t += '\n--- 3. SINTOMAS HORMONAIS / CLIMATÉRIO ---\n';
+  t += linhaResumo('Sintomas','s3_sintomas');
+
+  t += '\n--- 4. COGNIÇÃO ---\n';
+  t += linhaResumo('Percebe','s4_cognicao');
+
+  t += '\n--- 5. APETITE / METABOLISMO ---\n';
+  t += linhaResumo('Percebe','s5_metabolismo');
+
+  t += '\n--- 6. SEXUALIDADE ---\n';
+  t += linhaResumo('Percebe','s6_sexualidade');
+
+  t += '\n--- 7. PELE / CABELO ---\n';
+  t += linhaResumo('Percebe','s7_pelecabelo');
+
+  t += '\n--- 8. USO DE HORMÔNIOS ---\n';
+  t += linhaResumo('Anticoncepcional','s8_anticoncepcional')+linhaResumo('Qual tipo','s8_anticoncepcional_qual')+
+       linhaResumo('DIU','s8_diu')+linhaResumo('Tipo de DIU','s8_diu_tipo')+
+       linhaResumo('Implante hormonal','s8_implante')+linhaResumo('Desde quando','s8_implante_quando')+
+       linhaResumo('Reposição hormonal','s8_reposicao')+linhaResumo('Qual/desde quando','s8_reposicao_detalhe');
+
+  t += '\n--- 9. HISTÓRICO GINECOLÓGICO ---\n';
+  t += linhaResumo('Histerectomia','s9_histerectomia')+linhaResumo('Retirou ovários','s9_ovarios')+linhaResumo('Condições','s9_condicoes');
+
+  t += '\n--- 10. HISTÓRICO CLÍNICO ---\n';
+  t += linhaResumo('Diagnósticos','s10_diagnosticos');
+
+  t += '\n--- 11. HISTÓRICO FAMILIAR ---\n';
+  t += linhaResumo('Histórico','s11_familiar');
+
+  t += '\n--- 12. GESTAÇÃO E PLANEJAMENTO FAMILIAR ---\n';
+  t += linhaResumo('Gestante ou possibilidade','s12_gestante')+linhaResumo('Amamentando','s12_amamentando')+linhaResumo('Deseja engravidar','s12_deseja');
+
+  t += '\n--- 13. SEGURANÇA ---\n';
+  t += linhaResumo('Ideação de morte/não estar vivo','s13_ideacao')+linhaResumo('Detalhe','s13_ideacao_detalhe')+linhaResumo('Já tentou tirar a própria vida','s13_tentou');
+
+  t += '\n--- 14. OUTRAS INFORMAÇÕES ---\n';
+  t += linhaResumo('Outras','s14_outras');
+
+  return t;
+}
+
+function telaResultado(){
+  var texto = textoResumoCompleto();
+  var risco = g('s13_ideacao') && g('s13_ideacao')!=='Nunca';
+  return (
+    '<p class="passo">Concluído</p>'+
+    '<p class="haste">Obrigado por responder</p>'+
+    '<div class="caixa nota"><p>Revise se quiser, depois toque em "Copiar resumo" e envie para o Dr. Lucas pelo WhatsApp.</p></div>'+
+    (risco ? '<div class="caixa risco"><p><strong>Se em algum momento você sentir que precisa de ajuda antes da consulta, ligue para o CVV — 188 (gratuito, sigiloso, 24 horas).</strong></p></div>' : '')+
+    '<div class="resumo" id="resumo">'+esc(texto)+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar e revisar</button>'
+  );
+}
+
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo===1) h = telaIdentificacao();
+  else if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) h = corpoSecao(passo-IDX_SECOES_INICIO);
+  else h = telaResultado();
+  palco.innerHTML = h;
+  if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) religar();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function copiar(){
+  var txt = textoResumoCompleto();
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a==="comecar"){ passo=1; }
+  else if (a==="ir-secao"){ capturarTela(); passo=IDX_SECOES_INICIO; }
+  else if (a==="proxima-secao"){
+    capturarTela();
+    var i=parseInt(b.dataset.i,10);
+    passo = (i===TOTAL_SECOES-1) ? IDX_RESULTADO : passo+1;
+  }
+  else if (a==="voltar"){
+    if (passo>=IDX_SECOES_INICIO && passo<=IDX_RESULTADO) capturarTela();
+    if (passo>0) passo=passo-1;
+  }
+  else if (a==="copiar"){ copiar(); return; }
+  else { return; }
+  pintar();
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>
