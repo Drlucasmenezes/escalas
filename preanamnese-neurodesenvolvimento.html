@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Pré-Anamnese — Neurodesenvolvimento (TEA/TDAH) · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --risco-bg:#F7ECEC; --risco-borda:#B26A6A;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.22rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .risco{background:var(--risco-bg);border-left:3px solid var(--risco-borda);}
+  .risco .tit{color:#8E4B4B;}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.08rem;color:var(--bronze-dark);margin:0 0 14px;font-weight:700;}
+  label.campo{display:block;font-size:.87rem;color:var(--suave);margin:14px 0 5px;font-weight:700;}
+  label.campo:first-child{margin-top:0;}
+  .ajuda{font-size:.78rem;color:var(--suave);margin:-3px 0 6px;font-style:italic;}
+  input[type=text]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  textarea{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+    min-height:80px;resize:vertical;line-height:1.5;
+  }
+  .pillgrupo{display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;}
+  .pillgrupo label{
+    text-align:center;font-size:.85rem;
+    border:1.5px solid var(--linha);border-radius:7px;padding:9px 13px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;flex:0 0 auto;
+  }
+  .pillgrupo.full label{flex:1;min-width:80px;}
+  .pillgrupo input{display:none;}
+  .pillgrupo label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .pillgrupo.multi label:has(input:checked){background:#8A6A1F;border-color:#8A6A1F;}
+  .pillgrupo.risco-grupo label:has(input:checked){background:#8E4B4B;border-color:#8E4B4B;}
+  .subcampo{margin-top:10px;padding:12px 14px;background:#F4EEE3;border-radius:8px;border:1px dashed var(--linha);}
+  .subcampo.oculto{display:none;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:18px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:3px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .ponto{width:5px;height:5px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.73rem;line-height:1.55;white-space:pre-wrap;color:#4A4034;max-height:480px;overflow-y:auto;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>Pré-Anamnese</h1>
+    <p class="sub">Neurodesenvolvimento — TEA e TDAH</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p style="font-size:.68rem;color:#8C8272;margin-top:8px;">Suas respostas não são enviadas nem armazenadas automaticamente — ao final, você mesmo copia e envia o resumo.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var estado = {};
+var passo = 0;
+var TOTAL_SECOES = 19;
+var IDX_SECOES_INICIO = 2;
+var IDX_RESULTADO = IDX_SECOES_INICIO + TOTAL_SECOES;
+
+var palco = document.getElementById("palco");
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function g(chave){ return estado[chave]; }
+function set(chave, valor){ estado[chave] = valor; }
+
+function pontosBar(atual){
+  var total = IDX_RESULTADO;
+  var h='<div class="pontos" aria-hidden="true">';
+  for (var i=0;i<total;i++){ h += '<span class="ponto'+(i<=atual?' on':'')+'"></span>'; }
+  return h+'</div>';
+}
+
+function campoTexto(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<input type="text" data-campo="'+chave+'" value="'+esc(v)+'">';
+}
+function campoArea(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<textarea data-campo="'+chave+'">'+esc(v)+'</textarea>';
+}
+function campoUnica(chave, rotulo, opcoes, full, classeExtra){
+  var v = g(chave);
+  var botoes = opcoes.map(function(op){
+    var checked = (v===op) ? ' checked' : '';
+    return '<label><input type="radio" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo'+(full?' full':'')+(classeExtra?' '+classeExtra:'')+'" data-grupo="'+chave+'">'+botoes+'</div>';
+}
+function campoMultipla(chave, rotulo, opcoes){
+  var v = g(chave) || [];
+  var botoes = opcoes.map(function(op){
+    var checked = (v.indexOf(op)>=0) ? ' checked' : '';
+    return '<label><input type="checkbox" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo multi" data-grupomulti="'+chave+'">'+botoes+'</div>';
+}
+function subcampo(id, conteudoHtml, visivel){
+  return '<div class="subcampo'+(visivel?'':' oculto')+'" id="'+id+'">'+conteudoHtml+'</div>';
+}
+
+function capturarTela(){
+  document.querySelectorAll('[data-campo]').forEach(function(el){ set(el.dataset.campo, el.value); });
+  document.querySelectorAll('[data-grupo]').forEach(function(el){
+    var checked = el.querySelector('input:checked');
+    set(el.dataset.grupo, checked ? checked.value : undefined);
+  });
+  document.querySelectorAll('[data-grupomulti]').forEach(function(el){
+    var vals = Array.prototype.slice.call(el.querySelectorAll('input:checked')).map(function(i){ return i.value; });
+    set(el.dataset.grupomulti, vals);
+  });
+}
+
+function telaIntro(){
+  return (
+    '<p class="passo">Antes de começar</p>'+
+    '<p class="haste">Pré-consulta — Dr. Lucas Menezes</p>'+
+    '<p>Este formulário investiga características de desenvolvimento, atenção e comportamento, relevantes para avaliação de TEA (Transtorno do Espectro Autista) e TDAH. Leva cerca de 20 minutos — pode pausar e voltar, contanto que não feche esta aba.</p>'+
+    '<div class="caixa nota"><span class="tit">Se está respondendo sobre seu filho(a)</span><p>Todas as perguntas usam "você" — se estiver preenchendo sobre uma criança ou adolescente, leia "você" como referindo-se a ele(a). Onde fizer diferença, perguntamos claramente sobre quem é o formulário.</p></div>'+
+    '<div class="caixa nota"><span class="tit">Se você já tem diagnóstico ou laudo anterior</span><p>Vale responder com atenção ao que você vive hoje, mesmo já tendo sido avaliado antes — isso ajuda a entender como o quadro está agora, não só confirmar o que já foi escrito. Se tiver o laudo em mãos, trazê-lo ou enviá-lo antes da consulta ajuda mais do que resumir de memória o que ele dizia.</p></div>'+
+    '<button class="btn" data-acao="comecar">Começar</button>'
+  );
+}
+function telaIdentificacao(){
+  return (
+    '<p class="passo">Identificação</p>'+
+    campoUnica('id_sobrequem','Este formulário é sobre...',['Mim mesmo(a)','Meu filho(a) ou dependente'],true)+
+    campoTexto('id_paciente','Nome completo (da pessoa avaliada)')+
+    campoTexto('id_dn','Data de nascimento (dd/mm/aaaa)')+
+    campoTexto('id_idade','Idade')+
+    campoTexto('id_preenchidopor','Preenchido por (seu nome, se for responsável)')+
+    campoTexto('id_telefone','Telefone para contato')+
+    '<button class="btn" data-acao="ir-secao" data-i="0">Continuar</button>'
+  );
+}
+
+// 1 — Motivo da consulta
+function secao1(){
+  return (
+    '<p class="passo">Seção 1 de 18</p>'+
+    '<p class="haste">Motivo da consulta</p>'+
+    campoArea('s1_motivo','O que fez você procurar essa avaliação agora?')+
+    campoTexto('s1_desde','Desde quando essas dificuldades são percebidas?')+
+    campoUnica('s1_sugestao','A busca por avaliação foi sugerida por...',['Iniciativa própria/familiar','Escola','Profissional de saúde','Outra pessoa'],true)
+  );
+}
+
+// 2 — Marcos do desenvolvimento
+function secao2(){
+  return (
+    '<p class="passo">Seção 2 de 18</p>'+
+    '<p class="haste">Marcos do desenvolvimento</p>'+
+    campoTexto('s2_idade_andar','Com que idade começou a andar?')+
+    campoTexto('s2_idade_falar','Com que idade disse as primeiras palavras?')+
+    campoTexto('s2_idade_frases','Com que idade formou as primeiras frases?')+
+    campoUnica('s2_gestacao','Houve alguma intercorrência na gestação ou no parto?',['Não','Sim'])+
+    subcampo('sub_s2_gestacao', campoArea('s2_gestacao_detalhe','Qual?'), false)+
+    campoUnica('s2_perda','Já houve perda de habilidades adquiridas (regressão) — por exemplo, deixar de falar palavras que já dizia?',['Não','Sim'])+
+    subcampo('sub_s2_perda', campoArea('s2_perda_detalhe','Quando, e o que foi perdido?'), false)
+  );
+}
+
+// 3 — Comunicação e linguagem
+function secao3(){
+  return (
+    '<p class="passo">Seção 3 de 18</p>'+
+    '<p class="haste">Comunicação e linguagem</p>'+
+    campoMultipla('s3_comunicacao','Você percebe ou já percebeu:',['Dificuldade em manter contato visual','Fala com entonação incomum (monótona, cantada, ou muito formal)','Repetição de frases ou falas de outras pessoas/mídia (ecolalia)','Dificuldade em iniciar ou manter uma conversa','Uso de gestos reduzido ou incomum para a idade','Interpretação muito literal do que é dito','Dificuldade em entender ironia, sarcasmo ou "segundas intenções"','Nenhum desses'])
+  );
+}
+
+// 4 — Interação social
+function secao4(){
+  return (
+    '<p class="passo">Seção 4 de 18</p>'+
+    '<p class="haste">Interação social</p>'+
+    campoMultipla('s4_social','Você percebe ou já percebeu:',['Preferência clara por brincar/estar sozinho(a)','Dificuldade em fazer ou manter amizades','Dificuldade em compartilhar interesses ou conquistas com outros espontaneamente','Dificuldade em perceber como o outro está se sentindo','Comportamento social que parece "ensaiado" ou copiado de outros','Desconforto ou desinteresse em contato físico (abraço, colo)','Boa relação social, sem dificuldades percebidas'])
+  );
+}
+
+// 5 — Interesses e comportamentos repetitivos
+function secao5(){
+  return (
+    '<p class="passo">Seção 5 de 18</p>'+
+    '<p class="haste">Interesses e comportamentos repetitivos</p>'+
+    campoMultipla('s5_repetitivo','Você percebe ou já percebeu:',['Interesse muito intenso e restrito por um assunto específico','Necessidade forte de manter rotinas, com desconforto grande se algo muda','Movimentos repetitivos com as mãos, corpo, ou balanço (stimming)','Alinhar, organizar ou dispor objetos de forma repetitiva','Insistência em fazer as coisas sempre do mesmo jeito','Nenhum desses'])+
+    campoTexto('s5_interesse_qual','Se houver interesse restrito/intenso, qual é o assunto?')
+  );
+}
+
+// 6 — Processamento sensorial
+function secao6(){
+  return (
+    '<p class="passo">Seção 6 de 18</p>'+
+    '<p class="haste">Processamento sensorial</p>'+
+    campoMultipla('s6_sensorial','Você percebe ou já percebeu reação incomum (muito forte ou muito ausente) a:',['Sons (incômodo com barulhos específicos, ou não reagir a sons altos)','Toque (desconforto com certas texturas de roupa, etiqueta, toque leve)','Luz (incômodo com luz forte)','Cheiros (sensibilidade aumentada)','Dor ou temperatura (reação muito forte ou quase ausente)','Nenhuma reação incomum percebida'])
+  );
+}
+
+// 7 — Atenção e concentração
+function secao7(){
+  return (
+    '<p class="passo">Seção 7 de 18</p>'+
+    '<p class="haste">Atenção e concentração</p>'+
+    campoMultipla('s7_atencao','Você percebe ou já percebeu:',['Dificuldade em prestar atenção a detalhes, erros por descuido','Dificuldade em manter atenção em tarefas ou brincadeiras','Parecer não escutar quando alguém fala diretamente','Dificuldade em seguir instruções até o fim','Dificuldade em organizar tarefas e pertences','Evita ou reluta em tarefas que exigem esforço mental prolongado','Perde objetos com frequência','Distrai-se facilmente com estímulos externos','Esquecimentos frequentes no dia a dia','Nenhum desses'])
+  );
+}
+
+// 8 — Hiperatividade e impulsividade
+function secao8(){
+  return (
+    '<p class="passo">Seção 8 de 18</p>'+
+    '<p class="haste">Hiperatividade e impulsividade</p>'+
+    campoMultipla('s8_hiperatividade','Você percebe ou já percebeu:',['Mexe muito com mãos ou pés, remexe-se no lugar','Dificuldade em ficar sentado quando esperado','Sensação de estar "a mil por hora"','Fala em excesso','Dificuldade em esperar a vez','Interrompe conversas ou brincadeiras dos outros','Responde antes da pergunta terminar','Nenhum desses'])
+  );
+}
+
+// 9 — Funcionamento executivo
+function secao9(){
+  return (
+    '<p class="passo">Seção 9 de 18</p>'+
+    '<p class="haste">Funcionamento executivo</p>'+
+    campoMultipla('s9_executivo','Você percebe ou já percebeu dificuldade em:',['Planejar e organizar tarefas com várias etapas','Administrar o tempo, estimar quanto tempo algo vai levar','Iniciar tarefas, mesmo sabendo que precisa fazê-las','Alternar de uma tarefa para outra','Controlar impulsos diante de frustração','Nenhuma dessas dificuldades'])
+  );
+}
+
+// 10 — Regulação emocional
+function secao10(){
+  return (
+    '<p class="passo">Seção 10 de 18</p>'+
+    '<p class="haste">Regulação emocional</p>'+
+    campoMultipla('s10_regulacao','Você percebe ou já percebeu:',['Explosões de raiva ou crises frequentes','Dificuldade importante em lidar com frustração','Mudanças bruscas de humor','Dificuldade em se acalmar depois de ficar agitado(a)','Ansiedade intensa diante de mudanças ou imprevistos','Nenhum desses'])
+  );
+}
+
+// 11 — Alimentação
+function secao11(){
+  return (
+    '<p class="passo">Seção 11 de 18</p>'+
+    '<p class="haste">Alimentação</p>'+
+    campoUnica('s11_seletividade','Há seletividade alimentar importante (aceita poucos alimentos, recusa por textura/cor/cheiro)?',['Não','Sim'])+
+    subcampo('sub_s11', campoArea('s11_seletividade_detalhe','Quais alimentos aceita bem, e o que costuma recusar?'), false)
+  );
+}
+
+// 12 — Sono
+function secao12(){
+  return (
+    '<p class="passo">Seção 12 de 18</p>'+
+    '<p class="haste">Sono</p>'+
+    campoUnica('s12_dificuldade','Há dificuldade para iniciar ou manter o sono?',['Não','Sim'])+
+    campoTexto('s12_horas','Quantas horas dorme, em média, por noite?')+
+    campoUnica('s12_ronco','Ronco ou pausas na respiração durante o sono?',['Não','Sim','Não sei dizer'],true)
+  );
+}
+
+// 13 — Desempenho escolar/acadêmico
+function secao13(){
+  return (
+    '<p class="passo">Seção 13 de 18</p>'+
+    '<p class="haste">Desempenho escolar / acadêmico</p>'+
+    campoArea('s13_desempenho','Como é ou foi o desempenho na escola/faculdade — desde sempre, não só agora?')+
+    campoUnica('s13_repetencia','Já houve repetência, ou necessidade de adaptação escolar?',['Não','Sim'])+
+    subcampo('sub_s13', campoArea('s13_repetencia_detalhe','O que aconteceu?'), false)+
+    campoUnica('s13_professores','Professores já comentaram sobre atenção, comportamento ou interação social?',['Não','Sim'])
+  );
+}
+
+// 14 — Avaliações e terapias prévias
+function secao14(){
+  var temAvaliacao = g('s14_avaliacao')==='Sim';
+  var temTerapia = g('s14_terapia')==='Sim';
+  return (
+    '<p class="passo">Seção 14 de 19</p>'+
+    '<p class="haste">Avaliações e terapias prévias</p>'+
+    campoUnica('s14_avaliacao','Já passou por alguma avaliação (neuropsicológica, fonoaudiológica, terapia ocupacional)?',['Não','Sim'])+
+    subcampo('sub_s14_aval', campoArea('s14_avaliacao_detalhe','Qual(is), quando, e qual foi o resultado?'), temAvaliacao)+
+    campoUnica('s14_terapia','Já fez ou faz algum acompanhamento terapêutico (psicoterapia, fonoaudiologia, terapia ocupacional, psicopedagogia)?',['Não','Sim'])+
+    subcampo('sub_s14_terapia', campoArea('s14_terapia_detalhe','Qual(is), e como está sendo?'), temTerapia)+
+    campoUnica('s14_diagnostico','Já recebeu algum diagnóstico prévio de TEA, TDAH, ou outra condição de neurodesenvolvimento?',['Não','Sim'])+
+    subcampo('sub_s14_diag', campoTexto('s14_diagnostico_qual','Qual, e quando?'), false)+
+    subcampo('sub_s14_laudo', campoUnica('s14_laudo','Você tem o laudo dessa avaliação em mãos?',['Sim, posso trazer/enviar','Tenho, mas não sei se consigo trazer','Não tenho mais / não sei onde está'],true), false)
+  );
+}
+
+// 15 — Medicações: atuais, anteriores e efeitos colaterais
+function secao15(){
+  var usaAtual = g('s15_atual')==='Sim';
+  var usouAnterior = g('s15_anterior')==='Sim';
+  var teveEfeito = g('s15_efeito')==='Sim';
+  var temAlergia = g('s15_alergia')==='Sim';
+  return (
+    '<p class="passo">Seção 15 de 19</p>'+
+    '<p class="haste">Medicações</p>'+
+    campoUnica('s15_atual','Usa alguma medicação atualmente, de qualquer tipo?',['Não','Sim'])+
+    subcampo('sub_s15_atual', campoArea('s15_atual_detalhe','Qual(is), dose, e há quanto tempo?'), usaAtual)+
+    campoUnica('s15_anterior','Já usou, no passado, alguma medicação especificamente para atenção, comportamento ou humor — mesmo que não use mais?',['Não','Sim'])+
+    subcampo('sub_s15_anterior', campoArea('s15_anterior_detalhe','Qual(is), por quanto tempo, e por que parou?'), usouAnterior)+
+    campoUnica('s15_efeito','Já teve algum efeito colateral importante com alguma medicação, de qualquer tipo?',['Não','Sim'])+
+    subcampo('sub_s15_efeito', campoArea('s15_efeito_detalhe','Qual medicação, e qual foi o efeito?'), teveEfeito)+
+    campoUnica('s15_alergia','Tem alergia a algum medicamento?',['Não','Sim'])+
+    subcampo('sub_s15_alergia', campoTexto('s15_alergia_detalhe','Qual?'), temAlergia)
+  );
+}
+
+// 16 — Histórico familiar
+function secao16(){
+  return (
+    '<p class="passo">Seção 16 de 19</p>'+
+    '<p class="haste">Histórico familiar</p>'+
+    campoMultipla('s16_familiar','Há histórico familiar de:',['TDAH','TEA (autismo)','Deficiência intelectual','Dificuldade de aprendizagem (dislexia e similares)','Transtorno de tique/Síndrome de Tourette','Outro diagnóstico de saúde mental','Nenhum desses'])+
+    campoArea('s16_familiar_detalhe','Se marcou algum, qual o parentesco (pai, mãe, irmão, etc.)?')
+  );
+}
+
+// 17 — Segurança
+function secao17(){
+  var risco = g('s17_ideacao') && g('s17_ideacao')!=='Nunca';
+  return (
+    '<p class="passo">Seção 17 de 19</p>'+
+    '<p class="haste">Segurança</p>'+
+    campoUnica('s17_ideacao','Já houve pensamento de que a vida não vale a pena, ou de não estar aqui?',['Nunca','No passado','Atualmente'],true,'risco-grupo')+
+    subcampo('sub_s17', campoArea('s17_ideacao_detalhe','Pode contar mais sobre isso?'), risco)+
+    campoUnica('s17_autolesao','Já houve comportamento de se machucar de propósito?',['Não','Sim'])
+  );
+}
+
+// 18 — Objetivos
+function secao18(){
+  return (
+    '<p class="passo">Seção 18 de 19</p>'+
+    '<p class="haste">Objetivos do acompanhamento</p>'+
+    campoArea('s18_espera','O que você espera alcançar com esta avaliação?')
+  );
+}
+
+// 19 — Outras informações
+function secao19(){
+  return (
+    '<p class="passo">Seção 19 de 19</p>'+
+    '<p class="haste">Outras informações</p>'+
+    campoArea('s19_outras','Existe algo importante que não coube em nenhuma pergunta anterior?', 'Este espaço é seu — escreva à vontade.')
+  );
+}
+
+var RENDER_SECOES = [secao1,secao2,secao3,secao4,secao5,secao6,secao7,secao8,secao9,secao10,secao11,secao12,secao13,secao14,secao15,secao16,secao17,secao18,secao19];
+
+function corpoSecao(i){
+  var conteudo = RENDER_SECOES[i]();
+  var ehUltima = (i===TOTAL_SECOES-1);
+  return conteudo+
+    pontosBar(IDX_SECOES_INICIO+i)+
+    '<button class="btn" data-acao="proxima-secao" data-i="'+i+'" style="margin-top:8px;">'+(ehUltima?'Ver resumo final':'Continuar')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>';
+}
+
+function religar(){
+  var mapaCondicional = [
+    ['s2_gestacao','sub_s2_gestacao','Sim'],
+    ['s2_perda','sub_s2_perda','Sim'],
+    ['s11_seletividade','sub_s11','Sim'],
+    ['s13_repetencia','sub_s13','Sim'],
+    ['s14_avaliacao','sub_s14_aval','Sim'],
+    ['s14_terapia','sub_s14_terapia','Sim'],
+    ['s14_diagnostico','sub_s14_diag','Sim'],
+    ['s14_diagnostico','sub_s14_laudo','Sim'],
+    ['s15_atual','sub_s15_atual','Sim'],
+    ['s15_anterior','sub_s15_anterior','Sim'],
+    ['s15_efeito','sub_s15_efeito','Sim'],
+    ['s15_alergia','sub_s15_alergia','Sim'],
+  ];
+  mapaCondicional.forEach(function(m){
+    var grupo = document.querySelector('[data-grupo="'+m[0]+'"]');
+    var alvo = document.getElementById(m[1]);
+    if (!grupo || !alvo) return;
+    grupo.addEventListener('change', function(){
+      var checked = grupo.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      if (val===m[2]) alvo.classList.remove('oculto'); else alvo.classList.add('oculto');
+    });
+  });
+  var s17i = document.querySelector('[data-grupo="s17_ideacao"]');
+  var s17iAlvo = document.getElementById('sub_s17');
+  if (s17i && s17iAlvo){
+    s17i.addEventListener('change', function(){
+      var checked = s17i.querySelector('input:checked');
+      var val = checked ? checked.value : null;
+      s17iAlvo.classList.toggle('oculto', !(val && val!=='Nunca'));
+    });
+  }
+}
+
+function linhaResumo(rotulo, chave){
+  var v = g(chave);
+  if (v===undefined || v===null || v==='') return '';
+  if (Array.isArray(v)){ if (v.length===0) return ''; v = v.join(', '); }
+  return rotulo+': '+v+'\n';
+}
+
+function textoResumoCompleto(){
+  var d = new Date();
+  var t = '';
+  t += 'PRÉ-ANAMNESE — NEURODESENVOLVIMENTO (TEA / TDAH)\nDr. Lucas Menezes\n';
+  t += 'Preenchido em: '+d.toLocaleDateString('pt-BR')+'\n\n';
+  t += '--- IDENTIFICAÇÃO ---\n';
+  t += linhaResumo('Formulário sobre','id_sobrequem')+linhaResumo('Paciente','id_paciente')+linhaResumo('Data de nascimento','id_dn')+linhaResumo('Idade','id_idade')+linhaResumo('Preenchido por','id_preenchidopor')+linhaResumo('Telefone','id_telefone');
+
+  t += '\n--- 1. MOTIVO DA CONSULTA ---\n';
+  t += linhaResumo('Motivo','s1_motivo')+linhaResumo('Desde quando','s1_desde')+linhaResumo('Sugestão de','s1_sugestao');
+
+  t += '\n--- 2. MARCOS DO DESENVOLVIMENTO ---\n';
+  t += linhaResumo('Idade que andou','s2_idade_andar')+linhaResumo('Idade primeiras palavras','s2_idade_falar')+linhaResumo('Idade primeiras frases','s2_idade_frases')+linhaResumo('Intercorrência gestação/parto','s2_gestacao')+linhaResumo('Detalhe','s2_gestacao_detalhe')+linhaResumo('Perda de habilidades (regressão)','s2_perda')+linhaResumo('Detalhe','s2_perda_detalhe');
+
+  t += '\n--- 3. COMUNICAÇÃO E LINGUAGEM ---\n';
+  t += linhaResumo('Percebe','s3_comunicacao');
+
+  t += '\n--- 4. INTERAÇÃO SOCIAL ---\n';
+  t += linhaResumo('Percebe','s4_social');
+
+  t += '\n--- 5. INTERESSES E COMPORTAMENTOS REPETITIVOS ---\n';
+  t += linhaResumo('Percebe','s5_repetitivo')+linhaResumo('Interesse restrito, qual','s5_interesse_qual');
+
+  t += '\n--- 6. PROCESSAMENTO SENSORIAL ---\n';
+  t += linhaResumo('Reação incomum a','s6_sensorial');
+
+  t += '\n--- 7. ATENÇÃO E CONCENTRAÇÃO ---\n';
+  t += linhaResumo('Percebe','s7_atencao');
+
+  t += '\n--- 8. HIPERATIVIDADE E IMPULSIVIDADE ---\n';
+  t += linhaResumo('Percebe','s8_hiperatividade');
+
+  t += '\n--- 9. FUNCIONAMENTO EXECUTIVO ---\n';
+  t += linhaResumo('Dificuldade em','s9_executivo');
+
+  t += '\n--- 10. REGULAÇÃO EMOCIONAL ---\n';
+  t += linhaResumo('Percebe','s10_regulacao');
+
+  t += '\n--- 11. ALIMENTAÇÃO ---\n';
+  t += linhaResumo('Seletividade importante','s11_seletividade')+linhaResumo('Detalhe','s11_seletividade_detalhe');
+
+  t += '\n--- 12. SONO ---\n';
+  t += linhaResumo('Dificuldade','s12_dificuldade')+linhaResumo('Horas de sono','s12_horas')+linhaResumo('Ronco/pausas','s12_ronco');
+
+  t += '\n--- 13. DESEMPENHO ESCOLAR/ACADÊMICO ---\n';
+  t += linhaResumo('Desempenho','s13_desempenho')+linhaResumo('Repetência/adaptação','s13_repetencia')+linhaResumo('Detalhe','s13_repetencia_detalhe')+linhaResumo('Professores comentaram','s13_professores');
+
+  t += '\n--- 14. AVALIAÇÕES E TERAPIAS PRÉVIAS ---\n';
+  t += linhaResumo('Avaliação prévia','s14_avaliacao')+linhaResumo('Detalhe','s14_avaliacao_detalhe')+
+       linhaResumo('Terapia prévia/atual','s14_terapia')+linhaResumo('Detalhe','s14_terapia_detalhe')+
+       linhaResumo('Diagnóstico prévio','s14_diagnostico')+linhaResumo('Qual','s14_diagnostico_qual')+linhaResumo('Laudo em mãos','s14_laudo');
+
+  t += '\n--- 15. MEDICAÇÕES ---\n';
+  t += linhaResumo('Uso atual','s15_atual')+linhaResumo('Detalhe','s15_atual_detalhe')+
+       linhaResumo('Uso anterior (atenção/comportamento/humor)','s15_anterior')+linhaResumo('Detalhe','s15_anterior_detalhe')+
+       linhaResumo('Já teve efeito colateral importante','s15_efeito')+linhaResumo('Detalhe','s15_efeito_detalhe')+
+       linhaResumo('Alergia a medicamento','s15_alergia')+linhaResumo('Qual','s15_alergia_detalhe');
+
+  t += '\n--- 16. HISTÓRICO FAMILIAR ---\n';
+  t += linhaResumo('Histórico','s16_familiar')+linhaResumo('Parentesco','s16_familiar_detalhe');
+
+  t += '\n--- 17. SEGURANÇA ---\n';
+  t += linhaResumo('Ideação de morte/não estar vivo','s17_ideacao')+linhaResumo('Detalhe','s17_ideacao_detalhe')+linhaResumo('Autolesão','s17_autolesao');
+
+  t += '\n--- 18. OBJETIVOS ---\n';
+  t += linhaResumo('Espera alcançar','s18_espera');
+
+  t += '\n--- 19. OUTRAS INFORMAÇÕES ---\n';
+  t += linhaResumo('Outras','s19_outras');
+
+  return t;
+}
+
+function telaResultado(){
+  var texto = textoResumoCompleto();
+  var risco = g('s17_ideacao') && g('s17_ideacao')!=='Nunca';
+  return (
+    '<p class="passo">Concluído</p>'+
+    '<p class="haste">Obrigado por responder</p>'+
+    '<div class="caixa nota"><p>Revise se quiser, depois toque em "Copiar resumo" e envie para o Dr. Lucas pelo WhatsApp.</p></div>'+
+    (risco ? '<div class="caixa risco"><p><strong>Se em algum momento sentir que precisa de ajuda antes da consulta, ligue para o CVV — 188 (gratuito, sigiloso, 24 horas).</strong></p></div>' : '')+
+    '<div class="resumo" id="resumo">'+esc(texto)+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar e revisar</button>'
+  );
+}
+
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo===1) h = telaIdentificacao();
+  else if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) h = corpoSecao(passo-IDX_SECOES_INICIO);
+  else h = telaResultado();
+  palco.innerHTML = h;
+  if (passo>=IDX_SECOES_INICIO && passo<IDX_RESULTADO) religar();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function copiar(){
+  var txt = textoResumoCompleto();
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a==="comecar"){ passo=1; }
+  else if (a==="ir-secao"){ capturarTela(); passo=IDX_SECOES_INICIO; }
+  else if (a==="proxima-secao"){
+    capturarTela();
+    var i=parseInt(b.dataset.i,10);
+    passo = (i===TOTAL_SECOES-1) ? IDX_RESULTADO : passo+1;
+  }
+  else if (a==="voltar"){
+    if (passo>=IDX_SECOES_INICIO && passo<=IDX_RESULTADO) capturarTela();
+    if (passo>0) passo=passo-1;
+  }
+  else if (a==="copiar"){ copiar(); return; }
+  else { return; }
+  pintar();
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>
