@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Kit de Apoio entre Consultas · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --risco-bg:#F7ECEC; --risco-borda:#B26A6A;
+    --verde:#6B8E5A; --verde-bg:#EEF2EA;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:600px;margin:0 auto;}
+  header{text-align:center;margin-bottom:18px;}
+  .logo{width:40px;height:40px;margin:0 auto 8px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.24rem;font-weight:700;color:var(--bronze-dark);margin:0 0 2px;}
+  .sub{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:44px;height:2px;background:var(--linha);border:0;margin:11px auto 0;}
+
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:12px;padding:18px 16px;box-shadow:0 1px 3px rgba(110,86,54,.06);}
+
+  .menu-item{
+    display:flex; align-items:center; gap:13px; width:100%; text-align:left;
+    background:#fff; border:1.5px solid var(--linha); border-radius:11px; padding:14px 15px;
+    margin-bottom:10px; cursor:pointer; font-family:inherit;
+  }
+  .menu-item:active{transform:scale(.98);}
+  .menu-icone{font-family:'Caladea',Georgia,serif; font-size:1.3rem; font-weight:700; color:#fff;
+    background:var(--bronze); width:38px; height:38px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .menu-texto .t{font-family:'Caladea',Georgia,serif; font-weight:700; color:var(--bronze-dark); font-size:1rem; margin:0;}
+  .menu-texto .d{font-size:.8rem; color:var(--suave); margin:2px 0 0;}
+
+  .resumo-item{
+    display:block; width:100%; text-align:center; background:var(--bronze-dark); color:#fff;
+    border:0; border-radius:11px; padding:14px; margin-top:6px; font-family:inherit; font-weight:700; font-size:.98rem; cursor:pointer;
+  }
+
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 8px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.1rem;color:var(--bronze-dark);margin:0 0 12px;font-weight:700;}
+  label.campo{display:block;font-size:.87rem;color:var(--suave);margin:14px 0 5px;font-weight:700;}
+  label.campo:first-child{margin-top:0;}
+  .ajuda{font-size:.78rem;color:var(--suave);margin:-3px 0 6px;font-style:italic;}
+  input[type=text]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  textarea{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+    min-height:80px;resize:vertical;line-height:1.5;
+  }
+  .pillgrupo{display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;}
+  .pillgrupo label{
+    text-align:center;font-size:.85rem;
+    border:1.5px solid var(--linha);border-radius:7px;padding:9px 13px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;flex:0 0 auto;
+  }
+  .pillgrupo.full label{flex:1;min-width:70px;}
+  .pillgrupo input{display:none;}
+  .pillgrupo label:has(input:checked){background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .pillgrupo.multi label:has(input:checked){background:#4A6741;border-color:#4A6741;}
+  .pillgrupo.risco-grupo label:has(input:checked){background:#8E4B4B;border-color:#8E4B4B;}
+
+  .caixa{border-radius:8px;padding:12px 14px;margin:12px 0;font-size:.9rem;line-height:1.5;}
+  .caixa p{margin:0 0 6px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.94rem;display:block;margin-bottom:5px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .risco{background:var(--risco-bg);border-left:3px solid var(--risco-borda);}
+  .risco .tit{color:#8E4B4B;}
+  .verde{background:var(--verde-bg);border-left:3px solid var(--verde);}
+  .verde .tit{color:#4A6741;}
+
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:14px 12px;
+    border-radius:9px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:16px;
+  }
+  .btn:active{transform:scale(.98);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.74rem;line-height:1.55;white-space:pre-wrap;color:#4A4034;max-height:420px;overflow-y:auto;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+
+  /* respiração */
+  .resp-palco{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 10px 10px;}
+  .resp-anel{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,#B9A067,var(--bronze));
+    display:flex;align-items:center;justify-content:center;transform:scale(.55);
+    transition:transform 4s ease-in-out; box-shadow:0 4px 20px rgba(110,86,54,.25);}
+  .resp-anel .txt{color:#fff;font-family:'Caladea',Georgia,serif;font-weight:700;font-size:1.05rem;text-align:center;}
+  .resp-contador{margin-top:22px;font-size:.85rem;color:var(--suave);}
+
+  /* checklist neuroplasticidade */
+  .check-linha{display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid #E6DCCB;cursor:pointer;}
+  .check-linha:last-child{border-bottom:0;}
+  .check-caixa{width:24px;height:24px;border-radius:6px;border:2px solid var(--bronze);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#fff;}
+  .check-caixa.on{background:var(--bronze);}
+  .check-texto{font-size:.95rem;}
+
+  footer{margin-top:22px;text-align:center;font-size:.72rem;line-height:1.6;color:var(--suave);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>Kit de Apoio entre Consultas</h1>
+    <p class="sub">Dr. Lucas Menezes</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var estado = {};
+var tela = "home";
+var respTimer = null;
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function g(chave){ return estado[chave]; }
+function set(chave, valor){ estado[chave] = valor; }
+var palco = document.getElementById("palco");
+
+function campoTexto(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<input type="text" data-campo="'+chave+'" value="'+esc(v)+'">';
+}
+function campoArea(chave, rotulo, ajuda){
+  var v = g(chave) || "";
+  return '<label class="campo">'+esc(rotulo)+'</label>'+(ajuda?'<p class="ajuda">'+esc(ajuda)+'</p>':'')+
+    '<textarea data-campo="'+chave+'">'+esc(v)+'</textarea>';
+}
+function campoUnica(chave, rotulo, opcoes, full, classeExtra){
+  var v = g(chave);
+  var botoes = opcoes.map(function(op){
+    var checked = (v===op) ? ' checked' : '';
+    return '<label><input type="radio" name="'+chave+'" value="'+esc(op)+'"'+checked+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<label class="campo">'+esc(rotulo)+'</label>'+
+    '<div class="pillgrupo'+(full?' full':'')+(classeExtra?' '+classeExtra:'')+'" data-grupo="'+chave+'">'+botoes+'</div>';
+}
+function capturarCampos(){
+  document.querySelectorAll('[data-campo]').forEach(function(el){ set(el.dataset.campo, el.value); });
+}
+function religarGrupos(){
+  document.querySelectorAll('[data-grupo]').forEach(function(el){
+    el.addEventListener('change', function(){
+      var checked = el.querySelector('input:checked');
+      set(el.dataset.grupo, checked ? checked.value : undefined);
+      pintar();
+    });
+  });
+}
+
+// ---------- HOME ----------
+function telaHome(){
+  var itens = [
+    ["checkin","1","Check-in rápido","Como você está agora, em poucos segundos"],
+    ["ajuda","2","Preciso de ajuda agora","Respiração guiada, acesso imediato"],
+    ["movimento","3","Movimento de hoje","Qualquer passo conta, por menor que seja"],
+    ["sono","4","Sono","Uma dica prática e espaço pra anotar a noite"],
+    ["neuro","5","Hoje eu...","Pequeno checklist de hábitos que ajudam o cérebro"],
+    ["seguranca","6","Segurança","Se algo mudou, é aqui que você me avisa"],
+  ];
+  var h = '<p class="haste">O que você precisa agora?</p>';
+  h += itens.map(function(it){
+    return '<button class="menu-item" data-ir="'+it[0]+'">'+
+      '<span class="menu-icone">'+it[1]+'</span>'+
+      '<span class="menu-texto"><p class="t">'+esc(it[2])+'</p><p class="d">'+esc(it[3])+'</p></span>'+
+    '</button>';
+  }).join('');
+  h += '<button class="resumo-item" data-ir="resumo">Ver resumo e enviar pro médico</button>';
+  return h;
+}
+
+// ---------- 1. CHECK-IN ----------
+function telaCheckin(){
+  return (
+    '<p class="passo">Check-in rápido</p>'+
+    campoUnica('ci_nota','De 0 a 10, como você está agora?',['0','1','2','3','4','5','6','7','8','9','10'])+
+    campoArea('ci_texto','Quer contar mais alguma coisa? (opcional)')+
+    '<button class="btn" data-salvar="checkin">Salvar</button>'+
+    '<button class="voltar" data-voltar="1">Voltar ao início</button>'
+  );
+}
+
+// ---------- 2. RESPIRAÇÃO (4-7-8) ----------
+function telaAjuda(){
+  set('usou_respiracao', 'Sim');
+  return (
+    '<p class="passo">Preciso de ajuda agora</p>'+
+    '<p class="haste">Respiração 4-7-8</p>'+
+    '<p style="font-size:.88rem;color:var(--suave);margin-bottom:6px;">Acompanhe o círculo. Inspire enquanto ele cresce, segure enquanto ele fica parado, solte enquanto ele encolhe.</p>'+
+    '<div class="resp-palco">'+
+      '<div class="resp-anel" id="respAnel"><span class="txt" id="respTxt">Prepare-se</span></div>'+
+      '<p class="resp-contador" id="respContador"></p>'+
+    '</div>'+
+    '<button class="voltar" data-voltar="1" style="display:block;text-align:center;">Voltar ao início</button>'
+  );
+}
+function iniciarAnimacaoRespiracao(){
+  var anel = document.getElementById("respAnel");
+  var txt = document.getElementById("respTxt");
+  if(!anel || !txt) return;
+  var fases = [
+    { nome:"Inspire", duracaoMs:4000, escala:1 },
+    { nome:"Segure",  duracaoMs:7000, escala:1 },
+    { nome:"Solte",   duracaoMs:8000, escala:.55 }
+  ];
+  var i = 0;
+  function proximaFase(){
+    var f = fases[i % fases.length];
+    txt.textContent = f.nome;
+    anel.style.transitionDuration = (f.nome==="Segure" ? "0.4s" : (f.duracaoMs/1000)+"s");
+    anel.style.transform = "scale("+f.escala+")";
+    i++;
+    respTimer = setTimeout(proximaFase, f.duracaoMs);
+  }
+  proximaFase();
+}
+
+// ---------- 3. MOVIMENTO ----------
+function telaMovimento(){
+  var opcoes = ["Levantei da cama","Vesti uma roupa pra sair","Fiz um alongamento","Caminhei um pouco","Fiz exercício completo","Nada disso hoje, e tudo bem"];
+  var selecionadas = g('mov_opcoes') || [];
+  var botoes = opcoes.map(function(op){
+    var on = selecionadas.indexOf(op)>=0;
+    return '<div class="check-linha" data-toggle-mov="'+esc(op)+'"><div class="check-caixa'+(on?' on':'')+'">'+(on?'✓':'')+'</div><span class="check-texto">'+esc(op)+'</span></div>';
+  }).join('');
+  return (
+    '<p class="passo">Movimento de hoje</p>'+
+    '<p class="haste">Marque o que você já fez</p>'+
+    '<p style="font-size:.85rem;color:var(--suave);margin-bottom:10px;">Não precisa ser exercício de verdade — levantar da cama já conta.</p>'+
+    botoes+
+    '<button class="btn" data-salvar="movimento">Salvar</button>'+
+    '<button class="voltar" data-voltar="1">Voltar ao início</button>'
+  );
+}
+
+// ---------- 4. SONO ----------
+function telaSono(){
+  return (
+    '<p class="passo">Sono</p>'+
+    '<div class="caixa nota"><span class="tit">Uma dica pra hoje à noite</span><p>Se não conseguir dormir depois de uns 20 minutos deitado(a), levante e faça algo calmo, com pouca luz, até sentir sono de novo. Ficar na cama tentando forçar geralmente piora.</p></div>'+
+    campoUnica('sono_noite','Como foi sua última noite?',['Boa','Regular','Ruim'],true)+
+    campoArea('sono_texto','Quer anotar algo sobre o sono? (opcional)')+
+    '<button class="btn" data-salvar="sono">Salvar</button>'+
+    '<button class="voltar" data-voltar="1">Voltar ao início</button>'
+  );
+}
+
+// ---------- 5. NEUROPLASTICIDADE ----------
+function telaNeuro(){
+  var opcoes = ["Dormi bem","Me movimentei","Aprendi ou pratiquei algo novo","Fiquei presente em algum momento (sem celular, sem pressa)"];
+  var selecionadas = g('neuro_opcoes') || [];
+  var botoes = opcoes.map(function(op){
+    var on = selecionadas.indexOf(op)>=0;
+    return '<div class="check-linha" data-toggle-neuro="'+esc(op)+'"><div class="check-caixa'+(on?' on':'')+'">'+(on?'✓':'')+'</div><span class="check-texto">'+esc(op)+'</span></div>';
+  }).join('');
+  return (
+    '<p class="passo">Hoje eu...</p>'+
+    '<p style="font-size:.85rem;color:var(--suave);margin-bottom:10px;">Pequenas coisas que ajudam o cérebro a se reorganizar, com o tempo.</p>'+
+    botoes+
+    '<button class="btn" data-salvar="neuro">Salvar</button>'+
+    '<button class="voltar" data-voltar="1">Voltar ao início</button>'
+  );
+}
+
+// ---------- 6. SEGURANÇA ----------
+function telaSeguranca(){
+  var mudou = g('seg_mudou') && g('seg_mudou')!=='Não';
+  return (
+    '<p class="passo">Segurança</p>'+
+    campoUnica('seg_mudou','Desde a última consulta, algo mudou de forma que te preocupa?',['Não','Sim, um pouco','Sim, bastante'],true,'risco-grupo')+
+    (mudou ? campoArea('seg_texto','Pode contar o que mudou?') : '')+
+    '<div class="caixa risco"><p><strong>Se em algum momento você pensar em se machucar, ou sentir que não quer mais viver, ligue agora pro CVV — 188. É gratuito, sigiloso, 24 horas por dia.</strong></p></div>'+
+    '<button class="btn" data-salvar="seguranca">Salvar</button>'+
+    '<button class="voltar" data-voltar="1">Voltar ao início</button>'
+  );
+}
+
+// ---------- RESUMO ----------
+function linhaResumo(rotulo, chave){
+  var v = g(chave);
+  if (v===undefined || v===null || v==='') return '';
+  if (Array.isArray(v)){ if (v.length===0) return ''; v = v.join(', '); }
+  return rotulo+': '+v+'\n';
+}
+function textoResumoCompleto(){
+  var d = new Date();
+  var t = 'KIT DE APOIO ENTRE CONSULTAS\nDr. Lucas Menezes\n';
+  t += 'Preenchido em: '+d.toLocaleDateString('pt-BR')+' às '+d.toLocaleTimeString('pt-BR').slice(0,5)+'\n\n';
+
+  var teveAlgo = false;
+
+  if (g('ci_nota')!==undefined){
+    teveAlgo = true;
+    t += '--- CHECK-IN ---\n'+linhaResumo('Nota (0-10)','ci_nota')+linhaResumo('Comentário','ci_texto')+'\n';
+  }
+  if (g('usou_respiracao')){
+    teveAlgo = true;
+    t += '--- RESPIRAÇÃO ---\nUsou a técnica de respiração guiada hoje\n\n';
+  }
+  if (g('mov_opcoes')){
+    teveAlgo = true;
+    t += '--- MOVIMENTO ---\n'+linhaResumo('Registrou','mov_opcoes')+'\n';
+  }
+  if (g('sono_noite')!==undefined){
+    teveAlgo = true;
+    t += '--- SONO ---\n'+linhaResumo('Última noite','sono_noite')+linhaResumo('Anotação','sono_texto')+'\n';
+  }
+  if (g('neuro_opcoes')){
+    teveAlgo = true;
+    t += '--- HOJE EU... ---\n'+linhaResumo('Marcou','neuro_opcoes')+'\n';
+  }
+  if (g('seg_mudou')!==undefined){
+    teveAlgo = true;
+    t += '--- SEGURANÇA ---\n'+linhaResumo('Algo mudou','seg_mudou')+linhaResumo('Detalhe','seg_texto')+'\n';
+  }
+
+  if (!teveAlgo){
+    t += '(Nenhuma seção preenchida ainda — volte ao início e escolha o que você precisa agora.)\n';
+  }
+  return t;
+}
+function telaResumo(){
+  var texto = textoResumoCompleto();
+  var risco = g('seg_mudou') && g('seg_mudou')!=='Não';
+  return (
+    '<p class="passo">Resumo</p>'+
+    '<div class="caixa nota"><p>Isso reúne só o que você preencheu até agora. Copie e envie pro seu médico pelo WhatsApp.</p></div>'+
+    (risco ? '<div class="caixa risco"><p><strong>Se precisar de ajuda antes da próxima consulta, ligue pro CVV — 188 (gratuito, sigiloso, 24 horas).</strong></p></div>' : '')+
+    '<div class="resumo" id="resumoTxt">'+esc(texto)+'</div>'+
+    '<p class="copiado" id="copiado"></p>'+
+    '<button class="btn" data-copiar="1">Copiar resumo</button>'+
+    '<button class="voltar" data-voltar="1">Voltar ao início</button>'
+  );
+}
+
+function copiarResumo(){
+  var txt = textoResumoCompleto();
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+function pintar(){
+  if (respTimer){ clearTimeout(respTimer); respTimer = null; }
+
+  var h;
+  if (tela==="home") h = telaHome();
+  else if (tela==="checkin") h = telaCheckin();
+  else if (tela==="ajuda") h = telaAjuda();
+  else if (tela==="movimento") h = telaMovimento();
+  else if (tela==="sono") h = telaSono();
+  else if (tela==="neuro") h = telaNeuro();
+  else if (tela==="seguranca") h = telaSeguranca();
+  else if (tela==="resumo") h = telaResumo();
+  else h = telaHome();
+
+  palco.innerHTML = h;
+  religarGrupos();
+
+  if (tela==="ajuda"){
+    setTimeout(iniciarAnimacaoRespiracao, 50);
+  }
+
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+palco.addEventListener("click", function(ev){
+  var irBtn = ev.target.closest("[data-ir]");
+  if (irBtn){ tela = irBtn.dataset.ir; pintar(); return; }
+
+  var voltarBtn = ev.target.closest("[data-voltar]");
+  if (voltarBtn){ capturarCampos(); tela = "home"; pintar(); return; }
+
+  var salvarBtn = ev.target.closest("[data-salvar]");
+  if (salvarBtn){ capturarCampos(); tela = "home"; pintar(); return; }
+
+  var copiarBtn = ev.target.closest("[data-copiar]");
+  if (copiarBtn){ copiarResumo(); return; }
+
+  var movToggle = ev.target.closest("[data-toggle-mov]");
+  if (movToggle){
+    var op = movToggle.dataset.toggleMov;
+    var arr = (g('mov_opcoes') || []).slice();
+    var idx = arr.indexOf(op);
+    if (idx>=0) arr.splice(idx,1); else arr.push(op);
+    set('mov_opcoes', arr);
+    pintar();
+    return;
+  }
+
+  var neuroToggle = ev.target.closest("[data-toggle-neuro]");
+  if (neuroToggle){
+    var op2 = neuroToggle.dataset.toggleNeuro;
+    var arr2 = (g('neuro_opcoes') || []).slice();
+    var idx2 = arr2.indexOf(op2);
+    if (idx2>=0) arr2.splice(idx2,1); else arr2.push(op2);
+    set('neuro_opcoes', arr2);
+    pintar();
+    return;
+  }
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>
