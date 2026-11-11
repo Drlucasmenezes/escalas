@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Pré-Anamnese — TEA Funcional · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --risco-bg:#F7ECEC; --risco-borda:#B26A6A;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.22rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .risco{background:var(--risco-bg);border-left:3px solid var(--risco-borda);}
+  .risco .tit{color:#8E4B4B;}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.08rem;color:var(--bronze-dark);margin:0 0 14px;font-weight:700;}
+  .grupo{font-family:'Caladea',Georgia,serif;font-size:1rem;font-weight:700;color:var(--bronze-dark);margin:24px 0 0;padding-top:14px;border-top:1px solid var(--linha);}
+  .campo{display:block;font-size:.87rem;color:var(--suave);margin:14px 0 5px;font-weight:700;}
+  .campo:first-child{margin-top:0;}
+  .grupo + .campo{margin-top:8px;}
+  .ajuda{font-size:.78rem;color:var(--suave);margin:-3px 0 6px;font-style:italic;}
+  input[type=text],input[type=tel]{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+  }
+  textarea{
+    width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;
+    font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);
+    min-height:80px;resize:vertical;line-height:1.5;
+  }
+  .pillgrupo{display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;}
+  .pillgrupo label{
+    position:relative;text-align:center;font-size:.85rem;max-width:100%;
+    border:1.5px solid var(--linha);border-radius:7px;padding:9px 13px;cursor:pointer;
+    background:#fff;color:var(--suave);transition:all .12s ease;flex:0 0 auto;
+  }
+  .pillgrupo.full label{flex:1;min-width:80px;}
+  .pillgrupo input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+  .pillgrupo label.on{background:var(--bronze);border-color:var(--bronze);color:#fff;}
+  .pillgrupo.multi label.on{background:#8A6A1F;border-color:#8A6A1F;}
+  .pillgrupo label:has(input:focus-visible){outline:2px solid var(--bronze-dark);outline-offset:2px;}
+  .subcampo{margin-top:10px;padding:12px 14px;background:#F4EEE3;border-radius:8px;border:1px dashed var(--linha);}
+  .subcampo.oculto{display:none;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze);background:var(--bronze);color:#fff;
+    cursor:pointer;margin-top:18px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .voltar{display:inline-block;margin-top:14px;background:none;border:0;padding:4px 0;font-family:inherit;font-size:.87rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .pontos{display:flex;gap:3px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
+  .ponto{width:5px;height:5px;border-radius:50%;background:var(--linha);}
+  .ponto.on{background:var(--bronze);}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.73rem;line-height:1.55;white-space:pre-wrap;color:#4A4034;max-height:480px;overflow-y:auto;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin-top:9px;min-height:20px;font-weight:700;}
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>Pré-Anamnese</h1>
+    <p class="sub">TEA · histórico funcional da criança</p>
+    <hr class="regua" />
+  </header>
+  <main class="card" id="palco" aria-live="polite"><noscript><p>Para preencher este formulário, ative o JavaScript do navegador.</p></noscript></main>
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p style="font-size:.68rem;color:#8C8272;margin-top:8px;">Suas respostas não são enviadas a ninguém e ficam só nesta aba do navegador. Ao final, você mesmo copia e envia o resumo.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var CHAVE = "preanamnese-tea-funcional-v1";
+var TOTAL_SECOES = 18;
+
+var SIM_NAO = ["Sim","Não"];
+var SNS = ["Sim","Não","Não sei"];
+var TRES = ["Sim","Às vezes","Não"];
+var REL = ["Sim, é nítida","Talvez","Não percebo"];
+
+var TITULOS = {
+  1:"MOTIVO PRINCIPAL DA CONSULTA",
+  2:"DIAGNÓSTICOS E ACOMPANHAMENTOS",
+  3:"HISTÓRIA DO NEURODESENVOLVIMENTO",
+  4:"REGRESSÃO OU FLUTUAÇÃO CLÍNICA",
+  5:"PERFIL NEUROCOMPORTAMENTAL",
+  6:"PERFIL SENSORIAL",
+  7:"SONO",
+  8:"INTESTINO E MICROBIOTA",
+  9:"ALIMENTAÇÃO",
+  10:"HISTÓRIA ALÉRGICA, IMUNOLÓGICA E INFLAMATÓRIA",
+  11:"GESTAÇÃO, PARTO E PRIMEIROS MESES",
+  12:"EXPOSIÇÕES AMBIENTAIS",
+  13:"COMORBIDADES E DIAGNÓSTICOS DIFERENCIAIS",
+  14:"MEDICAMENTOS, SUPLEMENTOS E RESPOSTAS PRÉVIAS",
+  15:"HISTÓRIA FAMILIAR",
+  16:"EXAMES JÁ REALIZADOS",
+  17:"PERGUNTAS FINAIS",
+  18:"OBSERVAÇÕES LIVRES DOS PAIS/CUIDADORES"
+};
+
+/* Tipos de campo: g = subtítulo, txt = linha, area = texto longo, uni = escolha única,
+   mul = múltipla escolha, sub = bloco que só aparece quando a resposta de outro campo bate (se:[chave,[valores]]).
+   k = chave, r = pergunta, s = rótulo no resumo, a = ajuda, o = opções, full = botões lado a lado. */
+
+var ID_CAMPOS = [
+  {t:"txt", k:"id_nome", s:"Nome da criança", r:"Nome completo da criança"},
+  {t:"txt", k:"id_dn", s:"Data de nascimento", r:"Data de nascimento (dd/mm/aaaa)"},
+  {t:"txt", k:"id_idade", s:"Idade", r:"Idade"},
+  {t:"uni", k:"id_sexo", s:"Sexo", r:"Sexo", o:["Masculino","Feminino"], full:true},
+  {t:"txt", k:"id_resp", s:"Responsável que preenche", r:"Nome de quem está preenchendo (e parentesco)", ac:"name"},
+  {t:"txt", k:"id_tel", s:"Telefone/WhatsApp", r:"Telefone ou WhatsApp para contato", tel:true}
+];
+
+var TELAS = [
+
+{ sec:1, tit:"Motivo principal da consulta", c:[
+  {t:"area", k:"s1_preocupacao", s:"Principal preocupação da família", r:"Qual é a principal preocupação da família neste momento?"},
+  {t:"mul", k:"s1_objetivos", s:"Objetivos da consulta", r:"O que vocês gostariam de melhorar?", a:"Marque quantos quiser.",
+    o:["Fala e linguagem","Socialização","Sono","Irritabilidade","Agressividade","Agitação (hiperatividade)","Atenção","Seletividade alimentar","Intestino","Autonomia no dia a dia","Aprendizagem","Comportamento na escola","Crises emocionais","Suspeita de dor ou desconforto físico"]},
+  {t:"txt", k:"s1_obj_outro", s:"Outro objetivo", r:"Outro objetivo (qual?)"},
+  {t:"txt", k:"s1_sint1", s:"Sintoma que mais pesa (1º)", r:"Quais são os 3 sintomas que mais prejudicam a criança e a família hoje?", a:"Um em cada campo, do que mais pesa para o que menos pesa."},
+  {t:"txt", k:"s1_sint2", s:"Sintoma que mais pesa (2º)", r:"Segundo sintoma"},
+  {t:"txt", k:"s1_sint3", s:"Sintoma que mais pesa (3º)", r:"Terceiro sintoma"}
+]},
+
+{ sec:2, tit:"Diagnósticos e acompanhamentos", c:[
+  {t:"mul", k:"s2_diag", s:"Diagnósticos formais", r:"A criança já tem diagnóstico formal de algum destes?",
+    o:["TEA (autismo)","TDAH","Atraso global do desenvolvimento","Deficiência intelectual","Transtorno de linguagem","Apraxia de fala","Epilepsia","Ansiedade","TOD (transtorno desafiador de oposição)","TOC","Distúrbio do sono","Alergia alimentar","Nenhum diagnóstico formal ainda"]},
+  {t:"txt", k:"s2_diag_outro", s:"Outro diagnóstico", r:"Outro diagnóstico (qual?)"},
+  {t:"txt", k:"s2_idade_tea", s:"Idade ao diagnóstico de TEA", r:"Se há diagnóstico de TEA, com que idade ele foi dado?"},
+  {t:"uni", k:"s2_suporte", s:"Nível de suporte informado", r:"Nível de suporte que consta no laudo", o:["Nível 1","Nível 2","Nível 3","Não consta"]},
+  {t:"mul", k:"s2_prof", s:"Profissionais que acompanham hoje", r:"Quais profissionais acompanham a criança hoje?",
+    o:["Neuropediatra","Psiquiatra infantil","Pediatra","Psicólogo(a)","Fonoaudiólogo(a)","Terapeuta ocupacional","Psicopedagogo(a)","Nutricionista","Gastroenterologista","Alergologista","Endocrinologista","Nenhum no momento"]},
+  {t:"txt", k:"s2_prof_outro", s:"Outro profissional", r:"Outro profissional (qual?)"},
+  {t:"g", r:"Escola"},
+  {t:"uni", k:"s2_escola", s:"Frequenta escola ou creche", r:"A criança frequenta escola ou creche?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s2_escola",["Sim"]], c:[
+    {t:"txt", k:"s2_serie", s:"Série/ano", r:"Em que série ou ano está?"},
+    {t:"mul", k:"s2_apoio", s:"Apoio na escola", r:"Há algum apoio na escola?", o:["Mediador ou acompanhante","Sala de recursos (AEE)","Adaptação de atividades ou provas","Nenhum apoio"]},
+    {t:"area", k:"s2_relato", s:"O que a escola relata", r:"O que a escola costuma relatar sobre a criança?"}
+  ]}
+]},
+
+{ sec:3, tit:"Neurodesenvolvimento: marcos motores", c:[
+  {t:"txt", k:"s3_cabeca", s:"Sustentou a cabeça (meses)", r:"Com quantos meses sustentou a cabeça?"},
+  {t:"txt", k:"s3_sentou", s:"Sentou sem apoio (meses)", r:"Com quantos meses sentou sem apoio?"},
+  {t:"uni", k:"s3_engatinhou", s:"Engatinhou", r:"Engatinhou?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s3_engatinhou",["Sim"]], c:[
+    {t:"txt", k:"s3_engat_idade", s:"Engatinhou com (meses)", r:"Com quantos meses começou a engatinhar?"}
+  ]},
+  {t:"txt", k:"s3_andou", s:"Andou sem apoio (meses)", r:"Com quantos meses andou sem apoio?"},
+  {t:"uni", k:"s3_hipotonia", s:"Hipotonia ou atraso motor", r:"Houve hipotonia (corpo “mole”) ou atraso motor?", o:SNS, full:true},
+  {t:"sub", se:["s3_hipotonia",["Sim"]], c:[
+    {t:"area", k:"s3_hipo_desc", s:"Detalhe do atraso motor", r:"Descreva o que você notou"}
+  ]}
+]},
+
+{ sec:3, tit:"Neurodesenvolvimento: comunicação e linguagem", c:[
+  {t:"uni", k:"s3_balbucio", s:"Balbuciou normalmente", r:"No primeiro ano, balbuciou normalmente (ba-ba, da-da)?", o:SNS, full:true},
+  {t:"txt", k:"s3_palavras", s:"Primeiras palavras (idade)", r:"Com que idade falou as primeiras palavras?", a:"Em meses ou anos."},
+  {t:"txt", k:"s3_frases", s:"Primeiras frases (idade)", r:"Com que idade formou as primeiras frases?", a:"Em meses ou anos."},
+  {t:"mul", k:"s3_hoje", s:"Comunicação hoje", r:"Como é a comunicação hoje?", a:"Pode marcar mais de uma.",
+    o:["Não fala","Fala poucas palavras","Fala frases simples","Fala bem e com função (pede, conta, explica)","Fala, mas tem dificuldade para conversar (assunto do outro, ironia, jeito de falar)","Repete muito falas de outros (ecolalia)","Usa comunicação alternativa (figuras, tablet, sinais)"]},
+  {t:"uni", k:"s3_compreende", s:"Compreensão de comandos", r:"A criança entende o que se pede a ela?", o:["Sim, bem","Em parte","Só pedidos simples","Tem muita dificuldade"]},
+  {t:"uni", k:"s3_conversa", s:"Dificuldade de conversa social", r:"Tem dificuldade para conversar com outras pessoas?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s3_conversa",["Sim"]], c:[
+    {t:"area", k:"s3_conversa_desc", s:"Detalhe da dificuldade de conversa", r:"Explique"}
+  ]}
+]},
+
+{ sec:3, tit:"Neurodesenvolvimento: interação social", c:[
+  {t:"uni", k:"s3_nome", s:"Responde ao nome", r:"Responde quando é chamada pelo nome?", o:["Sempre","Às vezes","Raramente","Não responde"]},
+  {t:"uni", k:"s3_olhar", s:"Contato visual", r:"Como é o contato visual?", o:["Adequado","Reduzido","Evita","Muito variável"]},
+  {t:"uni", k:"s3_aponta", s:"Aponta para mostrar interesse", r:"Aponta para mostrar algo que lhe interessa?", o:TRES, full:true},
+  {t:"uni", k:"s3_imita", s:"Imita gestos ou ações", r:"Imita gestos e ações dos outros?", o:TRES, full:true},
+  {t:"uni", k:"s3_busca", s:"Procura outras crianças", r:"Procura outras crianças para brincar?", o:TRES, full:true},
+  {t:"uni", k:"s3_simbolica", s:"Brincadeira simbólica", r:"Faz brincadeira de faz de conta?", o:["Sim","Limitada","Não"], full:true}
+]},
+
+{ sec:4, tit:"Regressão ou oscilação", c:[
+  {t:"uni", k:"s4_curso", s:"Curso do desenvolvimento", r:"O desenvolvimento sempre foi diferente, ou a criança perdeu habilidades que já tinha?", a:"Regressão é perder algo que já fazia, como palavras que já falava.",
+    o:["Sempre foi diferente","Houve regressão","Houve piora aos poucos","Não sei"]},
+  {t:"sub", se:["s4_curso",["Houve regressão","Houve piora aos poucos"]], c:[
+    {t:"txt", k:"s4_idade", s:"Idade em que começou", r:"Com que idade isso começou?"},
+    {t:"mul", k:"s4_perdeu", s:"O que foi perdido ou piorou", r:"O que foi perdido ou piorou?", o:["Fala","Contato visual","Interação social","Brincadeira","Autonomia","Sono","Alimentação","Controle do xixi e do cocô"]},
+    {t:"txt", k:"s4_perdeu_outro", s:"Outra perda", r:"Outra coisa (qual?)"},
+    {t:"mul", k:"s4_evento", s:"Evento antes da regressão", r:"Aconteceu depois de algum destes eventos?", o:["Febre","Infecção viral","Gastroenterite (diarreia e vômitos)","Uso de antibiótico","Vacina","Uso de corticoide","Mudança na alimentação","Mudança de rotina","Estresse na família","Não identificamos nenhum"]},
+    {t:"area", k:"s4_desc", s:"Como foi", r:"Conte como foi"}
+  ]},
+  {t:"uni", k:"s4_oscila", s:"Dias muito bons e muito ruins sem explicação", r:"A criança tem dias muito bons e dias muito ruins, sem motivo claro?", o:SIM_NAO, full:true}
+]},
+
+{ sec:5, tit:"Perfil neurocomportamental", c:[
+  {t:"mul", k:"s5_atencao", s:"Atenção e função executiva", r:"Atenção e organização: o que acontece?", a:"Marque tudo o que se aplica.",
+    o:["Distrai-se com facilidade","Hiperfoco (fica “preso” no que gosta)","Corpo muito agitado","Age sem pensar","Tem pouca tolerância para esperar","Não segue ordens em sequência","Desorganização com as coisas","Esquece rápido o que foi pedido","Não termina o que começa","Parece “desligar” por instantes (olhar parado, sem resposta)"]},
+  {t:"mul", k:"s5_humor", s:"Humor e regulação emocional", r:"Humor e emoções: o que acontece?", a:"Marque tudo o que se aplica.",
+    o:["Irritabilidade","Explosões emocionais","Choro fácil","Humor que muda de repente","Se machuca de propósito (bate a cabeça, morde-se, arranha-se)","Agride outras pessoas","Ansiedade antes de eventos ou situações novas","Medos específicos","Apatia (pouca reação e interesse)","Tristeza ou humor deprimido","Pouca motivação","Risos sem motivo aparente","Crises sem causa aparente"]},
+  {t:"g", r:"Crises"},
+  {t:"area", k:"s5_crises", s:"Descrição das crises", r:"Como são as crises?", a:"O que acontece antes, durante e depois."},
+  {t:"uni", k:"s5_freq", s:"Frequência das crises", r:"Com que frequência acontecem?", o:["Diárias","Semanais","Mensais","Variáveis","Não há crises"]},
+  {t:"txt", k:"s5_duracao", s:"Duração média das crises", r:"Quanto tempo duram, em média?"},
+  {t:"g", r:"Segurança"},
+  {t:"uni", k:"s5_morte", s:"Já falou em morrer ou em não querer viver", r:"A criança ou adolescente já falou em morrer ou em não querer mais viver?", o:["Não","Sim","Não se aplica (criança pequena)"]},
+  {t:"sub", se:["s5_morte",["Sim"]], c:[
+    {t:"area", k:"s5_morte_desc", s:"Detalhe", r:"Conte o que foi dito e quando"}
+  ]}
+]},
+
+{ sec:6, tit:"Perfil sensorial", c:[
+  {t:"mul", k:"s6_incomoda", s:"Incomoda-se muito com", r:"Incomoda-se muito com:", o:["Sons","Luz","Toque","Cheiros","Texturas de comida","Roupa ou etiqueta","Cortar o cabelo","Cortar as unhas","Escovar os dentes"]},
+  {t:"mul", k:"s6_busca", s:"Busca ou faz com frequência", r:"Busca ou faz com frequência:", o:["Pressão no corpo (abraço forte, deitar sob peso)","Movimento (girar, balançar, pular)","Girar objetos","Olhar fixo em ventiladores, rodas ou luzes","Levar objetos à boca","Mastigar roupas ou objetos"]},
+  {t:"mul", k:"s6_dor", s:"Reação à dor", r:"Reação à dor:", o:["Parece sentir pouca dor","Reage de forma exagerada à dor"]},
+  {t:"mul", k:"s6_lugares", s:"Lugares onde piora", r:"Em quais lugares o desconforto sensorial piora?", o:["Escola","Shopping","Igreja","Festas","Supermercado","Consultórios","Lugares barulhentos"]},
+  {t:"txt", k:"s6_lugares_outro", s:"Outro lugar", r:"Outro lugar (qual?)"}
+]},
+
+{ sec:7, tit:"Sono", c:[
+  {t:"txt", k:"s7_dormir", s:"Horário habitual de dormir", r:"Que horas a criança costuma dormir?", a:"Por exemplo: 21h30."},
+  {t:"txt", k:"s7_acordar", s:"Horário habitual de acordar", r:"Que horas costuma acordar?"},
+  {t:"uni", k:"s7_demora", s:"Demora para pegar no sono", r:"Demora para pegar no sono?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s7_demora",["Sim"]], c:[
+    {t:"txt", k:"s7_demora_tempo", s:"Tempo para pegar no sono", r:"Quanto tempo demora, em média?"}
+  ]},
+  {t:"uni", k:"s7_acorda", s:"Acorda durante a noite", r:"Acorda durante a noite?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s7_acorda",["Sim"]], c:[
+    {t:"txt", k:"s7_acorda_vezes", s:"Despertares por noite", r:"Quantas vezes, em média?"}
+  ]},
+  {t:"mul", k:"s7_sinais", s:"Sinais no sono e durante o dia", r:"Marque o que acontece:",
+    o:["Sono agitado","Mexe-se muito","Range os dentes","Ronca","Respira pela boca","Parece parar de respirar por segundos","Sua muito à noite","Terror noturno","Sonambulismo","Pesadelos","Acorda irritado(a)","Sonolência durante o dia","Dia e noite trocados","Usa telas à noite","Dorme com luz acesa","Precisa de alguém para dormir"]},
+  {t:"mul", k:"s7_piora", s:"Quando dorme mal, piora", r:"Quando dorme mal, piora:", o:["Atenção","Irritabilidade","Movimentos repetitivos","Agressividade","Aprendizagem","Seletividade alimentar","Agitação"]}
+]},
+
+{ sec:8, tit:"Intestino: hábito intestinal", c:[
+  {t:"uni", k:"s8_freq", s:"Frequência de evacuação", r:"Quantas vezes a criança evacua?", o:["Mais de 1 vez ao dia","1 vez ao dia","A cada 2 dias","A cada 3 dias","Mais de 3 dias sem evacuar"]},
+  {t:"uni", k:"s8_laxante", s:"Usa laxante ou PEG", r:"Usa laxante ou polietilenoglicol (PEG)?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s8_laxante",["Sim"]], c:[
+    {t:"txt", k:"s8_laxante_qual", s:"Qual laxante ou PEG", r:"Qual, e desde quando?"}
+  ]},
+  {t:"mul", k:"s8_fezes", s:"Aspecto das fezes", r:"Como são as fezes?", o:["Muito ressecadas","Em bolinhas","Grossas e volumosas","Pastosas","Diarreicas","Alternam prisão e diarreia","Boiam no vaso","Oleosas","Cheiro muito forte","Com muco","Com sangue"]},
+  {t:"uni", k:"s8_dor", s:"Dor ao evacuar", r:"Sente dor ao evacuar?", o:SIM_NAO, full:true},
+  {t:"uni", k:"s8_escape", s:"Escape fecal ou uso de fralda", r:"Tem escape de fezes na roupa ou ainda usa fralda?", o:SIM_NAO, full:true}
+]},
+
+{ sec:8, tit:"Intestino: sintomas digestivos", c:[
+  {t:"mul", k:"s8_sint", s:"Sintomas digestivos", r:"Quais sintomas digestivos a criança tem?", o:["Dor de barriga","Barriga inchada","Muitos gases","Refluxo","Arrotos frequentes","Enjoo","Vômitos","Sensação de estufamento","Digestão lenta","Mau hálito","Candidíase de repetição","Já teve vermes ou parasitas"]},
+  {t:"uni", k:"s8_presa", s:"Piora do comportamento com intestino preso", r:"O comportamento piora quando o intestino está preso?", o:SNS, full:true},
+  {t:"uni", k:"s8_apos", s:"Melhora após evacuar", r:"Melhora depois que evacua?", o:SNS, full:true},
+  {t:"uni", k:"s8_antib", s:"Piora após antibiótico", r:"Piora depois de usar antibiótico?", o:SNS, full:true},
+  {t:"mul", k:"s8_alimentos", s:"Piora com alimentos", r:"Piora depois de algum destes alimentos?", o:["Leite","Glúten ou trigo","Açúcar","Corantes","Ultraprocessados","Chocolate","Tomate","Fermentados"]},
+  {t:"txt", k:"s8_alimentos_outro", s:"Outro alimento que piora", r:"Outro alimento (qual?)"}
+]},
+
+{ sec:9, tit:"Alimentação: padrão alimentar", c:[
+  {t:"txt", k:"s9_refeicoes", s:"Refeições por dia", r:"Quantas refeições a criança faz por dia?"},
+  {t:"uni", k:"s9_belisca", s:"Belisca entre as refeições", r:"Belisca entre as refeições?", o:SIM_NAO, full:true},
+  {t:"uni", k:"s9_proteina", s:"Come proteína todo dia", r:"Come proteína todos os dias?", o:["Sim","Pouco","Não"], full:true},
+  {t:"mul", k:"s9_proteinas", s:"Proteínas que aceita", r:"Quais proteínas aceita?", o:["Carne","Frango","Peixe","Ovos","Feijão","Iogurte","Queijo","Quase nenhuma"]},
+  {t:"uni", k:"s9_farinaceos", s:"Muito pão, macarrão ou farináceos", r:"Come muito pão, macarrão e outros farináceos?", o:SIM_NAO, full:true},
+  {t:"uni", k:"s9_doces", s:"Doces com frequência", r:"Come doces com frequência?", o:SIM_NAO, full:true},
+  {t:"uni", k:"s9_ultra", s:"Ultraprocessados", r:"Come ultraprocessados (salgadinho, biscoito recheado, embutidos)?", o:SIM_NAO, full:true},
+  {t:"uni", k:"s9_refri", s:"Refrigerante ou suco industrializado", r:"Toma refrigerante ou suco industrializado?", o:SIM_NAO, full:true}
+]},
+
+{ sec:9, tit:"Alimentação: seletividade", c:[
+  {t:"txt", k:"s9_n_alimentos", s:"Número aproximado de alimentos aceitos", r:"Mais ou menos quantos alimentos diferentes a criança aceita?"},
+  {t:"mul", k:"s9_recusa_por", s:"Recusa alimentos por", r:"Recusa alimentos por causa de:", o:["Cor","Textura","Cheiro","Temperatura","Marca ou embalagem","Formato","Aparência","Alimentos misturados no prato"]},
+  {t:"mul", k:"s9_recusa", s:"Costuma recusar", r:"Costuma recusar:", o:["Carnes","Verduras e folhas","Frutas","Legumes","Feijão","Alimentos novos","Líquidos","Alimentos com pedaços"]},
+  {t:"mul", k:"s9_mastiga", s:"Mastigação", r:"Como é a mastigação?", o:["Normal","Mastiga pouco","Engole sem mastigar","Engasga","Dificuldade motora na boca"]}
+]},
+
+{ sec:10, tit:"História alérgica, imunológica e inflamatória", c:[
+  {t:"mul", k:"s10_hist", s:"Tem ou já teve", r:"A criança tem ou já teve:", o:["Dermatite atópica (eczema)","Urticária","Rinite","Asma","Chiado no peito","Sinusite","Otites de repetição","Amigdalites","Pneumonias","Infecções por fungos","Herpes que volta","Adenoide aumentada","Amígdalas aumentadas","Eosinófilos altos em exame","IgE alta em exame","Doença autoimune"]},
+  {t:"uni", k:"s10_infec", s:"Piora do comportamento após infecções", r:"O comportamento piora depois de infecções?", o:SNS, full:true},
+  {t:"uni", k:"s10_nariz", s:"Congestão nasal frequente", r:"Vive com o nariz congestionado?", o:SIM_NAO, full:true},
+  {t:"uni", k:"s10_alim", s:"Eczema ou rinite pioram com alimentos", r:"Eczema ou rinite pioram com algum alimento?", o:SNS, full:true},
+  {t:"uni", k:"s10_sazonal", s:"Sintomas sazonais", r:"Os sintomas pioram em certas épocas do ano?", o:SIM_NAO, full:true}
+]},
+
+{ sec:11, tit:"Gestação, parto e primeiros meses", c:[
+  {t:"txt", k:"s11_mae", s:"Idade da mãe na gestação", r:"Idade da mãe durante a gestação"},
+  {t:"txt", k:"s11_pai", s:"Idade do pai na gestação", r:"Idade do pai durante a gestação"},
+  {t:"mul", k:"s11_gest", s:"Intercorrências na gestação", r:"Durante a gestação, houve:", o:["Infecções","Febre","Diabetes gestacional","Pressão alta","Sangramentos","Estresse intenso","Uso de antibiótico","Uso de antidepressivo ou ansiolítico","Uso de corticoide","Exposição a cigarro","Exposição a álcool","Exposição a agrotóxicos","Exposição a mofo"]},
+  {t:"txt", k:"s11_gest_outro", s:"Outra intercorrência na gestação", r:"Outra intercorrência (qual?)"},
+  {t:"mul", k:"s11_parto", s:"Tipo de parto", r:"Como foi o parto?", o:["Normal (vaginal)","Cesárea","Fórceps"]},
+  {t:"uni", k:"s11_termo", s:"Nascimento", r:"A criança nasceu:", o:["A termo","Prematura"], full:true},
+  {t:"txt", k:"s11_semanas", s:"Idade gestacional (semanas)", r:"Idade gestacional ao nascer (em semanas)"},
+  {t:"txt", k:"s11_peso", s:"Peso ao nascer (kg)", r:"Peso ao nascer (em kg)"},
+  {t:"mul", k:"s11_neo", s:"Intercorrências ao nascer", r:"No nascimento ou nos primeiros dias, houve:", o:["Sofrimento fetal","UTI neonatal","Icterícia","Hipoglicemia","Antibiótico no recém-nascido","Fórmula logo no início","Dificuldade para amamentar"]},
+  {t:"txt", k:"s11_aleit", s:"Aleitamento materno exclusivo até (meses)", r:"Até quantos meses foi só leite materno?"},
+  {t:"uni", k:"s11_formula", s:"Usou fórmula infantil", r:"Usou fórmula infantil?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s11_formula",["Sim"]], c:[
+    {t:"txt", k:"s11_formula_qual", s:"Qual fórmula", r:"Qual fórmula?"}
+  ]}
+]},
+
+{ sec:12, tit:"Exposições ambientais", c:[
+  {t:"uni", k:"s12_mofo", s:"Mofo em casa", r:"A casa tem ou já teve mofo?", o:SIM_NAO, full:true},
+  {t:"uni", k:"s12_reforma", s:"Reforma recente", r:"Houve reforma recente em casa?", o:SIM_NAO, full:true},
+  {t:"mul", k:"s12_agua", s:"Água que a criança bebe", r:"A água que a criança bebe vem de:", o:["Filtro comum","Filtro de carvão","Filtro de osmose reversa","Água mineral","Poço","Rede pública, sem filtro"]},
+  {t:"uni", k:"s12_agro", s:"Perto de área agrícola", r:"Moram perto de plantações onde se aplicam agrotóxicos?", o:SIM_NAO, full:true},
+  {t:"mul", k:"s12_ocup", s:"Exposição ocupacional na família", r:"Alguém da família trabalha em contato com:", o:["Metais","Solventes","Tintas","Agrotóxicos","Combustíveis","Produtos químicos","Nenhum desses"]},
+  {t:"mul", k:"s12_uso", s:"Uso frequente em casa", r:"Em casa, usam com frequência:", o:["Perfumes ou fragrâncias fortes","Aromatizador de ambiente","Produtos de limpeza fortes","Plástico aquecido (micro-ondas)","Panela de alumínio","Cosméticos perfumados"]},
+  {t:"txt", k:"s12_tela", s:"Tempo de tela por dia (horas)", r:"Quantas horas de tela por dia, em média?"},
+  {t:"uni", k:"s12_sol", s:"Exposição ao sol e à luz natural", r:"Exposição diária ao sol e à luz natural:", o:["Boa","Baixa","Quase nenhuma"]}
+]},
+
+{ sec:13, tit:"Comorbidades e diagnósticos diferenciais", c:[
+  {t:"mul", k:"s13_cond", s:"Suspeita ou diagnóstico", r:"Marque o que já foi suspeitado ou diagnosticado:", a:"Vale marcar mesmo o que ainda não foi confirmado.",
+    o:["TDAH","Epilepsia","Crises de ausência (olhar parado)","Atraso global do desenvolvimento","Deficiência intelectual","Dispraxia (dificuldade de coordenação motora)","Apraxia de fala","Transtorno de linguagem","Transtorno de aprendizagem","Dislexia","Ansiedade","TOC","Rigidez importante","Enxaqueca","PANDAS/PANS","Síndrome genética","Apneia do sono","Bruxismo","Obesidade","Baixo peso","Puberdade precoce","Alteração de tireoide","Nenhuma destas"]},
+  {t:"txt", k:"s13_outro", s:"Outra condição", r:"Outra condição (qual?)"}
+]},
+
+{ sec:14, tit:"Medicamentos, suplementos e respostas prévias", c:[
+  {t:"uni", k:"s14_usa", s:"Usa medicamento hoje", r:"A criança usa algum medicamento hoje?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s14_usa",["Sim"]], c:[
+    {t:"area", k:"s14_atuais", s:"Medicamentos atuais", r:"Quais?", a:"Um por linha: nome, dose, horário, desde quando e o efeito que você percebe."}
+  ]},
+  {t:"mul", k:"s14_passado", s:"Medicamentos já usados", r:"A criança já usou algum destes?", o:["Risperidona","Aripiprazol","Metilfenidato (Ritalina, Concerta)","Lisdexanfetamina (Venvanse)","Atomoxetina (Atentah)","Guanfacina","Clonidina","Valproato","Melatonina","Antidepressivo","Antialérgico"]},
+  {t:"txt", k:"s14_passado_outro", s:"Outro medicamento já usado", r:"Outro medicamento (qual?)"},
+  {t:"uni", k:"s14_reacao", s:"Piora ou reação inesperada com medicamento", r:"Algum medicamento já causou piora ou uma reação inesperada?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s14_reacao",["Sim"]], c:[
+    {t:"txt", k:"s14_reacao_qual", s:"Qual medicamento e reação", r:"Qual medicamento e o que aconteceu?"}
+  ]},
+  {t:"uni", k:"s14_alergia", s:"Alergia a medicamento", r:"A criança tem alergia a algum medicamento?", o:SIM_NAO, full:true},
+  {t:"sub", se:["s14_alergia",["Sim"]], c:[
+    {t:"txt", k:"s14_alergia_qual", s:"Qual alergia a medicamento", r:"Qual?"}
+  ]},
+  {t:"mul", k:"s14_supl", s:"Suplementos já usados", r:"Suplementos que a criança já usou:", o:["Ômega-3","Magnésio","Vitamina D","Vitamina B12","Ácido folínico","Metilfolato","Probióticos","Enzimas digestivas","NAC (N-acetilcisteína)","CoQ10","L-carnitina","CBD (canabidiol)"]},
+  {t:"txt", k:"s14_supl_outro", s:"Outro suplemento", r:"Outro suplemento (qual?)"},
+  {t:"area", k:"s14_melhorou", s:"O que melhorou de fato", r:"O que melhorou de fato com esses tratamentos?"},
+  {t:"area", k:"s14_piorou", s:"O que piorou", r:"E o que piorou?"}
+]},
+
+{ sec:15, tit:"História familiar", c:[
+  {t:"mul", k:"s15_fam", s:"Histórico familiar", r:"Na família (pais, irmãos, avós, tios e primos) existe:", o:["TEA (autismo)","TDAH","Dislexia","Transtornos de aprendizagem","Ansiedade","Depressão","Bipolaridade","Esquizofrenia","Epilepsia","Enxaqueca","Doenças autoimunes","Tireoidite de Hashimoto","Lúpus","Artrite reumatoide","Psoríase","Doença celíaca","Alergias","Asma","Rinite","Problemas digestivos","Obesidade","Diabetes","SOP (ovários policísticos)"]},
+  {t:"txt", k:"s15_outro", s:"Outra condição na família", r:"Outra condição na família (qual?)"},
+  {t:"area", k:"s15_parentes", s:"Parentesco", r:"Quem tem cada uma das condições marcadas?", a:"Por exemplo: pai, TDAH; avó materna, depressão."}
+]},
+
+{ sec:16, tit:"Exames já realizados", c:[
+  {t:"mul", k:"s16_sangue", s:"Exames de sangue", r:"Exames de sangue", a:"Marque os que a criança já fez e que você tem em mãos. Se possível, envie uma cópia junto com este resumo.",
+    o:["Hemograma","Ferritina","Ferro e saturação da transferrina","Vitamina D","Vitamina B12","Folato","Homocisteína","Zinco","Magnésio","Perfil da tireoide (TSH, T4 e outros)","IgE","Eosinófilos","PCR ultrassensível","Amônia","Acilcarnitinas","DAO (diamina oxidase)"]},
+  {t:"mul", k:"s16_fezes", s:"Exames de fezes e urina", r:"Exames de fezes e urina", o:["Calprotectina fecal","Coprológico funcional","Indican urinário","Ácidos orgânicos urinários","Microbioma (metagenômica)"]},
+  {t:"mul", k:"s16_neuro", s:"Neurológicos, do sono e genéticos", r:"Neurológicos, do sono e genéticos", o:["EEG","Polissonografia","Ressonância de crânio","Exame genético (cariótipo, X frágil, microarray ou exoma)"]},
+  {t:"mul", k:"s16_aval", s:"Avaliações", r:"Avaliações", o:["Neuropsicológica","Fonoaudiológica","Escolar"]},
+  {t:"txt", k:"s16_outros", s:"Outros exames ou avaliações", r:"Outros exames ou avaliações (quais?)"}
+]},
+
+{ sec:17, tit:"Perguntas finais", c:[
+  {t:"area", k:"s17_quando", s:"Quando a criança piora", r:"Em que momentos a criança piora?"},
+  {t:"area", k:"s17_melhora", s:"O que costuma melhorar o comportamento", r:"O que costuma melhorar o comportamento?"},
+  {t:"area", k:"s17_piora", s:"O que costuma piorar o comportamento", r:"O que costuma piorar o comportamento?"},
+  {t:"g", r:"Há relação clara entre o comportamento e…"},
+  {t:"uni", k:"s17_r_sono", s:"Relação com o sono", r:"O sono", o:REL},
+  {t:"uni", k:"s17_r_intestino", s:"Relação com o intestino", r:"O intestino", o:REL},
+  {t:"uni", k:"s17_r_alimento", s:"Relação com a alimentação", r:"A alimentação", o:REL},
+  {t:"uni", k:"s17_r_infeccao", s:"Relação com infecções", r:"As infecções", o:REL},
+  {t:"uni", k:"s17_r_rotina", s:"Relação com mudanças de rotina", r:"As mudanças de rotina", o:REL},
+  {t:"area", k:"s17_r_detalhe", s:"Detalhe das relações", r:"Quer detalhar alguma dessas relações?"},
+  {t:"g", r:"O que a família espera"},
+  {t:"area", k:"s17_3meses", s:"O que mais quer melhorar nos próximos 3 meses", r:"O que a família mais quer melhorar nos próximos 3 meses?"},
+  {t:"area", k:"s17_resultado", s:"Resultado muito importante para a família", r:"Que resultado seria muito importante para a família?"}
+]},
+
+{ sec:18, tit:"Observações livres dos pais e cuidadores", c:[
+  {t:"area", k:"s18_obs", s:"Observações", r:"Use este espaço para escrever o que considerar importante e não foi perguntado.", big:true}
+]}
+
+];
+
+var estado = {};
+var passo = 0;
+var IDX_INICIO = 2;
+var IDX_RESULTADO = IDX_INICIO + TELAS.length;
+var rascunho = carregar();
+var palco = document.getElementById("palco");
+
+(function numerarPartes(){
+  var total = {}, visto = {};
+  TELAS.forEach(function(t){ total[t.sec] = (total[t.sec]||0) + 1; });
+  TELAS.forEach(function(t){ visto[t.sec] = (visto[t.sec]||0) + 1; t.parte = visto[t.sec]; t.partes = total[t.sec]; });
+})();
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function g(chave){ return estado[chave]; }
+function set(chave, valor){ estado[chave] = valor; }
+
+/* Rascunho: fica só na aba do navegador (sessionStorage) e some quando a aba é fechada. */
+function salvar(){
+  if (passo < 1) return;
+  try{ sessionStorage.setItem(CHAVE, JSON.stringify({e:estado, p:passo})); }catch(e){}
+}
+function carregar(){
+  try{
+    var r = sessionStorage.getItem(CHAVE);
+    if (!r) return null;
+    var o = JSON.parse(r);
+    if (o && o.e && typeof o.p === "number" && o.p >= 1) return o;
+  }catch(e){}
+  return null;
+}
+function apagarRascunho(){
+  try{ sessionStorage.removeItem(CHAVE); }catch(e){}
+  estado = {}; passo = 0; rascunho = null;
+}
+
+function pontosBar(atual){
+  var h = '<div class="pontos" aria-hidden="true">';
+  for (var i=0;i<IDX_RESULTADO;i++){ h += '<span class="ponto'+(i<=atual?' on':'')+'"></span>'; }
+  return h+'</div>';
+}
+
+function ajudaHtml(a){ return a ? '<p class="ajuda">'+esc(a)+'</p>' : ''; }
+
+function campoTexto(f){
+  var v = g(f.k) || "";
+  var id = "f_"+f.k;
+  return '<label class="campo" for="'+id+'">'+esc(f.r)+'</label>'+ajudaHtml(f.a)+
+    '<input type="'+(f.tel?'tel':'text')+'" id="'+id+'" data-campo="'+f.k+'" autocomplete="'+(f.ac||'off')+'" value="'+esc(v)+'">';
+}
+function campoArea(f){
+  var v = g(f.k) || "";
+  var id = "f_"+f.k;
+  return '<label class="campo" for="'+id+'">'+esc(f.r)+'</label>'+ajudaHtml(f.a)+
+    '<textarea id="'+id+'" data-campo="'+f.k+'"'+(f.big?' style="min-height:150px"':'')+'>'+esc(v)+'</textarea>';
+}
+function campoUnica(f){
+  var v = g(f.k);
+  var botoes = f.o.map(function(op){
+    var marcado = (v===op);
+    return '<label'+(marcado?' class="on"':'')+'><input type="radio" name="'+f.k+'" value="'+esc(op)+'"'+(marcado?' checked':'')+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<p class="campo" id="l_'+f.k+'">'+esc(f.r)+'</p>'+ajudaHtml(f.a)+
+    '<div class="pillgrupo'+(f.full?' full':'')+'" role="radiogroup" aria-labelledby="l_'+f.k+'" data-grupo="'+f.k+'">'+botoes+'</div>';
+}
+function campoMultipla(f){
+  var v = g(f.k) || [];
+  var botoes = f.o.map(function(op){
+    var marcado = (v.indexOf(op)>=0);
+    return '<label'+(marcado?' class="on"':'')+'><input type="checkbox" name="'+f.k+'" value="'+esc(op)+'"'+(marcado?' checked':'')+'><span>'+esc(op)+'</span></label>';
+  }).join('');
+  return '<p class="campo" id="l_'+f.k+'">'+esc(f.r)+'</p>'+ajudaHtml(f.a)+
+    '<div class="pillgrupo multi" role="group" aria-labelledby="l_'+f.k+'" data-grupomulti="'+f.k+'">'+botoes+'</div>';
+}
+function renderCampo(f){
+  if (f.t==="g") return '<p class="grupo">'+esc(f.r)+'</p>';
+  if (f.t==="txt") return campoTexto(f);
+  if (f.t==="area") return campoArea(f);
+  if (f.t==="uni") return campoUnica(f);
+  if (f.t==="mul") return campoMultipla(f);
+  if (f.t==="sub") return '<div class="subcampo oculto" data-se="'+f.se[0]+'" data-v="'+esc(f.se[1].join('|'))+'">'+f.c.map(renderCampo).join('')+'</div>';
+  return '';
+}
+
+function capturarTela(){
+  palco.querySelectorAll('[data-campo]').forEach(function(el){ set(el.dataset.campo, el.value); });
+  palco.querySelectorAll('[data-grupo]').forEach(function(el){
+    var marcado = el.querySelector('input:checked');
+    set(el.dataset.grupo, marcado ? marcado.value : undefined);
+  });
+  palco.querySelectorAll('[data-grupomulti]').forEach(function(el){
+    var vals = Array.prototype.slice.call(el.querySelectorAll('input:checked')).map(function(i){ return i.value; });
+    set(el.dataset.grupomulti, vals);
+  });
+}
+
+function valorNaTela(chave){
+  var gu = palco.querySelector('[data-grupo="'+chave+'"]');
+  if (gu){ var m = gu.querySelector('input:checked'); return m ? m.value : null; }
+  var gm = palco.querySelector('[data-grupomulti="'+chave+'"]');
+  if (gm){ return Array.prototype.slice.call(gm.querySelectorAll('input:checked')).map(function(i){ return i.value; }); }
+  return null;
+}
+function atualizarSubs(){
+  palco.querySelectorAll('.subcampo[data-se]').forEach(function(el){
+    var v = valorNaTela(el.dataset.se);
+    var alvos = el.dataset.v.split('|');
+    var ok = Array.isArray(v) ? v.some(function(x){ return alvos.indexOf(x)>=0; }) : (v!==null && alvos.indexOf(v)>=0);
+    el.classList.toggle('oculto', !ok);
+  });
+}
+function atualizarPilulas(alvo){
+  var rotulo = alvo.closest('label');
+  if (!rotulo) return;
+  if (alvo.type==="radio"){
+    var grupo = rotulo.parentNode;
+    Array.prototype.forEach.call(grupo.querySelectorAll('label'), function(l){
+      var i = l.querySelector('input');
+      l.classList.toggle('on', !!(i && i.checked));
+    });
+  } else {
+    rotulo.classList.toggle('on', alvo.checked);
+  }
+}
+
+function telaIntro(){
+  var retomar = rascunho && rascunho.p >= 1;
+  var onde = '';
+  if (retomar && rascunho.p >= IDX_INICIO && rascunho.p < IDX_RESULTADO){
+    onde = ' Você parou na seção '+TELAS[rascunho.p-IDX_INICIO].sec+' de '+TOTAL_SECOES+'.';
+  }
+  return (
+    '<p class="passo">Antes de começar</p>'+
+    '<p class="haste">Pré-consulta com o Dr. Lucas Menezes</p>'+
+    '<p>Este formulário reúne o histórico da criança: desenvolvimento, comportamento, sono, intestino, alimentação, saúde geral e exames. Com ele, o Dr. Lucas chega à consulta já conhecendo o quadro e o tempo juntos rende mais. Leva de 25 a 30 minutos, e você pode pausar e voltar, contanto que não feche esta aba.</p>'+
+    '<div class="caixa nota"><span class="tit">Quem deve preencher</span><p>Quem convive mais com a criança no dia a dia, de preferência com o outro responsável ao lado. Vale também para adolescentes: onde estiver escrito “a criança”, leia seu filho ou sua filha. Se não souber uma resposta, deixe em branco ou escreva “não sei”.</p></div>'+
+    '<div class="caixa nota"><span class="tit">Separe, se tiver</span><p>Exames de sangue, laudos, relatórios da escola e das terapias, e a lista dos remédios e suplementos que a criança usa. No final, você envia tudo junto com o resumo.</p></div>'+
+    (retomar
+      ? '<div class="caixa nota"><span class="tit">Você já começou a preencher</span><p>As respostas continuam guardadas nesta aba.'+onde+'</p></div>'+
+        '<button class="btn" data-acao="retomar">Continuar de onde parei</button>'+
+        '<div><button class="voltar" data-acao="apagar" data-rotulo="Apagar tudo e recomeçar">Apagar tudo e recomeçar</button></div>'
+      : '<button class="btn" data-acao="comecar">Começar</button>')
+  );
+}
+
+function telaIdentificacao(){
+  return (
+    '<p class="passo">Identificação</p>'+
+    ID_CAMPOS.map(renderCampo).join('')+
+    '<button class="btn" data-acao="avancar">Continuar</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function corpoSecao(i){
+  var t = TELAS[i];
+  var ehUltima = (i===TELAS.length-1);
+  var rotuloPasso = 'Seção '+t.sec+' de '+TOTAL_SECOES+(t.partes>1 ? ' · parte '+t.parte+' de '+t.partes : '');
+  return (
+    '<p class="passo">'+rotuloPasso+'</p>'+
+    '<p class="haste">'+esc(t.tit)+'</p>'+
+    t.c.map(renderCampo).join('')+
+    pontosBar(IDX_INICIO+i)+
+    '<button class="btn" data-acao="avancar" style="margin-top:8px;">'+(ehUltima?'Ver resumo final':'Continuar')+'</button>'+
+    '<button class="voltar" data-acao="voltar">Voltar</button>'
+  );
+}
+
+function condicaoAtendida(se){
+  var v = g(se[0]);
+  if (Array.isArray(v)) return v.some(function(x){ return se[1].indexOf(x)>=0; });
+  return v!==undefined && v!==null && se[1].indexOf(v)>=0;
+}
+function linhaResumo(rotulo, chave){
+  var v = g(chave);
+  if (v===undefined || v===null || v==='') return '';
+  if (Array.isArray(v)){ if (v.length===0) return ''; v = v.join('; '); }
+  return rotulo+': '+v+'\n';
+}
+function linhasCampos(campos){
+  var t = '';
+  campos.forEach(function(f){
+    if (f.t==='g') return;
+    if (f.t==='sub'){ if (condicaoAtendida(f.se)) t += linhasCampos(f.c); return; }
+    t += linhaResumo(f.s || f.r, f.k);
+  });
+  return t;
+}
+
+function textoResumoCompleto(){
+  var d = new Date();
+  var t = 'PRÉ-ANAMNESE — TEA FUNCIONAL\nDr. Lucas Menezes\n';
+  t += 'Preenchido em: '+d.toLocaleDateString('pt-BR')+'\n\n';
+  t += '--- IDENTIFICAÇÃO ---\n'+linhasCampos(ID_CAMPOS);
+  var ultima = 0;
+  TELAS.forEach(function(tela){
+    if (tela.sec!==ultima){ t += '\n--- '+tela.sec+'. '+TITULOS[tela.sec]+' ---\n'; ultima = tela.sec; }
+    t += linhasCampos(tela.c);
+  });
+  return t;
+}
+
+function telaResultado(){
+  var texto = textoResumoCompleto();
+  var risco = g('s5_morte')==='Sim';
+  return (
+    '<p class="passo">Concluído</p>'+
+    '<p class="haste">Obrigado por responder</p>'+
+    '<div class="caixa nota"><p>Revise se quiser, depois toque em “Copiar resumo” e envie para o Dr. Lucas pelo WhatsApp. Assim ele chega à consulta com tudo em mãos.</p></div>'+
+    '<div class="caixa nota"><span class="tit">Envie junto, se tiver</span><p>Exames de sangue, laudos, relatórios da escola e das terapias, relatórios médicos anteriores e a lista atual de medicamentos e suplementos.</p></div>'+
+    (risco ? '<div class="caixa risco"><p><strong>Se a criança falar em morrer ou se machucar, ou se você sentir que precisa de ajuda antes da consulta, ligue para o CVV, 188 (gratuito, sigiloso, 24 horas), ou procure um pronto-socorro.</strong></p></div>' : '')+
+    '<div class="resumo" id="resumo">'+esc(texto)+'</div>'+
+    '<p class="copiado" id="copiado" role="status"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<div><button class="voltar" data-acao="voltar">Voltar e revisar</button></div>'+
+    '<div><button class="voltar" data-acao="apagar" data-rotulo="Apagar as respostas deste aparelho">Apagar as respostas deste aparelho</button></div>'
+  );
+}
+
+function pintar(){
+  var h;
+  if (passo===0) h = telaIntro();
+  else if (passo===1) h = telaIdentificacao();
+  else if (passo<IDX_RESULTADO) h = corpoSecao(passo-IDX_INICIO);
+  else h = telaResultado();
+  palco.innerHTML = h;
+  atualizarSubs();
+  salvar();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function copiar(){
+  var txt = textoResumoCompleto();
+  var aviso = document.getElementById("copiado");
+  function ok(){ if(aviso) aviso.textContent="Copiado. Agora é só colar no WhatsApp."; }
+  function falha(){ if(aviso) aviso.textContent="Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(falha);
+    return;
+  }
+  try{
+    var ta=document.createElement("textarea");
+    ta.value=txt; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    var deu=document.execCommand("copy");
+    document.body.removeChild(ta);
+    deu?ok():falha();
+  }catch(e){ falha(); }
+}
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a==="comecar"){ passo=1; }
+  else if (a==="retomar"){ estado = rascunho.e; passo = rascunho.p; }
+  else if (a==="avancar"){ capturarTela(); passo = passo+1; }
+  else if (a==="voltar"){ capturarTela(); if (passo>0) passo = passo-1; }
+  else if (a==="copiar"){ copiar(); return; }
+  else if (a==="apagar"){
+    if (!b.dataset.confirma){
+      b.dataset.confirma = "1";
+      b.textContent = "Toque de novo para apagar tudo";
+      setTimeout(function(){ if (b.isConnected){ delete b.dataset.confirma; b.textContent = b.dataset.rotulo; } }, 4000);
+      return;
+    }
+    apagarRascunho();
+  }
+  else { return; }
+  pintar();
+});
+
+palco.addEventListener("change", function(ev){
+  if (ev.target && ev.target.matches && ev.target.matches('input[type=radio],input[type=checkbox]')) atualizarPilulas(ev.target);
+  atualizarSubs();
+  capturarTela();
+  salvar();
+});
+palco.addEventListener("input", function(){ capturarTela(); salvar(); });
+
+pintar();
+})();
+</script>
+</body>
+</html>
