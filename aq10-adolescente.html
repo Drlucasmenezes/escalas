@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>AQ-10 Adolescente · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bege:#EFE7DA; --bronze:#9A7B4F; --bronze-dark:#6E5636; --bronze-med:#8B6F47;
+    --linha:#C9B79A; --creme:#FBF8F2;
+    --ambar-bg:#FBF3E3; --ambar-borda:#C9A24B;
+    --nota-bg:#EDF1F5; --nota-borda:#34506B;
+    --alerta-bg:#FBEFEF; --alerta-borda:#B26A6A; --alerta-txt:#8B3A3A;
+    --texto:#3B3229; --suave:#6E6455;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bege); color:var(--texto);
+    font-family:'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font-size:16px; line-height:1.55; padding:20px 14px 50px;
+  }
+  .wrap{max-width:660px;margin:0 auto;}
+  header{text-align:center;margin-bottom:20px;}
+  .logo{width:42px;height:42px;margin:0 auto 10px;display:block;}
+  h1{font-family:'Caladea',Georgia,serif;font-size:1.42rem;font-weight:700;color:var(--bronze-dark);margin:0 0 3px;}
+  .sub{font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;color:var(--bronze-med);margin:0;text-wrap:balance;}
+  .regua{width:48px;height:2px;background:var(--linha);border:0;margin:12px auto 0;}
+  .card{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:20px 18px;box-shadow:0 1px 3px rgba(110,86,54,.07);}
+  .caixa{border-radius:8px;padding:13px 15px;margin:14px 0;font-size:.93rem;line-height:1.55;}
+  .caixa p{margin:0 0 8px;}
+  .caixa p:last-child{margin-bottom:0;}
+  .caixa .tit{font-family:'Caladea',Georgia,serif;font-weight:700;font-size:.98rem;display:block;margin-bottom:6px;}
+  .nota{background:var(--nota-bg);border-left:3px solid var(--nota-borda);}
+  .nota .tit{color:var(--nota-borda);}
+  .ambar{background:var(--ambar-bg);border-left:3px solid var(--ambar-borda);}
+  .ambar .tit{color:#8A6A1F;}
+  .passo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-med);margin:0 0 10px;font-weight:700;}
+  .haste{font-family:'Caladea',Georgia,serif;font-size:1.05rem;color:var(--bronze-dark);margin:0 0 4px;font-weight:700;}
+  .haste:focus{outline:none;}
+  .haste-sub{font-size:.82rem;color:var(--suave);margin:0 0 14px;text-wrap:balance;}
+  p{margin:0 0 10px;}
+
+  .campos{display:grid;gap:12px;margin:16px 0 4px;}
+  .linha2{display:grid;grid-template-columns:92px 1fr;gap:10px;}
+  .campo{min-width:0;}
+  .campo label{display:block;font-size:.85rem;color:var(--suave);margin-bottom:4px;}
+  .campo input{width:100%;padding:10px 11px;border:1.5px solid var(--linha);border-radius:7px;font-size:1rem;font-family:inherit;background:#fff;color:var(--texto);}
+  .campo input:focus{outline:2px solid var(--bronze-dark);outline-offset:1px;border-color:var(--bronze-dark);}
+
+  .lista-topo{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:20px 0 0;}
+  .lista-topo .passo{margin:0;}
+  .contagem{font-size:.82rem;color:var(--suave);white-space:nowrap;}
+  .item{border-bottom:1px solid #E6DCCB;padding:14px 0;}
+  .item:last-child{border-bottom:0;}
+  .item.falta{background:var(--alerta-bg);border-radius:8px;padding:12px 10px;border-bottom-color:transparent;box-shadow:inset 3px 0 0 var(--alerta-borda);}
+  .item .txt{font-size:.97rem;margin:0;line-height:1.42;}
+  .item .num{color:var(--bronze-med);font-weight:700;margin-right:5px;}
+  .op{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;}
+  .op label{position:relative;display:block;min-width:0;}
+  .op input{position:absolute;top:0;left:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;}
+  .op .rot{
+    display:flex;align-items:center;justify-content:center;text-align:center;height:100%;min-height:44px;
+    padding:8px 6px;font-size:.84rem;line-height:1.2;border:1.5px solid var(--linha);border-radius:7px;
+    background:#fff;color:var(--suave);transition:background .12s ease,border-color .12s ease,color .12s ease;
+  }
+  .op input:checked + .rot{background:var(--bronze-med);border-color:var(--bronze-med);color:#fff;}
+  .op input:focus-visible + .rot{outline:2px solid var(--bronze-dark);outline-offset:2px;}
+
+  .aviso{display:none;margin-top:12px;padding:10px 12px;border-radius:8px;background:var(--alerta-bg);border-left:3px solid var(--alerta-borda);color:var(--alerta-txt);font-size:.9rem;}
+  .aviso.on{display:block;}
+  .btn{
+    width:100%;font-family:inherit;font-size:1.02rem;font-weight:700;padding:15px 12px;
+    border-radius:8px;border:1.5px solid var(--bronze-med);background:var(--bronze-med);color:#fff;
+    cursor:pointer;margin-top:16px;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn:focus-visible,.voltar:focus-visible{outline:2px solid var(--bronze-dark);outline-offset:2px;}
+  .voltar{display:block;margin:12px auto 0;background:none;border:0;padding:6px 4px;font-family:inherit;font-size:.9rem;color:var(--suave);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+
+  .pontuacao{text-align:center;font-family:'Caladea',Georgia,serif;font-size:3rem;font-weight:700;color:var(--bronze-dark);line-height:1.05;margin:12px 0 8px;}
+  .pontuacao small{font-size:1.1rem;font-weight:400;color:var(--suave);}
+  .selo-wrap{text-align:center;margin:0 0 6px;}
+  .selo{display:inline-block;max-width:100%;padding:6px 14px;border-radius:14px;font-size:.84rem;font-weight:700;line-height:1.3;border:1px solid;}
+  .selo.acima{background:#F6E7C8;color:#6B4A0C;border-color:#C9A24B;}
+  .selo.abaixo{background:#E6EDDF;color:#3F5230;border-color:#9DB08A;}
+  .resumo{background:#F4EEE3;border:1px dashed var(--linha);border-radius:8px;padding:14px 16px;margin-top:14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:.76rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;color:#4A4034;}
+  .copiado{text-align:center;font-size:.85rem;color:var(--bronze-dark);margin:9px 0 0;min-height:20px;font-weight:700;}
+
+  footer{margin-top:26px;text-align:center;font-size:.74rem;line-height:1.6;color:var(--suave);}
+  footer p{margin:0 0 10px;}
+  footer .ref{margin-top:9px;font-size:.68rem;color:#7A7064;}
+  @media (max-width:420px){
+    body{font-size:15px;padding:16px 10px 40px;}
+    .card{padding:16px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9A7B4F"/><stop offset="100%" stop-color="#6E5636"/></linearGradient></defs>
+      <g fill="url(#br)">
+        <rect x="24" y="5" width="16" height="16" transform="rotate(45 32 13)"/>
+        <rect x="5" y="24" width="16" height="16" transform="rotate(45 13 32)"/>
+        <rect x="43" y="24" width="16" height="16" transform="rotate(45 51 32)"/>
+        <rect x="24" y="43" width="16" height="16" transform="rotate(45 32 51)"/>
+      </g>
+    </svg>
+    <h1>AQ-10 Adolescente</h1>
+    <p class="sub">Rastreio de traços do espectro autista · 12 a 15 anos</p>
+    <hr class="regua" />
+  </header>
+
+  <main class="card" id="palco"><noscript>Ative o JavaScript do navegador para responder este questionário.</noscript></main>
+
+  <footer>
+    <p><strong>Dr. Lucas Menezes</strong><br />Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349<br />Alma Clinic — Limeira/SP · @drlucasmenezess</p>
+    <p class="ref">
+      AQ-10 versão Adolescente (12 a 15 anos), respondida pelos pais. Allison, Auyeung &amp; Baron-Cohen, 2012 (J Am Acad Child Adolesc Psychiatry 51:202–212), a partir do AQ-Adolescente de Baron-Cohen, Hoekstra, Knickmeyer &amp; Wheelwright, 2006 (J Autism Dev Disord 36:343–350). Autism Research Centre, Universidade de Cambridge.<br />
+      Texto dos itens: tradução para o português do Brasil, Instituto de Pesquisas Neuropsiquiátricas, SUAV — Waldir Toledo, 2020, disponibilizada pelo ARC. Uso clínico, não comercial.<br />
+      Rastreio: não é diagnóstico e não deve ser usado isoladamente.
+    </p>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* Itens: texto da tradução brasileira (Toledo, 2020). Chave de pontuação do AQ-10 Adolescente:
+   itens 1, 5, 8 e 10 pontuam ao concordar; itens 2, 3, 4, 6, 7 e 9 pontuam ao discordar. */
+var ITENS = [
+  {n:1,  rotulo:"Padrões",            pontua:"concorda", texto:"Ela/ele percebe padrões nas coisas o tempo todo."},
+  {n:2,  rotulo:"Visão geral",        pontua:"discorda", texto:"Ela/ele geralmente se concentra mais na imagem inteira, ao invés dos pequenos detalhes."},
+  {n:3,  rotulo:"Conversas em grupo", pontua:"discorda", texto:"Em um grupo social, ela/ele pode facilmente acompanhar a conversa de várias pessoas diferentes."},
+  {n:4,  rotulo:"Retomar tarefa",     pontua:"discorda", texto:"Se houver uma interrupção, ela/ele consegue voltar ao que estava fazendo muito rapidamente."},
+  {n:5,  rotulo:"Manter conversa",    pontua:"concorda", texto:"Ela/ele frequentemente descobre que não sabe como manter uma conversa."},
+  {n:6,  rotulo:"Bate-papo social",   pontua:"discorda", texto:"Ela/ele é bom em um bate-papo social."},
+  {n:7,  rotulo:"Faz-de-conta",       pontua:"discorda", texto:"Quando ela/ele era mais jovem, gostava de brincar de fingir e de “faz-de-conta” com outras crianças."},
+  {n:8,  rotulo:"Imaginar o outro",   pontua:"concorda", texto:"Ela/ele acha difícil imaginar como seria ser uma outra pessoa."},
+  {n:9,  rotulo:"Situações sociais",  pontua:"discorda", texto:"Ela/ele acha situações sociais fáceis."},
+  {n:10, rotulo:"Fazer amigos",       pontua:"concorda", texto:"Ela/ele acha difícil fazer novos amigos."}
+];
+var OPCOES = ["Concordo plenamente","Concordo parcialmente","Discordo parcialmente","Discordo plenamente"];
+var CORTE = 6, IDADE_MIN = 12, IDADE_MAX = 15;
+
+var palco = document.getElementById("palco");
+var estado = { nome:"", idade:"", resp:"", r:{} };
+var tela = "form";
+var avisoAberto = false;
+var armado = null, tmrArmado = null;
+
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function reduzido(){ return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
+function comportamento(){ return reduzido() ? "auto" : "smooth"; }
+
+function htmlItem(it){
+  var v = estado.r[it.n];
+  var ops = OPCOES.map(function(t, i){
+    return '<label><input type="radio" name="i'+it.n+'" value="'+i+'"'+(v===i?' checked':'')+'><span class="rot">'+esc(t)+'</span></label>';
+  }).join("");
+  return '<div class="item" id="item-'+it.n+'">'+
+           '<p class="txt" id="tx-'+it.n+'"><span class="num">'+it.n+'.</span>'+esc(it.texto)+'</p>'+
+           '<div class="op" role="radiogroup" aria-labelledby="tx-'+it.n+'">'+ops+'</div>'+
+         '</div>';
+}
+
+function telaForm(){
+  return (
+    '<p class="passo">Para pais ou responsáveis</p>'+
+    '<h2 class="haste" tabindex="-1" data-foco>AQ-10 — versão adolescente</h2>'+
+    '<p class="haste-sub">Adolescentes de 12 a 15 anos · 10 afirmações · cerca de 2 minutos</p>'+
+    '<p>Pense no(a) adolescente e marque o quanto você concorda ou discorda de cada afirmação. Não há resposta certa ou errada: escolha a que é mais verdadeira no dia a dia.</p>'+
+    '<div class="caixa nota"><span class="tit">Não deixe nenhuma em branco</span><p>Em dúvida, marque a opção mais próxima do que você observa.</p></div>'+
+    '<div class="campos">'+
+      '<div class="campo"><label for="campo-nome">Nome do(a) adolescente</label>'+
+        '<input type="text" id="campo-nome" name="adolescente" autocomplete="off" value="'+esc(estado.nome)+'"></div>'+
+      '<div class="linha2">'+
+        '<div class="campo"><label for="campo-idade">Idade</label>'+
+          '<input type="text" id="campo-idade" name="idade" inputmode="numeric" maxlength="2" autocomplete="off" value="'+esc(estado.idade)+'"></div>'+
+        '<div class="campo"><label for="campo-resp">Quem está respondendo</label>'+
+          '<input type="text" id="campo-resp" name="respondente" placeholder="mãe, pai, responsável…" autocomplete="off" value="'+esc(estado.resp)+'"></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="lista-topo"><p class="passo">As 10 afirmações</p><span class="contagem" id="contagem"></span></div>'+
+    '<div class="lista">'+ITENS.map(htmlItem).join("")+'</div>'+
+    '<div class="aviso" id="aviso" role="alert"></div>'+
+    '<button class="btn" data-acao="ver">Ver resultado</button>'
+  );
+}
+
+function pontuou(it, v){
+  var concordou = (v === 0 || v === 1);
+  return (it.pontua === "concorda" ? concordou : !concordou) ? 1 : 0;
+}
+function calcular(){
+  var total = 0, itens = [];
+  ITENS.forEach(function(it){
+    var v = estado.r[it.n];
+    var p = pontuou(it, v);
+    total += p;
+    itens.push({ n:it.n, rotulo:it.rotulo, v:v, p:p });
+  });
+  return { total:total, itens:itens };
+}
+function idadeInfo(){
+  var raw = (estado.idade || "").trim();
+  if (!raw) return { txt:"não informada", fora:false };
+  var n = parseInt(raw, 10);
+  var txt = /^\d{1,2}$/.test(raw) ? n + " anos" : raw;
+  return { txt:txt, fora: (!isNaN(n) && (n < IDADE_MIN || n > IDADE_MAX)) };
+}
+
+function textoResumo(){
+  var c = calcular(), ida = idadeInfo(), L = [];
+  L.push("AQ-10 ADOLESCENTE — Resultado");
+  L.push("Adolescente: " + (estado.nome.trim() || "não informado"));
+  L.push("Idade: " + ida.txt + (ida.fora ? " (fora da faixa de " + IDADE_MIN + " a " + IDADE_MAX + " anos)" : ""));
+  L.push("Respondido por: " + (estado.resp.trim() || "não informado"));
+  L.push("Preenchido em: " + new Date().toLocaleDateString("pt-BR"));
+  L.push("");
+  L.push("Pontuação: " + c.total + "/10 (corte " + CORTE + " ou mais: " + (c.total >= CORTE ? "atingido" : "não atingido") + ")");
+  L.push("");
+  c.itens.forEach(function(x){
+    L.push(x.n + ". " + x.rotulo + ": " + OPCOES[x.v] + (x.p ? " (+1)" : ""));
+  });
+  L.push("");
+  L.push("Rastreio, não diagnóstico. Não deve ser usado isoladamente.");
+  return L.join("\n");
+}
+
+function telaResultado(){
+  var c = calcular(), acima = c.total >= CORTE, ida = idadeInfo();
+  return (
+    '<p class="passo">Resultado</p>'+
+    '<h2 class="haste" tabindex="-1" data-foco>AQ-10 — versão adolescente</h2>'+
+    '<div class="pontuacao">'+c.total+'<small> / 10</small></div>'+
+    '<div class="selo-wrap"><span class="selo '+(acima?'acima':'abaixo')+'">'+
+      (acima ? '6 ou mais pontos: atingiu o ponto de corte' : 'Menos de 6 pontos: abaixo do ponto de corte')+
+    '</span></div>'+
+    '<div class="caixa ambar"><span class="tit">Isto é um rastreio, não um diagnóstico</span>'+
+      '<p>Uma pontuação alta não confirma autismo e uma baixa não descarta. O Dr. Lucas vai interpretar junto com a história do(a) adolescente e a consulta.</p></div>'+
+    (ida.fora ? '<div class="caixa nota" id="nota-idade"><span class="tit">Idade fora da faixa</span><p>Esta versão foi desenvolvida para adolescentes de '+IDADE_MIN+' a '+IDADE_MAX+' anos. O Dr. Lucas vai levar isso em conta.</p></div>' : '')+
+    '<p class="passo" style="margin-top:22px;">Envie este resumo para o Dr. Lucas</p>'+
+    '<div class="resumo" id="resumo">'+esc(textoResumo())+'</div>'+
+    '<p class="copiado" id="copiado" role="status"></p>'+
+    '<button class="btn" data-acao="copiar">Copiar resumo</button>'+
+    '<button class="voltar" data-acao="revisar">Voltar e revisar as respostas</button>'+
+    '<button class="voltar" data-acao="recomecar">Começar de novo</button>'
+  );
+}
+
+function pintar(inicial){
+  armado = null; avisoAberto = false;
+  palco.innerHTML = (tela === "form") ? telaForm() : telaResultado();
+  if (tela === "form") contar();
+  if (!inicial){
+    var h = palco.querySelector("[data-foco]");
+    if (h) h.focus({ preventScroll:true });
+    window.scrollTo({ top:0, behavior:comportamento() });
+  }
+}
+
+function contar(){
+  var el = document.getElementById("contagem");
+  if (!el) return;
+  var n = Object.keys(estado.r).length;
+  el.textContent = (n === ITENS.length) ? "Todas respondidas" : n + " de " + ITENS.length + " respondidas";
+}
+function faltantes(){
+  return ITENS.filter(function(it){ return estado.r[it.n] === undefined; }).map(function(it){ return it.n; });
+}
+function juntar(a){ return a.length < 2 ? String(a[0]) : a.slice(0, -1).join(", ") + " e " + a[a.length - 1]; }
+function atualizarAviso(){
+  var av = document.getElementById("aviso");
+  if (!av) return;
+  var f = faltantes();
+  if (!f.length){ av.classList.remove("on"); av.textContent = ""; avisoAberto = false; return; }
+  av.textContent = (f.length === 1 ? "Falta responder o item " : "Faltam responder os itens ") + juntar(f) + ".";
+  av.classList.add("on");
+}
+
+function copiar(){
+  var txt = textoResumo();
+  var aviso = document.getElementById("copiado");
+  function ok(){ if (aviso) aviso.textContent = "Copiado. Agora é só colar no WhatsApp do Dr. Lucas."; }
+  function falha(){ if (aviso) aviso.textContent = "Não consegui copiar automaticamente. Selecione o texto acima e copie à mão."; }
+  function plano_b(){
+    try{
+      var ta = document.createElement("textarea");
+      ta.value = txt; ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      var deu = document.execCommand("copy");
+      document.body.removeChild(ta);
+      deu ? ok() : falha();
+    }catch(e){ falha(); }
+  }
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok).catch(plano_b);
+  } else { plano_b(); }
+}
+
+palco.addEventListener("input", function(ev){
+  var t = ev.target;
+  if (t.id === "campo-nome") estado.nome = t.value;
+  else if (t.id === "campo-idade") estado.idade = t.value;
+  else if (t.id === "campo-resp") estado.resp = t.value;
+});
+
+palco.addEventListener("change", function(ev){
+  var t = ev.target;
+  if (!t || t.type !== "radio") return;
+  var n = parseInt(t.name.slice(1), 10);
+  estado.r[n] = parseInt(t.value, 10);
+  var item = document.getElementById("item-" + n);
+  if (item) item.classList.remove("falta");
+  contar();
+  if (avisoAberto) atualizarAviso();
+});
+
+palco.addEventListener("click", function(ev){
+  var b = ev.target.closest("button");
+  if (!b) return;
+  var a = b.dataset.acao;
+
+  if (a === "ver"){
+    var f = faltantes();
+    if (f.length){
+      avisoAberto = true;
+      f.forEach(function(n){ var el = document.getElementById("item-" + n); if (el) el.classList.add("falta"); });
+      atualizarAviso();
+      var primeiro = document.getElementById("item-" + f[0]);
+      if (primeiro){
+        primeiro.scrollIntoView({ behavior:comportamento(), block:"center" });
+        var inp = primeiro.querySelector("input");
+        if (inp) inp.focus({ preventScroll:true });
+      }
+      return;
+    }
+    tela = "res"; pintar();
+  }
+  else if (a === "revisar"){ tela = "form"; pintar(); }
+  else if (a === "copiar"){ copiar(); }
+  else if (a === "recomecar"){
+    if (armado !== b){
+      armado = b;
+      b.textContent = "Toque de novo para apagar tudo";
+      clearTimeout(tmrArmado);
+      tmrArmado = setTimeout(function(){ if (armado === b){ armado = null; b.textContent = "Começar de novo"; } }, 4000);
+      return;
+    }
+    estado = { nome:"", idade:"", resp:"", r:{} };
+    tela = "form"; pintar();
+  }
+});
+
+pintar(true);
+})();
+</script>
+</body>
+</html>
