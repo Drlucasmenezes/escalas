@@ -845,7 +845,7 @@ function htmlForm(f, g, j, top){
 }
 function htmlRef(){
   const anos = idadeAnos();
-  return '<details class="det"><summary>Referência de ativos: selos e limites de dose por idade</summary><p class="mnota">Selos: <span class="ev i">indicado</span> quando há a indicação específica (ex.: deficiência confirmada); <span class="ev s">se indicado</span> caso a caso; <span class="ev x">exploratório</span> evidência preliminar ou inconsistente. Limites superiores toleráveis (NIH) valem só para suplementos' + (anos == null ? '; informe a idade no bloco A para ver o da idade.' : ' e estão mostrados para ' + num(anos) + ' ano(s).') + '</p>' +
+  return '<details class="det"><summary>Referência de ativos: selos e limites de dose por idade</summary><p class="mnota">Selos: <span class="ev i">indicado</span> quando há a indicação específica (ex.: deficiência confirmada); <span class="ev s">se indicado</span> caso a caso; <span class="ev x">exploratório</span> evidência preliminar ou inconsistente. Limites superiores toleráveis (NIH) valem só para suplementos' + (anos == null ? '; informe a idade no bloco A para ver o da idade.' : ' e estão mostrados para ' + num(anos) + ' ano(s).') + ' Não se aplicam a doses terapêuticas sob supervisão médica: o alerta serve para conferir se a dose é intencional.</p>' +
     '<table class="tbib">' + ATIVOS.map(a => { const ul = ulIdade(a, anos); return '<tr><td><b>' + esc(a.n) + '</b></td><td><span class="ev ' + a.s + '">' + SELO[a.s] + '</span></td><td>' + esc(a.b) + (a.ul ? ' <i>Limite: ' + (anos == null ? 'varia com a idade' : ul == null ? 'não estabelecido para a idade' : ul + ' ' + a.ul.u + '/dia') + '.</i>' : '') + '</td></tr>'; }).join('') + '</table></details>';
 }
 function htmlBibInner(){
