@@ -653,14 +653,14 @@ window.addEventListener('beforeprint', () => { $('#folha').textContent = modoImp
 window.addEventListener('afterprint', () => { modoImp = 'clinico'; });
 
 function salvarArquivo(){
-  const blob = new Blob([JSON.stringify({versao:2, exportado:new Date().toISOString(), S:S}, null, 1)], {type:'application/json'});
+  const blob = new Blob([JSON.stringify({tipo:'tea', versao:2, exportado:new Date().toISOString(), S:S}, null, 1)], {type:'application/json'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'anamnese-funcional-' + new Date().toISOString().slice(0, 10) + '.json';
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1500);
   toast('Arquivo salvo na pasta de downloads');
 }
 function abrirArquivo(f){
   const r = new FileReader();
-  r.onload = () => { try{ const d = JSON.parse(r.result); if (!d || !d.S) throw 0; S = Object.assign(novo(), d.S); saneS(); tela = 'A'; tudo(); salvar(); toast('Arquivo aberto'); }catch(e){ toast('Arquivo inválido'); } };
+  r.onload = () => { try{ const d = JSON.parse(r.result); if (d && d.S && d.tipo && d.tipo !== 'tea'){ toast('Este arquivo é de outra anamnese, não de TEA'); return; } if (!d || !d.S) throw 0; S = Object.assign(novo(), d.S); saneS(); tela = 'A'; tudo(); salvar(); toast('Arquivo aberto'); }catch(e){ toast('Arquivo inválido'); } };
   r.readAsText(f);
 }
 function tudo(){ pintarNav(); pintarConteudo(); pintarPainel(); }

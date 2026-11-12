@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Anamnese Funcional TDAH · Dr. Lucas Menezes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caladea:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bege:#EFE7DA;--bronze:#9A7B4F;--bronze-dark:#6E5636;--bronze-med:#8B6F47;--linha:#C9B79A;--creme:#FBF8F2;--texto:#3B3229;--suave:#6E6455;
+ --ambar-bg:#FBF3E3;--ambar-borda:#C9A24B;--nota-bg:#EDF1F5;--nota-borda:#34506B;--ok:#3F5230;--erro:#8B3A3A}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bege);color:var(--texto);font:15px/1.5 'Carlito','Lato','Calibri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+button,input,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:'Caladea',Georgia,serif;color:var(--bronze-dark);margin:0}
+.topo{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 18px;background:var(--creme);border-bottom:1px solid var(--linha)}
+.marca{display:flex;flex-direction:column;line-height:1.2;margin-right:auto}
+.marca h1{font-size:1.1rem}.marca span{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze-med)}
+.estado{font-size:.8rem;color:var(--suave)}
+.acoes{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1.5px solid var(--bronze-med);background:var(--bronze-med);color:#fff;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+.btn.sec{background:#fff;color:var(--bronze-dark)}
+.btn.perigo{background:#fff;color:var(--erro);border-color:#B26A6A}
+.btn:focus-visible,.chip:focus-visible,.nv:focus-visible,.seg button:focus-visible{outline:2px solid var(--bronze-dark);outline-offset:2px}
+.btn:active{transform:translateY(1px)}
+.app{display:grid;grid-template-columns:210px minmax(0,1fr) 330px;gap:16px;max-width:1560px;margin:0 auto;padding:16px}
+nav.blocos,aside.painel{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto}
+nav.blocos{display:flex;flex-direction:column;gap:4px}
+.nv{display:flex;align-items:center;gap:8px;text-align:left;border:1px solid transparent;background:transparent;border-radius:8px;padding:7px 8px;cursor:pointer;color:var(--texto)}
+.nv:hover{background:rgba(255,255,255,.6)}
+.nv.at{background:var(--creme);border-color:var(--linha);font-weight:700;color:var(--bronze-dark)}
+.nv .let{flex:0 0 24px;height:24px;border-radius:50%;background:var(--linha);color:#fff;font-size:.78rem;display:grid;place-items:center;font-weight:700}
+.nv.at .let,.nv.tem .let{background:var(--bronze-med)}
+.nv .nome{flex:1;font-size:.88rem;line-height:1.25}
+.nv .qt{font-size:.74rem;color:var(--suave);min-width:18px;text-align:right}
+.nv.sep{margin-top:8px;border-top:1px solid var(--linha);border-radius:0 0 8px 8px;padding-top:12px}
+main{min-width:0}
+.cartao{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:18px 20px;box-shadow:0 1px 3px rgba(110,86,54,.07)}
+.cartao>h2{font-size:1.3rem;margin-bottom:4px}
+.sub{font-size:.82rem;color:var(--suave);margin:0 0 10px}
+.grupo{border-top:1px solid #E6DCCB;padding:12px 0}
+.grupo:first-of-type{border-top:0}
+.grupo>h3{font-size:.98rem;margin-bottom:8px}
+.dica{font-size:.82rem;color:var(--suave);margin:-4px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--linha);background:#fff;color:var(--suave);border-radius:999px;padding:6px 12px;font-size:.88rem;cursor:pointer;line-height:1.25}
+.chip.on{background:var(--bronze-med);border-color:var(--bronze-med);color:#fff}
+.chip.tag{position:relative}
+.tri{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed #E6DCCB}
+.tri:last-child{border-bottom:0}
+.tri .q{flex:1}
+.seg{display:inline-flex;border:1.5px solid var(--linha);border-radius:8px;overflow:hidden;flex:0 0 auto}
+.seg button{border:0;background:#fff;padding:6px 12px;cursor:pointer;color:var(--suave);font-size:.88rem}
+.seg button+button{border-left:1px solid var(--linha)}
+.seg button.on{background:var(--bronze-med);color:#fff}
+.seg button.on.nao{background:#6E6455}
+.ouro{margin:12px 0 2px;padding:12px 14px;border-radius:8px;background:var(--ambar-bg);border-left:3px solid var(--ambar-borda)}
+.ouro .t{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#8A6A1F}
+.ouro .q{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:4px}
+.ouro .q span{font-weight:700;flex:1;min-width:200px}
+.campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.campo{display:flex;flex-direction:column;gap:3px;min-width:0}
+.campo.largo{grid-column:1/-1}
+.campo label{font-size:.82rem;color:var(--suave)}
+.campo input,.campo textarea{border:1.5px solid var(--linha);border-radius:7px;padding:8px 10px;background:#fff;width:100%;resize:vertical}
+.campo input:focus,.campo textarea:focus{outline:2px solid var(--bronze-dark);outline-offset:1px;border-color:var(--bronze-dark)}
+.nota-bloco{margin-top:12px}
+.nav-bloco{display:flex;justify-content:space-between;margin-top:16px;gap:10px}
+aside.painel{background:var(--creme);border:1px solid var(--linha);border-radius:10px;padding:14px}
+aside.painel h2{font-size:1.02rem}
+.fen{border-top:1px solid #E6DCCB;padding:8px 0}
+.fen:first-of-type{border-top:0}
+.fen-topo{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.fen .pt{width:10px;height:10px;border-radius:50%;flex:0 0 10px}
+.fen .nm{flex:1;font-weight:700;font-size:.9rem;line-height:1.2}
+.fen .ct{font-size:.78rem;color:var(--suave);white-space:nowrap}
+.barra{height:6px;background:#E6DCCB;border-radius:4px;margin:5px 0 3px;overflow:hidden}
+.barra i{display:block;height:100%;border-radius:4px;background:var(--bronze-med);width:0;transition:width .2s}
+.sel{display:inline-block;font-size:.7rem;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:4px}
+.sel.S{background:#F6E7C8;color:#6B4A0C}.sel.T{background:#EEE6D4;color:var(--suave)}.sel.N{background:#E5E5EA;color:#4A4A55}
+.fen-det{display:none;font-size:.82rem;color:var(--suave);padding:6px 0 2px}
+.fen.aberto .fen-det{display:block}
+.fen-det b{color:var(--texto)}
+.fen-det p{margin:3px 0}
+.ev{display:inline-block;font-size:.68rem;font-weight:700;border-radius:999px;padding:0 6px;margin-left:5px;vertical-align:1px}
+.ev.r{background:#E3EEDC;color:#3F5230}.ev.s{background:#F6E7C8;color:#6B4A0C}.ev.x{background:#E5E5EA;color:#4A4A55}
+.aviso{font-size:.78rem;color:var(--suave);margin-top:10px}
+div.sec{margin-top:18px}
+div.sec h3{font-size:1.05rem;margin-bottom:6px}
+.pergunta{border-top:1px solid #E6DCCB;padding:10px 0}
+.pergunta .q{font-weight:700;margin-bottom:4px}
+.evid{font-size:.84rem;color:var(--suave);margin:0 0 6px}
+.fcard{border:1px solid var(--linha);border-radius:8px;background:#fff;padding:10px 12px;margin:8px 0}
+.fcard .cab{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fcard .cab b{flex:1}
+.fcard p{margin:4px 0;font-size:.88rem}
+.inc{font-size:.82rem;display:flex;align-items:center;gap:6px;cursor:pointer}
+textarea.grande{width:100%;min-height:200px;border:1.5px solid var(--linha);border-radius:8px;padding:10px;background:#fff;resize:vertical}
+.linha-btn{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.toast{position:fixed;right:18px;bottom:18px;background:var(--bronze-dark);color:#fff;padding:9px 14px;border-radius:8px;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.toast.on{opacity:1}
+.rodape{max-width:1560px;margin:0 auto;padding:6px 18px 30px;font-size:.74rem;line-height:1.6;color:var(--suave);text-align:center}
+@media (max-width:1180px){.app{grid-template-columns:190px minmax(0,1fr)}aside.painel{grid-column:1/-1;position:static;max-height:none}}
+@media (max-width:760px){.topo{position:static;padding:8px 12px;gap:6px}.acoes{width:100%;flex-wrap:nowrap}.acoes .btn{flex:1;padding:8px 6px;font-size:.84rem}.app{grid-template-columns:1fr;padding:10px}nav.blocos{position:static;flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}
+ .nv{flex:0 0 auto}.nv .nome{display:none}.nv.sep{margin:0;border-top:0;padding-top:7px}.nv.at .nome{display:inline}.cartao{padding:14px}.tri{flex-direction:column;align-items:flex-start}}
+.folha{display:none}
+@media print{body{background:#fff}.topo,.app,.rodape,.toast{display:none!important}
+ .folha{display:block;white-space:pre-wrap;font:12pt/1.55 Georgia,'Times New Roman',serif;color:#000;padding:0}}
+
+.ev.i{background:#E3EEDC;color:#3F5230}
+.mrow{border:1px solid var(--linha);border-radius:8px;background:#fff;padding:10px 12px;margin:8px 0}
+.mtop{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mtop input[type=text]{flex:1 1 200px;min-width:0;border:1.5px solid var(--linha);border-radius:7px;padding:8px 10px;background:#fff}
+.mcampos{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:8px}
+.mcampos input,.exv input{border:1.5px solid var(--linha);border-radius:7px;padding:8px 10px;background:#fff;width:100%}
+.minfo{margin-top:6px}
+.mnota{font-size:.8rem;color:var(--suave);margin:4px 0}
+.malerta{font-size:.84rem;border-left:3px solid var(--ambar-borda);background:var(--ambar-bg);border-radius:6px;padding:6px 10px;margin:5px 0}
+.malerta.alta{border-left-color:#B26A6A;background:#F8E9E9;color:#5C2323}
+.malerta.info{border-left-color:var(--nota-borda);background:var(--nota-bg)}
+.btn.peq{padding:5px 10px;font-size:.84rem}
+.fcard.dest{border-color:var(--bronze-med);box-shadow:0 0 0 1px var(--bronze-med)}
+.tbib{width:100%;border-collapse:collapse;font-size:.86rem;margin:6px 0}
+.tbib td{border-top:1px solid #E6DCCB;padding:4px 6px;vertical-align:top}
+details.det{margin:8px 0;border:1px solid var(--linha);border-radius:8px;background:#fff;padding:6px 12px}
+details.det summary{cursor:pointer;font-weight:700;color:var(--bronze-dark);padding:4px 0}
+.h4{font-size:.92rem;margin:10px 0 4px;color:var(--bronze-dark);font-family:'Caladea',Georgia,serif}
+.exv{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(120px,1fr) 150px;gap:8px;align-items:center;margin:6px 0}
+.exv .exn{font-size:.88rem}
+@media (max-width:760px){.exv{grid-template-columns:1fr}.mtop{flex-direction:column;align-items:stretch}.mtop input[type=text]{flex:0 0 auto}}
+.inp-senha{flex:1 1 200px;min-width:0;border:1.5px solid var(--linha);border-radius:7px;padding:8px 10px;background:#fff;letter-spacing:.06em;text-transform:uppercase}
+.inp-senha::placeholder{text-transform:none;letter-spacing:0}
+.btn:disabled{opacity:.6;cursor:default}
+.faixa{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding:8px 12px;background:var(--creme);border:1px solid var(--linha);border-radius:10px}
+.faixa .rot{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--bronze-med)}
+.faixa .ft{font-size:.8rem;color:var(--suave)}
+.dsmc{display:inline-block;font-family:'Lato',system-ui,sans-serif;font-size:.74rem;font-weight:700;border-radius:999px;padding:1px 9px;margin-left:8px;background:#EEE6D4;color:var(--suave);vertical-align:2px}
+.dsmc.at{background:#F6E7C8;color:#6B4A0C}
+.dsm-box{border:1px solid var(--linha);border-radius:8px;background:#fff;padding:10px 12px;margin:10px 0 14px}
+.dsm-box h3{font-size:.95rem;margin-bottom:2px}
+.dsm-box p{margin:3px 0;font-size:.84rem}
+.ck{display:flex;gap:8px;align-items:flex-start;font-size:.88rem;margin:4px 0}
+.ck i{font-style:normal;flex:0 0 18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;font-weight:700;background:#E5E5EA;color:#4A4A55}
+.ck.ok i{background:#E3EEDC;color:#3F5230}
+.ouro .q .seg{flex:0 0 auto;min-width:0;font-weight:400}
+@media (max-width:760px){.faixa .seg{width:100%}.faixa .seg button{flex:1;padding:6px 4px;font-size:.8rem}}
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="marca"><h1>Anamnese Funcional · TDAH</h1><span>Ferramenta de consulta · Dr. Lucas Menezes</span></div>
+  <div class="estado" id="estado" role="status"></div>
+  <div class="acoes">
+    <button class="btn sec" id="b-abrir" type="button">Abrir arquivo</button>
+    <button class="btn sec" id="b-salvar" type="button">Salvar arquivo</button>
+    <button class="btn perigo" id="b-nova" type="button">Nova consulta</button>
+  </div>
+  <input type="file" id="f-abrir" accept=".json,application/json" hidden>
+  <input type="file" id="f-bib" accept=".json,application/json" hidden>
+</header>
+<div class="app">
+  <nav class="blocos" id="nav" aria-label="Blocos da anamnese"></nav>
+  <main><div id="faixa-bar"></div><div id="conteudo"><noscript>Ative o JavaScript do navegador para usar esta ferramenta.</noscript></div></main>
+  <aside class="painel" id="painel" aria-label="Fenótipos em tempo real"></aside>
+</div>
+<footer class="rodape">
+  Mesmo formato da anamnese funcional de TEA desta série (pós-graduação em Autismo &amp; TDAH), com critérios do DSM-5-TR e checagem de segurança inspirada no NICE NG87. Apoio à consulta: a contagem de critérios e os fenótipos são hipóteses, não diagnóstico; o diagnóstico de TDAH é clínico. Selos, alertas e limites de dose são orientação de evidência, não prescrição; confira sempre a bula.<br>
+  Os dados ficam só neste navegador, neste computador (não são enviados a ninguém). Ao terminar, use “Nova consulta”, principalmente em computador compartilhado.<br>
+  Dr. Lucas Menezes · Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349 · Alma Clinic — Limeira/SP
+</footer>
+<div class="folha" id="folha" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status"></div>
+<script type="application/json" id="bib-enc">{"v":1,"kdf":"PBKDF2-SHA256","it":250000,"d":"eG4GDXC1Kdto9il34d6+En2WVLT649bNP7IkxtybyyRfI5N4xcwYMmS7hk84gzgk2LJ/pENpeOilFQ//k2LPAIk3biXIL8R0xjD2uV3TZpGTBY0ThHW5Tzed3LMf6Rlt8BrVSeRiQF+oOvykt5O83dlgHXohxaEHrCPY6VT3x6k+njMx6oAsoeHUjKZ3nj1j3uSwehr2nqP6khhbDlAk7jYZqcSOKFOXw4tKBdWV8K/cboBPEI4baIXpOdRgOT2Z75XYzLVJvETUIsPzfAfD/sBYTBflrnJ2P07KzXvtRiuam9fCRI8DYvcG7yOj6MfRCxXTdNv1/7IdKZwSJwZut7tYWRUV7hr431EyYRluhYpLuVCV//WXdEFqvsEGhVfiYlq1LAbB4rsAjQL6G6YrPag6cXCTafTTBq2KNjcurqeRXmZZomD8TGBrzHQrss06FAhJ8a9Y8For6mmTQL+DqaR9+QQISutKls097mL86AmiZ+qemP1AJkHxivIuN4/b5Rqqtzbf86h22ZQgV4yaoIjTn+HWzEyi8V3GYLJpiJpoPjOtTrdB/1EBSENLjC/GxqqQu3nv6kBP1cYoF7utNMDj8Av9rS04ix9Xmn2A4qSt2GGfoeBzABQs/eFBhJsShcXoMF23wJx8E4EHsa/96HfTXusZmqsnj+x5qTsz9Msr5EJMavGxqtjmLfqFdrxZ3hybXK5xYglx2kYtcf9V5HPWyiqRsRj8N2v/YLx+GXjDLnjhJoUZcjkLaMPhdPL0OjnxWOzbn2Xq7eRXypV1rUD7wuJ1Na914MYIDLTfyoI6GyKKoSEEq11qIJwnF0OGPgDtmVfagMA9jovL5GOilhj4AUe10PTE3dU6gwJqgdhigKif2SV6+K4ubyCUJNr6DOa6/GFPgcne57ENQlbE4o1F9ANxlKsfegpMsVXetz5ZxdZ8XE4PLVSASja3uIm6VdzO6KqWGH8Bl4KNpMtyRcPencK4wof3IIrqY/IbSC7R2kCQkPMWV8fum6MZ3oNCYZ4ssgGSWCV74Sdv8xERBpesTprK4jWBPdr1Jjbiq9/xCgbC4VwX0q/seDKyotpX/+E7NcEVLl4U7e7LI85eB/WlmqqY1xDr1QmsMpuuTJEGR2NIYSCVpKhZ6YHk3n3QlkPHm3/czr+MqpVTPuorEiC2Wy+y3PANCDRT5o7k/frWmpha0JJnpviRYgMCqWkR/xizdzvsn+e4B+ynSSpwn7OaLRKVvywc0yPU+eOrdmxsBCNpMA+ScDVjWjAjbm/z17zQZxyFceTshrFYiMomPP610NKJlvtVPg04RZCYAX6XLNMrlaSWQ97EYuPpTBF6XzPrYk18CxDVnh3eCRYB983CtdwNkn7zCoNI0J11R44jzNugJVhbWc0s/pdeLSEOzFetIckTCscrKX7SGICqenX+AYiV/lfNVT6dk4P7QtEw/9RFRtnSjk7zmH0xdro9RxCxVJJIMLYI+U94waV+qKYKsfpu2yNUDr8h4Wgui4m+a1hTzCPKXJ8z+qLYKVJpBkuRy7PgMitJnbz51xk27/StQkQy9ccpnTZ73l+k/wpEjMYL9+JbT/PYvUp9F0QPE7nPIY86kM555LPaZDQGmtp77yCdiu+d8jTv6KtfUVi7/UlU2NkR0u2WUkgd+nIVX0d7BdEjbTbHal6dePAlFFpEj3wUBkpBT2voOpIE5h8G0Jd2tWT4ex/Pk/bjg88RPBxwC7+Yn3W8cEVijJ72+tuZ91Vdlx40LaOiPYn7A+0/G3VKBiB1OPwRodxzkxH9eXERRH2C5xpHqXeO/z+bCmAavKfSI3GLSdBvTacVPf1SwjSQaafYKfG0UM5ppQA1TeqRnB7biFwBzBGGoVupy9+KeFXCTcU/62bydz00M9r3+oMPXyMvNJ0VnkKheBwVhQUxcM0jh+kTVyQhWDABJkOCeTst82jGJ4ADUSoCGKquN95noZ+FE7mPD16pCDgpq/T+rLz+ay1gnpMx1qNLeIVSy+p7JfwmeANQt/o6a+VCNAReedGEn9qodPI0Q135J/lHvnj3X5cvZZZAKcWrIJ8C0Lpk/m7t9SOXDIXAqTF7CoQqqfQ1A1+ayKkwMuh2h9cc4w7cswOAX8Ri0pyTd4fFEv0i5rXzP7uq38AigoS+xhHRUOPcnJ54PuGA1OdQgXIPXoODIYMtwDs3M5nbhFQgThv8M4Fa0WOzrJmCnr18bZu72p0Kox4pPGKD3AGdlHzvoyEhPRcwXvhBpN4NEfU9BLZ0fcEWzzPei1eaekJCLeITJT+D9AQHpldpNqep5yzYjFepid/NfXUma+7GsXDkwbxD5dXFI68YXPGNRXzevHVig0fy9EzUFzj8Z5hIU9gSH4+d6ziWt/UuyX9blv7HVa5puMgd8uC31PrqCrz5ApbiIzwda9+PB2Lr4ZD6wDu2MQWKD635UDPbFd0h5xyTCgwvuOr5BqNYWC75AfAacShl0cCs0JnLDlLGKXXhrf+f6swDgRdH5HpOfuWPvlq1YINCIoH0wMdsB3mfZT5EceO9n28MaSfia7YKqbF6+bVJgFNg7b+EGVy1ClDOwPBI7ut+auutXi8Fx5KHhL9aZt+jtLFXALYAyDTXTBwtKVGX0m24uGfBrjRVsFBBQq6HA2wlqoXcWsc6HM2NswtqUzf8+hgLd8cUgjL7d4MmvXj9/E6lQI1f7cvkjA69RobSKaQwVRiTdzjkGeXM4XYtoOP4z4AbqZ/NibuuF2ZP/+BrYAIgAjAtIVVsPaRpjOsT/f+M99rPJrcFMIGXkkRFRvJ8Kvmy4+oe+l9CCISsnVBt7/wZcg+C/k2QQxl+dBmP4aunubgtxY/H6zFKgEc3mYjiE45G2+QnERO12I70Lr1OJst/0FB9X+JiQ5pqzIAT3N7aScV+BChchbWAW+D36yGeie+aQf9izxGz2Uv7ZfHlCpFWG2+Gx8OVqCQQfs28avAg57iNnBIZ0l7XIIDLhAkky/grGSHIFTv4W4yfaoqqx6+qmo37/u3kWPhTA4SeYNnYfo7OspEkFtDGictIdtX8fcs7P+PyPXtqTY2eeGhWVSMpPPja1hOGNZoPBfHdlmQ5QtM8q/bG2Eh3Q28nbZInuFVH0jmHlAGxY5louQRG3TB1+sVBQm2v5n0eJmhX55NGHjfGaCT/97rx5YMxrAPfE9PMjFq1jARIICgPmdvhqrcP6nhR4EeAEkKtCn1jPPUImQXl1PMY6KGudR3a+Z6Msw2OqxGP3FwotPiJVKu8fNnpSdyKnVaes0rzf4I0zLGm2kwG1RZwFXC0Im+A8PlzgV8WvVrWZNTDkLEEqSLRPKO1Wc/si/VWKUfjeOEpVZjc4+w5A5xYt+bmouuHqbwQ58ZgUNAgnjOJ8z9LCfqBf801JVPx+pjNbllf8+K5SoVFrm/Gtz198pvCezkFapRMo4WNyEW3X2mliZtmtxg4NCk7EVTbUOYzZxpE6cv6h+Dfh6/YGif5LJxdiAOQOIcVqKbnO2CIvWgggsYDtHr5+no0G5l7UswduYQNJsexnp8ahayIRAozYqF56e2XvgqtKTyE/qcqXa2VHRJu58PvYr6VbW+xSDDMS95Bs5bt6XmARGDio/8gggSqcsPzwK7A/DmECjGcIfMnOOmg9Epe4cLwdlBh/q0QIvMnr9BEnfUOiQBySIMV6Avo6Ahgug1qBS/0qu/2zGWNAbdLVPRPlI5Od3RfP7D3ASM74CtXUofVNjo2QkR35VyeMiufCz6CFD34+6jqdGXbXYVQQxsnXbXUbQpIsKqanXN+kIjHQZbOpOfbzvYP7jXwZQ0mrHqquKe5RZDF9HR5nl25X2E3fgVVBG1+mxdTz0YgQ8tPWw9YVyas4hKlLWFuv3Ezj2SCcA9OapgkjhJoWeZXIL12iQarn6Mrb3sQk/hBbIStp+zr7WHMohMy4C+Y89UN8r5XJDmeiiziIUUS9x6ZQq1MB1PRqgHhB9Y+EebW+YrKzMLn4+2gGuQwO1ad4DH53l0Qw/vPcXR9bu8aOxDCc7h9vQBt29KMgnvDNnym03wDaXeCwb7nTAhptmVouYpOVJ0Q/jk8sNkqAXtC4LclEZadxGHzPbDihDwsh0ucUFQ2WKZ5Amvsz+Mzl/DmrRE8fggpEZsOxj70XDx21riB+cUBqXvWw0BoEI3YnA9ZvJyqcXUOg+NVM3cL9OpkqIVpItAkRcFBPvneViS8dgKwXsu000+3xtYnKUy7Pa94pRRxChEF9btzC1iQgJQa6GakSm3+aDPfGaP6gi+3NskwTF+YKAwTRMd4PsuXU3RnMnbsLsDsSDNwxITHE4CpsdOfqwdV+vrykO6Ueayk3RRhGBZ26vdEUh8YgB9FwKRGuexbY+aIUM75AufYHQFaMO/eqnKEl543eHhdQVExK0t8qzDL3XzI4/HKFUH5SjrQ8CArCYlYcMXrYN3TB5nJgzkQ+xTsklHirAaOOFNyQQ/qmjXBhnM76Ucau6bDRu5VAydh+WsoJa7pa6cGqanMt/mLaaIuXXTCKdSj2ghCf3fimqA58tVTTDlzGH+sUEPNEpqVYYGklt1hr5RlezTALjlN3ylfJqimGDtgAV5G8ZBzRUBVp2TtIm3rGfYbNjGcL8ivwi2mTg7cxa27VRrS2GHoAYVHuId2hrD10DyPUjQQXJRLY9GnWijQKCrIA6LcbYGuklfC85AFircmoPwiePEbrj4caq91NtII6kjcq7pxaFgtvpOmEV0KO8IQkgV0bXG35d9gSuNv+MZ1K7wj4jqrNcUsaCNrHlUAdsv3bliEK1HHIk6EgzCS4Gp6JHUViFVPR+QJ+v0puLiuxZ+suJPjmECNYhf5LWHx1dK4BtLfRZld8FysM9TDgW9S5Yabsuh3TYsAoUJTXhi87o3vXXHBwM1fVByGSRsv4qMIhmiUhnEWT/ba863WOBGrrijyDMoaT3f2Vjgz2ZAJ3NrkncJOFvp6sDCnKr9enyNxn7sV5FCIpaKgyawSxbv7dZMIzXuuG9NMVo2QIoUopM6bpM6OXhWCb8MFEUOxKNDZtqJVNfHWcpvTL8qhFAjU7wQXBfYUM6Nk4zzx/9dLzFzKDCAkP2yamzk4lOSw5dpREfqqgCdVtzxwbKGPLlTqblgWm2kPu3WsoFTU5fP5YhHYnxOGI4fPFE10MX4NXFD9jqUWLsAqvRqFd/rBA4jgMOCqa8JGuovBijh0totSP+nk3Q3g7+SEZ9KSA+eGFwF+A4rnDGVzXBn4SwD/4DhG66tUHS9wZ858kQKWEiBOCxQzzMBP9kKd+HZJJAxe/3ZH1jXX4C2SsFW+9SxYBKrDXh1GX4gyMwcVTyWIf25lWPqfbi4419DC2t9hCaU6dp/lScT2ZLhvYCFGqC7/t8jO1yxNRQyslYxV5nBtJ9CfRdrHaee8DKt8ROFUmxweBRLYangnSA8ArXLxYNkda1vSDaBtERPKqeP5/sgzsW/GK5W6IwR2yyN9OlYnaMD7Ojul/kekxV8SW/gI4cvwQV6WYZbBwYYAStdY4Insz1EoxL+w153Hxd8cTI1fI4e1jGLwUFu2Oxwx55BMHokftYAJzypKMOHCyOShsAr3tCTA9Kjv+u1IXLo5gIuLBcKJB+wGjlyWMDM/tUC7eH3L25jeC+W+FnklKrAmD8+bDiF1bkwgWeAnFd5XfMMA87TqD22X5rzEtsXKiYJzQMCLpd60DF3UH5/iU/oQaqANLMPEkuYqDEg7TilK2FM/h+LIcYOfqvOmZ4kzx5A8UnvobmQpSuPfHIfF+l9QLhTpJ8unzDMgJ97rqnSE+Sa+7NNhS1HqXvXmPFBPSGhD0PL/dCY6JHXWhDdo8dNxSHhWLMaUFzu2lyLRFUCxppsB4IHrTFczo/Hl6olF9MJXPjSE8nybTlxL7Q95dG38LeO1hR3JGq46UL8lpgRLfTXDLef4x4NrlOs6MAJC3SMdjLErJO2AumEa8aA8C1fFA70KuqJq3E7N+0uLkTHcpPIrsGoWimxjWPqAEL1VHaTYvIPXSKdbpYfl3RTzcxXOtmP6silG6/IwQU1483Eje9D/XcqwYsF+8puqLWf0gVmlWEX9ikNrlXRgVp3aWlm5ADEfvp6+tQbhiyyVykMmwOIbn9pa9PS+QEDezqRQ4/Fc9dMCL362ZafEMEyDOE7hHptqL4R1UvUPNLkoJMa36Uvi+lo7qUurRmtVhFFtI8IcAQR/W3drHWhJq7ofLy2aI3PYjNq0gyeKL54MbhZKEHk24+KaQpFcAFE2E7obgSOsYNsqKjeZSYv70DWKP2gPO+6ap2ZsvhtV4RXWvUweD80f/OOLtgmwExcgVfOfTSpV564fUUTdec13wRLNjhkkBRWiu6BoVp2pNYddNjNCZIuw/VmL6jHu5gKi0mFAznX3QrMDoQ1oxa1UIrEq4EDkI6nEgPoBlGpIPeOh0fgEHNacoULQEC5wfPWTxfNCyrvB1UpQ71EQDna9sryPOGl1Yp3DQWBO6qAWQcuxyEI6Eg5aQY/o2qsvobKzGoU2hGVl0dOWNfbqPGTinI0gMBtMaOSeMeeh2oSUg97KyXJwWNqhEhv6qnk7zNomk7bHoFkwgCM2ylaWvZENNePZljlA+FdTrcmJcUDFIDK0M5S14YZ1fXDNoARfmTrER/qvUuqmaFKUIlJxByn5Ve6Q4o9ASZ/BUnQgo//TEnda+sqBrClsCBU2u5/h57nlEEtoWIj2wpF3U8wshXp7X1buMY9JJlQPS56+LFLVQowPifOny9N/FOFIR+duNeltS4bRsZ5Z7UT2e/XHrkHmkDe0qk+BBi2cpuRjk3njYe3s+aTVcI8iqPzr3HtSPOWQ/cmY8wNvfKaz0hKM0BlrYOjLuzedhBBiEGsFclk3DSI0oWsZ/1Rv0oABwbPAF3AXHKCBWlinRCIhIFPgxJ+dV01loqGrjoqDWEcT2Us7dDOAbGUYm2MwDDwmsbC6n3Om/0sHjtEdohI9y7EM5c8hbndSXlW/XY8tVnAwG2ka2DZWGex8PhgUmBa7vgzbi9as4ufn71EyQAI3+oxNxI/OtY9iQEF9vi3Y5gZ8F/TVpyvnGBy0akY4P/OrOfy3V+MwcRcAAHTtNAl6l0gKu51p5RIbaQvcX52LBg6WqSJpIW6DL/oIGDbHnZLeL3vMGq4+t1IbHxnGwZzxytDrdhkDv3Va4u5wEHJnIgbLq7Hcg4xdlMXJ5rGVDUKS79tL577Qrf26O1WNxA2jY3jKs39k0NI5ceC9+NMhuiaOtxtM0F0pVsbme2urREkJImpIW5ND0pScR6TBwECB74vGkScCxEmO3b+lpXSN05/NdtZ89kzK8g6INZNP9bUfhD08wWaUFU9ih/iaj3BcTQrxrEiVWXqEagZmNenrC2pebEN5n00xxlTnWETWVeF6cl0+scwG2xwWscvojsET3dD0+q9C4N8wZBm7inw04+W2oCrv714/VyFfjwNLgKgQO6T1SrD5Aj4dsiSd+blAmXruVH01IKLtfnXdMZ4/mL15aR2SRygnAprYuvUu5WEn0v1ZLDcz6kx/PKMpr9BYFPV+UPcpbrFh68CFAd20Per7DH/fwfv6ZxaZFp3VIKkreq507XhglzksSmZ8jWdnx85xCzMQUnceoyDoVvMqYzdri1T+fh2bvmhbD1PgDm8dRRbzG6OYtCRpnewIy5W5qbD1+v0ndZVr+Q9PhQBnDf2cUalK2mxCPBDxil2A8zu3K/eQxFmxLuQdJs2W9MoU8gr8nokRpvT24DLK8r5swJ8jM0ZkUkiBoWmy9+UoLcWJTQmDKZOFoIv/rPXDSvZp5bSHSybBNOazrsKUNBmof/TldHza1H9fpmzJhrdA5BRBZxu8sIQ0sj2T2fpwQR453+e2CST0kFVqAAxkxZFoJ3N2M3rPU1iQPzecsZS470CsScKXrqvV+tsQw6zIRSxMEIK8agb2nU1p3ZeDnuweWZ1ev3Gx1oMJZtdm5OBaBpsUIXDZKKJEFGe6wtR2Ubx1UieT2+eDvsd/QVgXtiajeR41z+nLN+iIog3Bo7stBTlIj1yMpWqFZZQuEwkcneBlYwKVLwLg4LEncrGTrg8N0n5GPqjDiM7SkBHdrkmLrjG4pJIy/YqMHkb9XANMaByWFh/P+qhO6tuQShhYy2OiUmwmsJTpeAtYX/drL3XBoXdzh5dgiVjNJMdG4fBGKbNs20YDtdsZfT1Ud9nCffKTbb+zeMKATUJJgi80pFuiuPq0qjDL4H0uXHQ0B4fp5zj8BMicPMu/qpmz4CMCjqViVNZBte/ZUrqOYXAAvWXk7ihFXVmUgi8FIggJMENeQFfqFekdSO7wUl2Yt0japX/cfDWA5NJt5Q2jb8dBd7ovd7QiIc0R+YpgnlaO8H5vfCe9MfSpVkgJa1zT+xfqE08a/cdLK2uurhIyFPJXukaIMdoqevVTWuyW4uXeVm6VsGa9jgVP3jPr+o/pkw+Wch+Xf+70uUWHMkByMmC8pzAtZswXca4FVRL+vVz3yGL4edF6hljCTVgL3rNlM+ky+XkgwSZjZ4VGp7Su3yoOv42WT8xEgddpyRPq55lO4LHplt7NP6SWOvqL4ljpI+KXa9DPo+VGdJ0UJyV6JpAhKkj5cz02DEGWtVu/xxgOj9xFqZQr9EQ0Qn2j6R7FZhvV9CfPK4295s2UvgmqbGDZCAK7nlLT/OxgWXtavdwhD0XJeVQmd8YQlG8l/f4TlyNogL762nTm1Z/oBzSLbleO3DjB2x6zu1/pIR2oWE5XKGGpV9NNHqyXBZcvR19ipdUHc0BDrCoHdgTK8VmVja9Od+N2RHNKvI1DTLAdtPrUnoM6XvquktoVkWDzTLLPiDDKwX+rh3ZSy6u/Fh5fPtMScvfMpgBuMzX0JzfsU/xQv6xBN4bDC/ur26Q31e2FU5WdyKJwymdCmHc7xqSV0bUplMFRcccfRQWg4Ve5dqpYHsyYXbwp35U1P7oz7nhHF2qM9/jKOglCR91ybs1xY/H4DLYlasQnVjxxBPb+BIHdqeYXL7vCxu+/Y9a2SK17pqpLNhz3g8Owz+hoZR2LuKIkgZCYyEqkTg2CYmYzV8XLydpO/K3t5x+07eXojs2Sdrb3RyaBrRFljrhLQJGYtRq+fkSVUbo2TM5F9nZHVw5CmAgzxQjbI9rxKTFi6dj8lCzarIHpZAzhuTGP5SDmk09SmOWyYUkaHc56SY16+PSR9VvLs5nXw8fnYPE+644Y58sgFrFS8kzCxJsLqg0S1vUnB8I4mZ/q8YpKs2t0wTZxTeecSVh6DPLweD9ryqSnRBYMlac1/aXxQjGmBa6bCKQFh6VexUDskDqU2gRS5j1Aov9Z8LzlDX0X2nU5Q0Q1ASaq6iPdW7WkACEPPw88YBbrCuD+G4DTH7V4fh08vE46h9EzZAOxE04ZqanbOyYt7OqqgXkquvhm6ytbvtyQTyj6seOiSM43a7U7s4+dzqtuD6snl+hONWSGYepU06OyBXW8vWxFe97pFwF97gNCKqoE5SIly8k01lpTqp10if1svLaiR3scxpHlYKvxKrqsHLThxvPAYjJzeUytwCG9e9M0SlJ2ruEehrKha8gMvDYmK//5iehXstouhDAkR4/ytjJ+THkAjkKgkWmV6pCM4lZrZP3GHKeQlU9UpzT+KKn4xu+m0Dn3oBNG7y8yB8l6mp9lxGJ3CJ5PgHFjj0cAu7iC5tnb1sj1mEzij4/UkbpUYLw6hZloaAcXlPJ9HjT4ZVoI1TwM5RcdIhqC/da/L41AEcL6nZHUsxEbAusU5BBz8wC07o5aQDswJ01axLwhH+Pigoq3BRReHWc7TaNlAXxI6PN0C8SVK7dd0BCh36W7liut3JTQ9kJrLszQ47R30FrJVIuXHrOlQeVTCi8cH7G5zKx90a+elZqaJCz5Sc3Vxf3RZ/vyuApZHQ5iquKe7+eby8HCGLAVaWdv+DPGQ2h79HWJByTpLEfOWvd9pj91EsVIiCB3k9JqxZPJi5+DxLfYr2Rk8Ak+Z6aFhUJ78Gtoo1nT4oZ7EMGlCeWo7shJKjK/5jhqgCJ8f7kwXd20SHt+LETtGPiJLtZV8RxK6O2/ZD9fO1g4ETwy9k7BJFlJMM5BOWKKH3FPanwiLjQKrIZmlC6lJXdFKpoaoIcolTurIqcfiYtsWjm9qZN96SRLsmGyH3XiN346nrptYMUHlABSk57dW4Wq1bnlcU6jGKA/R/RdbCaACfxOTpa6uiBhhYI2ud/+dx/yCuHwXbz2NjARi7csmhgsnB4QMPsB9QlIRmfqWCIyZikXQjfGZ0a1RNfZdK8bPOhQUSV7QxYv4pKRnsLTaCmaKX0ehXFy4EGmBDstS4FThBxWFb52TMqga8bwFX2RaBhe9PBF+YDaKHaZNf4E5PTuDUOTgOhhEWopeFiEh8Z6QJo5BKjT1+A+7A5K5OquJdGC0FeUjlgcEX4iHCPC2DQaKxq8HLuC/MT1IH117Mi55cn/PNqoM8zOKo2dzJOMi8GlE8GeMl4JIkU0Atu4bMP7BaDYQNEzvkIdy7HKgR11LErwEQOHYY8JtjU/HIFu9Eclg44Qib+rfeNRkEskd2kUjyza26dQVBd05jqFF84YxFdGCm3iXgv9VDz4lFOd7L5vkWrWJ/XZeO6M/RQ7fRKoMppcoMJ30dl1mafEONnkGMqdIh0ffI5G6oYd0s51h5+l5/ol7WsCraXQjEf+0MPxPRm9CQ0EnP5yIWciA65T4+ESmeFSeG2zLa1bscVAojcfzWXbDtdU4sHMaN8kSlOIcPds4M0jgmpMjwHwPfvTaaGPm+84XKeg/Ny+pFh43Mo0swBvlLDYWaYW3k0f9UWu1OGApu7wb3yzj0nHLqicA4dHj8AH8ae7JyCuWnZntnh2VRu54RqXSfM9JWQM3hIcXZHftiOIMbUM4iVMVXunWLWwIiiw4RtKq383Dhwjffk7xWlYgY6DoJxfO2yRjqV0exrozELr+T0uVv9q0EVZaWGgRnsUHWT6qw0CJ2uSAsp9ViBD7Yxb8cPv/4DoZq9JETtCD0APDPlqt8udsPocSxXIH3Gl3yJ/7EFkIE/hyhH8pDPbV+/1+wWQpg6LlX9YuwDNT8dlfiknn+AsrxxScQgS/SB1UY7IKb1g6qwYK32ZoTLZbRmUpbdLf7Ue61/hwKK9OkKIY9WhUqYAt6GWkCit5hlkb5yDEb2/o7uw+ZSKhAZdWh6zvANTtYCfOYcaFXtCLWZeL91IFxpfsdEaEFW9eIcdDDWDgUYkA2wyNQ7LjT8rGucP+lsXScoSrBU99F6g/wNjXqpYK46M06pwkTpNCWsUw9zSx0BtIV6duNtXoHAShBlZjkvb2T5YdsSsadKiF9fVyzO2HE4Ms0Wq81jPR0h15VmpqOdTLfdysDJa7fJB4PRPb96FDTWh3ylX4thMq9YbZQkcBnWt2lXGLsqtFt8ggtWlCCBra+aoz/1615vn8ZQLyX+6eAfy56qbZ44hyPzpD0FyyhnCNgsIlaut2v/rn7+yXT6uh4tzO+DBpqfns1mZNgn8pdFC6iorsN64lfoB9eR9OxGg+Gv9y6VzRhytJ5jpxTnwloZSYSHDDQgCYvfo30s2GoOpAveTxqISuN7g1Cvx0X6uUH2NvIQTnWTXQHMSoINDLn07q+znqsusMK/9S9JRvao57ODAXUCe7yC+wO1xHSs5ggfevWJh6FUC2VSjzz25QOzEX/b4pnvMEP2xs/q5I8mVtEDTUGeWoh8PP4J0YpWgt0s9yz2KhImJlHEzz1vLU2QV0m+Xicavh3xohIzQj3L/BssZMaHXbUztP3YVfkuc/kxRHgPyANdjLO6W5QTfGWiK0dkPpk2Fs0rcX3uzFJVTl2lmh0heIBipg5bjYwlPVLob97wk4uvT3Vs05E91LlfBzlHmBVxJRzf/lHFKtuowNQ4wjuyQes4ru/3u1AJuXkxigNmCDSYjnrVCpZ0fUdZY6v9+/O1Z6tFePPtorYkWnvaupGKGuTn9X24YkFrvuwAGUy6qIra3FpGGxbeG97f5Co4l7vTf4ZOS2OKRV6PMOBjiRY7arwyrzLD+XuqvNvfSnMw+mvL/0tOJsIhKIO82JNXEtA8UDnzZkEK4yVGHrw9sS80rH7mXsjm34kNq185kVPIqxMzHE4VwvEE2s/Gjs7BqjCNeANz324Wt3lclLOS7tKmDGe+AcjlyZhgBsO8LwkRc1uiVgUFw3wzZbNLW6NhGzy2R7W5QmCfVbRCxK9Zm8sMtcr+v2MxmSjVdu57T8CBYXjspnfhsQo0Zec4P4JyIMiloUudJkvmYv4qNRUBbxibevf2j+Q7ExUhmdpzrBKLgj5/utcofuvI+dgKsad+QeBPEqy07mtV+IhS9Ayvxfb7z/YXqQc1iRvIN4drQryxkbLBX5NCkfwjwVVmfoYnuha+zKw2sj8X3auiYXVwVySsUmMBzxUrme5stRgJqdVzTd19psVi5knOM4j9HhEfR0a04Cl2FFb9OAGwrrIeDle3oAQimsT7Dio/23hH0ZDcW4L0E0k2gOiIrYP3awDfvOFIKtMrI+GegaRg9zSxxhqIUB1fsI1Ef5o2E8zmu52+NIoWz4En/ditH5bqzNGjX0085ZwB5FfbIdOIJ+ymCrkd7MW5eiMKIzHwS+8rkPzP31nEa2qFadjJFAnL7lEUE/j9GBmhjMxSY9OXXkSGT8e67MUrUF5WPn0WjgG+s6Mo+DSWn9mrEFlJVv8qOtkYm5KAe1QSLctZKlD2k/PWC1RBMjvl9lHcpOX6+BpBXHS4o8Yq7luRuC+RYkusjLtQ/HH/wP6niPbnq02TL8RbaWvVLIUX0ooPvafciwe6PSXYSAmI2IdDAHXBgLnbe+l8IUnWamEfRqucpB3IRjO0I1FB5U654achVbvMo3FNVzHTe+b4mdivyjVyrPacEGiebouCzIOmXDJxow40GRj9B7xmMVUmWVsUoKyYxOxOa1iGOuPK1JICFn3J/UU3tsFoHrr4UWrOAT/HWZ7575CBkUhdVXSHvI5vfo6A0vXGc1tdfAUq99SmjnTJs4t51D31KBKBCTsGJAPMDw6s3iYyNt3TiidEcg2gzck5BENdCYZiocb2bXZnjSjaV6kPkAhQ2bqzlPQHTKQQzd+Mu2UW0BzervVmhh1KgykBPXaIJfOC6iQolAK6oWjBwbElIFEYC9xRwEXeUs5uUqSHoj89Qv4xeHRdl7VWa9t8q0HijFnlCe0BZ9vdfDEzdh9YnrW6e7+yzLcj7dstz8q/6MfpPn5w4KR4xeBoqeR7/YACW8bFfk+R3FjAc4353CbuA61QuguWRfUEvnvdVt/jMh+9a/uvYKbqAf8UhP9lJcL+ZWWh85J59eJ9USGw90Xs9pGWWyIJQyAN7aknbwOsAUWN7MJrJ7E7kV1kpNWPxrR9Cxl+ZP8zq2M0V3Qqo+OqUTlqJ3MKzM/gavyg1tI6lmy1bWWMt1IexsQ0GixlDo0uX6/DyD/Ekp6HxSl5YISvPfFPfSLUZvP9RIPVXMoknUlxrQ8sBXC0ArRcIU1P3X2v0X0p5Joc2fPlYP7+eBToq0JPb3GgpiAm0htufyik8BV+JjDieRz1+BLcO4zDo0oTA17w5jU1G0RltmeAmyrMxm5yi4LZpzs7g5GQyZjdXQkt6ZoF27DcvWE6bDsPCOtXT9WEFXKJw/6w85qfERVHRvhBDtN1nBl5+XTHs1YeDAUh8qWUR+AQkCd/WpYl8TAbl4GGRLsIV4l7cdusroTA3qAlRh3RFwZJDuZ+PkCqNB+nQK0EK+nR5IJDeOSapqLKwhDAO+9jkgZeKPEDeRYAXVzOzcwILBn0CRyraJUgapzAcOGvYYvYldVHtaNUCjNY7CqWFX9kWayvq7qbodtK253HzKBI4bijCArk/h1Us6ByPLsv3DiUGTezrxxRpB6JfWS1Qg4LS/mXer0l/xWT/XOxmMd6LvIitbvw0maPSMsbd3BtbN+/9JcH6FqNMJnjTl/hmUd0K31KwXaO3Blcwu18n0eiBxFZiFoO4ZCjXdDgZRqRlqxiA7ZzrX/Zl/9H9LcDv2iX/jT+ZFSm99Zf0fO+K6PEeNV3AwMpvOts1/s54i3kA5StKSxWAJYRZfBQ9U4g/67DRrVP9NltR4ITyj6Wg9HY0TmHb+39CRDstn5Ql1kE4EZBdZRq1mblFPHgzcKeVokfaYjT8kO7ystkCwezhvZj9Ng2XoBvjCSD9liUmXohta25cQsVW+RI1epAOJ7XBkNMBvZNJYEc6t+Ub8ZRbBmFUktn11XTMntL11w2MEFErvnvnHUXAJp54JOMJxdqxm1qnOW5mSKDXS4MhkkBEx8z3Az3fbh7MsjDn5kQPRfCmKHizdHI7qNx92h1DfbJSE9se4fcLpzuOlU6SmodwGzciylNv4wDif3TQkiqYhFGgE8E6bahK4dO4i2WYTHPLPaheEvbPyvj0bU0OBZcnLx87BkRCAsnhb+YSqdXSydiYcxijNjXRfOaPHR1iFlPrml9rZbgvcdZ+TqxFUEzR5VsTqrqMAVZhvuPAl9cyj2z2XK3yP2ko0l06P8MTYyzvLf7GMHROBW4rL8t93N0KGnxxGEVFOQQckuyZjx6XKDo9BN0nQVYeIk5e8LYE5a9++o83qcF3S4XFTIgW7WpeWBCBHg1NCR5Eoc0CZvJVaVFy94k5WSY4//+PXfP8TxgDmyoOTnYKDQD/W7I10+KoqOo0/UCZikPvZOufo8+XklMVlEMZMbd9eQCr2RkEuSJ94ALMdqB3NjhVJs6Ae0buiC5DWx4o2iJAL3JT+UT1j4hjaM9jFM6vPKAVon300jqtQzYJp7B+jkToXom03qnjyj8QrAjriNIz/C/jFhpgBmCifHBDbjdAdogeDeVXLS013oy0gkkOnK4J5u5MkaQttpylaXGvBkVrj40pdHED2GcSiRY/rS9oZyonXVsv0R2dtYRJiEWnWEPGc8cB4//fWd2R7ZylDXCW2ZLKwk8mRF1EYMLfhs9gPQUG/Xcqq2tPybd1ChuobkOcd383faAE2xPrcR3B38rXwm9VjDryA+15gvsz/TY9cwYv7zZivre1BZRB8OmBGbV2ApmZk0HP3GZMrXUNjruB1bJEVmRjwK5JFQj8O1Sqe+yFW6fNN81zA+2UR+TJfuGcoG6lN02z3mflYnk2JHq8hO87uTkNs8DzBTQXrHi62Bwzbi7hJeG2tJ1EUCuUKuYkIzLkyd6dOWX2I2JySTFv7261Rav0wtUeWGnaQex25O1NmMFjto8Bby6yHdLqtNVfDpSAyhb2OWgD3ASnlB+fNhYOrYrI3B077GgqMeYYixrw1DU+l/szpcltkpccEdjdzu5oeOA9rQjoh4FsepdmsTPhjC+tBJCkcChW1CH04oTzepUWF3AvmKzBq3SYOtMAWKsawlBHI9MUeZT3mz6p6gMHHMZalvkpMc1ZVITL/+NL3ZZc6lLC8fJz00e8KtHZyz5Zae8ATM36i9O6DpoqwRrB1XAtjsJV4GTfFo7RlK9N1lC0JV4qQWW7vhnPRTtowhEFKNqXdyuF+5jLqWGacXAqOM+C"}</script>
+<script>
+(function(){
+"use strict";
+/* Rótulos usados pelos alertas: mesmo texto dos itens marcados nos blocos (nos itens Sim/Não/?, sem o “?” final). */
+const RT = {
+ epi:'Epilepsia', tireoide:'Doença da tireoide', has:'Hipertensão arterial', glaucoma:'Glaucoma', apneiaDx:'Apneia do sono',
+ tiques:'Tiques ou síndrome de Tourette', alim:'Transtorno alimentar', ansInt:'Ansiedade intensa, tensão ou agitação atual', defInt:'Deficiência intelectual ou limítrofe',
+ cardio1:'Já teve desmaio, palpitações rápidas ou dor no peito ao esforço', cardio2:'Tem falta de ar ao esforço maior que a de pessoas da mesma idade', cardio3:'Tem diagnóstico de problema cardíaco, sopro ou pressão alta',
+ suic:'Tem ou teve recentemente ideação suicida ou autolesão', psic:'Já teve sintomas psicóticos (vozes, delírios)',
+ manA:'Já teve períodos de dias com humor muito elevado ou irritável e pouca necessidade de sono', manB:'Já teve períodos de dias com gastos, ideias grandiosas ou comportamento de risco fora do habitual', manC:'Já recebeu diagnóstico ou tratamento para transtorno bipolar',
+ droga:'Usa álcool em excesso, cannabis, cocaína ou outras drogas', gest:'Está gestante, amamentando ou planeja engravidar',
+ sopro:'Sopro cardíaco', arrit:'Ritmo cardíaco irregular', paAlta:'PA elevada para a idade ou sexo',
+ ronco:'Ronco', pausas:'Pausas respiratórias', pernas:'Inquietação nas pernas ao deitar', pernas2:'Movimentos das pernas durante o sono',
+ palidez:'Palidez', ferroIng:'Ferro: pouca ingestão', fragil:'Palidez, unhas frágeis ou queda de cabelo', mens:'Menstruação intensa',
+ sind1:'Dismorfismos faciais', sind2:'Manchas na pele (café com leite)', sind3:'Macrocefalia ou microcefalia', sind4:'Exposição ao álcool na gestação',
+ famMorte:'Morte súbita antes dos 40 anos ou arritmia', famTiques:'Tiques ou síndrome de Tourette', famBip:'Transtorno bipolar', famDep:'Dependência de álcool ou drogas',
+ tardio:'Começou na vida adulta', tardio2:'Começou depois dos 12 anos',
+ abuso:'Estimulantes sem prescrição', outroMed:'Uso de medicamento de outra pessoa'
+};
+
+/* Blocos A–O. Tipos de grupo: chips (marcar o que ocorre), tri (Sim/Não/?), campos (txt|area|uni), ouro (pergunta-ouro do fenótipo f), med, bib.
+   Segundo valor de cada opção = fenótipos que ela alimenta (ex.: "14" = fenótipos 1 e 4).
+   so:'c' = só criança e adolescente; so:'a' = só adulto; dsm:'I'|'H' = itens contados nos critérios DSM-5-TR; crit = critérios de início, contextos e prejuízo. */
+const BLOCOS = [
+{id:'A', t:'Identificação e motivo', grupos:[
+  {t:'Dados', tipo:'campos', itens:[['Nome ou iniciais','txt'],['Idade','txt'],['Sexo','uni',[['Masculino',''],['Feminino','']]],['Escolaridade ou ocupação','txt'],['Quem acompanha ou informante','txt']]},
+  {t:'Queixa principal, nas palavras do paciente ou dos pais', tipo:'campos', itens:[['Queixa principal','area']]},
+  {t:'Metas do paciente ou da família', tipo:'chips', op:[['Atenção e foco',''],['Organização e prazos',''],['Rendimento na escola ou no trabalho',''],['Impulsividade',''],['Agitação ou inquietude',''],['Sono',''],['Humor e irritabilidade',''],['Relacionamentos',''],['Autonomia e rotina',''],['Entender o que está acontecendo','']]},
+  {t:'Quem levou à avaliação', tipo:'chips', op:[['Escola',''],['Família',''],['Parceiro(a)',''],['Trabalho',''],['Iniciativa própria',''],['Outro profissional','']]}
+]},
+{id:'B', t:'Desatenção (critérios DSM-5-TR)', grupos:[
+  {t:'Sintomas de desatenção', dica:'Marque “Sim” quando for frequente, presente há 6 meses ou mais, acima do esperado para a idade e com prejuízo. Peça exemplos concretos e, sempre que possível, ouça também um informante.', tipo:'tri', dsm:'I', itens:[
+    ['Não presta atenção a detalhes ou comete erros por descuido (tarefas, provas, trabalho)',''],
+    ['Tem dificuldade para manter a atenção em tarefas, aulas, leituras ou conversas longas',''],
+    ['Parece não ouvir quando falam diretamente com ele(a)',''],
+    ['Não segue instruções até o fim e deixa tarefas ou obrigações incompletas',''],
+    ['Tem dificuldade para organizar tarefas, tempo e materiais, e perde prazos',''],
+    ['Evita ou adia tarefas que exigem esforço mental prolongado (lição de casa, relatórios, formulários)',''],
+    ['Perde objetos necessários (material escolar, chaves, celular, carteira, documentos)',''],
+    ['Distrai-se com facilidade com estímulos externos (no adulto, também com os próprios pensamentos)',''],
+    ['É esquecido(a) nas atividades diárias (compromissos, contas, recados, tarefas da rotina)','']]}
+]},
+{id:'C', t:'Hiperatividade e impulsividade (critérios DSM-5-TR)', grupos:[
+  {t:'Sintomas de hiperatividade e impulsividade', dica:'Mesmo critério: frequente, 6 meses ou mais, acima do esperado para a idade e com prejuízo. No adulto, a hiperatividade costuma aparecer como inquietude interna.', tipo:'tri', dsm:'H', itens:[
+    ['Mexe as mãos ou os pés, bate os dedos ou se remexe na cadeira',''],
+    ['Levanta-se quando deveria ficar sentado(a) (sala de aula, reunião, refeição)',''],
+    ['Corre ou sobe em coisas em horas inadequadas (no adolescente e no adulto: sensação de inquietude)',''],
+    ['Tem dificuldade para brincar ou fazer atividades de lazer em silêncio',''],
+    ['Está sempre “a todo vapor” ou “ligado(a) por um motor”; é difícil ficar parado(a) por muito tempo',''],
+    ['Fala demais',''],
+    ['Responde antes de a pergunta terminar ou completa a frase dos outros',''],
+    ['Tem dificuldade para esperar a sua vez (fila, conversa, trânsito)',''],
+    ['Interrompe ou se intromete em conversas, jogos ou atividades dos outros','']]}
+]},
+{id:'D', t:'Início, contextos e exclusões', grupos:[
+  {t:'Critérios de início, contextos e prejuízo', dica:'Os sintomas contados nos blocos B e C só sustentam o diagnóstico se estes quatro pontos forem confirmados.', tipo:'tri', crit:true, itens:[
+    ['Vários sintomas já estavam presentes antes dos 12 anos?',''],
+    ['Os sintomas aparecem em dois ou mais contextos (casa, escola ou trabalho, vida social)?',''],
+    ['Os sintomas atrapalham de forma clara a escola, o trabalho, as relações ou a rotina?',''],
+    ['Os sintomas continuam quando sono, humor, ansiedade e uso de substâncias estão controlados?','']]},
+  {t:'Curso dos sintomas', tipo:'campos', itens:[['Como foi o curso','uni',[['Desde sempre',''],['Piorou quando a demanda aumentou',''],[RT.tardio2,''],[RT.tardio,'']]]]},
+  {t:'Fontes de informação', tipo:'chips', op:[['Pais ou cuidadores',''],['Parceiro(a)',''],['Professores ou relatório escolar',''],['Boletins e histórico escolar',''],['Chefia ou colegas',''],['Observação na consulta','']]},
+  {so:'a', t:'No adulto: retrospectiva da infância', tipo:'chips', op:[['Boletins com comentários sobre distração ou agitação',''],['Dificuldade escolar ou repetência',''],['Os pais lembram de uma criança agitada ou distraída',''],['Já recebeu acompanhamento ou medicação na infância',''],['Compensava com esforço extra ou apoio da família','']]},
+  {t:'Outros transtornos que podem explicar melhor', dica:'Detalhe nos blocos F a J. Aqui, só o julgamento clínico.', tipo:'campos', itens:[['Impressão sobre diagnósticos diferenciais','area']]}
+]},
+{id:'E', t:'Impacto funcional', grupos:[
+  {so:'c', t:'Escola', tipo:'chips', op:[['Notas abaixo do potencial',''],['Tarefas incompletas',''],['Perde material',''],['Reclamações dos professores',''],['Repetência',''],['Dificuldade na lição de casa',''],['Mais difícil em tarefas longas',''],['Já tem apoio ou adaptação escolar','']]},
+  {so:'a', t:'Trabalho e estudos', tipo:'chips', op:[['Atrasos e faltas',''],['Prazos perdidos',''],['Troca frequente de emprego',''],['Demissão ou advertência',''],['Procrastinação importante',''],['Abandonou cursos ou faculdade',''],['Rendimento abaixo da capacidade',''],['Compensa com muito esforço e horas extras','']]},
+  {t:'Família e relações', tipo:'chips', op:[['Conflitos com pais ou irmãos',''],['Conflitos conjugais por esquecimentos ou impulsividade',''],['Dificuldade para manter amizades',''],['Interrompe e atropela conversas',''],['Rejeição por colegas',''],['Sobrecarga de quem convive','']]},
+  {so:'c', t:'Autonomia e rotina em casa', tipo:'chips', op:[['Precisa de lembretes para a rotina',''],['Demora para se arrumar',''],['Conflitos na hora das tarefas',''],['Esquece recados',''],['Acidentes e quedas frequentes',''],['Depende muito dos pais para se organizar','']]},
+  {so:'a', t:'Vida prática e riscos', tipo:'chips', op:[['Multas, acidentes ou direção de risco',''],['Dívidas ou compras por impulso',''],['Atrasos em contas e documentos',''],['Desorganização da casa',''],['Dificuldade com gestão do tempo',''],['Apostas','']]},
+  {t:'Pontos fortes', dica:'Ajudam no plano e na conversa com a família.', tipo:'chips', op:[['Criatividade',''],['Energia e entusiasmo',''],['Hiperfoco em temas de interesse',''],['Bom humor',''],['Resolve bem sob pressão',''],['Empatia','']]}
+]},
+
+{id:'F', t:'Sono e energia', grupos:[
+  {t:'Horários', tipo:'campos', itens:[['Dorme às','txt'],['Acorda às','txt'],['Tempo para pegar no sono','txt'],['Horas de sono por noite','txt']]},
+  {t:'Perguntas-chave: marque o que ocorre', dica:'No TDAH, dormir mal imita e piora a desatenção, a irritabilidade e a inquietude. É um dos pontos de maior rendimento.', tipo:'chips', op:[['Demora para dormir','1'],['Despertares noturnos','1'],['Sono não restaurador','1'],['Atraso de fase (dorme e acorda tarde)','1'],[RT.ronco,'1'],[RT.pausas,'1'],['Respiração oral','1'],['Bruxismo','1'],[RT.pernas,'1'],[RT.pernas2,'1'],['Terror noturno ou sonambulismo','1'],['Sonolência diurna','13'],['Cochila na aula, na reunião ou ao dirigir','13']]},
+  {t:'Hábitos e ambiente', tipo:'chips', op:[['Horário irregular','1'],['Telas na cama','17'],['Cafeína depois das 16h','147'],['Quarto com luz ou barulho','1'],['Trabalho em turnos','1']]},
+  {t:'Impacto no dia seguinte', tipo:'chips', op:[['Atenção pior',''],['Mais irritabilidade',''],['Mais impulsividade',''],['Mais cansaço',''],['Esquece mais','']]},
+  {tipo:'ouro', f:1},
+  {t:'Energia e fadiga, pelo relato', tipo:'chips', op:[['Cansaço fácil','3'],['Pouca energia no fim do dia','3'],['Oscilações de energia ao longo do dia','3'],['Recuperação lenta depois de esforço ou doença','3'],['Lentidão mental ou “névoa mental”','3'],['Perda de motivação sem tristeza clara','3']]},
+  {tipo:'ouro', f:3}
+]},
+{id:'G', t:'Alimentação, intestino e alergia', grupos:[
+  {t:'Refeições e cafeína', tipo:'campos', itens:[['Nº de refeições por dia e horários','txt'],['Cafeína por dia (café, chá, energéticos, refrigerantes)','txt']]},
+  {t:'Padrão atual', tipo:'chips', op:[['Pula o café da manhã','2'],['Refeições sem horário fixo','2'],['Belisca em vez de fazer refeições','2'],['Pouca proteína','2'],['Excesso de açúcar e carboidratos refinados','2'],['Ultraprocessados em excesso','2'],['Energéticos e refrigerantes','27'],['Corantes artificiais (suspeita de piora)','2']]},
+  {t:'Seletividade e restrições', tipo:'chips', op:[['Seletividade alimentar importante','2'],['Recusa carnes','2'],['Recusa vegetais','2'],['Dieta vegetariana ou vegana sem suplementação','2'],['Dieta restritiva por conta própria','2']]},
+  {t:'Suspeitas nutricionais', tipo:'chips', op:[[RT.ferroIng,'2'],['Zinco: pouca ingestão','2'],['Magnésio: pouca ingestão','2'],['Ômega-3: pouco peixe na dieta','2'],['Vitamina D: pouca exposição ao sol','2'],['Vitamina B12: dieta sem produtos animais','2'],[RT.fragil,'2'],[RT.mens,'2']]},
+  {tipo:'ouro', f:2},
+  {t:'Hábito intestinal', tipo:'campos', itens:[['Frequência evacuatória','txt'],['Forma das fezes (Bristol)','uni',[['1–2, ressecadas','5'],['3–4, normais',''],['5–7, amolecidas','5'],['Alterna','5']]]]},
+  {t:'Sintomas digestivos', tipo:'chips', op:[['Constipação','5'],['Diarreia','5'],['Dor abdominal','5'],['Distensão e gases','5'],['Refluxo','5'],['Intolerâncias alimentares','5'],['Sangue ou muco nas fezes','5'],['Perda de peso sem explicação','5']]},
+  {t:'Alergia e vias aéreas', tipo:'chips', op:[['Rinite alérgica','5'],['Congestão nasal crônica','15'],['Asma','5'],['Eczema ou dermatite atópica','5'],['Urticária','5'],['Alergia alimentar','5'],['Adenoides ou amígdalas aumentadas','15'],['Infecções de repetição','5']]},
+  {t:'Perguntas funcionais', tipo:'tri', itens:[['O comportamento ou a atenção pioram com algum alimento específico?','5'],['A atenção piora quando o intestino está ruim?','5'],['Os sintomas pioram na época de alergia ou de crise de rinite?','5']]},
+  {tipo:'ouro', f:5}
+]},
+
+{id:'H', t:'Substâncias, telas e estilo de vida', grupos:[
+  {t:'Triagem rápida', dica:'Pergunte a todos, inclusive adolescentes (a sós, se possível). O uso de substâncias pode ser causa primária da desatenção.', tipo:'tri', itens:[['Usa muita cafeína (mais de 3 xícaras de café ou algum energético por dia)?','47'],['Usa nicotina ou vape?','7'],[RT.droga + '?','7']]},
+  {t:'O que usa ou já usou (detalhe)', tipo:'chips', op:[['Álcool',''],['Cannabis',''],['Cocaína ou crack',''],[RT.abuso,''],[RT.outroMed,''],['Anabolizantes',''],['Outras substâncias','']]},
+  {t:'Padrão de uso', tipo:'campos', itens:[['Substância, quantidade e frequência','area'],['Idade de início do uso','txt'],['O uso começou','uni',[['Antes dos sintomas de atenção',''],['Depois dos sintomas de atenção',''],['Não sei','']]]]},
+  {t:'Telas e jogos', tipo:'chips', op:[['Mais de 2 horas de tela por dia (lazer)','7'],['Jogos eletrônicos em excesso','7'],['Redes sociais e vídeos curtos sem fim','7'],['Telas nas refeições e nas tarefas','7'],['Perda de controle do tempo de tela','7'],['Piora do foco depois de muita tela','7']]},
+  {t:'Estilo de vida', tipo:'chips', op:[['Sedentarismo','7'],['Pouca exposição à luz natural','7'],['Rotina muito irregular','7'],['Atividade física regular (protege)','']]},
+  {tipo:'ouro', f:7}
+]},
+{id:'I', t:'Comorbidades psiquiátricas e do neurodesenvolvimento', grupos:[
+  {t:'Já diagnosticadas ou suspeitas', dica:'Nenhuma comorbidade deve ser tratada como “parte do TDAH” sem avaliação.', tipo:'chips', op:[['Ansiedade generalizada','46'],['Transtorno de pânico','4'],['Fobia social','6'],['Depressão ou distimia','6'],['Transtorno bipolar ou ciclotimia','6'],['Estresse pós-traumático','6'],['TOC','4'],[RT.tiques,'4'],['Transtorno opositor desafiador','6'],['Transtorno de conduta',''],[RT.alim,'6'],['Autismo (TEA)','8'],['Dislexia ou outro transtorno de aprendizagem','8'],['Transtorno de linguagem','8'],['Dispraxia ou incoordenação motora','8'],[RT.defInt,'8'],['Altas habilidades ou superdotação','8']]},
+  {t:'Hiperativação e tensão', tipo:'chips', op:[[RT.ansInt,'4'],['Tensão muscular ou dor de cabeça tensional','4'],['Coração acelerado ou mãos suadas em repouso','4'],['Sobressalto fácil','4'],['Piora com cafeína ou com estimulante','4'],['Irritabilidade e pavio curto','4'],['Dificuldade de relaxar','4']]},
+  {tipo:'ouro', f:4},
+  {t:'Rastreio de humor elevado (antes de estimulante ou antidepressivo)', dica:'Pergunte por episódios de dias seguidos, diferentes do habitual e notados por outras pessoas.', tipo:'tri', itens:[[RT.manA + '?','6'],[RT.manB + '?','6'],[RT.manC + '?','6']]},
+  {t:'Humor, ansiedade e trauma', tipo:'chips', op:[['Tristeza ou desânimo frequente','6'],['Perda de prazer','6'],['Preocupação excessiva','6'],['Irritabilidade desproporcional','6'],['Oscilações de humor ao longo do dia','6'],['Trauma ou violência na infância','6'],['Estresse crônico atual','6'],['Luto ou mudança recente','6'],['Bullying','6']]},
+  {tipo:'ouro', f:6},
+  {t:'Aprendizagem e neurodesenvolvimento', tipo:'chips', op:[['Dificuldade de leitura ou escrita','8'],['Dificuldade com matemática','8'],['Atraso de fala na infância','8'],['Traços de autismo (rigidez, interesses restritos, dificuldade social)','8'],['Dificuldade de coordenação motora','8'],['Memória de trabalho muito fraca','8']]},
+  {tipo:'ouro', f:8},
+  {so:'a', t:'No adulto: padrões que se confundem com TDAH', tipo:'chips', op:[['Instabilidade afetiva e relações intensas e instáveis','6'],['Sentimento crônico de fracasso','6'],['Autocrítica intensa','6']]}
+]},
+
+{id:'J', t:'Condições médicas e segurança do tratamento', grupos:[
+  {t:'Já diagnosticadas ou suspeitas', dica:'Várias mudam a escolha do tratamento. Marque também o que está só suspeito.', tipo:'chips', op:[[RT.epi,''],['Enxaqueca',''],['Traumatismo craniano com perda de consciência',''],['Anemia ou deficiência de ferro','2'],[RT.tireoide,'3'],['Diabetes ou resistência à insulina','3'],[RT.apneiaDx,'1'],['Doença celíaca','5'],[RT.has,''],[RT.glaucoma,''],['Doença hepática ou renal',''],['Dificuldade visual não corrigida','8'],['Dificuldade auditiva ou otites de repetição','8']]},
+  {t:'Gestação e nascimento (história)', tipo:'chips', op:[['Prematuridade',''],['Baixo peso ao nascer',''],['Cigarro na gestação',''],[RT.sind4,''],['Drogas na gestação',''],['Sofrimento perinatal ou UTI neonatal',''],['Intercorrências na gestação','']]},
+  {t:'Fatores hormonais', tipo:'chips', op:[['Piora no período pré-menstrual','6'],['Piora no pós-parto ou na perimenopausa','6'],['Ciclos irregulares','3']]},
+  {t:'Segurança cardiovascular', dica:'Perguntas antes de estimulante ou atomoxetina (NICE NG87). A história familiar de morte súbita está no bloco L.', tipo:'tri', itens:[[RT.cardio1 + '?',''],[RT.cardio2 + '?',''],[RT.cardio3 + '?','']]},
+  {t:'Segurança psiquiátrica e gestação', tipo:'tri', itens:[[RT.suic + '?','6'],[RT.psic + '?',''],[RT.gest + '?','']]},
+  {t:'Exames e avaliações já feitos', tipo:'campos', itens:[['ECG, hemograma, ferritina, TSH ou outros (resultado e data)','area']]}
+]},
+
+{id:'K', t:'Medicamentos, suplementos e respostas prévias', grupos:[
+  {t:'Em uso ou já usados', dica:'Marque o que se aplica; dose, datas e resposta ficam na lista estruturada, logo abaixo.', tipo:'chips', op:[['Metilfenidato',''],['Lisdexanfetamina',''],['Atomoxetina',''],['Bupropiona',''],['Clonidina ou guanfacina',''],['Antidepressivo',''],['Antipsicótico',''],['Benzodiazepínico ou hipnótico',''],['Estabilizador de humor ou anticonvulsivante',''],['Melatonina',''],['Magnésio',''],['Ômega-3',''],['Ferro',''],['Vitaminas','']]},
+  {t:'Psicofármacos prévios', tipo:'campos', itens:[['Quais, dose, resposta e efeitos adversos','area']]},
+  {t:'Padrões de resposta', tipo:'chips', op:[['Melhorou com estimulante',''],['Piorou com estimulante (ansiedade, tiques, irritabilidade)',''],['Resposta parcial',''],['Rebote no fim do efeito',''],['Perda de resposta com o tempo',''],['Insônia ou perda de apetite com a medicação',''],['Palpitações ou aumento de pressão com a medicação',''],['Piora do humor com a medicação',''],['Melhorou com algum suplemento',''],['Piorou com algum suplemento','']]},
+  {t:'Lista estruturada de medicamentos e suplementos', tipo:'med'},
+  {t:'Biblioteca de formulações e referência de ativos', tipo:'bib'}
+], ordemExib:[0,3,1,2,4]},
+{id:'L', t:'História familiar', grupos:[
+  {t:'Condições na família', dica:'Pais, irmãos, avós, tios e primos.', tipo:'chips', op:[['TDAH',''],['Autismo','8'],['Dislexia ou dificuldade de aprendizagem','8'],['Ansiedade','6'],['Depressão','6'],[RT.famBip,'6'],['Esquizofrenia ou psicose',''],[RT.famDep,'7'],[RT.famTiques,'4'],['Epilepsia',''],['Enxaqueca',''],[RT.famMorte,''],['Cardiopatia ou cardiomiopatia',''],['Hipertensão',''],['Doença celíaca','5'],['Doenças autoimunes','5'],['Doença da tireoide','3'],['Alergias ou atopia','5']]},
+  {t:'Parentes com sintomas sem diagnóstico', tipo:'tri', itens:[['Algum familiar próximo tem sintomas parecidos, mesmo sem diagnóstico?','']]}
+]},
+{id:'M', t:'Exame físico e observação', grupos:[
+  {t:'Sinais vitais e antropometria', dica:'Registre antes de iniciar estimulante ou atomoxetina e a cada retorno. Na criança, use percentis.', tipo:'campos', itens:[['Pressão arterial','txt'],['Frequência cardíaca','txt'],['Peso','txt'],['Altura','txt'],['IMC ou percentil','txt']]},
+  {t:'Cardiovascular', tipo:'chips', op:[[RT.sopro,''],[RT.arrit,''],[RT.paAlta,'']]},
+  {t:'Sinais gerais e nutricionais', tipo:'chips', op:[[RT.palidez,'2'],['Unhas ou cabelo frágeis','2'],['Tireoide aumentada ou nodular','3'],['Tremor fino','4'],['Sudorese ou taquicardia em repouso','4'],['Eczema ou dermatite','5']]},
+  {t:'Orofaringe e via aérea', tipo:'chips', op:[['Amígdalas ou adenoides aumentadas','1'],['Respiração oral','1'],['Palato alto ou retrognatia','1'],['Bruxismo visível','1']]},
+  {t:'Neurológico e motor', tipo:'chips', op:[['Tiques observados','4'],['Incoordenação motora ou dispraxia','8'],['Hipotonia','3'],['Movimentos associados (sincinesias)','8']]},
+  {t:'Observação na consulta', dica:'Boa atenção em consulta individual não exclui TDAH.', tipo:'chips', op:[['Inquietude motora durante a consulta',''],['Distrai-se com facilidade durante a entrevista',''],['Interrompe ou fala demais',''],['Perde o fio da narrativa',''],['Atenção preservada na consulta',''],['Ansiedade ou tensão visível','4'],['Humor deprimido ou apático','6'],['Fala acelerada ou humor elevado','6']]},
+  {t:'Sinais sindrômicos', tipo:'chips', op:[[RT.sind1,''],[RT.sind2,''],[RT.sind3,''],['Anomalias congênitas',''],['Hiperflexibilidade articular','']]}
+]},
+{id:'N', t:'Escalas e instrumentos', grupos:[
+  {t:'Já aplicados ou disponíveis', dica:'Escalas apoiam, mas nenhuma fecha o diagnóstico. Registre aqui o que já existe.', tipo:'chips', op:[['SNAP-IV',''],['Vanderbilt (pais)',''],['Vanderbilt (professor)',''],['ASRS-18',''],['DIVA-5',''],['WFIRS-S',''],['SDQ',''],['AQ-10',''],['PHQ-9',''],['GAD-7',''],['MDQ',''],['ISI',''],['AUDIT-C',''],['Relatórios escolares',''],['Avaliação neuropsicológica',''],['Diário de sono','']]},
+  {t:'Resultados e observações', tipo:'campos', itens:[['Resultados','area']]}
+]},
+{id:'O', t:'10 perguntas de alto rendimento', grupos:[
+  {t:'Respostas curtas', tipo:'campos', itens:[
+    ['1. Quando e onde a desatenção ou a inquietude mais atrapalham?','area'],['2. Desde quando? Já era assim antes dos 12 anos?','area'],['3. Como está o sono (horário, ronco, pernas inquietas, cansaço ao acordar)?','area'],
+    ['4. O que come e bebe ao longo do dia (café da manhã, cafeína, açúcar, energéticos)?','area'],['5. Há ansiedade, tristeza, irritabilidade ou oscilações de humor antes ou junto dos sintomas?','area'],
+    ['6. Há uso de álcool, cannabis, nicotina ou outras substâncias? Em que quantidade?','area'],['7. O que já foi tentado (estratégias, terapia, medicamentos, suplementos) e o que funcionou, mesmo em parte?','area'],
+    ['8. Quais são os 3 problemas que mais prejudicam a vida do paciente e da família?','area'],['9. Há sinais de alerta de coração, convulsões, tiques ou humor elevado?','area'],
+    ['10. Quais são os pontos fortes e o que o paciente faz bem?','area']]}
+]}
+];
+
+/* Fenótipos funcionais do TDAH: fatores que simulam, agravam ou acompanham os sintomas (hipóteses para investigar, não diagnósticos).
+   ex: [exame, evidência] — r = triagem de causas comuns, s = se indicado, x = exploratório (sem validação para TDAH). */
+const FEN = [
+{n:1, nome:'Sono e ritmo circadiano', cor:'#2F8F9D', obj:'Sono insuficiente ou de má qualidade imitando ou agravando a desatenção',
+ ouro:'Se o sono fosse corrigido, quanto da desatenção e da irritabilidade melhoraria?',
+ sinais:['Demora para dormir','Despertares','Atraso de fase','Ronco','Pernas inquietas','Sonolência diurna','Acorda cansado(a)'], hist:['Nunca dormiu bem','Respiração oral','Adenoides aumentadas','Cafeína à tarde','Telas à noite'],
+ ex:[['Ferritina','r'],['Polissonografia','s'],['Avaliação de adenoides e amígdalas','s'],['Actigrafia','x']],
+ expl:'Alguns sinais{sinais} sugerem que o sono pode estar atrapalhando a atenção. Dormir pouco ou mal causa distração, irritação e inquietude, que se parecem com o TDAH e também o pioram. Quando há ronco, pausas na respiração ou pernas inquietas, vale investigar apneia ou falta de ferro. Organizar o sono costuma ser uma das mudanças de maior efeito.'},
+{n:2, nome:'Carência nutricional', cor:'#C9A227', obj:'Ingestão ou estoques baixos de ferro, zinco, magnésio, vitamina D, B12 ou ômega-3',
+ ouro:'A alimentação ou uma possível carência de nutrientes pode estar contribuindo?',
+ sinais:['Pula o café da manhã','Pouca proteína','Seletividade','Palidez','Menstruação intensa','Dieta vegetariana sem suplementação'], hist:['Anemia prévia','Dieta restritiva','Pouco peixe','Pouca exposição ao sol'],
+ ex:[['Ferritina','r'],['Hemograma completo','r'],['25-OH vitamina D','s'],['Zinco sérico','s'],['Vitamina B12','s'],['Magnésio sérico','s']],
+ expl:'Alguns sinais{sinais} sugerem olhar a alimentação e os estoques de nutrientes, como ferro, vitamina D e B12. Faltar ferro, por exemplo, pode piorar a atenção e o sono. Vamos conferir com exames simples e só suplementar o que estiver baixo, sem repor o que está normal.'},
+{n:3, nome:'Hipoenergético', cor:'#3F9A4B', obj:'Pouca energia e lentidão mental, com apresentação mais desatenta e cansada',
+ ouro:'O paciente parece ter pouca energia, mais do que agitação?',
+ sinais:['Cansaço fácil','Pouca energia no fim do dia','Névoa mental','Lentidão','Perda de motivação'], hist:['Anemia','Doença da tireoide','Sono ruim','Recuperação lenta depois de doença'],
+ ex:[['Hemograma completo','r'],['Ferritina','r'],['TSH e T4 livre','s'],['Glicemia de jejum','s'],['Vitamina B12','s'],['25-OH vitamina D','s'],['Lactato','x'],['Acilcarnitinas','x']],
+ expl:'Alguns sinais{sinais} sugerem pouca energia, mais do que agitação. Antes de pensar em causas raras, vamos checar as mais comuns de cansaço: sono ruim, anemia, falta de ferro, tireoide e alimentação. Se o quadro justificar, aprofundamos com exames específicos.'},
+{n:4, nome:'Hiperexcitatório-ansioso', cor:'#B5483A', obj:'Hiperativação, tensão e ansiedade que se confundem com impulsividade e agitação',
+ ouro:'A inquietação vem mais de tensão e ansiedade interna do que de impulsividade?',
+ sinais:['Ansiedade','Tensão muscular','Coração acelerado','Sobressalto','Piora com cafeína','Irritabilidade','Bruxismo'], hist:['Ansiedade na família','Tiques','Cafeína em excesso','Estresse crônico'],
+ ex:[['TSH e T4 livre','s'],['ECG de repouso','s'],['Magnésio sérico','s']],
+ expl:'Alguns sinais{sinais} sugerem que parte da agitação pode vir de tensão e ansiedade, e não só de impulsividade. Isso muda o tratamento: alguns medicamentos para TDAH pioram a ansiedade e os tiques. Vamos avaliar com cuidado, reduzir a cafeína e acompanhar de perto qualquer medicamento.'},
+{n:5, nome:'Inflamatório-intestinal-alérgico', cor:'#D9822B', obj:'Alergia, inflamação ou sofrimento intestinal contribuindo para a atenção e o humor',
+ ouro:'Existe um padrão alérgico ou intestinal associado às pioras?',
+ sinais:['Constipação','Dor abdominal','Rinite','Eczema','Congestão nasal','Piora com algum alimento'], hist:['Alergias','Doença celíaca na família','Autoimunidade na família','Intolerâncias alimentares'],
+ ex:[['Marcadores de doença celíaca','s'],['Hemograma completo','r'],['IgE total e específicas','s'],['Calprotectina fecal','s'],['Coprológico','s'],['Microbiota','x']],
+ expl:'Alguns sinais{sinais} sugerem um componente alérgico ou intestinal. Alergia mal controlada, nariz entupido e intestino desregulado atrapalham o sono, o humor e a atenção. Vamos confirmar o que é alergia de fato e tratar, sem cortar alimentos sem necessidade.'},
+{n:6, nome:'Humor, ansiedade e trauma', cor:'#7A4FB0', obj:'Transtornos do humor, ansiedade ou trauma que simulam ou acompanham o TDAH',
+ ouro:'Os sintomas pioram em fases de humor, ansiedade ou estresse?',
+ sinais:['Tristeza','Perda de prazer','Preocupação','Oscilações de humor','Trauma','Estresse crônico'], hist:['Depressão na família','Transtorno bipolar na família','Trauma na infância','Bullying'],
+ ex:[['TSH e T4 livre','s'],['Vitamina B12','s'],['25-OH vitamina D','s']],
+ expl:'Alguns sinais{sinais} sugerem olhar com cuidado o humor, a ansiedade e o estresse. Eles podem imitar o TDAH, acompanhá-lo ou mudar a escolha do tratamento. Vamos avaliar isso primeiro, inclusive para escolher medicamentos com segurança.'},
+{n:7, nome:'Substâncias, telas e estilo de vida', cor:'#3B6FB6', obj:'Cafeína, nicotina, álcool, drogas, telas e rotina irregular como causa ou agravante',
+ ouro:'Se o uso de substâncias ou de telas diminuísse, os sintomas melhorariam?',
+ sinais:['Cafeína em excesso','Nicotina','Álcool ou cannabis','Muitas horas de tela','Sedentarismo','Rotina irregular'], hist:['Dependência na família','Uso começou junto dos sintomas'],
+ ex:[['Triagem toxicológica (urina)','s'],['Função hepática e renal (TGO, TGP, creatinina)','s']],
+ expl:'Alguns sinais{sinais} sugerem que cafeína, telas, álcool ou outras substâncias podem estar pesando na atenção e no sono. Vamos olhar isso sem julgamento, porque reduzir esses fatores pode melhorar os sintomas e deixar o tratamento mais seguro.'},
+{n:8, nome:'Aprendizagem e neurodesenvolvimento', cor:'#5B7F95', obj:'Dificuldade de aprendizagem, de linguagem ou de coordenação, ou traços de autismo, explicando parte do quadro',
+ ouro:'Há dificuldade de aprendizagem, de linguagem ou traços de autismo que expliquem parte do quadro?',
+ sinais:['Dificuldade de leitura ou escrita','Atraso de fala','Traços de autismo','Incoordenação motora','Memória de trabalho fraca'], hist:['Dislexia na família','Autismo na família','Atraso de fala na infância'],
+ ex:[['Audiometria','r'],['Avaliação oftalmológica','s'],['Avaliação neuropsicológica','s'],['Avaliação fonoaudiológica','s']],
+ expl:'Alguns sinais{sinais} sugerem investigar a aprendizagem, a linguagem ou outros traços do neurodesenvolvimento. Eles são comuns junto com o TDAH e pedem apoio específico. Vamos checar audição e visão e, se for preciso, pedir uma avaliação complementar.'}
+];
+const EVID = {r:'triagem', s:'se indicado', x:'exploratório'};
+const EXPL_FINAL = 'Tudo isso são hipóteses para investigar, não diagnósticos fechados. O diagnóstico de TDAH é clínico, feito pela história e pelos critérios, e não depende de exame de sangue ou de imagem. Vamos priorizar poucas mudanças por vez, acompanhar o resultado e ajustar o plano nas próximas consultas.';
+
+/* Seis perguntas centrais: blocos = de onde vêm as evidências já marcadas. */
+const CENTRAL = [
+ {q:'Qual é a apresentação clínica predominante?', chips:['Desatenta','Hiperativa e impulsiva','Combinada','Abaixo do limiar dos critérios','Ainda indefinida'], blocos:['B','C']},
+ {q:'Início, contextos e prejuízo estão confirmados?', chips:['Início antes dos 12 anos','Dois ou mais contextos','Prejuízo funcional claro','Informante colateral ouvido','Relatório escolar ou boletim visto'], blocos:['D','E']},
+ {q:'Há causa ou condição que explica ou amplifica os sintomas?', chips:['Sono','Ansiedade','Humor','Substâncias','Ferro ou nutrição','Tireoide','Apneia','Medicamento em uso','Trauma ou estresse'], blocos:['F','G','H','I','J']},
+ {q:'Quais comorbidades estão presentes ou precisam ser rastreadas?', chips:['Ansiedade','Depressão','Espectro bipolar (rastrear)','Autismo','Tiques','Aprendizagem','Opositor ou conduta','Uso de substâncias'], blocos:['I','H']},
+ {q:'É seguro iniciar tratamento medicamentoso hoje?', chips:['PA e FC medidas','Risco cardiovascular avaliado','Tiques e epilepsia considerados','Uso de substâncias avaliado','Gestação e lactação consideradas','Mania e psicose descartadas'], blocos:['J','M','I']},
+ {q:'O que pode ser corrigido ou tentado primeiro, uma variável por vez?', chips:['Sono','Ferro e nutrição','Cafeína e telas','Rotina e organização','Adaptação na escola ou no trabalho','Psicoeducação e treino de pais','Tratamento da comorbidade'], blocos:['F','G','H']}
+];
+
+/* Selos dos suplementos: i = indicado quando há a indicação específica (ex.: deficiência confirmada); s = se indicado (caso a caso);
+   x = exploratório (evidência preliminar ou inconsistente). Orientação de evidência, não substitui o julgamento clínico.
+   ul = limite superior tolerável por idade (NIH ODS / IOM), só de suplementos; f = [[idade máxima em anos (exclusiva), limite]]. */
+const SELO = {i:'indicado', s:'se indicado', x:'exploratório'};
+const ATIVOS = [
+ {k:'melatonina', n:'Melatonina', rx:/melaton/, s:'i', b:'Insônia de início do sono no TDAH: ensaio controlado em crianças reduziu o tempo para dormir (van der Heijden 2007). Higiene do sono primeiro; não trata a desatenção em si.',
+  al:['No Brasil, suplemento industrializado só para adultos (0,21 mg/dia, Anvisa 2021). Em crianças, só manipulada e com prescrição: confirme com a farmácia.']},
+ {k:'ferro', n:'Ferro', rx:/\bferro\b|ferroso/, s:'i', b:'Só com deficiência confirmada (ferritina, hemograma). Ferritina baixa é descrita no TDAH e na síndrome das pernas inquietas; suplementar sem deficiência não tem respaldo.',
+  al:['Excesso é tóxico: guardar fora do alcance das crianças e reavaliar a ferritina durante o uso.'], ul:{u:'mg', f:[[14,40],[999,45]]}, ex:[['Ferritina','media','Confirme a deficiência antes de suplementar.']]},
+ {k:'vitd', n:'Vitamina D', rx:/vitamina d\b|vit\.? ?d\b|colecalciferol|\bd3\b/, s:'i', b:'Indicada se a 25-OH vitamina D estiver baixa; dosar antes e depois. Níveis baixos aparecem associados ao TDAH, mas os ensaios de suplementação são pequenos e mistos.',
+  ul:{u:'mcg', ui:40, f:[[0.5,25],[1,38],[4,63],[9,75],[999,100]]}, ex:[['25-OH vitamina D','info','Dosar orienta a dose.']]},
+ {k:'b12', n:'Vitamina B12', rx:/b12|cobalamina/, s:'i', b:'Indicada se B12 baixa ou limítrofe (dieta sem produtos animais, uso crônico de inibidor de bomba ou de metformina). Sem limite superior estabelecido.',
+  ex:[['Vitamina B12','info','Dosar orienta a conduta.']]},
+ {k:'zinco', n:'Zinco', rx:/\bzinco\b|\bzn\b/, s:'s', b:'Zinco sérico menor foi descrito no TDAH; os ensaios de suplementação são pequenos e inconsistentes. Considerar se ingestão baixa ou deficiência documentada.',
+  al:['Uso prolongado pode reduzir o cobre: monitorar.'], ul:{u:'mg', f:[[0.5,4],[1,5],[4,7],[9,12],[14,23],[19,34],[999,40]]}, ex:[['Zinco sérico','info','Dosar orienta a conduta.']]},
+ {k:'magnesio', n:'Magnésio', rx:/magnesi/, s:'x', b:'Para sintomas de TEA/TDAH, evidência limitada (Cochrane: magnésio com B6 sem evidência suficiente). Para constipação, o efeito osmótico é estabelecido.',
+  al:['O limite superior é de magnésio elementar, só de suplementos, e se baseia em diarreia. Confira se a dose é do sal ou do elemento.'], ul:{u:'mg', f:[[1,null],[4,65],[9,110],[999,350]], nota:'Titular e observar as fezes.'}},
+ {k:'omega3', n:'Ômega-3', rx:/\bomega|\bepa\b|\bdha\b|oleo de peixe/, s:'x', b:'Meta-análises mostram efeito pequeno e inconsistente nos sintomas de TDAH (por exemplo, Liu 2023), bem menor que o dos medicamentos. Não substitui o tratamento.',
+  al:['Efeitos digestivos leves; risco de sangramento só em doses altas.']},
+ {k:'coq10', n:'Coenzima Q10', rx:/coq10|coenzima q|ubiquinol|ubiquinona|\bq10\b/, s:'x', b:'Evidência específica em TDAH escassa; a revisão Cochrane de doenças mitocondriais (2021) não achou evidência clara de benefício de suplementos como a CoQ10. Boa tolerabilidade.'},
+ {k:'nac', n:'N-acetilcisteína (NAC)', rx:/\bnac\b|acetilcisteina/, s:'x', b:'Evidência específica em TDAH escassa e preliminar.',
+  al:['Desconforto digestivo é comum: começar baixo e subir devagar.']},
+ {k:'alcar', n:'Acetil-L-carnitina', rx:/acetil.?l.?carnitina|\balcar\b/, s:'x', b:'Em TDAH, o ensaio controlado não mostrou benefício global; sinal em subgrupo desatento (Arnold 2007).',
+  al:['Pode causar agitação, insônia e odor corporal em quem é sensível.']},
+ {k:'carnitina', n:'L-carnitina', rx:/carnitina/, s:'x', b:'Indicação clara só na deficiência de carnitina documentada (perfil de acilcarnitinas). Em TDAH, evidência escassa.',
+  al:['Pode causar agitação, insônia e odor corporal; subir devagar. Cautela em epilepsia.']},
+ {k:'vitc', n:'Vitamina C', rx:/vitamina c\b|acido ascorbico|ascorbato|\bvit\.? ?c\b/, s:'x', b:'Evidência clínica específica em TEA/TDAH escassa; doses altas dão desconforto digestivo.',
+  ul:{u:'mg', f:[[1,null],[4,400],[9,650],[14,1200],[19,1800],[999,2000]]}},
+ {k:'b1', n:'Tiamina (B1)', rx:/tiamina|\bb1\b/, s:'x', b:'Sem limite superior estabelecido; evidência em TEA/TDAH escassa.'},
+ {k:'b2', n:'Riboflavina (B2)', rx:/riboflavina|\bb2\b/, s:'x', b:'Sem limite superior estabelecido; evidência escassa. Deixa a urina amarelo-intensa.'},
+ {k:'niacinamida', n:'Niacinamida (B3)', rx:/niacinamida|nicotinamida|niacina|\bb3\b/, s:'x', b:'Sem evidência clínica robusta em TEA/TDAH; doses muito altas (gramas) podem afetar o fígado.'},
+ {k:'p5p', n:'P5P (B6 ativa)', rx:/p5p|piridoxal|piridoxina|\bb6\b/, s:'x', b:'B6 com magnésio em TEA: estudos pequenos e de baixa qualidade (Cochrane). Doses altas e prolongadas causam neuropatia.',
+  ul:{u:'mg', f:[[1,null],[4,30],[9,40],[14,60],[19,80],[999,100]]}},
+ {k:'probiotico', n:'Probiótico', rx:/probiot|lactobac|bifidobac|saccharomyces/, s:'x', b:'Evidência mista e dependente da cepa. Cautela em imunossuprimidos e com cateter central.'}
+];
+
+/* Fármacos: sem selo (o selo é dos suplementos). cls: estim = estimulante; naoest = não estimulante; alfa2; antid; imao.
+   As frases vêm das bulas brasileiras (Ritalina, Venvanse), da bula da atomoxetina (Lilly) e do NICE NG87. Confira sempre a bula do produto usado. */
+const FARM = [
+ {k:'metilfenidato', cls:'estim', n:'Metilfenidato', rx:/metilfenid|ritalina|concerta|rubifen/, b:'Estimulante de primeira linha no TDAH, com eficácia bem documentada em crianças e adultos. Medir PA, FC, peso e altura antes e durante o uso (NICE NG87). Um medicamento por vez, ajustando a dose aos poucos.',
+  al:['Bula (Ritalina): contraindicado com ansiedade, tensão ou agitação, hipertireoidismo, cardiopatias, hipertensão grave, glaucoma, feocromocitoma, uso de IMAO e síndrome de Tourette pessoal ou familiar. Confira a bula do produto usado.']},
+ {k:'lisdex', cls:'estim', n:'Lisdexanfetamina', rx:/lisdexanf|venvanse/, b:'Estimulante de liberação gradual (pró-fármaco da dexanfetamina). Mesmo monitoramento: PA, FC, peso e altura; um medicamento por vez.',
+  al:['Bula (Venvanse): contraindicada com cardiopatia, arteriosclerose, hipertensão moderada a grave, hipertireoidismo, glaucoma, ansiedade intensa, histórico de abuso de drogas, uso de IMAO e alergia a estimulantes. Confira a bula.']},
+ {k:'atomoxetina', cls:'naoest', n:'Atomoxetina', rx:/atomoxet|atentah|strattera/, b:'Não estimulante, aprovado para TDAH; o efeito leva algumas semanas. Costuma ser considerada quando há ansiedade, tiques, risco de uso indevido ou resposta ruim ao estimulante.',
+  al:['Bula: alerta de pensamentos suicidas em crianças e adolescentes (acompanhar o humor nas primeiras semanas e a cada ajuste); raros casos de lesão hepática; contraindicada com IMAO, glaucoma de ângulo estreito, feocromocitoma e doença cardiovascular grave.']},
+ {k:'bupropiona', cls:'naoest', n:'Bupropiona', rx:/bupropion|wellbutrin|zyban/, b:'Antidepressivo usado como alternativa no TDAH do adulto, fora da bula para essa indicação (off-label).',
+  al:['Baixa o limiar convulsivo: contraindicada em epilepsia, transtorno alimentar e na retirada brusca de álcool ou benzodiazepínico. Não usar com IMAO. Inibe o CYP2D6 e eleva o nível de atomoxetina.']},
+ {k:'alfa2', cls:'alfa2', n:'Clonidina ou guanfacina', rx:/clonidin|atensina|guanfacin|intuniv/, b:'Agonista alfa-2: uso fora da bula no TDAH, como alternativa ou complemento (sono, agitação, tiques).',
+  al:['Causa sedação e queda de pressão e de frequência cardíaca. Não suspender de uma vez: risco de hipertensão de rebote.']},
+ {k:'antid', cls:'antid', n:'Antidepressivo', rx:/sertralin|fluoxetin|paroxetin|escitalopram|citalopram|venlafaxin|desvenlafaxin|duloxetin|amitriptilin|nortriptilin|imipramin|clomipramin|mirtazapin|trazodon/, b:'Antidepressivo: não trata o TDAH em si. Antes de iniciar, confirme que o espectro bipolar foi rastreado.'},
+ {k:'imao', cls:'imao', n:'IMAO', rx:/moclobemid|tranilcipromin|fenelzin|selegilin|rasagilin|\bimao\b/, b:'IMAO: interação grave com estimulantes e atomoxetina; respeitar o intervalo de 14 dias entre eles (bulas).'}
+];
+const QUICK = ['Metilfenidato','Lisdexanfetamina','Atomoxetina','Melatonina','Ferro','Magnésio','Ômega-3','Vitamina D','Zinco','Vitamina B12'];
+
+/* Exames: mesmos selos dos fenótipos (r = triagem de causas comuns, s = se indicado, x = exploratório). Nenhum exame confirma o TDAH. */
+const EXTRA_EX = [
+ {t:'Base e triagem de causas comuns', ex:[['Hemograma completo','r'],['Ferritina','r'],['Audiometria','r'],['TSH e T4 livre','s'],['Glicemia de jejum','s'],['25-OH vitamina D','s'],['Vitamina B12','s'],['Zinco sérico','s'],['Magnésio sérico','s'],['Função hepática e renal (TGO, TGP, creatinina)','s']]},
+ {t:'Segurança antes de estimulante (conforme a história e o exame)', ex:[['ECG de repouso','s'],['Avaliação cardiológica','s']]},
+ {t:'Dirigidos por sinais de alerta (exames e encaminhamentos)', ex:[['Polissonografia','s'],['EEG','s'],['Triagem toxicológica (urina)','s'],['Avaliação neuropsicológica','s'],['Avaliação oftalmológica','s'],['Avaliação fonoaudiológica','s'],['Genética clínica (avaliação)','s']]}
+];
+
+/* ===== Estado, persistência e pontuação ===== */
+const LS = 'anamnese-tdah-v1';
+const $ = (s, r) => (r || document).querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const novo = () => ({v:{}, ouro:{}, ex:[], inc:{}, cen:{}, cenN:{}, livre:'', expl:'', med:[], exv:{}, faixa:''});
+let S = novo(), tela = 'A', aberto = {}, tSalvar = null, tToast = null;
+const OURO = {S:'Sim', T:'Talvez', N:'Não'};
+
+function carregar(){
+  try{ const d = JSON.parse(localStorage.getItem(LS) || 'null'); if (d && d.S){ S = Object.assign(novo(), d.S); saneS(); } }catch(e){}
+}
+function salvar(){
+  clearTimeout(tSalvar);
+  tSalvar = setTimeout(() => {
+    let ok = true;
+    try{ localStorage.setItem(LS, JSON.stringify({S:S, t:Date.now()})); }catch(e){ ok = false; }
+    const h = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    $('#estado').textContent = ok ? 'Rascunho salvo neste computador às ' + h : 'Não foi possível salvar no navegador. Use “Salvar arquivo”.';
+  }, 250);
+}
+function toast(m){
+  const t = $('#toast'); t.textContent = m; t.classList.add('on');
+  clearTimeout(tToast); tToast = setTimeout(() => t.classList.remove('on'), 2600);
+}
+
+const chave = (b, gi, ii) => ii === undefined ? b.id + '.' + gi : b.id + '.' + gi + '.' + ii;
+const V = k => S.v[k] || '';
+
+/* Faixa etária: automática pela idade (bloco A) ou escolhida. Grupos com so:'c' ou so:'a' só aparecem na faixa correspondente. */
+function faixa(){ if (S.faixa === 'c' || S.faixa === 'a') return S.faixa; const a = idadeAnos(); return a == null ? '' : (a < 18 ? 'c' : 'a'); }
+const vis = g => !g.so || !faixa() || g.so === faixa();
+
+/* Contagem dos critérios DSM-5-TR a partir dos itens marcados “Sim” (blocos B, C e D). Não é diagnóstico. */
+function dsm(){
+  const r = {I:0, H:0, nI:0, nH:0, crit:0, critN:0, critT:0};
+  BLOCOS.forEach(b => b.grupos.forEach((g, gi) => {
+    if (g.dsm && g.tipo === 'tri'){ r['n' + g.dsm] = g.itens.length; g.itens.forEach((_, ii) => { if (S.v[chave(b, gi, ii)] === 'S') r[g.dsm]++; }); }
+    if (g.crit && g.tipo === 'tri'){ r.critT = g.itens.length; g.itens.forEach((_, ii) => { const v = S.v[chave(b, gi, ii)]; if (v === 'S') r.crit++; if (v) r.critN++; }); }
+  }));
+  const a = idadeAnos(), f = faixa();
+  r.lim = a != null ? (a >= 17 ? 5 : 6) : (f === 'a' ? 5 : f === 'c' ? 6 : null);
+  r.apre = null;
+  if (r.lim){ const i = r.I >= r.lim, h = r.H >= r.lim; r.apre = i && h ? 'combinada' : i ? 'predominantemente desatenta' : h ? 'predominantemente hiperativa e impulsiva' : null; }
+  return r;
+}
+function textoDsm(d){
+  const lim = d.lim ? String(d.lim) : '6 até 16 anos, 5 a partir de 17';
+  return {
+    i:'Desatenção: ' + d.I + ' de ' + d.nI + ' (limiar ' + lim + ')',
+    h:'Hiperatividade e impulsividade: ' + d.H + ' de ' + d.nH + ' (limiar ' + lim + ')',
+    c:'Início, contextos, prejuízo e exclusões: ' + d.crit + ' de ' + d.critT + ' confirmados',
+    a:d.apre ? 'A contagem corresponde à apresentação ' + d.apre + ', se início, contextos, prejuízo e exclusões forem confirmados.' : ((d.I + d.H) ? 'Nenhum dos dois domínios atingiu o limiar.' : '')
+  };
+}
+function htmlDsm(){
+  const d = dsm(), t = textoDsm(d);
+  return '<div class="dsm-box"><h3>Critérios DSM-5-TR (contagem)</h3><p class="sub" style="margin:0 0 4px">Soma dos “Sim” dos blocos B, C e D. É uma contagem, não um diagnóstico.</p>' +
+    '<p>' + esc(t.i) + '</p><p>' + esc(t.h) + '</p><p>' + esc(t.c) + '</p>' + (t.a ? '<p><b>' + esc(t.a) + '</b></p>' : '') + '</div>';
+}
+/* Máximo de sinais possíveis por fenótipo, contado só nos grupos visíveis na faixa etária */
+const maxCache = {};
+function maxN(n){
+  const f = faixa();
+  if (!maxCache[f]){
+    const m = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0};
+    const add = t => { if (t) [...t].forEach(d => m[d]++); };
+    BLOCOS.forEach(b => b.grupos.forEach(g => {
+      if (!vis(g)) return;
+      if (g.tipo === 'chips') g.op.forEach(o => add(o[1]));
+      else if (g.tipo === 'tri') g.itens.forEach(i => add(i[1]));
+      else if (g.tipo === 'campos') g.itens.forEach(i => { if (i[1] === 'uni'){ const ds = new Set(); i[2].forEach(o => [...(o[1] || '')].forEach(d => ds.add(d))); ds.forEach(d => m[d]++); } });
+    }));
+    maxCache[f] = m;
+  }
+  return maxCache[f][n];
+}
+
+
+function sinais(){
+  const r = {1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[]};
+  const add = (t, l) => { if (t) [...t].forEach(d => r[d].push(l)); };
+  BLOCOS.forEach(b => b.grupos.forEach((g, gi) => {
+    if (!vis(g)) return;
+    if (g.tipo === 'chips'){ const sel = S.v[chave(b, gi)] || []; g.op.forEach(o => { if (sel.includes(o[0])) add(o[1], b.id === 'L' ? o[0] + ' (família)' : o[0]); }); }
+    else if (g.tipo === 'tri'){ g.itens.forEach((it, ii) => { if (S.v[chave(b, gi, ii)] === 'S') add(it[1], it[0].replace(/\?$/, '')); }); }
+    else if (g.tipo === 'campos'){ g.itens.forEach((it, ii) => { if (it[1] === 'uni'){ const v = S.v[chave(b, gi, ii)]; const o = it[2].find(x => x[0] === v); if (o) add(o[1], v); } }); }
+  }));
+  return r;
+}
+const peso = n => S.ouro[n] === 'S' ? 2 : S.ouro[n] === 'T' ? 1 : 0;
+function ordem(){
+  const sg = sinais();
+  return FEN.map(f => ({f:f, s:sg[f.n], r:sg[f.n].length + peso(f.n)})).sort((a, b) => b.r - a.r || a.f.n - b.f.n);
+}
+
+/* Itens marcados de um conjunto de blocos (para evidências e resumo) */
+function marcadosBloco(b){
+  const linhas = [];
+  b.grupos.forEach((g, gi) => {
+    if (!vis(g)) return;
+    if (g.tipo === 'chips'){ const sel = S.v[chave(b, gi)] || []; const l = g.op.map(o => o[0]).filter(x => sel.includes(x)); if (l.length) linhas.push([g.t, l.join('; ')]); }
+    else if (g.tipo === 'tri'){ const l = g.itens.map((it, ii) => [it[0], S.v[chave(b, gi, ii)]]).filter(x => x[1]).map(x => x[0].replace(/\?$/, '') + ': ' + (x[1] === 'S' ? 'sim' : x[1] === 'N' ? 'não' : 'não sei')); if (l.length) linhas.push([g.t, l.join('; ')]); }
+    else if (g.tipo === 'campos'){ const l = g.itens.map((it, ii) => [it[0], (S.v[chave(b, gi, ii)] || '').trim()]).filter(x => x[1]).map(x => x[0].replace(/^\d+\.\s*/, '') + ': ' + x[1]); if (l.length) linhas.push([g.t, l.join('; ')]); }
+    else if (g.tipo === 'ouro' && S.ouro[g.f]) linhas.push(['Pergunta-ouro', FEN[g.f - 1].ouro + ' ' + OURO[S.ouro[g.f]]]);
+  });
+  if ((S.v[b.id + '.nota'] || '').trim()) linhas.push(['Anotações', S.v[b.id + '.nota'].trim()]);
+  return linhas;
+}
+function contBloco(b){
+  let n = 0;
+  b.grupos.forEach((g, gi) => {
+    if (!vis(g)) return;
+    if (g.tipo === 'chips') n += (S.v[chave(b, gi)] || []).length;
+    else if (g.tipo === 'tri') g.itens.forEach((_, ii) => { if (S.v[chave(b, gi, ii)]) n++; });
+    else if (g.tipo === 'campos') g.itens.forEach((_, ii) => { if ((S.v[chave(b, gi, ii)] || '').trim()) n++; });
+    else if (g.tipo === 'ouro' && S.ouro[g.f]) n++;
+    else if (g.tipo === 'med') n += S.med.filter(m => m.n.trim()).length;
+  });
+  if ((S.v[b.id + '.nota'] || '').trim()) n++;
+  return n;
+}
+
+/* ===== Renderização ===== */
+function seg(attr, atual, ops){
+  return '<span class="seg" ' + attr + '>' + ops.map(o => '<button type="button" data-v="' + o[0] + '" class="' + (atual === o[0] ? 'on ' : '') + (o[0] === 'N' ? 'nao' : '') + '" aria-pressed="' + (atual === o[0]) + '">' + o[1] + '</button>').join('') + '</span>';
+}
+const TRI = [['S','Sim'],['N','Não'],['?','?']];
+const TRO = [['S','Sim'],['T','Talvez'],['N','Não']];
+
+function htmlGrupo(b, g, gi){
+  if (!vis(g)) return '';
+  if (g.tipo === 'med') return htmlMed();
+  if (g.tipo === 'bib') return '<div class="grupo" id="bib-area">' + htmlBibInner() + '</div>';
+  if (g.tipo === 'ouro'){
+    const f = FEN[g.f - 1];
+    return '<div class="ouro"><div class="t">Pergunta-ouro · ' + esc(f.nome) + '</div><div class="q"><span>' + esc(f.ouro) + '</span>' + seg('data-ouro="' + f.n + '"', S.ouro[f.n], TRO) + '</div></div>';
+  }
+  let h = '<div class="grupo"><h3>' + esc(g.t) + (g.dsm ? '<span class="dsmc" data-dsm="' + g.dsm + '"></span>' : '') + (g.crit ? '<span class="dsmc" data-crit="1"></span>' : '') + '</h3>' + (g.dica ? '<p class="dica">' + esc(g.dica) + '</p>' : '');
+  if (g.tipo === 'chips'){
+    const sel = S.v[chave(b, gi)] || [];
+    h += '<div class="chips" data-chips="' + chave(b, gi) + '">' + g.op.map(o => '<button type="button" class="chip' + (sel.includes(o[0]) ? ' on' : '') + '" data-l="' + esc(o[0]) + '" aria-pressed="' + sel.includes(o[0]) + '">' + esc(o[0]) + '</button>').join('') + '</div>';
+  } else if (g.tipo === 'tri'){
+    h += g.itens.map((it, ii) => '<div class="tri"><span class="q">' + esc(it[0]) + '</span>' + seg('data-tri="' + chave(b, gi, ii) + '"', S.v[chave(b, gi, ii)], TRI) + '</div>').join('');
+  } else {
+    h += '<div class="campos">' + g.itens.map((it, ii) => {
+      const k = chave(b, gi, ii);
+      if (it[1] === 'uni'){
+        const v = S.v[k];
+        return '<div class="campo largo"><label>' + esc(it[0]) + '</label><div class="chips" data-uni="' + k + '">' + it[2].map(o => '<button type="button" class="chip' + (v === o[0] ? ' on' : '') + '" data-l="' + esc(o[0]) + '" aria-pressed="' + (v === o[0]) + '">' + esc(o[0]) + '</button>').join('') + '</div></div>';
+      }
+      if (it[1] === 'area') return '<div class="campo largo"><label for="c-' + k + '">' + esc(it[0]) + '</label><textarea id="c-' + k + '" rows="2" data-k="' + k + '">' + esc(V(k)) + '</textarea></div>';
+      return '<div class="campo"><label for="c-' + k + '">' + esc(it[0]) + '</label><input id="c-' + k + '" type="text" autocomplete="off" data-k="' + k + '" value="' + esc(V(k)) + '"></div>';
+    }).join('') + '</div>';
+  }
+  return h + '</div>';
+}
+function htmlBloco(id){
+  const b = BLOCOS.find(x => x.id === id), i = BLOCOS.indexOf(b), p = BLOCOS[i - 1], n = BLOCOS[i + 1];
+  return '<section class="cartao"><h2>Bloco ' + b.id + ' · ' + esc(b.t) + '</h2>' + (b.ordemExib || b.grupos.map((_, i) => i)).map(gi => htmlGrupo(b, b.grupos[gi], gi)).join('') +
+    '<div class="campo nota-bloco largo"><label for="c-' + b.id + '-nota">Anotações do bloco ' + b.id + '</label><textarea id="c-' + b.id + '-nota" rows="2" data-k="' + b.id + '.nota">' + esc(V(b.id + '.nota')) + '</textarea></div>' +
+    '<div class="nav-bloco">' + (p ? '<button class="btn sec" data-go="' + p.id + '">← ' + p.id + ' · ' + esc(p.t) + '</button>' : '<span></span>') +
+    (n ? '<button class="btn" data-go="' + n.id + '">' + n.id + ' · ' + esc(n.t) + ' →</button>' : '<button class="btn" data-go="FIM">Fechamento →</button>') + '</div></section>';
+}
+function pintarNav(){
+  $('#nav').innerHTML = BLOCOS.map(b => { const n = contBloco(b); return '<button class="nv' + (tela === b.id ? ' at' : '') + (n ? ' tem' : '') + '" data-go="' + b.id + '"><span class="let">' + b.id + '</span><span class="nome">' + esc(b.t) + '</span><span class="qt">' + (n || '') + '</span></button>'; }).join('') +
+    '<button class="nv sep' + (tela === 'FIM' ? ' at' : '') + '" data-go="FIM"><span class="let">★</span><span class="nome">Fechamento</span></button>';
+}
+function pintarPainel(){
+  const o = ordem();
+  $('#painel').innerHTML = htmlDsm() + '<h2>Fenótipos</h2><p class="sub">Contagem de sinais marcados nos blocos. Hipóteses para investigar, não diagnóstico.</p>' + o.map(x => {
+    const f = x.f, n = x.s.length, pct = Math.min(100, Math.round(100 * n / maxN(f.n))), og = S.ouro[f.n], ab = !!aberto[f.n];
+    return '<div class="fen' + (ab ? ' aberto' : '') + '"><button class="fen-topo" data-abrir="' + f.n + '" aria-expanded="' + ab + '"><span class="pt" style="background:' + f.cor + '"></span><span class="nm">' + f.n + '. ' + esc(f.nome) + '</span><span class="ct">' + n + '/' + maxN(f.n) + (og ? '<span class="sel ' + og + '">' + OURO[og] + '</span>' : '') + '</span></button>' +
+      '<div class="barra"><i style="width:' + pct + '%"></i></div><div class="fen-det">' +
+      '<p><b>Hipótese:</b> ' + esc(f.obj) + '</p><p><b>Marcados:</b> ' + (n ? x.s.map(esc).join('; ') : '—') + '</p>' +
+      '<p><b>Sinais típicos:</b> ' + f.sinais.map(esc).join(', ') + '</p><p><b>História típica:</b> ' + f.hist.map(esc).join(', ') + '</p>' +
+      '<p><b>Pergunta-ouro:</b> ' + esc(f.ouro) + '</p>' +
+      '<p><b>Exames:</b> ' + f.ex.map(e => esc(e[0]) + '<span class="ev ' + e[1] + '">' + EVID[e[1]] + '</span>').join(', ') + '</p></div></div>';
+  }).join('') + '<p class="aviso">Nenhum exame confirma o TDAH. “Triagem” = causas comuns de sintomas parecidos; “exploratório” não faz parte das diretrizes ou não tem validação clínica: trate como hipótese, não como prova.</p>';
+}
+function pintarFaixa(){
+  const el = $('#faixa-bar'); if (!el) return;
+  const f = faixa(), auto = !(S.faixa === 'c' || S.faixa === 'a');
+  el.innerHTML = '<div class="faixa"><span class="rot">Faixa etária</span>' + seg('data-faixa="1"', S.faixa || 'auto', [['auto','Automática'],['c','Criança e adolescente'],['a','Adulto']]) +
+    '<span class="ft">' + (auto ? (f ? 'pela idade do bloco A: ' + (f === 'c' ? 'criança ou adolescente' : 'adulto') : 'informe a idade no bloco A ou escolha; por ora, mostra tudo') : 'escolhida por você') + '</span></div>';
+}
+function pintarDsmCont(){
+  const d = dsm();
+  document.querySelectorAll('[data-dsm]').forEach(el => { const k = el.dataset.dsm, n = d[k]; el.textContent = n + ' de ' + d['n' + k] + ' · limiar ' + (d.lim || '5 ou 6'); el.classList.toggle('at', !!d.lim && n >= d.lim); });
+  document.querySelectorAll('[data-crit]').forEach(el => { el.textContent = d.crit + ' de ' + d.critT + ' confirmados'; el.classList.toggle('at', d.critT > 0 && d.crit === d.critT); });
+}
+function pintarConteudo(){
+  pintarFaixa();
+  $('#conteudo').innerHTML = tela === 'FIM' ? htmlFim() : htmlBloco(tela);
+  pintarDsmCont();
+  if (tela === 'K') pintarMedInfo();
+}
+function atualizar(){ pintarNav(); pintarPainel(); pintarDsmCont(); salvar(); }
+function ir(id){ tela = id; pintarConteudo(); pintarNav(); window.scrollTo({top:0}); }
+
+/* ===== Eventos de preenchimento ===== */
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+  if (t.dataset.go){ ir(t.dataset.go); return; }
+  if (t.dataset.abrir){ aberto[t.dataset.abrir] = !aberto[t.dataset.abrir]; pintarPainel(); return; }
+  const ch = t.closest('[data-chips]');
+  if (ch && t.dataset.l !== undefined){
+    const k = ch.dataset.chips, a = (S.v[k] || []).slice(), i = a.indexOf(t.dataset.l);
+    if (i >= 0) a.splice(i, 1); else a.push(t.dataset.l);
+    S.v[k] = a; t.classList.toggle('on', i < 0); t.setAttribute('aria-pressed', i < 0); atualizar(); return;
+  }
+  const un = t.closest('[data-uni]');
+  if (un){
+    const k = un.dataset.uni, nv = S.v[k] === t.dataset.l ? '' : t.dataset.l; S.v[k] = nv;
+    un.querySelectorAll('.chip').forEach(c => { const on = c.dataset.l === nv; c.classList.toggle('on', on); c.setAttribute('aria-pressed', on); });
+    atualizar(); return;
+  }
+  const sg = t.closest('[data-tri],[data-ouro]');
+  if (sg && t.dataset.v){
+    const alvo = sg.dataset.tri ? S.v : S.ouro, k = sg.dataset.tri || sg.dataset.ouro;
+    alvo[k] = alvo[k] === t.dataset.v ? '' : t.dataset.v;
+    sg.querySelectorAll('button').forEach(b => { const on = b.dataset.v === alvo[k]; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+    atualizar();
+    // a pergunta-ouro também aparece no painel e no fechamento
+  }
+});
+document.addEventListener('input', ev => {
+  const t = ev.target;
+  if (t.dataset && t.dataset.k !== undefined){ S.v[t.dataset.k] = t.value; pintarNav(); if (t.dataset.k === 'A.0.1'){ pintarFaixa(); pintarPainel(); } salvar(); }
+});
+
+/* ===== Fechamento, resumo, exportação ===== */
+const hoje = () => new Date().toLocaleDateString('pt-BR');
+const minus = l => /^[A-ZÁÉÍÓÚÂÊÔÃÕÇ]{2}/.test(l) ? l : l.charAt(0).toLowerCase() + l.slice(1);
+const evidDe = l => { for (const f of FEN){ const e = f.ex.find(x => x[0] === l); if (e) return e[1]; } for (const g of EXTRA_EX){ const e = g.ex.find(x => x[0] === l); if (e) return e[1]; } return 's'; };
+function identificacao(){
+  const p = [['', V('A.0.0')], ['Idade: ', V('A.0.1')], ['Sexo: ', V('A.0.2')], ['Escolaridade ou ocupação: ', V('A.0.3')], ['Informante: ', V('A.0.4')]].filter(x => x[1].trim());
+  return p.length ? p.map(x => x[0] + x[1].trim()).join(' · ') : 'Paciente sem identificação (preencha no bloco A).';
+}
+function evidencias(ids){
+  const out = [];
+  ids.forEach(id => { const b = BLOCOS.find(x => x.id === id);
+    b.grupos.forEach((g, gi) => {
+      if (!vis(g)) return;
+      if (g.tipo === 'chips') (S.v[chave(b, gi)] || []).forEach(l => out.push(l));
+      else if (g.tipo === 'tri') g.itens.forEach((it, ii) => { if (S.v[chave(b, gi, ii)] === 'S') out.push(it[0].replace(/\?$/, '')); });
+      else if (g.tipo === 'campos') g.itens.forEach((it, ii) => { if (it[1] === 'uni'){ const o = it[2].find(x => x[0] === S.v[chave(b, gi, ii)]); if (o && o[1]) out.push(o[0]); } });
+    });
+  });
+  return out;
+}
+/* Padrão: os 3 primeiros fenótipos que tenham sinal do próprio paciente ou pergunta-ouro (só história familiar não entra sozinha). */
+const proprio = n => sinais()[n].some(s => !/\(família\)$/.test(s)) || peso(n) > 0;
+const incluido = (n, pos) => S.inc[n] !== undefined ? !!S.inc[n] : (pos < 3 && proprio(n));
+function cardFen(x, pos){
+  const f = x.f, n = x.s.length, og = S.ouro[f.n];
+  return '<div class="fcard"><div class="cab"><span class="pt" style="width:10px;height:10px;border-radius:50%;background:' + f.cor + '"></span><b>' + f.n + '. ' + esc(f.nome) + '</b><span class="ct">' + n + '/' + maxN(f.n) + ' sinais' + (og ? '<span class="sel ' + og + '">Ouro: ' + OURO[og] + '</span>' : '') + '</span></div>' +
+    '<p><b>Marcados:</b> ' + (n ? x.s.map(esc).join('; ') : '—') + '</p><p><b>Hipótese a investigar:</b> ' + esc(f.obj) + '</p><p><b>Pergunta-ouro:</b> ' + esc(f.ouro) + '</p>' +
+    '<div class="chips" data-ex="1">' + f.ex.map(e => '<button type="button" class="chip' + (S.ex.includes(e[0]) ? ' on' : '') + '" data-l="' + esc(e[0]) + '" aria-pressed="' + S.ex.includes(e[0]) + '">' + esc(e[0]) + '<span class="ev ' + e[1] + '">' + EVID[e[1]] + '</span></button>').join('') + '</div>' +
+    '<label class="inc"><input type="checkbox" data-inc="' + f.n + '"' + (incluido(f.n, pos) ? ' checked' : '') + '> Incluir na explicação</label></div>';
+}
+function htmlFim(){
+  const o = ordem(), com = o.filter(x => x.r > 0), sem = o.filter(x => x.r === 0);
+  let h = '<section class="cartao"><h2>Fechamento da consulta</h2><p class="sub">' + esc(identificacao()) + '</p>';
+  h += htmlDsm();
+  h += '<div class="sec"><h3>As 6 perguntas centrais</h3>' + CENTRAL.map((c, i) => {
+    const ev = evidencias(c.blocos), sel = S.cen[i] || [];
+    return '<div class="pergunta"><div class="q">' + (i + 1) + '. ' + esc(c.q) + '</div><p class="evid">' + (ev.length ? 'Marcado (blocos ' + c.blocos.join(', ') + '): ' + ev.slice(0, 14).map(esc).join('; ') + (ev.length > 14 ? ' (+' + (ev.length - 14) + ')' : '') : 'Nada marcado ainda nos blocos ' + c.blocos.join(', ') + '.') + '</p>' +
+      '<div class="chips" data-cen="' + i + '">' + c.chips.map(l => '<button type="button" class="chip' + (sel.includes(l) ? ' on' : '') + '" data-l="' + esc(l) + '" aria-pressed="' + sel.includes(l) + '">' + esc(l) + '</button>').join('') + '</div>' +
+      '<div class="campo largo" style="margin-top:6px"><label for="cn-' + i + '">Conclusão</label><textarea id="cn-' + i + '" rows="2" data-cn="' + i + '">' + esc(S.cenN[i] || '') + '</textarea></div></div>';
+  }).join('') + '</div>';
+  h += '<div class="sec"><h3>Fenótipos sinalizados</h3><p class="sub">Ordenados pela contagem de sinais marcados (a pergunta-ouro “Sim” soma 2, “Talvez” soma 1). Escolha os exames a considerar.</p>' +
+    (com.length ? com.map((x, i) => cardFen(x, i)).join('') : '<p class="evid">Nenhum sinal marcado ainda.</p>') +
+    (sem.length ? '<details><summary class="evid" style="cursor:pointer">Sem sinais marcados (' + sem.length + ')</summary>' + sem.map((x, i) => cardFen(x, com.length + i)).join('') + '</details>' : '') + '</div>';
+  h += htmlFimExtra();
+  h += '<div class="sec"><h3>Plano, focos de investigação e observações</h3><div class="campo largo"><textarea rows="4" aria-label="Plano, focos e observações" data-livre="1">' + esc(S.livre) + '</textarea></div></div>';
+  h += '<div class="sec sec-pais"><h3>Explicação para o paciente e a família</h3><p class="sub">Rascunho em linguagem simples, com os sinais que você marcou. Edite à vontade antes de usar.</p>' +
+    '<textarea class="grande" data-expl="1" aria-label="Explicação para o paciente e a família">' + esc(S.expl) + '</textarea>' +
+    '<div class="linha-btn"><button class="btn" data-acao="gerar">Gerar rascunho</button><button class="btn sec" data-acao="copiar-pais">Copiar explicação</button><button class="btn sec" data-acao="imp-pais">Imprimir explicação</button></div></div>';
+  h += '<div class="sec"><h3>Resumo clínico</h3><div class="linha-btn"><button class="btn" data-acao="copiar-clinico">Copiar resumo clínico</button><button class="btn sec" data-acao="imp-clinico">Imprimir resumo</button></div></div>';
+  return h + '</section>';
+}
+
+const SENS = [RT.suic, RT.psic, RT.manA, RT.manB, RT.manC, RT.droga];
+function rascunho(){
+  const partes = ordem().map((x, i) => ({x:x, i:i})).filter(p => p.x.r > 0 && incluido(p.x.f.n, p.i)).map(p =>
+    p.x.f.expl.replace('{sinais}', (l => l.length ? ' (' + l.slice(0, 4).map(minus).join(', ') + ')' : '')(p.x.s.filter(s => !/\(família\)$/.test(s) && !SENS.includes(s) && s.length <= 48))));
+  return (partes.length ? partes.join('\n\n') + '\n\n' : '') + EXPL_FINAL;
+}
+function examesEscolhidos(){ return S.ex.map(l => { const r = S.exv[l] || {}; return l + (evidDe(l) === 'x' ? ' (exploratório)' : '') + (resultado(l) ? ' — ' + resultado(l) + (r.d ? ' (' + fmtData(r.d) + ')' : '') : ''); }); }
+function resumoClinico(){
+  const L = [], o = ordem();
+  L.push('ANAMNESE FUNCIONAL — TDAH', 'Data: ' + hoje(), identificacao() + (faixa() ? ' · Faixa: ' + (faixa() === 'c' ? 'criança ou adolescente' : 'adulto') : ''), '');
+  const q = (V('A.1.0') || '').trim(); if (q) L.push('QUEIXA PRINCIPAL: ' + q);
+  const metas = S.v['A.2'] || []; if (metas.length) L.push('METAS DO PACIENTE OU DA FAMÍLIA: ' + metas.join('; '));
+  const D = dsm(), TD = textoDsm(D);
+  L.push('', 'CRITÉRIOS DSM-5-TR (contagem do que foi marcado; não é diagnóstico)', TD.i, TD.h, TD.c); if (TD.a) L.push(TD.a);
+  L.push('', 'PERGUNTAS CENTRAIS');
+  CENTRAL.forEach((c, i) => {
+    const ev = evidencias(c.blocos), sel = S.cen[i] || [], cn = (S.cenN[i] || '').trim();
+    L.push((i + 1) + '. ' + c.q);
+    if (ev.length) L.push('   Marcado: ' + ev.slice(0, 14).join('; ') + (ev.length > 14 ? ' (+' + (ev.length - 14) + ')' : ''));
+    if (sel.length || cn) L.push('   Avaliação: ' + sel.join('; ') + (sel.length && cn ? '. ' : '') + cn);
+  });
+  const com = o.filter(x => x.r > 0);
+  L.push('', 'FENÓTIPOS (contagem de sinais marcados; hipóteses para investigar, não diagnóstico)');
+  if (!com.length) L.push('Nenhum sinal marcado.');
+  com.forEach((x, i) => {
+    const f = x.f, og = S.ouro[f.n], ex = f.ex.map(e => e[0]).filter(e => S.ex.includes(e));
+    L.push((i + 1) + ') ' + f.nome + ' — ' + x.s.length + '/' + maxN(f.n) + ' sinais' + (og ? ' · pergunta-ouro: ' + OURO[og] : ''));
+    if (x.s.length) L.push('   Marcados: ' + x.s.join('; '));
+    L.push('   Hipótese: ' + f.obj);
+    if (ex.length) L.push('   Exames considerados: ' + ex.join('; '));
+  });
+  const exs = examesEscolhidos(); L.push('', 'EXAMES CONSIDERADOS: ' + (exs.length ? exs.join('; ') : 'nenhum selecionado'));
+  resumoExtra().forEach(x => L.push(x));
+  if (S.livre.trim()) L.push('', 'PLANO, FOCOS E OBSERVAÇÕES', S.livre.trim());
+  L.push('', 'ACHADOS POR BLOCO');
+  BLOCOS.forEach(b => { const m = marcadosBloco(b); if (!m.length) return; L.push(b.id + '. ' + b.t); m.forEach(x => L.push('  - ' + x[0] + ': ' + x[1])); });
+  L.push('', 'Hipóteses para investigar, não diagnósticos fechados. O diagnóstico de TDAH é clínico.');
+  return L.join('\n');
+}
+function textoPais(){
+  const n = V('A.0.0').trim();
+  return 'Explicação para o paciente e a família' + (n ? ' — ' + n : '') + '\n' + hoje() + '\n\n' + (S.expl || '').trim() + '\n\nDr. Lucas Menezes · Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349 · Alma Clinic — Limeira/SP';
+}
+
+function copiarTexto(txt, msg){
+  const ok = () => toast(msg), plano = () => {
+    try{ const ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); const d = document.execCommand('copy'); document.body.removeChild(ta); d ? ok() : toast('Não consegui copiar. Selecione e copie à mão.'); }catch(e){ toast('Não consegui copiar. Selecione e copie à mão.'); }
+  };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok).catch(plano); else plano();
+}
+let modoImp = 'clinico';
+function imprimir(m){ modoImp = m; window.print(); modoImp = 'clinico'; }
+window.addEventListener('beforeprint', () => { $('#folha').textContent = modoImp === 'pais' ? textoPais() : resumoClinico(); });
+window.addEventListener('afterprint', () => { modoImp = 'clinico'; });
+
+function salvarArquivo(){
+  const blob = new Blob([JSON.stringify({tipo:'tdah', versao:1, exportado:new Date().toISOString(), S:S}, null, 1)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'anamnese-tdah-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+  toast('Arquivo salvo na pasta de downloads');
+}
+function abrirArquivo(f){
+  const r = new FileReader();
+  r.onload = () => { try{ const d = JSON.parse(r.result); if (d && d.S && d.tipo !== 'tdah'){ toast('Este arquivo é de outra anamnese, não de TDAH'); return; } if (!d || !d.S) throw 0; S = Object.assign(novo(), d.S); saneS(); tela = 'A'; tudo(); salvar(); toast('Arquivo aberto'); }catch(e){ toast('Arquivo inválido'); } };
+  r.readAsText(f);
+}
+function tudo(){ pintarNav(); pintarConteudo(); pintarPainel(); }
+
+/* Botão que pede um segundo toque para confirmar */
+const armados = new WeakMap();
+function duplo(btn, rotulo, fn){
+  if (armados.has(btn)){ clearTimeout(armados.get(btn).t); btn.textContent = armados.get(btn).o; armados.delete(btn); fn(); return; }
+  const o = btn.textContent; btn.textContent = rotulo;
+  armados.set(btn, {o:o, t:setTimeout(() => { btn.textContent = o; armados.delete(btn); }, 4000)});
+}
+
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+  const cen = t.closest('[data-cen]');
+  if (cen && t.dataset.l !== undefined){
+    const i = cen.dataset.cen, a = (S.cen[i] || []).slice(), j = a.indexOf(t.dataset.l);
+    if (j >= 0) a.splice(j, 1); else a.push(t.dataset.l);
+    S.cen[i] = a; t.classList.toggle('on', j < 0); t.setAttribute('aria-pressed', j < 0); salvar(); return;
+  }
+  if (t.closest('[data-ex]') && t.dataset.l !== undefined){
+    const j = S.ex.indexOf(t.dataset.l); if (j >= 0) S.ex.splice(j, 1); else S.ex.push(t.dataset.l);
+    document.querySelectorAll('[data-ex] .chip').forEach(c => { const on = S.ex.includes(c.dataset.l); c.classList.toggle('on', on); c.setAttribute('aria-pressed', on); });
+    salvar(); return;
+  }
+  const a = t.dataset.acao; if (!a) return;
+  if (a === 'gerar'){ const ta = $('[data-expl]'); const fazer = () => { S.expl = rascunho(); ta.value = S.expl; salvar(); toast('Rascunho gerado'); }; if (ta.value.trim()) duplo(t, 'Substituir o texto atual? Toque de novo', fazer); else fazer(); }
+  else if (a === 'copiar-pais') copiarTexto((S.expl || '').trim(), 'Explicação copiada');
+  else if (a === 'copiar-clinico') copiarTexto(resumoClinico(), 'Resumo clínico copiado');
+  else if (a === 'imp-pais') imprimir('pais');
+  else if (a === 'imp-clinico') imprimir('clinico');
+});
+document.addEventListener('input', ev => {
+  const t = ev.target; if (!t.dataset) return;
+  if (t.dataset.cn !== undefined) S.cenN[t.dataset.cn] = t.value;
+  else if (t.dataset.livre) S.livre = t.value;
+  else if (t.dataset.expl) S.expl = t.value;
+  else return;
+  salvar();
+});
+document.addEventListener('change', ev => {
+  const t = ev.target; if (t.dataset && t.dataset.inc){ S.inc[t.dataset.inc] = t.checked; salvar(); }
+});
+
+$('#b-salvar').addEventListener('click', salvarArquivo);
+$('#b-abrir').addEventListener('click', () => $('#f-abrir').click());
+$('#f-abrir').addEventListener('change', e => { if (e.target.files[0]) abrirArquivo(e.target.files[0]); e.target.value = ''; });
+$('#b-nova').addEventListener('click', e => duplo(e.currentTarget, 'Apagar tudo? Toque de novo', () => {
+  S = novo(); try{ localStorage.removeItem(LS); }catch(x){} tela = 'A'; aberto = {}; tudo(); $('#estado').textContent = 'Nova consulta iniciada'; window.scrollTo({top:0});
+}));
+
+/* ===== Lista estruturada de medicamentos e suplementos, alertas e biblioteca ===== */
+const LSB = 'anamnese-tdah-bib-v1';
+/* Biblioteca da pós embutida no site só criptografada (AES-GCM; chave derivada da senha por PBKDF2). Sem a senha, o conteúdo não é legível aqui. */
+let BIB_ENC = null;
+try{ const el = document.getElementById('bib-enc'); BIB_ENC = el ? JSON.parse(el.textContent) : null; }catch(e){ BIB_ENC = null; }
+const sem = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const fmtData = iso => /^\d{4}-\d{2}-\d{2}$/.test(iso || '') ? iso.slice(8) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : (iso || '');
+const resultado = l => ((S.exv[l] || {}).v || '').trim();
+const achaAtivo = nome => { const t = sem(nome); return ATIVOS.concat(FARM).find(a => a.rx.test(t)) || null; };
+const num = v => String(Math.round(v * 10) / 10).replace('.', ',');
+function saneS(){
+  if (S.faixa !== 'c' && S.faixa !== 'a') S.faixa = '';
+  if (!S.exv || typeof S.exv !== 'object' || Array.isArray(S.exv)) S.exv = {};
+  S.med = (Array.isArray(S.med) ? S.med : []).filter(m => m && typeof m === 'object').map(m => ({n:String(m.n || ''), d:String(m.d || ''), ini:String(m.ini || ''), st:['uso', 'previo', 'plan'].includes(m.st) ? m.st : 'uso', r:String(m.r || ''), o:String(m.o || '')}));
+}
+function idadeAnos(){
+  const t = V('A.0.1').toLowerCase().replace(/(\d),(\d)/g, '$1.$2');
+  let a = 0, ok = false, m;
+  if ((m = t.match(/(\d+)\s*a\s*(\d+)\s*m\b/))){ a = +m[1] + (+m[2]) / 12; return a; }
+  if ((m = t.match(/(\d+(?:\.\d+)?)\s*(?:anos?|a)\b/))){ a += parseFloat(m[1]); ok = true; }
+  if ((m = t.match(/(\d+)\s*(?:meses|mes|m)\b/))){ a += (+m[1]) / 12; ok = true; }
+  if (!ok && (m = t.match(/^\s*(\d+(?:\.\d+)?)\s*$/))){ a = parseFloat(m[1]); ok = true; }
+  return ok ? a : null;
+}
+/* Lê a primeira dose (usa o limite superior de faixas) e multiplica por "Nx/dia" quando houver. */
+function doseDia(txt){
+  const t = String(txt || '').toLowerCase().replace(/(\d),(\d)/g, '$1.$2');
+  const m = t.match(/(\d+(?:\.\d+)?)(?:\s*(?:-|–|—|a)\s*(\d+(?:\.\d+)?))?\s*(mg|mcg|µg|μg|ug|g|ui|iu)(?![a-z])/);
+  if (!m) return null;
+  let v = parseFloat(m[2] || m[1]);
+  const x = t.match(/(\d+)(?:\s*(?:-|–|—|a)\s*(\d+))?\s*x\s*(?:\/|ao|por)?\s*dia/);
+  if (x) v *= parseFloat(x[2] || x[1]);
+  const u = m[3] === 'iu' ? 'ui' : /^[µμ]g$|^ug$/.test(m[3]) ? 'mcg' : m[3];
+  return {v:v, u:u, faixa:!!m[2]};
+}
+function paraBase(d, a){
+  const F = a.ul.u === 'mg' ? {mg:1, g:1000, mcg:0.001} : {mcg:1, mg:1000, g:1e6};
+  if (F[d.u] != null) return d.v * F[d.u];
+  if (d.u === 'ui' && a.ul.ui) return d.v / a.ul.ui;
+  return null;
+}
+function ulIdade(a, anos){ if (!a.ul || anos == null) return null; const f = a.ul.f.find(x => anos < x[0]); return f ? f[1] : null; }
+function ctxClin(){
+  const nomes = sem(S.med.filter(m => m.st !== 'previo').map(m => m.n).join(' '));
+  const M = new Set(evidencias(BLOCOS.filter(b => b.id !== 'L').map(b => b.id))), F = new Set(evidencias(['L'])), t = (...l) => l.some(x => M.has(x));
+  return {
+    epi:t(RT.epi), tiques:t(RT.tiques) || F.has(RT.famTiques), ansInt:t(RT.ansInt), tireoide:t(RT.tireoide), glaucoma:t(RT.glaucoma), has:t(RT.has, RT.paAlta),
+    cardio:t(RT.cardio1, RT.cardio2, RT.cardio3, RT.sopro, RT.arrit) || F.has(RT.famMorte),
+    mania:t(RT.manA, RT.manB, RT.manC), famBip:F.has(RT.famBip), psic:t(RT.psic), suic:t(RT.suic), gest:t(RT.gest), alim:t(RT.alim),
+    droga:t(RT.droga, RT.abuso, RT.outroMed, 'Cocaína ou crack'),
+    fluvox:/fluvoxamin|luvox|revoc/.test(nomes), cyp:/fluoxetin|prozac|paroxetin|bupropion|wellbutrin/.test(nomes), imao:/moclobemid|tranilcipromin|fenelzin|selegilin|rasagilin|\bimao\b/.test(nomes)
+  };
+}
+function ctxAtivo(a, E){
+  const r = [], k = a.k, sx = a.cls === 'estim', at = k === 'atomoxetina';
+  if ((k === 'carnitina' || k === 'alcar') && E.epi) r.push('Epilepsia marcada no bloco J: há relatos de aumento de crises com carnitina. Evitar ou usar só com o neurologista.');
+  if (k === 'melatonina' && E.fluvox) r.push('Fluvoxamina em uso: eleva muito os níveis de melatonina (CYP1A2). Rever a dose.');
+  if ((sx || at || k === 'bupropiona') && E.imao) r.push('IMAO na lista: contraindicado com ' + a.n.toLowerCase() + ' (bula). Respeitar o intervalo de 14 dias.');
+  if (sx){
+    if (E.tiques) r.push(k === 'metilfenidato' ? 'Tiques ou Tourette (pessoal ou familiar) marcados: a bula contraindica o metilfenidato. Pesar risco e benefício e acompanhar os tiques.' : 'Tiques ou Tourette marcados: estimulantes podem piorar os tiques. Pesar risco e benefício e acompanhar.');
+    if (E.ansInt) r.push('Ansiedade intensa, tensão ou agitação marcadas: a bula contraindica estimulante nesse quadro. Tratar a ansiedade antes ou considerar um não estimulante.');
+    if (E.tireoide) r.push('Doença da tireoide marcada: dosar TSH e T4 livre; a bula contraindica estimulante no hipertireoidismo.');
+    if (E.glaucoma) r.push('Glaucoma marcado: a bula contraindica estimulante.');
+    if (E.mania) r.push('Humor elevado ou bipolaridade marcados: estimulante pode precipitar mania. Estabilizar o humor antes.');
+    if (E.psic) r.push('Sintomas psicóticos marcados: estimulantes podem agravar. Cautela.');
+    if (E.alim) r.push('Transtorno alimentar marcado: estimulantes reduzem o apetite e podem agravar. Cautela.');
+    if (E.droga) r.push('Uso de álcool ou drogas marcado: avaliar o risco de uso indevido e considerar não estimulante. A bula da lisdexanfetamina cita histórico de abuso de drogas como contraindicação.');
+  }
+  if (sx || at){
+    if (E.cardio) r.push('Sinal cardiovascular marcado: avaliar com ECG e cardiologia antes de iniciar (NICE NG87).');
+    if (E.has) r.push('Hipertensão ou PA elevada marcada: ' + a.n.toLowerCase() + ' pode elevar PA e FC. Controlar antes e monitorar.');
+    if (E.gest) r.push('Gestação ou lactação marcadas: pesar risco e benefício com o obstetra.');
+  }
+  if (at){
+    if (E.cyp) r.push('Fluoxetina, paroxetina ou bupropiona na lista elevam o nível da atomoxetina (CYP2D6). Ajustar a dose.');
+    if (E.suic) r.push('Ideação suicida marcada: a atomoxetina tem alerta de pensamentos suicidas em crianças e adolescentes. Avaliar o risco e acompanhar de perto.');
+    if (E.glaucoma) r.push('Glaucoma marcado: a bula contraindica a atomoxetina no glaucoma de ângulo estreito.');
+  }
+  if (k === 'bupropiona'){
+    if (E.epi) r.push('Epilepsia marcada: a bupropiona é contraindicada (baixa o limiar convulsivo).');
+    if (E.alim) r.push('Transtorno alimentar marcado: a bupropiona é contraindicada.');
+    if (E.droga) r.push('Uso de álcool ou drogas marcado: risco de convulsão na retirada brusca de álcool ou sedativos. Cautela.');
+  }
+  if ((k === 'bupropiona' || k === 'antid') && E.mania) r.push('Humor elevado ou bipolaridade marcados: antidepressivo pode induzir virada para mania. Estabilizar o humor antes.');
+  if (k === 'alfa2' && E.cardio) r.push('Sinal cardiovascular marcado: a clonidina reduz a FC e a PA. Avaliar antes.');
+  return r;
+}
+/* Avisos: i = índice da linha (ou null para avisos gerais); nivel = alta | media | info */
+function avisosMed(){
+  const out = [], anos = idadeAnos(), E = ctxClin();
+  const todas = S.med.map((m, i) => ({m:m, i:i, a:achaAtivo(m.n)})).filter(x => x.m.n.trim());
+  const vivas = todas.filter(x => x.m.st !== 'previo');
+  const soma = {}, dono = {}, vistos = {};
+  vivas.forEach(x => { if (x.a && x.a.ul){ const d = doseDia(x.m.d), v = d ? paraBase(d, x.a) : null; if (v != null){ soma[x.a.k] = (soma[x.a.k] || 0) + v; if (dono[x.a.k] === undefined) dono[x.a.k] = x.i; } } });
+  vivas.forEach(x => {
+    const a = x.a, m = x.m; if (!a) return;
+    const d = doseDia(m.d), primeira = !vistos[a.k]; vistos[a.k] = true;
+    if (a.ul && anos != null){
+      const ul = ulIdade(a, anos);
+      if (ul != null && soma[a.k] > ul){ if (dono[a.k] === x.i) out.push({i:x.i, nivel:'alta', txt:('Soma de ' + a.n + ' em uso ou planejada: ' + num(soma[a.k]) + ' ' + a.ul.u + '/dia, acima do limite superior tolerável de ' + ul + ' ' + a.ul.u + '/dia para a idade (NIH). ' + (a.ul.nota || '')).trim()}); }
+      else if (m.d.trim() && !d) out.push({i:x.i, nivel:'info', txt:'Não consegui ler a dose para checar o limite. Use o formato “100 mg/dia”.'});
+    }
+    if (d && d.faixa) out.push({i:x.i, nivel:'info', txt:'Dose em faixa: defina a dose para este paciente.'});
+    if (!primeira) return;
+    ctxAtivo(a, E).forEach(t => out.push({i:x.i, nivel:'alta', txt:t}));
+    (a.al || []).forEach(t => out.push({i:x.i, nivel:'media', txt:t}));
+    (a.ex || []).forEach(e => { if (!resultado(e[0])) out.push({i:x.i, nivel:e[1], txt:'Sem resultado de ' + e[0] + ' registrado. ' + e[2]}); });
+  });
+  const est = vivas.filter(x => x.a && x.a.cls === 'estim');
+  if (est.length > 1) out.push({i:null, nivel:'alta', txt:'Dois estimulantes na lista (em uso ou planejados): ' + est.map(x => x.m.n.trim()).join(' e ') + '. Confirme se a associação é intencional.'});
+  if (anos != null && anos < 6 && vivas.some(x => x.a && (x.a.cls === 'estim' || x.a.k === 'atomoxetina'))) out.push({i:null, nivel:'alta', txt:'Menor de 6 anos: as bulas indicam estimulantes e atomoxetina a partir dos 6 anos. Nessa idade, priorizar o treinamento dos pais e as adaptações no ambiente.'});
+  const porData = {};
+  vivas.forEach(x => { if (x.m.ini) (porData[x.m.ini] = porData[x.m.ini] || []).push(x.m.n.trim()); });
+  Object.keys(porData).sort().forEach(d => { if (porData[d].length > 1) out.push({i:null, nivel:'media', txt:'Início no mesmo dia (' + fmtData(d) + '): ' + porData[d].join(', ') + '. Um item por vez facilita saber o que ajudou ou piorou.'}); });
+  const semData = vivas.filter(x => !x.m.ini && x.m.st === 'plan');
+  if (semData.length > 1) out.push({i:null, nivel:'info', txt:semData.length + ' itens planejados sem data de início. Para introduzir um de cada vez, defina datas diferentes.'});
+  if (vivas.length >= 5) out.push({i:null, nivel:'media', txt:vivas.length + ' itens em uso ou planejados. Considere priorizar e escalonar.'});
+  if (anos == null && vivas.some(x => x.a && (x.a.ul || x.a.cls === 'estim' || x.a.k === 'atomoxetina'))) out.push({i:null, nivel:'info', txt:'Informe a idade no bloco A para checar os limites de dose e a idade mínima das bulas.'});
+  return out;
+}
+const htmlAviso = a => '<div class="malerta ' + a.nivel + '">' + (a.nivel === 'alta' ? '<b>Atenção:</b> ' : '') + esc(a.txt) + '</div>';
+function pintarMedInfo(){
+  const av = avisosMed(), box = $('#med-avisos');
+  if (box) box.innerHTML = av.filter(a => a.i === null).map(htmlAviso).join('');
+  S.med.forEach((m, i) => {
+    const el = $('#mi-' + i); if (!el) return;
+    const a = achaAtivo(m.n);
+    el.innerHTML = (a ? '<div class="mnota">' + (a.s ? '<span class="ev ' + a.s + '">' + SELO[a.s] + '</span> ' : '') + esc(a.b) + '</div>' : '') + av.filter(x => x.i === i).map(htmlAviso).join('');
+  });
+}
+function htmlLinhaMed(m, i){
+  const st = [['uso', 'Em uso'], ['previo', 'Já usou'], ['plan', 'Planejado']];
+  return '<div class="mrow"><div class="mtop"><input type="text" list="dl-ativos" autocomplete="off" aria-label="Nome do item" placeholder="Nome (ex.: melatonina, magnésio)" data-m="n" data-i="' + i + '" value="' + esc(m.n) + '">' +
+    '<span class="seg" data-mst="' + i + '">' + st.map(o => '<button type="button" data-v="' + o[0] + '" class="' + (m.st === o[0] ? 'on' : '') + '" aria-pressed="' + (m.st === o[0]) + '">' + o[1] + '</button>').join('') + '</span>' +
+    '<button type="button" class="btn sec peq" data-acao="med-del" data-i="' + i + '">Remover</button></div>' +
+    (m.o ? '<div class="mnota">Origem: ' + esc(m.o) + '</div>' : '') +
+    '<div class="mcampos"><div class="campo"><label>Dose total por dia</label><input type="text" autocomplete="off" placeholder="ex.: 100 mg/dia" data-m="d" data-i="' + i + '" value="' + esc(m.d) + '"></div>' +
+    '<div class="campo"><label>Início</label><input type="date" data-m="ini" data-i="' + i + '" value="' + esc(m.ini) + '"></div>' +
+    '<div class="campo largo"><label>Resposta, efeitos adversos ou motivo de parar</label><input type="text" autocomplete="off" data-m="r" data-i="' + i + '" value="' + esc(m.r) + '"></div></div>' +
+    '<div class="minfo" id="mi-' + i + '"></div></div>';
+}
+const SUG_F = ['Metilfenidato', 'Lisdexanfetamina', 'Atomoxetina', 'Bupropiona', 'Clonidina', 'Guanfacina', 'Sertralina', 'Escitalopram', 'Fluoxetina', 'Paroxetina', 'Venlafaxina'];
+function htmlMed(){
+  const nomes = ATIVOS.map(a => a.n).concat(SUG_F).concat(BIB ? [].concat.apply([], BIB.formulacoes.concat(BIB.exemplos).map(f => f.componentes.map(c => c.a))) : []);
+  const dl = '<datalist id="dl-ativos">' + nomes.filter((n, i) => nomes.indexOf(n) === i).map(n => '<option value="' + esc(n) + '"></option>').join('') + '</datalist>';
+  return '<div class="grupo"><h3>Lista estruturada: medicamentos e suplementos</h3><p class="dica">Dose total por dia, data de início e resposta de cada item, inclusive psicofármacos. Selos e limites de dose por idade valem para os ativos da referência (mais abaixo).</p>' + dl +
+    '<div id="med-avisos"></div><div id="med-linhas">' + S.med.map(htmlLinhaMed).join('') + '</div>' +
+    '<div class="linha-btn"><button type="button" class="btn sec" data-acao="med-add">+ Adicionar item</button></div>' +
+    '<div class="chips">' + QUICK.map(n => '<button type="button" class="chip" data-acao="med-quick" data-n="' + esc(n) + '">+ ' + esc(n) + '</button>').join('') + '</div></div>';
+}
+function repintarMed(){ const el = $('#med-linhas'); if (el) el.innerHTML = S.med.map(htmlLinhaMed).join(''); pintarMedInfo(); pintarNav(); salvar(); }
+function medAdd(o){ S.med.push(Object.assign({n:'', d:'', ini:'', st:'uso', r:'', o:''}, o)); repintarMed(); const ins = document.querySelectorAll('#med-linhas input[data-m="n"]'); if (ins.length && !(o && o.n)) ins[ins.length - 1].focus(); }
+
+/* Biblioteca (arquivo .json do próprio médico, guardado só neste navegador) */
+let BIB = null;
+function limparBib(d){
+  if (!d || typeof d !== 'object' || !(Array.isArray(d.formulacoes) || Array.isArray(d.exemplos) || Array.isArray(d.secoes))) return null;
+  const s = (x, n) => String(x == null ? '' : x).slice(0, n || 400), arr = (x, n) => (Array.isArray(x) ? x : []).slice(0, n || 40);
+  const form = f => { f = f || {}; return {nome:s(f.nome, 160), objetivo:s(f.objetivo, 400), selo:['i', 's', 'x'].includes(f.selo) ? f.selo : 'x', nota:s(f.nota, 500),
+    perfil:arr(f.perfil).map(x => s(x, 160)), fen:arr(f.fen, 8).map(Number).filter(n => n >= 1 && n <= 8), fenT:arr(f.fenT, 8).map(Number).filter(n => n >= 1 && n <= 8), pub:['tea', 'tdah', 'ambos'].includes(f.pub) ? f.pub : 'ambos', cuidados:arr(f.cuidados).map(x => s(x, 300)),
+    componentes:arr(f.componentes, 20).map(c => ({a:s(c && c.a, 80), d:s(c && c.d, 80), h:s(c && c.h, 60)})).filter(c => c.a)}; };
+  return {titulo:s(d.titulo, 160), fonte:s(d.fonte, 300), formulacoes:arr(d.formulacoes).map(form), exemplos:arr(d.exemplos).map(form),
+    secoes:arr(d.secoes, 20).map(x => ({t:s(x && x.t, 160), itens:arr(x && x.itens, 30).map(i => ({t:s(i && i.t, 160), linhas:arr(i && i.linhas, 30).map(l => s(l, 400))}))}))};
+}
+try{ BIB = limparBib(JSON.parse(localStorage.getItem(LSB) || 'null')); }catch(e){ BIB = null; }
+function htmlForm(f, g, j, top){
+  const E = ctxClin(), alertas = [];
+  const comps = f.componentes.map(c => { const a = achaAtivo(c.a); if (a) ctxAtivo(a, E).forEach(t => { if (!alertas.includes(t)) alertas.push(t); });
+    return '<tr><td>' + esc(c.a) + '</td><td>' + esc(c.d) + (c.h ? ', ' + esc(c.h) : '') + '</td><td>' + (a && a.s ? '<span class="ev ' + a.s + '">' + SELO[a.s] + '</span>' : '') + '</td></tr>'; }).join('');
+  const casa = f.fenT.filter(n => top.includes(n));
+  return '<div class="fcard' + (casa.length ? ' dest' : '') + '"><div class="cab"><b>' + esc(f.nome) + '</b><span class="ev ' + f.selo + '">fórmula: ' + SELO[f.selo] + '</span></div>' +
+    (casa.length ? '<p class="mnota"><b>Combina com o perfil marcado:</b> ' + casa.map(n => esc(FEN[n - 1].nome)).join('; ') + '.</p>' : '') +
+    (f.objetivo ? '<p><b>Objetivo:</b> ' + esc(f.objetivo) + '</p>' : '') + (f.perfil.length ? '<p><b>Perfil:</b> ' + f.perfil.map(esc).join('; ') + '</p>' : '') +
+    '<table class="tbib">' + comps + '</table>' + (f.cuidados.length ? '<p><b>Cuidados:</b> ' + f.cuidados.map(esc).join('; ') + '</p>' : '') +
+    (f.nota ? '<p class="mnota">' + esc(f.nota) + '</p>' : '') + alertas.map(t => htmlAviso({nivel:'alta', txt:t})).join('') +
+    '<div class="linha-btn"><button type="button" class="btn sec peq" data-acao="bib-add" data-g="' + g + '" data-j="' + j + '">Adicionar à lista como planejado</button></div></div>';
+}
+function htmlRef(){
+  const anos = idadeAnos();
+  return '<details class="det"><summary>Referência de ativos: selos e limites de dose por idade</summary><p class="mnota">Selos: <span class="ev i">indicado</span> quando há a indicação específica (ex.: deficiência confirmada); <span class="ev s">se indicado</span> caso a caso; <span class="ev x">exploratório</span> evidência preliminar ou inconsistente. Limites superiores toleráveis (NIH) valem só para suplementos' + (anos == null ? '; informe a idade no bloco A para ver o da idade.' : ' e estão mostrados para ' + num(anos) + ' ano(s).') + ' Não se aplicam a doses terapêuticas sob supervisão médica: o alerta serve para conferir se a dose é intencional.</p>' +
+    '<table class="tbib">' + ATIVOS.map(a => { const ul = ulIdade(a, anos); return '<tr><td><b>' + esc(a.n) + '</b></td><td><span class="ev ' + a.s + '">' + SELO[a.s] + '</span></td><td>' + esc(a.b) + (a.ul ? ' <i>Limite: ' + (anos == null ? 'varia com a idade' : ul == null ? 'não estabelecido para a idade' : ul + ' ' + a.ul.u + '/dia') + '.</i>' : '') + '</td></tr>'; }).join('') + '</table></details>';
+}
+function htmlRefFarm(){
+  return '<details class="det"><summary>Fármacos do TDAH: pontos de atenção (bulas e NICE NG87)</summary><p class="mnota">Resumo para conferência; não substitui a bula nem o julgamento clínico. Os alertas de cada fármaco aparecem na lista acima quando o que foi marcado nos blocos pede.</p>' +
+    '<table class="tbib">' + FARM.map(a => '<tr><td><b>' + esc(a.n) + '</b></td><td>' + esc(a.b) + (a.al || []).map(t => ' <i>' + esc(t) + '</i>').join('') + '</td></tr>').join('') + '</table></details>';
+}
+function htmlBibInner(){
+  let h = '<h3>Biblioteca de formulações e referência de ativos</h3>';
+  if (!BIB) h += (BIB_ENC ?
+    '<p class="dica">A biblioteca da sua pós já está neste site, protegida por senha. Digite a senha uma vez em cada navegador; depois ela fica salva aqui e não entra no arquivo da consulta.</p><div class="linha-btn"><input type="password" id="bib-senha" class="inp-senha" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Senha" aria-label="Senha da biblioteca"><button type="button" class="btn" data-acao="bib-desbloquear">Desbloquear</button></div><p class="dica">Ou carregue um arquivo .json com outra biblioteca:</p>' :
+    '<p class="dica">Opcional: carregue um arquivo .json com formulações e orientações (por exemplo, as do material da sua pós). O conteúdo fica só neste navegador e não entra no arquivo da consulta.</p>') +
+    '<div class="linha-btn"><button type="button" class="btn sec" data-acao="bib-abrir">Carregar biblioteca (.json)</button></div>';
+  else {
+    const top = ordem().filter(x => x.r > 0).slice(0, 3).map(x => x.f.n);
+    h += '<p class="mnota"><b>' + esc(BIB.titulo || 'Biblioteca carregada') + '</b>' + (BIB.fonte ? ' · ' + esc(BIB.fonte) : '') + '</p>' +
+      (top.length ? '<p class="mnota">Fenótipos em destaque agora: ' + top.map(n => esc(FEN[n - 1].nome)).join('; ') + '. As fórmulas que combinam aparecem primeiro.</p>' : '');
+    const ord = (l, g) => l.map((f, j) => ({f:f, j:j, g:g, c:f.fenT.some(n => top.includes(n)) ? 0 : 1})).sort((a, b) => a.c - b.c || a.j - b.j);
+    const card = x => htmlForm(x.f, x.g, x.j, top);
+    const parte = (l, g, tit) => {
+      const o = ord(l, g), a = o.filter(x => x.f.pub !== 'tea'), t = o.filter(x => x.f.pub === 'tea'); let r = '';
+      if (a.length) r += g === 'f' ? '<h4 class="h4">' + tit + '</h4>' + a.map(card).join('') : '<details class="det"><summary>' + tit + ' (' + a.length + ')</summary>' + a.map(card).join('') + '</details>';
+      if (t.length) r += '<details class="det"><summary>' + tit + ' do material para TEA (' + t.length + '), só referência</summary>' + t.map(card).join('') + '</details>';
+      return r;
+    };
+    if (BIB.formulacoes.length) h += parte(BIB.formulacoes, 'f', 'Formulações');
+    if (BIB.exemplos.length) h += parte(BIB.exemplos, 'e', 'Exemplos didáticos por objetivo');
+    BIB.secoes.forEach(s => { h += '<details class="det"><summary>' + esc(s.t) + '</summary>' + s.itens.map(i => '<p><b>' + esc(i.t) + '</b></p><ul>' + i.linhas.map(l => '<li>' + esc(l) + '</li>').join('') + '</ul>').join('') + '</details>'; });
+    h += '<div class="linha-btn"><button type="button" class="btn sec peq" data-acao="bib-abrir">Trocar biblioteca</button><button type="button" class="btn perigo peq" data-acao="bib-remover">Remover biblioteca</button></div>';
+  }
+  return h + htmlRef() + htmlRefFarm();
+}
+function repintarBib(){ const el = $('#bib-area'); if (el) el.innerHTML = htmlBibInner(); const dl = $('#dl-ativos'); if (dl) dl.outerHTML = htmlMed().match(/<datalist[\s\S]*?<\/datalist>/)[0]; }
+
+/* ===== Sinais de alerta, exames de base, resultados e resumo ===== */
+function alertasClin(){
+  const E = ctxClin(), anos = idadeAnos();
+  const M = new Set(evidencias(BLOCOS.filter(b => b.id !== 'L').map(b => b.id))), tem = (...l) => l.some(x => M.has(x));
+  const r = [];
+  if (E.suic) r.push({id:'suic', txt:'Ideação suicida ou autolesão: avaliar o risco hoje, antes de qualquer outra conduta.', ex:[]});
+  if (E.cardio) r.push({id:'cardio', txt:'Sinal cardiovascular na história, na família ou no exame: avaliar com ECG e cardiologia antes de iniciar estimulante ou atomoxetina (NICE NG87).', ex:['ECG de repouso', 'Avaliação cardiológica']});
+  if (E.has) r.push({id:'has', txt:'Hipertensão ou pressão elevada: estimulantes e atomoxetina elevam PA e FC. Controlar antes de iniciar e monitorar a cada retorno.', ex:[]});
+  if (E.mania) r.push({id:'bip', txt:'Rastreio de humor elevado positivo ou transtorno bipolar: estabilizar o humor antes de estimulante ou antidepressivo, que podem precipitar mania.', ex:[]});
+  else if (E.famBip) r.push({id:'bip', txt:'Transtorno bipolar na família: rastrear humor elevado com cuidado antes de estimulante ou antidepressivo.', ex:[]});
+  if (E.psic) r.push({id:'psic', txt:'Sintomas psicóticos: estimulantes podem agravar. Avaliar com psiquiatria antes de tratar o TDAH.', ex:[]});
+  if (E.tiques) r.push({id:'tiq', txt:'Tiques ou Tourette (pessoal ou familiar): a bula do metilfenidato contraindica. Se for tratar, pesar risco e benefício e acompanhar os tiques; agonistas alfa-2 têm evidência de nível B para TDAH com tiques (AAN 2019).', ex:[]});
+  if (E.epi) r.push({id:'epi', txt:'Epilepsia: evitar bupropiona (baixa o limiar convulsivo) e carnitina sem o neurologista; estimulantes exigem cautela e acompanhamento.', ex:['EEG']});
+  if (E.droga) r.push({id:'droga', txt:'Uso de álcool, drogas ou estimulante sem prescrição: pode ser causa primária ou agravante. Avaliar o padrão de uso e o risco de uso indevido antes de prescrever estimulante.', ex:['Triagem toxicológica (urina)']});
+  if (E.gest) r.push({id:'gest', txt:'Gestação, lactação ou plano de engravidar: pesar risco e benefício dos medicamentos e decidir com o obstetra.', ex:[]});
+  if (E.ansInt) r.push({id:'ans', txt:'Ansiedade intensa, tensão ou agitação: a bula do metilfenidato contraindica. Tratar a ansiedade antes ou considerar um não estimulante.', ex:[]});
+  if (tem(RT.apneiaDx) || (tem(RT.ronco) && tem(RT.pausas))) r.push({id:'apneia', txt:'Apneia do sono ou ronco com pausas respiratórias: avaliar com polissonografia e otorrinolaringologia antes de atribuir os sintomas ao TDAH.', ex:['Polissonografia', 'Avaliação de adenoides e amígdalas']});
+  if (tem(RT.pernas, RT.pernas2)) r.push({id:'spi', txt:'Inquietação nas pernas ao deitar ou movimentos no sono: considerar síndrome das pernas inquietas e dosar a ferritina.', ex:['Ferritina']});
+  if (tem(RT.palidez, RT.ferroIng, RT.fragil, RT.mens)) r.push({id:'ferro', txt:'Palidez, menstruação intensa ou dieta pobre em ferro: ferritina e hemograma antes de suplementar ferro.', ex:['Ferritina', 'Hemograma completo']});
+  if (E.tireoide || tem('Tireoide aumentada ou nodular', 'Tremor fino', 'Sudorese ou taquicardia em repouso')) r.push({id:'tireoide', txt:'Doença ou sinais de alteração da tireoide: dosar TSH e T4 livre. A bula do metilfenidato contraindica no hipertireoidismo.', ex:['TSH e T4 livre']});
+  if (tem('Dificuldade visual não corrigida', 'Dificuldade auditiva ou otites de repetição')) r.push({id:'sens', txt:'Dificuldade visual ou auditiva: corrigir antes de atribuir a desatenção ao TDAH.', ex:['Audiometria', 'Avaliação oftalmológica']});
+  if (tem('Sangue ou muco nas fezes')) r.push({id:'gi', txt:'Sangue ou muco nas fezes: investigar antes de qualquer dieta restritiva ou suplemento; considerar gastroenterologia.', ex:['Calprotectina fecal']});
+  if (tem(RT.sind1, RT.sind2, RT.sind3, RT.sind4, RT.defInt, 'Anomalias congênitas')) r.push({id:'sind', txt:'Sinais sindrômicos, exposição ao álcool na gestação ou deficiência intelectual: considerar genética clínica e avaliação do neurodesenvolvimento.', ex:['Genética clínica (avaliação)', 'Avaliação neuropsicológica']});
+  if (V('D.1.0') === RT.tardio || V('D.1.0') === RT.tardio2) r.push({id:'tardio', txt:'Início depois dos 12 anos ou só na vida adulta: antes de confirmar TDAH, investigar humor, sono, substâncias, medicamentos e doenças clínicas.', ex:['TSH e T4 livre', 'Hemograma completo']});
+  if (anos != null && anos < 6) r.push({id:'idade', txt:'Menor de 6 anos: a primeira linha é o treinamento dos pais e as adaptações no ambiente; as bulas indicam estimulantes a partir dos 6 anos.', ex:[]});
+  return r;
+}
+/* Checagem antes de iniciar medicação: lê o que já foi preenchido nos blocos. Não substitui a avaliação clínica. */
+function checklist(){
+  const a = idadeAnos(), campo = k => V(k).trim() !== '';
+  const grupo = (b, t) => { const bl = BLOCOS.find(x => x.id === b), gi = bl.grupos.findIndex(g => g.t === t); return {bl:bl, gi:gi, g:bl.grupos[gi]}; };
+  const resp = (b, t, de, ate) => { const x = grupo(b, t); return x.g.itens.some((_, ii) => (de === undefined || (ii >= de && ii <= ate)) && S.v[chave(x.bl, x.gi, ii)]); };
+  return [
+    {ok:a != null && a >= 6, txt:'Idade de 6 anos ou mais (as bulas indicam estimulantes a partir dos 6 anos)'},
+    {ok:campo('M.0.0') && campo('M.0.1'), txt:'Pressão arterial e frequência cardíaca registradas (bloco M)'},
+    {ok:campo('M.0.2') && campo('M.0.3'), txt:'Peso e altura registrados (bloco M)'},
+    {ok:resp('J', 'Segurança cardiovascular'), txt:'História cardiovascular perguntada (bloco J)'},
+    {ok:resp('I', 'Rastreio de humor elevado (antes de estimulante ou antidepressivo)'), txt:'Rastreio de humor elevado respondido (bloco I)'},
+    {ok:resp('H', 'Triagem rápida'), txt:'Cafeína, nicotina, álcool e drogas perguntados (bloco H)'},
+    {ok:resp('J', 'Segurança psiquiátrica e gestação', 0, 1), txt:'Ideação suicida e sintomas psicóticos perguntados (bloco J)'},
+    {ok:resp('J', 'Segurança psiquiátrica e gestação', 2, 2) || V('A.0.2') === 'Masculino', txt:'Gestação e lactação perguntadas, quando se aplica (bloco J)'}
+  ];
+}
+function htmlCheck(){
+  const c = checklist(), n = c.filter(x => x.ok).length;
+  return '<div class="sec"><h3>Antes de iniciar medicação (' + n + ' de ' + c.length + ')</h3><p class="sub">Lê o que já foi preenchido nos blocos. Não substitui a avaliação clínica.</p>' +
+    c.map(x => '<div class="ck' + (x.ok ? ' ok' : '') + '"><i>' + (x.ok ? '✓' : '–') + '</i><span>' + esc(x.txt) + '</span></div>').join('') + '</div>';
+}
+const chipEx = e => '<button type="button" class="chip' + (S.ex.includes(e[0]) ? ' on' : '') + '" data-l="' + esc(e[0]) + '" aria-pressed="' + S.ex.includes(e[0]) + '">' + esc(e[0]) + '<span class="ev ' + e[1] + '">' + EVID[e[1]] + '</span></button>';
+function htmlExv(){
+  if (!S.ex.length) return '<h3>Resultados dos exames escolhidos</h3><p class="evid">Marque exames acima e, se quiser, registre aqui o valor e a data.</p>';
+  return '<h3>Resultados dos exames escolhidos</h3><p class="sub">Opcional. Valor e data entram no resumo clínico.</p>' + S.ex.map(l => { const r = S.exv[l] || {};
+    return '<div class="exv"><span class="exn">' + esc(l) + '</span><input type="text" autocomplete="off" placeholder="Resultado" aria-label="Resultado de ' + esc(l) + '" data-exv="' + esc(l) + '" data-f="v" value="' + esc(r.v || '') + '"><input type="date" aria-label="Data de ' + esc(l) + '" data-exv="' + esc(l) + '" data-f="d" value="' + esc(r.d || '') + '"></div>'; }).join('');
+}
+function htmlFimExtra(){
+  const al = alertasClin();
+  let h = htmlCheck();
+  if (al.length) h += '<div class="sec"><h3>Sinais de alerta para investigação dirigida</h3><p class="sub">Vêm do que você marcou nos blocos. São pontos a avaliar, não conclusões.</p>' +
+    al.map(a => '<div class="malerta media"><b>' + esc(a.txt) + '</b>' + (a.ex.length ? '<div class="mnota">A considerar: ' + a.ex.map(esc).join('; ') + '</div><button type="button" class="btn sec peq" data-acao="alerta-ex" data-id="' + a.id + '">Marcar na lista de exames</button>' : '') + '</div>').join('') + '</div>';
+  h += '<div class="sec"><h3>Exames de base e dirigidos</h3><p class="sub">Independem do fenótipo. Selos: triagem de causas comuns, se indicado ou exploratório. Nenhum exame é necessário para confirmar o TDAH, e o NICE NG87 pede ECG antes do tratamento só quando a história ou o exame indicarem.</p>' +
+    EXTRA_EX.map(g => '<p class="evid"><b>' + esc(g.t) + '</b></p><div class="chips" data-ex="1">' + g.ex.map(chipEx).join('') + '</div>').join('') + '</div>';
+  return h + '<div class="sec" id="exv-sec">' + htmlExv() + '</div>';
+}
+function sincEx(){
+  document.querySelectorAll('[data-ex] .chip').forEach(c => { const on = S.ex.includes(c.dataset.l); c.classList.toggle('on', on); c.setAttribute('aria-pressed', on); });
+  const s = $('#exv-sec'); if (s) s.innerHTML = htmlExv();
+}
+function linhaMed(m){
+  const a = achaAtivo(m.n);
+  return m.n.trim() + (m.d.trim() ? ' — ' + m.d.trim() : '') + (m.ini ? ' — início ' + fmtData(m.ini) : '') + (a && a.s ? ' [' + SELO[a.s] + ']' : '') + (m.r.trim() ? ' — ' + m.r.trim() : '') + (m.o ? ' (origem: ' + m.o + ')' : '');
+}
+function resumoExtra(){
+  const L = [], al = alertasClin(), ms = S.med.filter(m => m.n.trim());
+  L.push('', 'ANTES DE INICIAR MEDICAÇÃO (leitura do que foi preenchido nesta ferramenta)'); checklist().forEach(c => L.push((c.ok ? '[x] ' : '[ ] ') + c.txt));
+  if (al.length){ L.push('', 'SINAIS DE ALERTA PARA INVESTIGAÇÃO DIRIGIDA'); al.forEach(a => L.push('- ' + a.txt)); }
+  if (ms.length){
+    L.push('', 'MEDICAMENTOS E SUPLEMENTOS');
+    [['uso', 'Em uso'], ['plan', 'Planejados'], ['previo', 'Já usados']].forEach(p => { const l = ms.filter(m => m.st === p[0]); if (l.length){ L.push(p[1] + ':'); l.forEach(m => L.push('  - ' + linhaMed(m))); } });
+    const av = avisosMed().filter(a => a.nivel !== 'info').map(a => (a.i !== null && S.med[a.i] ? S.med[a.i].n.trim() + ': ' : '') + a.txt).filter((t, i, l) => l.indexOf(t) === i); if (av.length){ L.push('Alertas:'); av.forEach(t => L.push('  ! ' + t)); }
+  }
+  return L;
+}
+
+/* ===== Eventos dos novos recursos ===== */
+const ACOES = {
+  'med-add': () => medAdd(),
+  'med-quick': t => medAdd({n:t.dataset.n}),
+  'med-del': t => { S.med.splice(+t.dataset.i, 1); repintarMed(); },
+  'bib-abrir': () => $('#f-bib').click(),
+  'bib-desbloquear': t => desbloquear(($('#bib-senha') || {}).value, t),
+  'bib-remover': t => duplo(t, 'Remover? Toque de novo', () => { BIB = null; try{ localStorage.removeItem(LSB); }catch(e){} repintarBib(); toast('Biblioteca removida deste navegador'); }),
+  'bib-add': t => {
+    if (!BIB) return;
+    const f = (t.dataset.g === 'e' ? BIB.exemplos : BIB.formulacoes)[+t.dataset.j]; if (!f) return;
+    let n = 0, pulados = 0;
+    f.componentes.forEach(c => {
+      if (S.med.some(m => m.st !== 'previo' && sem(m.n) === sem(c.a))){ pulados++; return; }
+      S.med.push({n:c.a, d:c.d + (c.h ? ', ' + c.h : ''), ini:'', st:'plan', r:'', o:f.nome.split(':')[0].replace(/\s*\(exemplo didático\)/, '')}); n++;
+    });
+    repintarMed(); toast(n + ' item(ns) adicionado(s) como planejado' + (pulados ? '; ' + pulados + ' já estava(m) na lista' : ''));
+  },
+  'alerta-ex': t => { const a = alertasClin().find(x => x.id === t.dataset.id); if (!a) return; a.ex.forEach(l => { if (!S.ex.includes(l)) S.ex.push(l); }); sincEx(); salvar(); toast('Exames marcados'); }
+};
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+  const sg = t.closest('[data-mst]');
+  if (sg && t.dataset.v){
+    const m = S.med[+sg.dataset.mst]; if (!m) return;
+    m.st = t.dataset.v; sg.querySelectorAll('button').forEach(b => { const on = b.dataset.v === m.st; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+    pintarMedInfo(); salvar(); return;
+  }
+  if (t.closest('[data-ex]') && t.dataset.l !== undefined){ const s = $('#exv-sec'); if (s) s.innerHTML = htmlExv(); return; }
+  const f = t.dataset.acao && ACOES[t.dataset.acao]; if (f) f(t);
+});
+document.addEventListener('input', ev => {
+  const t = ev.target; if (!t.dataset) return;
+  if (t.dataset.m !== undefined){ const m = S.med[+t.dataset.i]; if (!m) return; m[t.dataset.m] = t.value; pintarMedInfo(); pintarNav(); salvar(); }
+  else if (t.dataset.exv !== undefined){ const k = t.dataset.exv; S.exv[k] = Object.assign(S.exv[k] || {}, {[t.dataset.f]:t.value}); salvar(); }
+});
+const senhaNorm = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+async function desbloquear(senha, btn){
+  if (!BIB_ENC) return;
+  if (!senhaNorm(senha)){ toast('Digite a senha'); return; }
+  if (!(window.crypto && window.crypto.subtle)){ toast('Este navegador não consegue desbloquear aqui. Use o arquivo .json.'); return; }
+  const rot = btn ? btn.textContent : '';
+  if (btn){ btn.disabled = true; btn.textContent = 'Desbloqueando…'; }
+  try{
+    const b = Uint8Array.from(atob(BIB_ENC.d), c => c.charCodeAt(0));
+    const mat = await crypto.subtle.importKey('raw', new TextEncoder().encode(senhaNorm(senha)), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt:b.slice(0, 16), iterations:BIB_ENC.it, hash:'SHA-256'}, mat, {name:'AES-GCM', length:256}, false, ['decrypt']);
+    const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:b.slice(16, 28)}, key, b.slice(28));
+    const d = limparBib(JSON.parse(new TextDecoder().decode(pt)));
+    if (!d) throw new Error('formato');
+    BIB = d; let ok = true; try{ localStorage.setItem(LSB, JSON.stringify(d)); }catch(x){ ok = false; }
+    repintarBib(); toast(ok ? 'Biblioteca desbloqueada' : 'Biblioteca desbloqueada, mas só até fechar esta aba');
+  }catch(e){
+    if (btn){ btn.disabled = false; btn.textContent = rot; }
+    toast(e && e.name === 'OperationError' ? 'Senha incorreta' : 'Não consegui desbloquear a biblioteca');
+  }
+}
+document.addEventListener('keydown', ev => {
+  if (ev.key === 'Enter' && ev.target && ev.target.id === 'bib-senha'){ ev.preventDefault(); desbloquear(ev.target.value, $('[data-acao="bib-desbloquear"]')); }
+});
+$('#f-bib').addEventListener('change', e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    let d = null; try{ d = limparBib(JSON.parse(r.result)); }catch(x){}
+    if (!d){ toast('Arquivo de biblioteca inválido'); return; }
+    BIB = d; let ok = true; try{ localStorage.setItem(LSB, JSON.stringify(d)); }catch(x){ ok = false; }
+    repintarBib(); toast(ok ? 'Biblioteca carregada' : 'Biblioteca carregada, mas só até fechar esta aba');
+  };
+  r.readAsText(f);
+});
+
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+  const sg = t.closest('[data-faixa]');
+  if (sg && t.dataset.v){ S.faixa = t.dataset.v === 'auto' ? '' : t.dataset.v; tudo(); salvar(); }
+});
+
+carregar(); tudo();
+if (Object.keys(S.v).length) $('#estado').textContent = 'Rascunho anterior recuperado neste computador';
+window.__afx = {sinais:sinais, estado:() => S, resumoClinico:resumoClinico, textoPais:textoPais, rascunho:rascunho, ordem:ordem, maxN:maxN, dsm:dsm, faixa:faixa, FEN:FEN, BLOCOS:BLOCOS, CENTRAL:CENTRAL, ir:ir, ATIVOS:ATIVOS, avisosMed:avisosMed, alertasClin:alertasClin, idadeAnos:idadeAnos, doseDia:doseDia, achaAtivo:achaAtivo, resumoExtra:resumoExtra, bib:() => BIB, checklist:checklist, FARM:FARM, ctxClin:ctxClin, EXTRA_EX:EXTRA_EX, RT:RT, EVID:EVID, SELO:SELO};
+
+})();
+</script>
+</body>
+</html>
