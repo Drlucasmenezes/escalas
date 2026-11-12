@@ -110,6 +110,27 @@ textarea.grande{width:100%;min-height:200px;border:1.5px solid var(--linha);bord
 @media print{body{background:#fff}.topo,.app,.rodape,.toast{display:none!important}
  .folha{display:block;white-space:pre-wrap;font:12pt/1.55 Georgia,'Times New Roman',serif;color:#000;padding:0}}
 
+.ev.i{background:#E3EEDC;color:#3F5230}
+.mrow{border:1px solid var(--linha);border-radius:8px;background:#fff;padding:10px 12px;margin:8px 0}
+.mtop{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mtop input[type=text]{flex:1 1 200px;min-width:0;border:1.5px solid var(--linha);border-radius:7px;padding:8px 10px;background:#fff}
+.mcampos{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:8px}
+.mcampos input,.exv input{border:1.5px solid var(--linha);border-radius:7px;padding:8px 10px;background:#fff;width:100%}
+.minfo{margin-top:6px}
+.mnota{font-size:.8rem;color:var(--suave);margin:4px 0}
+.malerta{font-size:.84rem;border-left:3px solid var(--ambar-borda);background:var(--ambar-bg);border-radius:6px;padding:6px 10px;margin:5px 0}
+.malerta.alta{border-left-color:#B26A6A;background:#F8E9E9;color:#5C2323}
+.malerta.info{border-left-color:var(--nota-borda);background:var(--nota-bg)}
+.btn.peq{padding:5px 10px;font-size:.84rem}
+.fcard.dest{border-color:var(--bronze-med);box-shadow:0 0 0 1px var(--bronze-med)}
+.tbib{width:100%;border-collapse:collapse;font-size:.86rem;margin:6px 0}
+.tbib td{border-top:1px solid #E6DCCB;padding:4px 6px;vertical-align:top}
+details.det{margin:8px 0;border:1px solid var(--linha);border-radius:8px;background:#fff;padding:6px 12px}
+details.det summary{cursor:pointer;font-weight:700;color:var(--bronze-dark);padding:4px 0}
+.h4{font-size:.92rem;margin:10px 0 4px;color:var(--bronze-dark);font-family:'Caladea',Georgia,serif}
+.exv{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(120px,1fr) 150px;gap:8px;align-items:center;margin:6px 0}
+.exv .exn{font-size:.88rem}
+@media (max-width:760px){.exv{grid-template-columns:1fr}.mtop{flex-direction:column;align-items:stretch}.mtop input[type=text]{flex:0 0 auto}}
 </style>
 </head>
 <body>
@@ -122,6 +143,7 @@ textarea.grande{width:100%;min-height:200px;border:1.5px solid var(--linha);bord
     <button class="btn perigo" id="b-nova" type="button">Nova consulta</button>
   </div>
   <input type="file" id="f-abrir" accept=".json,application/json" hidden>
+  <input type="file" id="f-bib" accept=".json,application/json" hidden>
 </header>
 <div class="app">
   <nav class="blocos" id="nav" aria-label="Blocos da anamnese"></nav>
@@ -129,7 +151,7 @@ textarea.grande{width:100%;min-height:200px;border:1.5px solid var(--linha);bord
   <aside class="painel" id="painel" aria-label="Fenótipos em tempo real"></aside>
 </div>
 <footer class="rodape">
-  Estrutura baseada no roteiro de anamnese funcional integrativa da pós-graduação em Autismo &amp; TDAH. Apoio à consulta: hipóteses para investigar, não diagnósticos; não substitui a avaliação diagnóstica convencional do TEA.<br>
+  Estrutura baseada no roteiro de anamnese funcional integrativa da pós-graduação em Autismo &amp; TDAH. Apoio à consulta: hipóteses para investigar, não diagnósticos; não substitui a avaliação diagnóstica convencional do TEA. Selos e limites de dose dos suplementos são orientação de evidência, não prescrição.<br>
   Os dados ficam só neste navegador, neste computador (não são enviados a ninguém). Ao terminar, use “Nova consulta”, principalmente em computador compartilhado.<br>
   Dr. Lucas Menezes · Médico · Pós-graduado em Psiquiatria · Pós-graduado em TDAH e Autismo · CRM-SP 276349 · Alma Clinic — Limeira/SP
 </footer>
@@ -211,21 +233,24 @@ BLOCOS.push(
   {t:'Já diagnosticadas ou suspeitas', dica:'Nenhuma comorbidade deve ser tratada como “parte do TEA” sem investigação.', tipo:'chips', op:[['TDAH',''],['Epilepsia',''],['Ansiedade',''],['TOC',''],['PANS/PANDAS',''],['Deficiência intelectual',''],['Transtorno de linguagem',''],['Distúrbio motor ou dispraxia',''],['Depressão ou distimia',''],['Tiques','']]}
 ]},
 {id:'K', t:'Medicamentos, suplementos e respostas prévias', grupos:[
-  {t:'Em uso ou já usados', tipo:'chips', op:[['Psicofármacos',''],['Melatonina',''],['Magnésio',''],['Ômega-3',''],['Probióticos',''],['Vitaminas',''],['CBD',''],['Dietas especiais',''],['Muitos medicamentos ao mesmo tempo','4']]},
+  {t:'Em uso ou já usados', dica:'Marque o que se aplica; dose, datas e resposta ficam na lista estruturada, logo abaixo.', tipo:'chips', op:[['Psicofármacos',''],['Melatonina',''],['Magnésio',''],['Ômega-3',''],['Probióticos',''],['Vitaminas',''],['CBD',''],['Dietas especiais',''],['Muitos medicamentos ao mesmo tempo','4']]},
   {t:'Psicofármacos prévios', tipo:'campos', itens:[['Quais, dose, resposta e efeitos adversos','area']]},
-  {t:'Padrões de resposta', tipo:'chips', op:[['Piorou com algum medicamento ou suplemento',''],['Melhorou com algum',''],['Resposta parcial',''],['Perda de resposta com o tempo',''],['Reações paradoxais','4'],['Intolerância a suplementos','4']]}
-]},
+  {t:'Padrões de resposta', tipo:'chips', op:[['Piorou com algum medicamento ou suplemento',''],['Melhorou com algum',''],['Resposta parcial',''],['Perda de resposta com o tempo',''],['Reações paradoxais','4'],['Intolerância a suplementos','4']]},
+  {t:'Lista estruturada de medicamentos e suplementos', tipo:'med'},
+  {t:'Biblioteca de formulações e referência de ativos', tipo:'bib'}
+], ordemExib:[0,3,1,2,4]},
 {id:'L', t:'História familiar', grupos:[
-  {t:'Condições na família', dica:'Pais, irmãos, avós, tios e primos.', tipo:'chips', op:[['TEA',''],['TDAH','6'],['Dislexia',''],['Ansiedade','6'],['Depressão','6'],['Transtorno bipolar','6'],['Esquizofrenia','6'],['Dependência química','6'],['Epilepsia',''],['Enxaqueca',''],['Diabetes',''],['Hipertensão',''],['Autoimunidade','17'],['Doença celíaca','7'],['Tireoidite','7'],['Alergias ou atopia','57'],['Distúrbios gastrointestinais','']]},
+  {t:'Condições na família', dica:'Pais, irmãos, avós, tios e primos.', tipo:'chips', op:[['TEA',''],['TDAH','6'],['Dislexia',''],['Ansiedade','6'],['Depressão','6'],['Transtorno bipolar','6'],['Esquizofrenia','6'],['Dependência química','6'],['Epilepsia',''],['Enxaqueca',''],['Diabetes',''],['Hipertensão',''],['Autoimunidade','17'],['Doença celíaca','7'],['Tireoidite','7'],['Alergias ou atopia','57'],['Distúrbios gastrointestinais',''],['Deficiência intelectual',''],['Consanguinidade','']]},
   {t:'O que estimar, pela história familiar', tipo:'chips', op:[['Carga genética neurodesenvolvimental',''],['Vulnerabilidade inflamatória ou imunológica',''],['Terreno autoimune',''],['Perfil metabólico',''],['Padrões alimentares ou ambientais compartilhados','']]}
 ]},
 {id:'M', t:'Exame físico funcional', grupos:[
-  {t:'Antropometria', tipo:'campos', itens:[['Peso','txt'],['Altura','txt'],['IMC ou percentil','txt'],['Circunferência abdominal','txt']]},
+  {t:'Antropometria', tipo:'campos', itens:[['Peso','txt'],['Altura','txt'],['IMC ou percentil','txt'],['Circunferência abdominal','txt'],['Perímetro cefálico','txt']]},
   {t:'Sinais nutricionais', tipo:'chips', op:[['Palidez',''],['Dermatite','57'],['Alterações ungueais',''],['Mucosas alteradas','']]},
   {t:'Orofaringe', tipo:'chips', op:[['Língua alterada',''],['Dentição alterada',''],['Bruxismo visível',''],['Tonsilas ou adenoides aumentadas','8'],['Respiração oral','']]},
   {t:'Abdome', tipo:'chips', op:[['Distensão',''],['Dor à palpação',''],['Constipação palpável','']]},
   {t:'Motor e neurológico', tipo:'chips', op:[['Hipotonia','3'],['Coordenação alterada','3'],['Equilíbrio alterado',''],['Planejamento motor ruim (dispraxia)','3'],['Estereotipias na consulta','']]},
-  {t:'Observação direta', tipo:'chips', op:[['Linguagem espontânea reduzida',''],['Comunicação social alterada',''],['Contato visual reduzido',''],['Atenção compartilhada reduzida',''],['Atenção oscilante','']]}
+  {t:'Observação direta', tipo:'chips', op:[['Linguagem espontânea reduzida',''],['Comunicação social alterada',''],['Contato visual reduzido',''],['Atenção compartilhada reduzida',''],['Atenção oscilante','']]},
+  {t:'Sinais sindrômicos', tipo:'chips', op:[['Dismorfismos faciais',''],['Macrocefalia',''],['Microcefalia',''],['Manchas na pele (café com leite ou hipopigmentadas)',''],['Anomalias congênitas','']]}
 ]},
 {id:'N', t:'Escalas e instrumentos', grupos:[
   {t:'Já aplicados ou disponíveis', dica:'Nenhuma escala substitui a avaliação clínica abrangente e longitudinal.', tipo:'chips', op:[['M-CHAT',''],['CARS',''],['ABC',''],['SRS',''],['AQ-10 Adolescente',''],['SDQ',''],['SNAP-IV',''],['Vanderbilt',''],['Diário intestinal',''],['Diário alimentar',''],['Diário comportamental',''],['Relatórios escolares',''],['Relatórios terapêuticos','']]},
@@ -297,16 +322,65 @@ const CENTRAL = [
  {q:'O que pode ser corrigido imediatamente?', chips:['Sono','Intestino','Seletividade e nutrição','Telas','Alergia ou via aérea','Exposição ambiental','Dor ou refluxo','Ansiedade'], blocos:['D','E','F']}
 ];
 
+/* Selos dos suplementos: i = indicado quando há a indicação específica (ex.: deficiência confirmada); s = se indicado (caso a caso);
+   x = exploratório (evidência preliminar ou inconsistente). Orientação de evidência, não substitui o julgamento clínico.
+   ul = limite superior tolerável por idade (NIH ODS / IOM), só de suplementos; f = [[idade máxima em anos (exclusiva), limite]]. */
+const SELO = {i:'indicado', s:'se indicado', x:'exploratório'};
+const ATIVOS = [
+ {k:'melatonina', n:'Melatonina', rx:/melaton/, s:'i', b:'Insônia no TEA: ensaio controlado com melatonina de liberação prolongada aumentou o tempo de sono (Gringras 2017). Higiene do sono primeiro.',
+  al:['No Brasil, suplemento industrializado só para adultos (0,21 mg/dia, Anvisa 2021). Em crianças, só manipulada e com prescrição: confirme com a farmácia.']},
+ {k:'ferro', n:'Ferro', rx:/\bferro\b|ferroso/, s:'i', b:'Só com deficiência confirmada (ferritina, hemograma, saturação). Falta de ferro piora sono e atenção.',
+  al:['Excesso é tóxico: guardar fora do alcance das crianças e reavaliar a ferritina durante o uso.'], ul:{u:'mg', f:[[14,40],[999,45]]}, ex:[['Ferritina','media','Confirme a deficiência antes de suplementar.']]},
+ {k:'vitd', n:'Vitamina D', rx:/vitamina d\b|vit\.? ?d\b|colecalciferol|\bd3\b/, s:'i', b:'Indicada se a 25-OH vitamina D estiver baixa; dosar antes e depois.',
+  ul:{u:'mcg', ui:40, f:[[0.5,25],[1,38],[4,63],[9,75],[999,100]]}, ex:[['25-OH vitamina D','info','Dosar orienta a dose.']]},
+ {k:'b12', n:'Vitamina B12', rx:/b12|cobalamina/, s:'i', b:'Indicada se B12 baixa ou limítrofe (dieta sem produtos animais, uso crônico de inibidor de bomba). Sem limite superior estabelecido.',
+  ex:[['Vitamina B12','info','Dosar orienta a conduta.']]},
+ {k:'leucovorin', n:'Ácido folínico (leucovorina)', rx:/folinic|leucovorin/, s:'x', b:'Indicação estabelecida só na deficiência cerebral de folato. Em TEA, evidência preliminar de ensaios pequenos.'},
+ {k:'folato', n:'Ácido fólico / folato', rx:/acido folico|folato|metilfolato|\bb9\b/, s:'s', b:'Corrigir se o folato estiver baixo. O limite superior vale para o ácido fólico sintético.',
+  ul:{u:'mcg', f:[[1,null],[4,300],[9,400],[14,600],[19,800],[999,1000]]}, ex:[['Folato','info','Dosar orienta a conduta.']]},
+ {k:'magnesio', n:'Magnésio', rx:/magnesi/, s:'x', b:'Para sintomas de TEA/TDAH, evidência limitada (Cochrane: magnésio com B6 sem evidência suficiente). Para constipação, o efeito osmótico é estabelecido.',
+  al:['O limite superior é de magnésio elementar, só de suplementos, e se baseia em diarreia. Confira se a dose é do sal ou do elemento.'], ul:{u:'mg', f:[[1,null],[4,65],[9,110],[999,350]], nota:'Titular e observar as fezes.'}},
+ {k:'zinco', n:'Zinco', rx:/\bzinco\b|\bzn\b/, s:'s', b:'Se ingestão baixa ou deficiência documentada (zinco sérico, dieta restrita).',
+  al:['Uso prolongado pode reduzir o cobre: monitorar.'], ul:{u:'mg', f:[[0.5,4],[1,5],[4,7],[9,12],[14,23],[19,34],[999,40]]}, ex:[['Zinco sérico','info','Dosar orienta a conduta.']]},
+ {k:'vitc', n:'Vitamina C', rx:/vitamina c\b|acido ascorbico|ascorbato|\bvit\.? ?c\b/, s:'x', b:'Evidência clínica específica em TEA/TDAH escassa; doses altas dão desconforto digestivo.',
+  ul:{u:'mg', f:[[1,null],[4,400],[9,650],[14,1200],[19,1800],[999,2000]]}},
+ {k:'b1', n:'Tiamina (B1)', rx:/tiamina|\bb1\b/, s:'x', b:'Sem limite superior estabelecido; evidência em TEA/TDAH escassa.'},
+ {k:'b2', n:'Riboflavina (B2)', rx:/riboflavina|\bb2\b/, s:'x', b:'Sem limite superior estabelecido; evidência escassa. Deixa a urina amarelo-intensa.'},
+ {k:'niacinamida', n:'Niacinamida (B3)', rx:/niacinamida|nicotinamida|niacina|\bb3\b/, s:'x', b:'Sem evidência clínica robusta em TEA/TDAH; doses muito altas (gramas) podem afetar o fígado.'},
+ {k:'p5p', n:'P5P (B6 ativa)', rx:/p5p|piridoxal|piridoxina|\bb6\b/, s:'x', b:'B6 com magnésio em TEA: estudos pequenos e de baixa qualidade (Cochrane). Doses altas e prolongadas causam neuropatia.',
+  ul:{u:'mg', f:[[1,null],[4,30],[9,40],[14,60],[19,80],[999,100]]}},
+ {k:'coq10', n:'Coenzima Q10', rx:/coq10|coenzima q|ubiquinol|ubiquinona|\bq10\b/, s:'x', b:'Estudos pequenos; a revisão Cochrane de doenças mitocondriais (2021) não achou evidência clara de benefício de suplementos como a CoQ10. Boa tolerabilidade.'},
+ {k:'nac', n:'N-acetilcisteína (NAC)', rx:/\bnac\b|acetilcisteina/, s:'x', b:'Ensaio controlado piloto em TEA (Hardan 2012, 3 a 10 anos, doses escalonadas até 2.700 mg/dia) reduziu a irritabilidade; efeito inconsistente nos demais desfechos.',
+  al:['Desconforto digestivo é comum: começar baixo e subir devagar.']},
+ {k:'alcar', n:'Acetil-L-carnitina', rx:/acetil.?l.?carnitina|\balcar\b/, s:'x', b:'Em TDAH, o ensaio controlado não mostrou benefício global; sinal em subgrupo desatento (Arnold 2007).',
+  al:['Pode causar agitação, insônia e odor corporal em crianças sensíveis.']},
+ {k:'carnitina', n:'L-carnitina', rx:/carnitina/, s:'x', b:'Indicação clara só na deficiência de carnitina documentada (perfil de acilcarnitinas). Em TEA, estudos pequenos.',
+  al:['Pode causar agitação, insônia e odor corporal; subir devagar. Cautela em epilepsia.']},
+ {k:'omega3', n:'Ômega-3', rx:/\bomega|\bepa\b|\bdha\b|oleo de peixe/, s:'x', b:'TEA: sem benefício claro nos sintomas centrais. TDAH: efeito pequeno e inconsistente nas meta-análises.',
+  al:['Efeitos digestivos leves; risco de sangramento só em doses altas.']},
+ {k:'probiotico', n:'Probiótico', rx:/probiot|lactobac|bifidobac|saccharomyces/, s:'x', b:'Evidência mista e dependente da cepa. Cautela em imunossuprimidos e com cateter central.'},
+ {k:'cbd', n:'Canabidiol (CBD)', rx:/\bcbd\b|canabidiol|cannabidiol/, s:'x', b:'Aprovado para certas epilepsias; em TEA, evidência preliminar. No Brasil exige prescrição e produto regulado.',
+  al:['Monitorar transaminases e interações (clobazam, valproato).']},
+ {k:'sulforafano', n:'Sulforafano', rx:/sulforaf/, s:'x', b:'Ensaios pequenos em TEA com resultados mistos.'}
+];
+const QUICK = ['Melatonina','Magnésio','Ômega-3','Vitamina D','Zinco','Ferro','Vitamina B12','Probiótico','NAC','Coenzima Q10'];
+
+/* Exames de base e dirigidos, fora dos fenótipos. Mesmos selos dos fenótipos (r = rotina, s = se indicado, x = exploratório). */
+const EXTRA_EX = [
+ {t:'Base e triagem', ex:[['Audiometria','r'],['Hemograma completo','r'],['25-OH vitamina D','s'],['Zinco sérico','s'],['Magnésio sérico','s'],['Saturação de transferrina','s'],['TSH e T4 livre','s'],['Glicemia e perfil lipídico','s'],['Função hepática e renal (TGO, TGP, creatinina)','s'],['Chumbo no sangue','s']]},
+ {t:'Dirigidos por sinais de alerta (exames e encaminhamentos)', ex:[['EEG de vigília e sono','s'],['Microarray cromossômico','s'],['X frágil (FMR1)','s'],['Genética clínica (avaliação)','s'],['RM de crânio','s']]}
+];
+
 /* ===== Estado, persistência e pontuação ===== */
 const LS = 'anamnese-fx-v1';
 const $ = (s, r) => (r || document).querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const novo = () => ({v:{}, ouro:{}, ex:[], inc:{}, cen:{}, cenN:{}, livre:'', expl:''});
+const novo = () => ({v:{}, ouro:{}, ex:[], inc:{}, cen:{}, cenN:{}, livre:'', expl:'', med:[], exv:{}});
 let S = novo(), tela = 'A', aberto = {}, tSalvar = null, tToast = null;
 const OURO = {S:'Sim', T:'Talvez', N:'Não'};
 
 function carregar(){
-  try{ const d = JSON.parse(localStorage.getItem(LS) || 'null'); if (d && d.S) S = Object.assign(novo(), d.S); }catch(e){}
+  try{ const d = JSON.parse(localStorage.getItem(LS) || 'null'); if (d && d.S){ S = Object.assign(novo(), d.S); saneS(); } }catch(e){}
 }
 function salvar(){
   clearTimeout(tSalvar);
@@ -372,6 +446,7 @@ function contBloco(b){
     else if (g.tipo === 'tri') g.itens.forEach((_, ii) => { if (S.v[chave(b, gi, ii)]) n++; });
     else if (g.tipo === 'campos') g.itens.forEach((_, ii) => { if ((S.v[chave(b, gi, ii)] || '').trim()) n++; });
     else if (g.tipo === 'ouro' && S.ouro[g.f]) n++;
+    else if (g.tipo === 'med') n += S.med.filter(m => m.n.trim()).length;
   });
   if ((S.v[b.id + '.nota'] || '').trim()) n++;
   return n;
@@ -385,6 +460,8 @@ const TRI = [['S','Sim'],['N','Não'],['?','?']];
 const TRO = [['S','Sim'],['T','Talvez'],['N','Não']];
 
 function htmlGrupo(b, g, gi){
+  if (g.tipo === 'med') return htmlMed();
+  if (g.tipo === 'bib') return '<div class="grupo" id="bib-area">' + htmlBibInner() + '</div>';
   if (g.tipo === 'ouro'){
     const f = FEN[g.f - 1];
     return '<div class="ouro"><div class="t">Pergunta-ouro · ' + esc(f.nome) + '</div><div class="q"><span>' + esc(f.ouro) + '</span>' + seg('data-ouro="' + f.n + '"', S.ouro[f.n], TRO) + '</div></div>';
@@ -410,7 +487,7 @@ function htmlGrupo(b, g, gi){
 }
 function htmlBloco(id){
   const b = BLOCOS.find(x => x.id === id), i = BLOCOS.indexOf(b), p = BLOCOS[i - 1], n = BLOCOS[i + 1];
-  return '<section class="cartao"><h2>Bloco ' + b.id + ' · ' + esc(b.t) + '</h2>' + b.grupos.map((g, gi) => htmlGrupo(b, g, gi)).join('') +
+  return '<section class="cartao"><h2>Bloco ' + b.id + ' · ' + esc(b.t) + '</h2>' + (b.ordemExib || b.grupos.map((_, i) => i)).map(gi => htmlGrupo(b, b.grupos[gi], gi)).join('') +
     '<div class="campo nota-bloco largo"><label for="c-' + b.id + '-nota">Anotações do bloco ' + b.id + '</label><textarea id="c-' + b.id + '-nota" rows="2" data-k="' + b.id + '.nota">' + esc(V(b.id + '.nota')) + '</textarea></div>' +
     '<div class="nav-bloco">' + (p ? '<button class="btn sec" data-go="' + p.id + '">← ' + p.id + ' · ' + esc(p.t) + '</button>' : '<span></span>') +
     (n ? '<button class="btn" data-go="' + n.id + '">' + n.id + ' · ' + esc(n.t) + ' →</button>' : '<button class="btn" data-go="FIM">Fechamento →</button>') + '</div></section>';
@@ -433,6 +510,7 @@ function pintarPainel(){
 }
 function pintarConteudo(){
   $('#conteudo').innerHTML = tela === 'FIM' ? htmlFim() : htmlBloco(tela);
+  if (tela === 'K') pintarMedInfo();
 }
 function atualizar(){ pintarNav(); pintarPainel(); salvar(); }
 function ir(id){ tela = id; pintarConteudo(); pintarNav(); window.scrollTo({top:0}); }
@@ -471,7 +549,7 @@ document.addEventListener('input', ev => {
 /* ===== Fechamento, resumo, exportação ===== */
 const hoje = () => new Date().toLocaleDateString('pt-BR');
 const minus = l => /^[A-ZÁÉÍÓÚÂÊÔÃÕÇ]{2}/.test(l) ? l : l.charAt(0).toLowerCase() + l.slice(1);
-const evidDe = l => { for (const f of FEN){ const e = f.ex.find(x => x[0] === l); if (e) return e[1]; } return 's'; };
+const evidDe = l => { for (const f of FEN){ const e = f.ex.find(x => x[0] === l); if (e) return e[1]; } for (const g of EXTRA_EX){ const e = g.ex.find(x => x[0] === l); if (e) return e[1]; } return 's'; };
 function identificacao(){
   const p = [['', V('A.0.0')], ['Idade: ', V('A.0.1')], ['Sexo: ', V('A.0.2')], ['Escolaridade: ', V('A.0.3')], ['Acompanhante: ', V('A.0.4')]].filter(x => x[1].trim());
   return p.length ? p.map(x => x[0] + x[1].trim()).join(' · ') : 'Paciente sem identificação (preencha no bloco A).';
@@ -509,6 +587,7 @@ function htmlFim(){
   h += '<div class="sec"><h3>Fenótipos sinalizados</h3><p class="sub">Ordenados pela contagem de sinais marcados (a pergunta-ouro “Sim” soma 2, “Talvez” soma 1). Escolha os exames a considerar.</p>' +
     (com.length ? com.map((x, i) => cardFen(x, i)).join('') : '<p class="evid">Nenhum sinal marcado ainda.</p>') +
     (sem.length ? '<details><summary class="evid" style="cursor:pointer">Sem sinais marcados (' + sem.length + ')</summary>' + sem.map((x, i) => cardFen(x, com.length + i)).join('') + '</details>' : '') + '</div>';
+  h += htmlFimExtra();
   h += '<div class="sec"><h3>Plano, focos de investigação e observações</h3><div class="campo largo"><textarea rows="4" aria-label="Plano, focos e observações" data-livre="1">' + esc(S.livre) + '</textarea></div></div>';
   h += '<div class="sec sec-pais"><h3>Explicação para os pais</h3><p class="sub">Rascunho em linguagem simples, com os sinais que você marcou. Edite à vontade antes de usar.</p>' +
     '<textarea class="grande" data-expl="1" aria-label="Explicação para os pais">' + esc(S.expl) + '</textarea>' +
@@ -522,7 +601,7 @@ function rascunho(){
     p.x.f.expl.replace('{sinais}', (l => l.length ? ' (' + l.slice(0, 4).map(minus).join(', ') + ')' : '')(p.x.s.filter(s => !/\(família\)$/.test(s)))));
   return (partes.length ? partes.join('\n\n') + '\n\n' : '') + EXPL_FINAL;
 }
-function examesEscolhidos(){ return S.ex.map(l => l + (evidDe(l) === 'x' ? ' (exploratório)' : '')); }
+function examesEscolhidos(){ return S.ex.map(l => { const r = S.exv[l] || {}; return l + (evidDe(l) === 'x' ? ' (exploratório)' : '') + (resultado(l) ? ' — ' + resultado(l) + (r.d ? ' (' + fmtData(r.d) + ')' : '') : ''); }); }
 function resumoClinico(){
   const L = [], o = ordem();
   L.push('ANAMNESE FUNCIONAL — TEA', 'Data: ' + hoje(), identificacao(), '');
@@ -546,6 +625,7 @@ function resumoClinico(){
     if (ex.length) L.push('   Exames considerados: ' + ex.join('; '));
   });
   const exs = examesEscolhidos(); L.push('', 'EXAMES CONSIDERADOS: ' + (exs.length ? exs.join('; ') : 'nenhum selecionado'));
+  resumoExtra().forEach(x => L.push(x));
   if (S.livre.trim()) L.push('', 'PLANO, FOCOS E OBSERVAÇÕES', S.livre.trim());
   L.push('', 'ACHADOS POR BLOCO');
   BLOCOS.forEach(b => { const m = marcadosBloco(b); if (!m.length) return; L.push(b.id + '. ' + b.t); m.forEach(x => L.push('  - ' + x[0] + ': ' + x[1])); });
@@ -569,14 +649,14 @@ window.addEventListener('beforeprint', () => { $('#folha').textContent = modoImp
 window.addEventListener('afterprint', () => { modoImp = 'clinico'; });
 
 function salvarArquivo(){
-  const blob = new Blob([JSON.stringify({versao:1, exportado:new Date().toISOString(), S:S}, null, 1)], {type:'application/json'});
+  const blob = new Blob([JSON.stringify({versao:2, exportado:new Date().toISOString(), S:S}, null, 1)], {type:'application/json'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'anamnese-funcional-' + new Date().toISOString().slice(0, 10) + '.json';
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1500);
   toast('Arquivo salvo na pasta de downloads');
 }
 function abrirArquivo(f){
   const r = new FileReader();
-  r.onload = () => { try{ const d = JSON.parse(r.result); if (!d || !d.S) throw 0; S = Object.assign(novo(), d.S); tela = 'A'; tudo(); salvar(); toast('Arquivo aberto'); }catch(e){ toast('Arquivo inválido'); } };
+  r.onload = () => { try{ const d = JSON.parse(r.result); if (!d || !d.S) throw 0; S = Object.assign(novo(), d.S); saneS(); tela = 'A'; tudo(); salvar(); toast('Arquivo aberto'); }catch(e){ toast('Arquivo inválido'); } };
   r.readAsText(f);
 }
 function tudo(){ pintarNav(); pintarConteudo(); pintarPainel(); }
@@ -628,9 +708,260 @@ $('#b-nova').addEventListener('click', e => duplo(e.currentTarget, 'Apagar tudo?
   S = novo(); try{ localStorage.removeItem(LS); }catch(x){} tela = 'A'; aberto = {}; tudo(); $('#estado').textContent = 'Nova consulta iniciada'; window.scrollTo({top:0});
 }));
 
+/* ===== Lista estruturada de medicamentos e suplementos, alertas e biblioteca ===== */
+const LSB = 'anamnese-fx-bib-v1';
+const sem = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const fmtData = iso => /^\d{4}-\d{2}-\d{2}$/.test(iso || '') ? iso.slice(8) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : (iso || '');
+const resultado = l => ((S.exv[l] || {}).v || '').trim();
+const achaAtivo = nome => { const t = sem(nome); return ATIVOS.find(a => a.rx.test(t)) || null; };
+const num = v => String(Math.round(v * 10) / 10).replace('.', ',');
+function saneS(){
+  if (!S.exv || typeof S.exv !== 'object' || Array.isArray(S.exv)) S.exv = {};
+  S.med = (Array.isArray(S.med) ? S.med : []).filter(m => m && typeof m === 'object').map(m => ({n:String(m.n || ''), d:String(m.d || ''), ini:String(m.ini || ''), st:['uso', 'previo', 'plan'].includes(m.st) ? m.st : 'uso', r:String(m.r || ''), o:String(m.o || '')}));
+}
+function idadeAnos(){
+  const t = V('A.0.1').toLowerCase().replace(/(\d),(\d)/g, '$1.$2');
+  let a = 0, ok = false, m;
+  if ((m = t.match(/(\d+)\s*a\s*(\d+)\s*m\b/))){ a = +m[1] + (+m[2]) / 12; return a; }
+  if ((m = t.match(/(\d+(?:\.\d+)?)\s*(?:anos?|a)\b/))){ a += parseFloat(m[1]); ok = true; }
+  if ((m = t.match(/(\d+)\s*(?:meses|mes|m)\b/))){ a += (+m[1]) / 12; ok = true; }
+  if (!ok && (m = t.match(/^\s*(\d+(?:\.\d+)?)\s*$/))){ a = parseFloat(m[1]); ok = true; }
+  return ok ? a : null;
+}
+/* Lê a primeira dose (usa o limite superior de faixas) e multiplica por "Nx/dia" quando houver. */
+function doseDia(txt){
+  const t = String(txt || '').toLowerCase().replace(/(\d),(\d)/g, '$1.$2');
+  const m = t.match(/(\d+(?:\.\d+)?)(?:\s*(?:-|–|—|a)\s*(\d+(?:\.\d+)?))?\s*(mg|mcg|µg|μg|ug|g|ui|iu)(?![a-z])/);
+  if (!m) return null;
+  let v = parseFloat(m[2] || m[1]);
+  const x = t.match(/(\d+)(?:\s*(?:-|–|—|a)\s*(\d+))?\s*x\s*(?:\/|ao|por)?\s*dia/);
+  if (x) v *= parseFloat(x[2] || x[1]);
+  const u = m[3] === 'iu' ? 'ui' : /^[µμ]g$|^ug$/.test(m[3]) ? 'mcg' : m[3];
+  return {v:v, u:u, faixa:!!m[2]};
+}
+function paraBase(d, a){
+  const F = a.ul.u === 'mg' ? {mg:1, g:1000, mcg:0.001} : {mcg:1, mg:1000, g:1e6};
+  if (F[d.u] != null) return d.v * F[d.u];
+  if (d.u === 'ui' && a.ul.ui) return d.v / a.ul.ui;
+  return null;
+}
+function ulIdade(a, anos){ if (!a.ul || anos == null) return null; const f = a.ul.f.find(x => anos < x[0]); return f ? f[1] : null; }
+function ctxClin(){
+  const nomes = sem(S.med.map(m => m.n).join(' ') + ' ' + V('K.1.0'));
+  return {epi:(S.v['J.0'] || []).includes('Epilepsia'), fluvox:/fluvoxamin|luvox|revoc/.test(nomes), clob:/clobazam|frisium|urbanil/.test(nomes), valp:/valpro|depakene|depakote|depakin/.test(nomes)};
+}
+function ctxAtivo(a, E){
+  const r = [];
+  if ((a.k === 'carnitina' || a.k === 'alcar') && E.epi) r.push('Epilepsia marcada no bloco J: há relatos de aumento de crises com carnitina. Evitar ou usar só com o neurologista.');
+  if (a.k === 'melatonina' && E.fluvox) r.push('Fluvoxamina em uso: eleva muito os níveis de melatonina (CYP1A2). Rever a dose.');
+  if (a.k === 'cbd' && (E.clob || E.valp)) r.push('CBD interage com ' + [E.clob ? 'clobazam' : '', E.valp ? 'valproato' : ''].filter(Boolean).join(' e ') + ': ajustar doses e acompanhar transaminases.');
+  return r;
+}
+/* Avisos: i = índice da linha (ou null para avisos gerais); nivel = alta | media | info */
+function avisosMed(){
+  const out = [], anos = idadeAnos(), E = ctxClin();
+  const todas = S.med.map((m, i) => ({m:m, i:i, a:achaAtivo(m.n)})).filter(x => x.m.n.trim());
+  const vivas = todas.filter(x => x.m.st !== 'previo');
+  const soma = {}, dono = {}, vistos = {};
+  vivas.forEach(x => { if (x.a && x.a.ul){ const d = doseDia(x.m.d), v = d ? paraBase(d, x.a) : null; if (v != null){ soma[x.a.k] = (soma[x.a.k] || 0) + v; if (dono[x.a.k] === undefined) dono[x.a.k] = x.i; } } });
+  vivas.forEach(x => {
+    const a = x.a, m = x.m; if (!a) return;
+    const d = doseDia(m.d), primeira = !vistos[a.k]; vistos[a.k] = true;
+    if (a.ul && anos != null){
+      const ul = ulIdade(a, anos);
+      if (ul != null && soma[a.k] > ul){ if (dono[a.k] === x.i) out.push({i:x.i, nivel:'alta', txt:('Soma de ' + a.n + ' em uso ou planejada: ' + num(soma[a.k]) + ' ' + a.ul.u + '/dia, acima do limite superior tolerável de ' + ul + ' ' + a.ul.u + '/dia para a idade (NIH). ' + (a.ul.nota || '')).trim()}); }
+      else if (m.d.trim() && !d) out.push({i:x.i, nivel:'info', txt:'Não consegui ler a dose para checar o limite. Use o formato “100 mg/dia”.'});
+    }
+    if (d && d.faixa) out.push({i:x.i, nivel:'info', txt:'Dose em faixa: defina a dose para este paciente.'});
+    if (!primeira) return;
+    ctxAtivo(a, E).forEach(t => out.push({i:x.i, nivel:'alta', txt:t}));
+    (a.al || []).forEach(t => out.push({i:x.i, nivel:'media', txt:t}));
+    (a.ex || []).forEach(e => { if (!resultado(e[0])) out.push({i:x.i, nivel:e[1], txt:'Sem resultado de ' + e[0] + ' registrado. ' + e[2]}); });
+  });
+  const porData = {};
+  vivas.forEach(x => { if (x.m.ini) (porData[x.m.ini] = porData[x.m.ini] || []).push(x.m.n.trim()); });
+  Object.keys(porData).sort().forEach(d => { if (porData[d].length > 1) out.push({i:null, nivel:'media', txt:'Início no mesmo dia (' + fmtData(d) + '): ' + porData[d].join(', ') + '. Um item por vez facilita saber o que ajudou ou piorou.'}); });
+  const semData = vivas.filter(x => !x.m.ini && x.m.st === 'plan');
+  if (semData.length > 1) out.push({i:null, nivel:'info', txt:semData.length + ' itens planejados sem data de início. Para introduzir um de cada vez, defina datas diferentes.'});
+  if (vivas.length >= 5) out.push({i:null, nivel:'media', txt:vivas.length + ' itens em uso ou planejados. Considere priorizar e escalonar.'});
+  if (anos == null && vivas.some(x => x.a && x.a.ul)) out.push({i:null, nivel:'info', txt:'Informe a idade no bloco A para checar os limites de dose por idade.'});
+  return out;
+}
+const htmlAviso = a => '<div class="malerta ' + a.nivel + '">' + (a.nivel === 'alta' ? '<b>Atenção:</b> ' : '') + esc(a.txt) + '</div>';
+function pintarMedInfo(){
+  const av = avisosMed(), box = $('#med-avisos');
+  if (box) box.innerHTML = av.filter(a => a.i === null).map(htmlAviso).join('');
+  S.med.forEach((m, i) => {
+    const el = $('#mi-' + i); if (!el) return;
+    const a = achaAtivo(m.n);
+    el.innerHTML = (a ? '<div class="mnota"><span class="ev ' + a.s + '">' + SELO[a.s] + '</span> ' + esc(a.b) + '</div>' : '') + av.filter(x => x.i === i).map(htmlAviso).join('');
+  });
+}
+function htmlLinhaMed(m, i){
+  const st = [['uso', 'Em uso'], ['previo', 'Já usou'], ['plan', 'Planejado']];
+  return '<div class="mrow"><div class="mtop"><input type="text" list="dl-ativos" autocomplete="off" aria-label="Nome do item" placeholder="Nome (ex.: melatonina, magnésio)" data-m="n" data-i="' + i + '" value="' + esc(m.n) + '">' +
+    '<span class="seg" data-mst="' + i + '">' + st.map(o => '<button type="button" data-v="' + o[0] + '" class="' + (m.st === o[0] ? 'on' : '') + '" aria-pressed="' + (m.st === o[0]) + '">' + o[1] + '</button>').join('') + '</span>' +
+    '<button type="button" class="btn sec peq" data-acao="med-del" data-i="' + i + '">Remover</button></div>' +
+    (m.o ? '<div class="mnota">Origem: ' + esc(m.o) + '</div>' : '') +
+    '<div class="mcampos"><div class="campo"><label>Dose total por dia</label><input type="text" autocomplete="off" placeholder="ex.: 100 mg/dia" data-m="d" data-i="' + i + '" value="' + esc(m.d) + '"></div>' +
+    '<div class="campo"><label>Início</label><input type="date" data-m="ini" data-i="' + i + '" value="' + esc(m.ini) + '"></div>' +
+    '<div class="campo largo"><label>Resposta, efeitos adversos ou motivo de parar</label><input type="text" autocomplete="off" data-m="r" data-i="' + i + '" value="' + esc(m.r) + '"></div></div>' +
+    '<div class="minfo" id="mi-' + i + '"></div></div>';
+}
+function htmlMed(){
+  const nomes = ATIVOS.map(a => a.n).concat(BIB ? [].concat.apply([], BIB.formulacoes.concat(BIB.exemplos).map(f => f.componentes.map(c => c.a))) : []);
+  const dl = '<datalist id="dl-ativos">' + nomes.filter((n, i) => nomes.indexOf(n) === i).map(n => '<option value="' + esc(n) + '"></option>').join('') + '</datalist>';
+  return '<div class="grupo"><h3>Lista estruturada: medicamentos e suplementos</h3><p class="dica">Dose total por dia, data de início e resposta de cada item, inclusive psicofármacos. Selos e limites de dose por idade valem para os ativos da referência (mais abaixo).</p>' + dl +
+    '<div id="med-avisos"></div><div id="med-linhas">' + S.med.map(htmlLinhaMed).join('') + '</div>' +
+    '<div class="linha-btn"><button type="button" class="btn sec" data-acao="med-add">+ Adicionar item</button></div>' +
+    '<div class="chips">' + QUICK.map(n => '<button type="button" class="chip" data-acao="med-quick" data-n="' + esc(n) + '">+ ' + esc(n) + '</button>').join('') + '</div></div>';
+}
+function repintarMed(){ const el = $('#med-linhas'); if (el) el.innerHTML = S.med.map(htmlLinhaMed).join(''); pintarMedInfo(); pintarNav(); salvar(); }
+function medAdd(o){ S.med.push(Object.assign({n:'', d:'', ini:'', st:'uso', r:'', o:''}, o)); repintarMed(); const ins = document.querySelectorAll('#med-linhas input[data-m="n"]'); if (ins.length && !(o && o.n)) ins[ins.length - 1].focus(); }
+
+/* Biblioteca (arquivo .json do próprio médico, guardado só neste navegador) */
+let BIB = null;
+function limparBib(d){
+  if (!d || typeof d !== 'object' || !(Array.isArray(d.formulacoes) || Array.isArray(d.exemplos) || Array.isArray(d.secoes))) return null;
+  const s = (x, n) => String(x == null ? '' : x).slice(0, n || 400), arr = (x, n) => (Array.isArray(x) ? x : []).slice(0, n || 40);
+  const form = f => { f = f || {}; return {nome:s(f.nome, 160), objetivo:s(f.objetivo, 400), selo:['i', 's', 'x'].includes(f.selo) ? f.selo : 'x', nota:s(f.nota, 500),
+    perfil:arr(f.perfil).map(x => s(x, 160)), fen:arr(f.fen, 8).map(Number).filter(n => n >= 1 && n <= 8), cuidados:arr(f.cuidados).map(x => s(x, 300)),
+    componentes:arr(f.componentes, 20).map(c => ({a:s(c && c.a, 80), d:s(c && c.d, 80), h:s(c && c.h, 60)})).filter(c => c.a)}; };
+  return {titulo:s(d.titulo, 160), fonte:s(d.fonte, 300), formulacoes:arr(d.formulacoes).map(form), exemplos:arr(d.exemplos).map(form),
+    secoes:arr(d.secoes, 20).map(x => ({t:s(x && x.t, 160), itens:arr(x && x.itens, 30).map(i => ({t:s(i && i.t, 160), linhas:arr(i && i.linhas, 30).map(l => s(l, 400))}))}))};
+}
+try{ BIB = limparBib(JSON.parse(localStorage.getItem(LSB) || 'null')); }catch(e){ BIB = null; }
+function htmlForm(f, g, j, top){
+  const E = ctxClin(), alertas = [];
+  const comps = f.componentes.map(c => { const a = achaAtivo(c.a); if (a) ctxAtivo(a, E).forEach(t => { if (!alertas.includes(t)) alertas.push(t); });
+    return '<tr><td>' + esc(c.a) + '</td><td>' + esc(c.d) + (c.h ? ', ' + esc(c.h) : '') + '</td><td>' + (a ? '<span class="ev ' + a.s + '">' + SELO[a.s] + '</span>' : '') + '</td></tr>'; }).join('');
+  const casa = f.fen.filter(n => top.includes(n));
+  return '<div class="fcard' + (casa.length ? ' dest' : '') + '"><div class="cab"><b>' + esc(f.nome) + '</b><span class="ev ' + f.selo + '">fórmula: ' + SELO[f.selo] + '</span></div>' +
+    (casa.length ? '<p class="mnota"><b>Combina com o perfil marcado:</b> ' + casa.map(n => esc(FEN[n - 1].nome)).join('; ') + '.</p>' : '') +
+    (f.objetivo ? '<p><b>Objetivo:</b> ' + esc(f.objetivo) + '</p>' : '') + (f.perfil.length ? '<p><b>Perfil:</b> ' + f.perfil.map(esc).join('; ') + '</p>' : '') +
+    '<table class="tbib">' + comps + '</table>' + (f.cuidados.length ? '<p><b>Cuidados:</b> ' + f.cuidados.map(esc).join('; ') + '</p>' : '') +
+    (f.nota ? '<p class="mnota">' + esc(f.nota) + '</p>' : '') + alertas.map(t => htmlAviso({nivel:'alta', txt:t})).join('') +
+    '<div class="linha-btn"><button type="button" class="btn sec peq" data-acao="bib-add" data-g="' + g + '" data-j="' + j + '">Adicionar à lista como planejado</button></div></div>';
+}
+function htmlRef(){
+  const anos = idadeAnos();
+  return '<details class="det"><summary>Referência de ativos: selos e limites de dose por idade</summary><p class="mnota">Selos: <span class="ev i">indicado</span> quando há a indicação específica (ex.: deficiência confirmada); <span class="ev s">se indicado</span> caso a caso; <span class="ev x">exploratório</span> evidência preliminar ou inconsistente. Limites superiores toleráveis (NIH) valem só para suplementos' + (anos == null ? '; informe a idade no bloco A para ver o da idade.' : ' e estão mostrados para ' + num(anos) + ' ano(s).') + '</p>' +
+    '<table class="tbib">' + ATIVOS.map(a => { const ul = ulIdade(a, anos); return '<tr><td><b>' + esc(a.n) + '</b></td><td><span class="ev ' + a.s + '">' + SELO[a.s] + '</span></td><td>' + esc(a.b) + (a.ul ? ' <i>Limite: ' + (anos == null ? 'varia com a idade' : ul == null ? 'não estabelecido para a idade' : ul + ' ' + a.ul.u + '/dia') + '.</i>' : '') + '</td></tr>'; }).join('') + '</table></details>';
+}
+function htmlBibInner(){
+  let h = '<h3>Biblioteca de formulações e referência de ativos</h3>';
+  if (!BIB) h += '<p class="dica">Opcional: carregue um arquivo .json com formulações e orientações (por exemplo, as do material da sua pós). O conteúdo fica só neste navegador e não entra no arquivo da consulta.</p><div class="linha-btn"><button type="button" class="btn sec" data-acao="bib-abrir">Carregar biblioteca (.json)</button></div>';
+  else {
+    const top = ordem().filter(x => x.r > 0).slice(0, 3).map(x => x.f.n);
+    h += '<p class="mnota"><b>' + esc(BIB.titulo || 'Biblioteca carregada') + '</b>' + (BIB.fonte ? ' · ' + esc(BIB.fonte) : '') + '</p>' +
+      (top.length ? '<p class="mnota">Fenótipos em destaque agora: ' + top.map(n => esc(FEN[n - 1].nome)).join('; ') + '. As fórmulas que combinam aparecem primeiro.</p>' : '');
+    const ord = (l, g) => l.map((f, j) => ({f:f, j:j, g:g, c:f.fen.some(n => top.includes(n)) ? 0 : 1})).sort((a, b) => a.c - b.c || a.j - b.j);
+    if (BIB.formulacoes.length) h += '<h4 class="h4">Formulações</h4>' + ord(BIB.formulacoes, 'f').map(x => htmlForm(x.f, 'f', x.j, top)).join('');
+    if (BIB.exemplos.length) h += '<details class="det"><summary>Exemplos didáticos por objetivo (' + BIB.exemplos.length + ')</summary>' + ord(BIB.exemplos, 'e').map(x => htmlForm(x.f, 'e', x.j, top)).join('') + '</details>';
+    BIB.secoes.forEach(s => { h += '<details class="det"><summary>' + esc(s.t) + '</summary>' + s.itens.map(i => '<p><b>' + esc(i.t) + '</b></p><ul>' + i.linhas.map(l => '<li>' + esc(l) + '</li>').join('') + '</ul>').join('') + '</details>'; });
+    h += '<div class="linha-btn"><button type="button" class="btn sec peq" data-acao="bib-abrir">Trocar biblioteca</button><button type="button" class="btn perigo peq" data-acao="bib-remover">Remover biblioteca</button></div>';
+  }
+  return h + htmlRef();
+}
+function repintarBib(){ const el = $('#bib-area'); if (el) el.innerHTML = htmlBibInner(); const dl = $('#dl-ativos'); if (dl) dl.outerHTML = htmlMed().match(/<datalist[\s\S]*?<\/datalist>/)[0]; }
+
+/* ===== Sinais de alerta, exames de base, resultados e resumo ===== */
+function alertasClin(){
+  const M = new Set(evidencias(BLOCOS.map(b => b.id))), tem = (...l) => l.some(x => M.has(x)), J = S.v['J.0'] || [], GI = S.v['E.1'] || [];
+  const r = [];
+  if (tem('Houve regressão', 'Perda de fala', 'Perda de contato social', 'Perda de habilidades adaptativas')) r.push({id:'reg', txt:'Regressão: considerar avaliação neurológica e EEG de vigília e sono, e checar se há outros sinais que justifiquem investigação genética ou metabólica.', ex:['EEG de vigília e sono']});
+  if (J.includes('Epilepsia')) r.push({id:'epi', txt:'Epilepsia: evitar carnitina sem acompanhamento neurológico (relatos de aumento de crises); o CBD interage com clobazam e valproato.', ex:[]});
+  if ((tem('Hipotonia') && tem('Recuperação lenta após esforço ou doença', 'Cansaço fácil', 'Houve regressão')) || (tem('Houve regressão') && tem('Precipitante: infecção ou febre'))) r.push({id:'metab', txt:'Hipotonia com fadiga, ou regressão após febre: considerar investigação metabólica dirigida e avaliação em genética.', ex:['Lactato', 'Acilcarnitinas', 'Genética clínica (avaliação)']});
+  if (tem('Dismorfismos faciais', 'Macrocefalia', 'Microcefalia', 'Anomalias congênitas', 'Manchas na pele (café com leite ou hipopigmentadas)', 'Consanguinidade', 'Deficiência intelectual')) r.push({id:'sind', txt:'Sinais sindrômicos, deficiência intelectual ou consanguinidade: considerar genética clínica, microarray cromossômico e X frágil.', ex:['Genética clínica (avaliação)', 'Microarray cromossômico', 'X frágil (FMR1)']});
+  if (GI.includes('Sangue')) r.push({id:'gi', txt:'Sangue nas fezes: investigar antes de qualquer dieta restritiva ou suplemento; considerar gastroenterologia.', ex:['Calprotectina fecal']});
+  if (tem('Ronco') && tem('Pausas respiratórias')) r.push({id:'apneia', txt:'Ronco com pausas respiratórias: avaliar apneia (polissonografia e otorrinolaringologia) antes de tratar o sono com suplementos.', ex:['Polissonografia']});
+  if (tem('Palidez', 'Ferro: pouca ingestão')) r.push({id:'ferro', txt:'Palidez ou dieta pobre em ferro: ferritina e hemograma antes de suplementar ferro.', ex:['Ferritina', 'Hemograma completo']});
+  return r;
+}
+const chipEx = e => '<button type="button" class="chip' + (S.ex.includes(e[0]) ? ' on' : '') + '" data-l="' + esc(e[0]) + '" aria-pressed="' + S.ex.includes(e[0]) + '">' + esc(e[0]) + '<span class="ev ' + e[1] + '">' + EVID[e[1]] + '</span></button>';
+function htmlExv(){
+  if (!S.ex.length) return '<h3>Resultados dos exames escolhidos</h3><p class="evid">Marque exames acima e, se quiser, registre aqui o valor e a data.</p>';
+  return '<h3>Resultados dos exames escolhidos</h3><p class="sub">Opcional. Valor e data entram no resumo clínico.</p>' + S.ex.map(l => { const r = S.exv[l] || {};
+    return '<div class="exv"><span class="exn">' + esc(l) + '</span><input type="text" autocomplete="off" placeholder="Resultado" aria-label="Resultado de ' + esc(l) + '" data-exv="' + esc(l) + '" data-f="v" value="' + esc(r.v || '') + '"><input type="date" aria-label="Data de ' + esc(l) + '" data-exv="' + esc(l) + '" data-f="d" value="' + esc(r.d || '') + '"></div>'; }).join('');
+}
+function htmlFimExtra(){
+  const al = alertasClin();
+  let h = '';
+  if (al.length) h += '<div class="sec"><h3>Sinais de alerta para investigação dirigida</h3><p class="sub">Vêm do que você marcou nos blocos. São pontos a avaliar, não conclusões.</p>' +
+    al.map(a => '<div class="malerta media"><b>' + esc(a.txt) + '</b>' + (a.ex.length ? '<div class="mnota">A considerar: ' + a.ex.map(esc).join('; ') + '</div><button type="button" class="btn sec peq" data-acao="alerta-ex" data-id="' + a.id + '">Marcar na lista de exames</button>' : '') + '</div>').join('') + '</div>';
+  h += '<div class="sec"><h3>Exames de base e dirigidos</h3><p class="sub">Independem do fenótipo. Os selos seguem a mesma lógica: rotina, se indicado ou exploratório.</p>' +
+    EXTRA_EX.map(g => '<p class="evid"><b>' + esc(g.t) + '</b></p><div class="chips" data-ex="1">' + g.ex.map(chipEx).join('') + '</div>').join('') + '</div>';
+  return h + '<div class="sec" id="exv-sec">' + htmlExv() + '</div>';
+}
+function sincEx(){
+  document.querySelectorAll('[data-ex] .chip').forEach(c => { const on = S.ex.includes(c.dataset.l); c.classList.toggle('on', on); c.setAttribute('aria-pressed', on); });
+  const s = $('#exv-sec'); if (s) s.innerHTML = htmlExv();
+}
+function linhaMed(m){
+  const a = achaAtivo(m.n);
+  return m.n.trim() + (m.d.trim() ? ' — ' + m.d.trim() : '') + (m.ini ? ' — início ' + fmtData(m.ini) : '') + (a ? ' [' + SELO[a.s] + ']' : '') + (m.r.trim() ? ' — ' + m.r.trim() : '') + (m.o ? ' (origem: ' + m.o + ')' : '');
+}
+function resumoExtra(){
+  const L = [], al = alertasClin(), ms = S.med.filter(m => m.n.trim());
+  if (al.length){ L.push('', 'SINAIS DE ALERTA PARA INVESTIGAÇÃO DIRIGIDA'); al.forEach(a => L.push('- ' + a.txt)); }
+  if (ms.length){
+    L.push('', 'MEDICAMENTOS E SUPLEMENTOS');
+    [['uso', 'Em uso'], ['plan', 'Planejados'], ['previo', 'Já usados']].forEach(p => { const l = ms.filter(m => m.st === p[0]); if (l.length){ L.push(p[1] + ':'); l.forEach(m => L.push('  - ' + linhaMed(m))); } });
+    const av = avisosMed().filter(a => a.nivel !== 'info').map(a => (a.i !== null && S.med[a.i] ? S.med[a.i].n.trim() + ': ' : '') + a.txt).filter((t, i, l) => l.indexOf(t) === i); if (av.length){ L.push('Alertas:'); av.forEach(t => L.push('  ! ' + t)); }
+  }
+  return L;
+}
+
+/* ===== Eventos dos novos recursos ===== */
+const ACOES = {
+  'med-add': () => medAdd(),
+  'med-quick': t => medAdd({n:t.dataset.n}),
+  'med-del': t => { S.med.splice(+t.dataset.i, 1); repintarMed(); },
+  'bib-abrir': () => $('#f-bib').click(),
+  'bib-remover': t => duplo(t, 'Remover? Toque de novo', () => { BIB = null; try{ localStorage.removeItem(LSB); }catch(e){} repintarBib(); toast('Biblioteca removida deste navegador'); }),
+  'bib-add': t => {
+    if (!BIB) return;
+    const f = (t.dataset.g === 'e' ? BIB.exemplos : BIB.formulacoes)[+t.dataset.j]; if (!f) return;
+    let n = 0, pulados = 0;
+    f.componentes.forEach(c => {
+      if (S.med.some(m => m.st !== 'previo' && sem(m.n) === sem(c.a))){ pulados++; return; }
+      S.med.push({n:c.a, d:c.d + (c.h ? ', ' + c.h : ''), ini:'', st:'plan', r:'', o:f.nome.split(':')[0].replace(/\s*\(exemplo didático\)/, '')}); n++;
+    });
+    repintarMed(); toast(n + ' item(ns) adicionado(s) como planejado' + (pulados ? '; ' + pulados + ' já estava(m) na lista' : ''));
+  },
+  'alerta-ex': t => { const a = alertasClin().find(x => x.id === t.dataset.id); if (!a) return; a.ex.forEach(l => { if (!S.ex.includes(l)) S.ex.push(l); }); sincEx(); salvar(); toast('Exames marcados'); }
+};
+document.addEventListener('click', ev => {
+  const t = ev.target.closest('button'); if (!t) return;
+  const sg = t.closest('[data-mst]');
+  if (sg && t.dataset.v){
+    const m = S.med[+sg.dataset.mst]; if (!m) return;
+    m.st = t.dataset.v; sg.querySelectorAll('button').forEach(b => { const on = b.dataset.v === m.st; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+    pintarMedInfo(); salvar(); return;
+  }
+  if (t.closest('[data-ex]') && t.dataset.l !== undefined){ const s = $('#exv-sec'); if (s) s.innerHTML = htmlExv(); return; }
+  const f = t.dataset.acao && ACOES[t.dataset.acao]; if (f) f(t);
+});
+document.addEventListener('input', ev => {
+  const t = ev.target; if (!t.dataset) return;
+  if (t.dataset.m !== undefined){ const m = S.med[+t.dataset.i]; if (!m) return; m[t.dataset.m] = t.value; pintarMedInfo(); pintarNav(); salvar(); }
+  else if (t.dataset.exv !== undefined){ const k = t.dataset.exv; S.exv[k] = Object.assign(S.exv[k] || {}, {[t.dataset.f]:t.value}); salvar(); }
+});
+$('#f-bib').addEventListener('change', e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    let d = null; try{ d = limparBib(JSON.parse(r.result)); }catch(x){}
+    if (!d){ toast('Arquivo de biblioteca inválido'); return; }
+    BIB = d; let ok = true; try{ localStorage.setItem(LSB, JSON.stringify(d)); }catch(x){ ok = false; }
+    repintarBib(); toast(ok ? 'Biblioteca carregada' : 'Biblioteca carregada, mas só até fechar esta aba');
+  };
+  r.readAsText(f);
+});
+
 carregar(); tudo();
 if (Object.keys(S.v).length) $('#estado').textContent = 'Rascunho anterior recuperado neste computador';
-window.__afx = {sinais:sinais, estado:() => S, resumoClinico:resumoClinico, textoPais:textoPais, rascunho:rascunho, ordem:ordem, MAX:MAX, FEN:FEN, BLOCOS:BLOCOS, CENTRAL:CENTRAL, ir:ir};
+window.__afx = {sinais:sinais, estado:() => S, resumoClinico:resumoClinico, textoPais:textoPais, rascunho:rascunho, ordem:ordem, MAX:MAX, FEN:FEN, BLOCOS:BLOCOS, CENTRAL:CENTRAL, ir:ir, ATIVOS:ATIVOS, avisosMed:avisosMed, alertasClin:alertasClin, idadeAnos:idadeAnos, doseDia:doseDia, achaAtivo:achaAtivo, resumoExtra:resumoExtra, bib:() => BIB};
 
 })();
 </script>
